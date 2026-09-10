@@ -1,9 +1,9 @@
   <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono reveal">01 // The honest version</p>
-      <h2 class="section__title reveal">Your average latency is a lie.<span class="muted">The number that breaks robots is p99.9.</span></h2>
-      <div class="cols reveal">
+      <p class="eyebrow mono">01 // The honest version</p>
+      <h2 class="section__title">Your average latency is a lie.<span class="muted">The number that breaks robots is p99.9.</span></h2>
+      <div class="cols">
         <div class="prose">
           <p>Every inference benchmark you will be shown is a mean. Robots are broken by tails. A perception stack that runs in 20 ms on average and 140 ms once every few thousand frames will pass every test you write and then put a gripper through a fixture on the second shift.</p>
           <p>Measure the tail. Budget for the tail. Design the fallback for the tail. If the policy can't answer in time, the correct behaviour is a defined, safe, boring one — hold position, re-approach, ask a human — and that behaviour has to be proven, not assumed.</p>
@@ -17,9 +17,9 @@
   <!-- ===== 02 // What actually works ===== -->
   <section class="section" id="works">
     <div class="container">
-      <p class="eyebrow mono reveal">02 // What actually works</p>
-      <h2 class="section__title reveal">The budget, stage by stage.<span class="muted">Sense, preprocess, infer, postprocess, actuate. Everything has to fit.</span></h2>
-      <div class="spec-wrap reveal">
+      <p class="eyebrow mono">02 // What actually works</p>
+      <h2 class="section__title">The budget, stage by stage.<span class="muted">Sense, preprocess, infer, postprocess, actuate. Everything has to fit.</span></h2>
+      <div class="spec-wrap">
         <table class="spec">
           <thead><tr><th>Control rate</th><th>Period</th><th>What fits</th></tr></thead>
           <tbody>
@@ -31,7 +31,7 @@
           </tbody>
         </table>
       </div>
-      <div class="cols reveal" style="margin-top:1.6rem">
+      <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
           <div class="fig mono" style="margin-bottom:1.2rem"><b>Fig. 01</b>Control rates and what fits inside them. Standard practice, not a citation.</div>
           <p>The architecture follows from that table and not from a vendor's block diagram. Anything inside the control loop runs on the robot. Anything that can tolerate a second of delay and a lost network can go to the cloud. There is no third category, and “we'll just put it in the cloud and it'll be fine” is how you learn what your Wi-Fi does when a forklift passes.</p>
@@ -59,9 +59,9 @@
   <!-- ===== 03 // Latency budget builder (the instrument) ===== -->
   <section class="section" id="lab">
     <div class="container">
-      <p class="eyebrow mono reveal">03 // Latency budget builder</p>
-      <h2 class="section__title reveal">Fill the period. Watch it overflow.<span class="muted">One bar is your control period. Everything you turn on has to fit before the deadline.</span></h2>
-      <div class="budget reveal" id="latencyCalc">
+      <p class="eyebrow mono">03 // Latency budget builder</p>
+      <h2 class="section__title">Fill the period. Watch it overflow.<span class="muted">One bar is your control period. Everything you turn on has to fit before the deadline.</span></h2>
+      <div class="budget" id="latencyCalc">
         <div class="budget__panel">
           <div class="budget__head">
             <span class="mono muted">Control period</span>
@@ -103,28 +103,28 @@
   <!-- ===== 04 // What we do ===== -->
   <section class="section" id="offer">
     <div class="container">
-      <p class="eyebrow mono reveal">04 // What we do</p>
-      <h2 class="section__title reveal">Four ways we make it answer in time.<span class="muted">A controller, not a suggestion.</span></h2>
+      <p class="eyebrow mono">04 // What we do</p>
+      <h2 class="section__title">Four ways we make it answer in time.<span class="muted">A controller, not a suggestion.</span></h2>
       <div class="cards cards--4">
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">E-01</span><h3>Compute selection</h3><p>Sized against a measured latency and thermal budget, not a TOPS number, including the boring question of what it does at 45°C.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Candidate modules benchmarked with your model, under load, in the enclosure</li><li>Sustained-clock numbers, not datasheet peaks</li><li>Thermal plan: airflow, throttling behaviour, and the summer afternoon</li><li>A shortlist with the power budget written on it</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">E-02</span><h3>Model optimization</h3><p>Quantization, fusion, distillation, and compiled runtimes, each followed by a full re-evaluation rather than a vibe.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Quantization and kernel fusion with the speedup measured, not quoted</li><li>Distilled or pruned variants for the loop rate you actually need</li><li>Compiled runtime pipeline that rebuilds from a script</li><li>The full evaluation suite re-run on every variant. Every time.</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">E-03</span><h3>Real-time architecture</h3><p>RT kernel, core isolation, IRQ affinity, ROS 2 QoS profiles, and a measured p99.9 you can put in a document.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>RT-patched kernel, isolated cores, pinned interrupts</li><li>ROS 2 DDS and QoS profiles tuned to the loop, and documented</li><li>Memory locking and a startup that doesn't page</li><li>A p99.9 latency figure, measured under load, in writing</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">E-04</span><h3>Degradation design</h3><p>Defined behaviour when the policy is late or uncertain, validated to the same standard as the e-stop.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>A late-answer policy: hold, re-approach, or ask a human</li><li>Uncertainty thresholds that trigger it, tested on purpose</li><li>Fault injection: dropped frames, a stalled GPU, an unplugged network</li><li>Evidence that the fallback holds up, written for the safety file</li></ul></div>

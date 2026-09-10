@@ -103,7 +103,7 @@ def loopline(node):
     return "\n".join(items)
 
 def plate(n, label, cursor, ink=False):
-    return '''        <a class="next__plate%s marks reveal" href="%s" data-cursor="%s">
+    return '''        <a class="next__plate%s marks" href="%s" data-cursor="%s">
           <span class="card__num mono">%s</span>
           <h3>%s</h3>
           <p>%s</p>
@@ -158,16 +158,16 @@ def build(slug):
   <section class="page-hero" id="hero">
     <div class="container page-hero__grid">
       <div class="page-hero__text">
-        <p class="eyebrow mono reveal"><span class="led"></span> %(eyebrow)s</p>
-        <h1 class="reveal">%(h1)s</h1>
-        <p class="page-hero__sub reveal">%(sub)s</p>
-        <p class="page-hero__lede reveal">%(lede)s</p>
-        <div class="hero__actions reveal">
+        <p class="eyebrow mono"><span class="led"></span> %(eyebrow)s</p>
+        <h1>%(h1)s</h1>
+        <p class="page-hero__sub">%(sub)s</p>
+        <p class="page-hero__lede">%(lede)s</p>
+        <div class="hero__actions">
 %(actions)s
           <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
         </div>
       </div>
-      <aside class="titleblock marks reveal" aria-label="Sheet information">
+      <aside class="titleblock marks" aria-label="Sheet information">
         <dl>
           <dt>Sheet</dt><dd>%(code)s</dd>
           <dt>Node</dt>%(tb_node)s
@@ -187,12 +187,12 @@ def build(slug):
   <!-- ===== %(next_num)s // Next: loop navigation + the one contact section ===== -->
   <section class="section" id="next">
     <div class="container">
-      <p class="eyebrow mono reveal">%(next_num)s // Next</p>
-      <h2 class="section__title reveal">%(next_h2)s<span class="muted">%(next_sub)s</span></h2>
+      <p class="eyebrow mono">%(next_num)s // Next</p>
+      <h2 class="section__title">%(next_h2)s<span class="muted">%(next_sub)s</span></h2>
       <div class="next">
 %(next_strip)s
       </div>
-      <div class="plate marks cta reveal">
+      <div class="plate marks cta">
         <div>
           <h3>Tell us about your lab.</h3>
           <p>One contact page for the whole site, and it composes an email in your own mail app, addressed to a person. No forms that go nowhere.</p>
@@ -281,12 +281,12 @@ def build_note(note):
     main = """
   <article class="note">
     <div class="note__wrap">
-      <p class="eyebrow mono reveal">Field note %(n)s // %(station)s</p>
-      <h1 class="reveal">%(title)s</h1>
-      <p class="page-hero__sub reveal">%(standfirst)s</p>
-      <p class="note__meta mono muted reveal">Big Sky Systems · %(date)s · %(mins)s min · from <a href="%(page)s">%(page_name)s</a></p>
+      <p class="eyebrow mono">Field note %(n)s // %(station)s</p>
+      <h1>%(title)s</h1>
+      <p class="page-hero__sub">%(standfirst)s</p>
+      <p class="note__meta mono muted">Big Sky Systems · %(date)s · %(mins)s min · from <a href="%(page)s">%(page_name)s</a></p>
       <hr class="rule" />
-      <div class="prose note__body reveal">
+      <div class="prose note__body">
 %(body)s
       </div>
       <hr class="rule" />
@@ -306,7 +306,7 @@ def build_note(note):
     (ROOT / "notes" / (note["slug"] + ".html")).write_text(out); print("wrote notes/%s.html (%d words)" % (note["slug"], words))
 
 def build_notes_index():
-    items = "\n".join("""        <li class="notes__item reveal">
+    items = "\n".join("""        <li class="notes__item">
           <span class="notes__num mono">%(n)s</span>
           <div>
             <h2><a href="/notes/%(slug)s.html">%(title)s</a></h2>
@@ -318,12 +318,12 @@ def build_notes_index():
   <section class="page-hero" id="hero">
     <div class="container page-hero__grid">
       <div class="page-hero__text">
-        <p class="eyebrow mono reveal"><span class="led"></span> Field notes // the long versions</p>
-        <h1 class="reveal">Field notes.</h1>
-        <p class="page-hero__sub reveal">%(desc)s</p>
-        <p class="page-hero__lede reveal">Each note is an argument one of the pages makes in short, made in full. They're dated, because the field moves, and they're honest about what doesn't work, because that's the part you're paying for.</p>
+        <p class="eyebrow mono"><span class="led"></span> Field notes // the long versions</p>
+        <h1>Field notes.</h1>
+        <p class="page-hero__sub">%(desc)s</p>
+        <p class="page-hero__lede">Each note is an argument one of the pages makes in short, made in full. They're dated, because the field moves, and they're honest about what doesn't work, because that's the part you're paying for.</p>
       </div>
-      <aside class="titleblock marks reveal" aria-label="Sheet information">
+      <aside class="titleblock marks" aria-label="Sheet information">
         <dl>
           <dt>Sheet</dt><dd>N-01</dd>
           <dt>Notes</dt><dd class="accent">%(count)d</dd>

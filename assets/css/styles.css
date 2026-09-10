@@ -217,10 +217,6 @@ html.has-reticle *:not(input):not(textarea):not(select) { cursor: none !importan
 .hero__scroll span { position: absolute; left: -1px; top: 0; width: 3px; height: 12px; background: var(--accent); animation: scrollDot 1.8s ease-in-out infinite; }
 @keyframes scrollDot { 0% { top: 0; opacity: 1 } 70% { top: 40px; opacity: 0 } 100% { opacity: 0 } }
 
-/* ---------- reveal ---------- */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
-.reveal.in { opacity: 1; transform: none; }
-
 /* ---------- corner marks ---------- */
 .marks { position: relative; }
 .marks::before, .marks::after, .marks > .mk::before, .marks > .mk::after { content: ""; position: absolute; width: 9px; height: 9px; border: 0 solid var(--ink); opacity: .55; pointer-events: none; }
@@ -496,6 +492,5 @@ body.is-dancing .brand-orbit { animation-duration: 1s; }
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
-  .reveal { opacity: 1; transform: none; }
   .typed::after { display: none; }
 }

@@ -1,9 +1,9 @@
   <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono reveal">01 // The honest version</p>
-      <h2 class="section__title reveal">The gap is real, and it's task-shaped.<span class="muted">Sim transfers beautifully for some things and not at all for others. The difference is predictable.</span></h2>
-      <div class="cols reveal">
+      <p class="eyebrow mono">01 // The honest version</p>
+      <h2 class="section__title">The gap is real, and it's task-shaped.<span class="muted">Sim transfers beautifully for some things and not at all for others. The difference is predictable.</span></h2>
+      <div class="cols">
         <div class="prose">
           <p>Locomotion transfers well. Rigid pick-and-place transfers well. Contact-rich assembly transfers badly. Deformables transfer badly and expensively. Anything that depends on surface friction, compliance, or the exact behaviour of a suction cup on a slightly dusty part transfers about as well as a weather forecast.</p>
           <p>This is knowable <em>before</em> you build the environment, and it should determine how much you build. A team that spends three months on a photoreal digital twin to train a task that was always going to need real contact data has not made a mistake of execution. They made a mistake of triage, in week one, for free.</p>
@@ -20,14 +20,14 @@
   <!-- ===== 02 // What actually works ===== -->
   <section class="section" id="works">
     <div class="container">
-      <p class="eyebrow mono reveal">02 // What actually works</p>
-      <h2 class="section__title reveal">Three things are called “world models.” Only one of them is new.<span class="muted">Physics gets the budget. The other two get watched closely.</span></h2>
-      <div class="plates reveal">
+      <p class="eyebrow mono">02 // What actually works</p>
+      <h2 class="section__title">Three things are called “world models.” Only one of them is new.<span class="muted">Physics gets the budget. The other two get watched closely.</span></h2>
+      <div class="plates">
         <article class="plate marks"><span class="card__num mono">W · 1</span><h3>Physics simulators</h3><p class="serif muted plate__sub">Classical, and getting much faster.</p><p>GPU-parallel rigid-body simulation running thousands of environments at once. This is where locomotion and most manipulation policies are actually trained today. The notable recent development is open, GPU-accelerated, differentiable physics with multiple solvers under one roof — including deformables, signed-distance-field collision, and validated policy transfer between engines. Mature, boring in the good way, and where most of your budget should go.</p></article>
         <article class="plate marks"><span class="card__num mono">W · 2</span><h3>Video world models</h3><p class="serif muted plate__sub">New, genuinely impressive, not yet a training environment for your cell.</p><p>Models that generate consistent, interactive environments from text or an image, navigable in real time. Enormously promising for data augmentation, rare-event generation, and scenario coverage. Not a substitute for physics when your policy's success depends on contact forces, because a model that predicts plausible pixels is not predicting your friction coefficient.</p></article>
         <article class="plate marks"><span class="card__num mono">W · 3</span><h3>Latent world models</h3><p class="serif muted plate__sub">The planning-flavoured branch.</p><p>Models that learn compact dynamics and let a policy plan by imagining forward in latent space. This is the line of work that offers what pure behaviour-cloning can't — counterfactual reasoning, long-horizon planning, and better data efficiency out of distribution. Early in industrial practice. Worth watching closely and not worth betting a delivery date on.</p></article>
       </div>
-      <div class="cols reveal" style="margin-top:1.6rem">
+      <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
           <p>Our position, stated plainly so you can disagree with it: physics simulation is where your budget goes today, learned world models are where your data augmentation goes next, and anyone telling you the third category is production-ready for contact-rich manipulation is describing a roadmap, not a product.</p>
           <h3>Your CAD is not a simulation asset.</h3>
@@ -46,9 +46,9 @@
   <!-- ===== 03 // Reality-gap meter ===== -->
   <section class="section" id="calc">
     <div class="container">
-      <p class="eyebrow mono reveal">03 // Reality-gap meter</p>
-      <h2 class="section__title reveal">How much of this can sim honestly do?<span class="muted">A band, not a point. Our read of the published evidence and the physics.</span></h2>
-      <div class="gap reveal" id="gapMeter">
+      <p class="eyebrow mono">03 // Reality-gap meter</p>
+      <h2 class="section__title">How much of this can sim honestly do?<span class="muted">A band, not a point. Our read of the published evidence and the physics.</span></h2>
+      <div class="gap" id="gapMeter">
         <div class="quiz__panel gap__panel">
           <div class="quiz__progress mono">Task type</div>
           <div class="quiz__opts" id="gapOpts" role="group" aria-label="Task type"></div>
@@ -95,28 +95,28 @@
   <!-- ===== 04 // What we do ===== -->
   <section class="section" id="offer">
     <div class="container">
-      <p class="eyebrow mono reveal">04 // What we do</p>
-      <h2 class="section__title reveal">Four things, measured against the real cell.<span class="muted">A modest simulator you have honestly characterised beats a beautiful one you trust.</span></h2>
+      <p class="eyebrow mono">04 // What we do</p>
+      <h2 class="section__title">Four things, measured against the real cell.<span class="muted">A modest simulator you have honestly characterised beats a beautiful one you trust.</span></h2>
       <div class="cards cards--4">
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">W-01</span><h3>Sim environment build</h3><p>From your CAD or scanned from your actual cell, with an asset pipeline that survives the next revision.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Collision-ready assets from CAD or a splat of the real cell</li><li>An asset pipeline that re-runs when the design changes</li><li>Engine choice justified by what has to transfer</li><li>Masses, inertias, and materials that aren't defaults</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">W-02</span><h3>Randomization &amp; system ID</h3><p>A documented plan for what varies in training and a measured match between simulated and real dynamics.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Domain-randomization plan with ranges and reasons</li><li>System-identification pass on the real actuators and contacts</li><li>A written match between sim and real dynamics, with error bars</li><li>The list of things we couldn't match, so nobody pretends</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">W-03</span><h3>Sim-versus-real harness</h3><p>The same task, scored the same way, in both places, tracked over time, so “the gap” is a number and not a feeling.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Identical task definitions and scoring in sim and on the cell</li><li>A transfer number per task, tracked across versions</li><li>Alerts when the gap widens after a change</li><li>A reason to trust the simulator, written down</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">W-04</span><h3>Scenario &amp; rare-event coverage</h3><p>The failure cases you can't safely stage on a real line, generated and tested where they're free.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>A scenario catalogue built from your incident log and your fears</li><li>Rare events generated in sim, tested on every policy</li><li>Coverage metrics, so “we tested it” means something</li><li>The short list to stage for real, with a safety plan</li></ul></div>

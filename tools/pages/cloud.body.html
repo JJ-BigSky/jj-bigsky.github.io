@@ -1,9 +1,9 @@
   <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono reveal">01 // The honest version</p>
-      <h2 class="section__title reveal">Do the multiplication before you buy the robots.<span class="muted">It's a small sum and it changes the plan.</span></h2>
-      <div class="cols reveal">
+      <p class="eyebrow mono">01 // The honest version</p>
+      <h2 class="section__title">Do the multiplication before you buy the robots.<span class="muted">It's a small sum and it changes the plan.</span></h2>
+      <div class="cols">
         <div class="prose">
           <p>Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it in month four, and respond by deleting the data — which is to say, by turning off the loop that was the entire point.</p>
           <p>The projects that go wrong here go wrong the same way. Three rules that prevent it:</p>
@@ -22,9 +22,9 @@
   <!-- ===== 02 // What actually works ===== -->
   <section class="section" id="works">
     <div class="container">
-      <p class="eyebrow mono reveal">02 // What actually works</p>
-      <h2 class="section__title reveal">Two ecosystems, one conversion tax.<span class="muted">Operational logging and learning datasets are not the same thing, and the seam between them is a real cost.</span></h2>
-      <div class="cols reveal">
+      <p class="eyebrow mono">02 // What actually works</p>
+      <h2 class="section__title">Two ecosystems, one conversion tax.<span class="muted">Operational logging and learning datasets are not the same thing, and the seam between them is a real cost.</span></h2>
+      <div class="cols">
         <div class="prose">
           <p>On the robot, the operational format is MCAP in rosbag2 — the default in modern ROS 2 — a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's the thing you replay when something went wrong at 3 a.m.</p>
           <p>On the training side, the learning ecosystem has converged on episode-oriented dataset formats built around demonstrations — LeRobot-style datasets, RLDS — with cross-embodiment collections like Open X-Embodiment published in them and tooling that assumes them.</p>
@@ -53,9 +53,9 @@
   <!-- ===== 03 // Robot data math ===== -->
   <section class="section" id="calc">
     <div class="container">
-      <p class="eyebrow mono reveal">03 // Robot data math</p>
-      <h2 class="section__title reveal">Fleet, times sensors, times hours.<span class="muted">Into terabytes a month, what it costs, and the date it becomes a problem.</span></h2>
-      <div class="calc reveal" id="dataCalc">
+      <p class="eyebrow mono">03 // Robot data math</p>
+      <h2 class="section__title">Fleet, times sensors, times hours.<span class="muted">Into terabytes a month, what it costs, and the date it becomes a problem.</span></h2>
+      <div class="calc" id="dataCalc">
         <div class="calc__inputs plate">
           <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 02</b>Robot data math. The default is a modest pilot. Watch what four cameras do to it.</div>
           <div class="calc__grid">
@@ -103,28 +103,28 @@
   <!-- ===== 04 // What we do ===== -->
   <section class="section" id="offer">
     <div class="container">
-      <p class="eyebrow mono reveal">04 // What we do</p>
-      <h2 class="section__title reveal">Four things, in your account, that your team can run.<span class="muted">No lock-in to us. That's the point.</span></h2>
+      <p class="eyebrow mono">04 // What we do</p>
+      <h2 class="section__title">Four things, in your account, that your team can run.<span class="muted">No lock-in to us. That's the point.</span></h2>
       <div class="cards cards--4">
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">C-01</span><h3>Capture architecture</h3><p>Schema, provenance, on-robot buffering, and an ingest path sized to your actual bitrate and your actual network.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Capture schema with provenance on every record</li><li>On-robot buffering that survives the Wi-Fi dropping</li><li>Ingest path sized from the multiplication, not a guess</li><li>Retention and tiering policy, decided on day one</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">C-02</span><h3>Dataset pipeline</h3><p>Deterministic, versioned, reproducible conversion from raw logs to training-ready episodes.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>MCAP in, episode datasets out, the same way every time</li><li>Versioned so any training set regenerates from raw</li><li>QC that drops the bad episodes before they train</li><li>A catalogue your team can actually search</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">C-03</span><h3>Training &amp; evaluation infrastructure</h3><p>Set up so your team runs it, in your account, with cost visibility and no lock-in to us.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Training jobs in your cloud account or on your rack, scripted</li><li>Evaluation that runs on every candidate, automatically</li><li>Cost visibility per experiment, before the bill</li><li>Runbooks, so nobody needs us to press the button</li></ul></div>
           </div>
         </article>
-        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+        <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">C-04</span><h3>Fleet rollout</h3><p>Versioned policies, staged canaries, metric-triggered rollback, and observability that pages someone before the line stops.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Versioned policy artifacts with a rollback that works</li><li>Canary robot and an agreed metric that decides</li><li>Per-robot configuration that survives a re-image</li><li>Dashboards and alerts that page before the operator notices</li></ul></div>

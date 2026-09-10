@@ -1,4 +1,4 @@
-/* Wiring: boot, theme, sound, nav, reticle, reveal, telemetry, conveyor,
+/* Wiring: boot, theme, sound, nav, reticle, telemetry, conveyor,
    tilt cards, contact form, dance mode, easter eggs. */
 (function () {
   const $ = (id) => document.getElementById(id);
@@ -74,12 +74,6 @@
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
-
-  // ---- reveal ----
-  if ("IntersectionObserver" in window && !reduce) {
-    const io = new IntersectionObserver((en) => en.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
-    document.querySelectorAll(".reveal").forEach((el, i) => { el.style.transitionDelay = (i % 3) * 80 + "ms"; io.observe(el); });
-  } else document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
 
   // ---- typed headline ----
   const typed = $("typed");
