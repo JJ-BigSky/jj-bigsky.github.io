@@ -149,7 +149,7 @@
   function toggle() { chat.hidden ? open() : close(); }
 
   document.getElementById("mascotBtn").addEventListener("click", toggle);
-  document.getElementById("heroAsk").addEventListener("click", open);
+  const ask = document.getElementById("heroAsk"); if (ask) ask.addEventListener("click", open); // hero button is home-only
   document.getElementById("chatClose").addEventListener("click", close);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !chat.hidden) close(); });
   form.addEventListener("submit", (e) => { e.preventDefault(); send(input.value); });

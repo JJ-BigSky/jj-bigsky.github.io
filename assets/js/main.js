@@ -39,21 +39,23 @@
   soundBtn.addEventListener("click", () => { S().enabled = !S().enabled; syncSound(); window.BSS_TOAST(S().enabled ? "Beeps on. SKY-1 can now bleep." : "Beeps off."); });
   document.addEventListener("click", (e) => { if (e.target.closest && e.target.closest(".btn, .chip, .pal") && S()) S().tick(); }, true);
 
-  // ---- boot ----
+  // ---- boot (home only) ----
   const boot = $("boot");
-  function finishBoot() { boot.classList.add("is-done"); setTimeout(() => { boot.hidden = true; }, 600); if (!finishBoot.done) { finishBoot.done = true; setTimeout(() => M() && M().say("Hi. I'm SKY-1. I live here. Hover the stars, they like attention.", { mood: "happy" }), 900); } }
-  let seen = false; try { seen = sessionStorage.getItem("bss.booted") === "1"; } catch (e) {}
-  if (!cfg.boot || reduce || seen) { boot.hidden = true; setTimeout(() => M() && M().say("Welcome back. The stars are where you left them.", {}), 1200); }
-  else {
-    try { sessionStorage.setItem("bss.booted", "1"); } catch (e) {}
-    const lines = [["mounting robot arm", "ok"], ["calibrating joints", "ok"], ["counting stars", String(window.BSS_SKY ? window.BSS_SKY.starCount : 300)], ["waking SKY-1", "ok"], ["brewing coffee", "skipped", true], ["opening the sky", "ok"]];
-    const log = $("bootLog"), bar = $("bootBar");
-    lines.forEach((l, i) => setTimeout(() => {
-      const li = document.createElement("li"); li.innerHTML = "<span>> " + l[0] + "…</span><b" + (l[2] ? ' class="warn"' : "") + ">" + l[1] + "</b>"; log.appendChild(li);
-      bar.style.width = Math.round((i + 1) / lines.length * 100) + "%"; if (S()) S().tick();
-    }, 140 + i * 190));
-    setTimeout(finishBoot, 140 + lines.length * 190 + 350);
-    $("bootSkip").addEventListener("click", finishBoot);
+  if (boot) {
+    function finishBoot() { boot.classList.add("is-done"); setTimeout(() => { boot.hidden = true; }, 600); if (!finishBoot.done) { finishBoot.done = true; setTimeout(() => M() && M().say("Hi. I'm SKY-1. I live here. Hover the stars, they like attention.", { mood: "happy" }), 900); } }
+    let seen = false; try { seen = sessionStorage.getItem("bss.booted") === "1"; } catch (e) {}
+    if (!cfg.boot || reduce || seen) { boot.hidden = true; setTimeout(() => M() && M().say("Welcome back. The stars are where you left them.", {}), 1200); }
+    else {
+      try { sessionStorage.setItem("bss.booted", "1"); } catch (e) {}
+      const lines = [["mounting robot arm", "ok"], ["calibrating joints", "ok"], ["counting stars", String(window.BSS_SKY ? window.BSS_SKY.starCount : 300)], ["waking SKY-1", "ok"], ["brewing coffee", "skipped", true], ["opening the sky", "ok"]];
+      const log = $("bootLog"), bar = $("bootBar");
+      lines.forEach((l, i) => setTimeout(() => {
+        const li = document.createElement("li"); li.innerHTML = "<span>> " + l[0] + "…</span><b" + (l[2] ? ' class="warn"' : "") + ">" + l[1] + "</b>"; log.appendChild(li);
+        bar.style.width = Math.round((i + 1) / lines.length * 100) + "%"; if (S()) S().tick();
+      }, 140 + i * 190));
+      setTimeout(finishBoot, 140 + lines.length * 190 + 350);
+      $("bootSkip").addEventListener("click", finishBoot);
+    }
   }
 
   // ---- nav ----
@@ -102,7 +104,7 @@
   const tStars = $("tStars"), tTime = $("tTime"), tCursor = $("tCursor"), tCoffee = $("tCoffee"), tUptime = $("tUptime");
   let moved = 0;
   window.addEventListener("pointermove", () => { moved++; }, { passive: true });
-  setInterval(() => {
+  if (tUptime) setInterval(() => {
     if (window.BSS_SKY) tStars.textContent = window.BSS_SKY.starCount.toLocaleString();
     try { tTime.textContent = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: cfg.labTimeZone || "America/Denver" }).format(new Date()); } catch (e) { tTime.textContent = new Date().toLocaleTimeString(); }
     tCursor.textContent = moved > 3 ? "TRACKING" : "SEARCHING"; moved = 0;
@@ -155,12 +157,12 @@
     if (idx !== lastStation) { lastStation = idx; if (S()) S().tick(); }
   }
   // ---- contact ----
-  $("copyEmail").addEventListener("click", async () => {
+  const ce = $("copyEmail"); if (ce) ce.addEventListener("click", async () => {
     const email = cfg.email || "jj@bigsky.systems";
     try { await navigator.clipboard.writeText(email); window.BSS_TOAST("Copied " + email); if (S()) S().success(); }
     catch (e) { window.BSS_TOAST("Select and copy: " + email); }
   });
-  $("contactForm").addEventListener("submit", (e) => {
+  const cf = $("contactForm"); if (cf) cf.addEventListener("submit", (e) => {
     e.preventDefault();
     const f = new FormData(e.target), name = f.get("name") || "", org = f.get("org") || "", msg = f.get("msg") || "", budget = f.get("budget") || "";
     const subject = "Robotics lab inquiry" + (org ? " — " + org : "");
