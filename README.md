@@ -5,7 +5,14 @@
 **Live:** https://jj-bigsky.github.io/ (GitHub Pages, served from the `main` branch of the public repo `JJ-BigSky/jj-bigsky.github.io`, remote `pages`). Workflow: commit, `git push origin main` to save, `git push pages main` to deploy; the site redeploys in about a minute.
 
 A single-folder static site for a robotics lab consultancy. No build step, no
-framework, no backend. Open `index.html` or drop the folder on any static host.
+framework, no backend. Serve the folder from a domain apex (paths are
+root-absolute) with `python3 -m http.server 8741` or any static host.
+
+V1 adds the loop: a home-page diagram of the five stations of a robot lab
+(perceive, decide, act, capture, imagine), four more services, and a page per
+station. `/vision/` and `/embedded/` are complete, each with an instrument that
+talks you out of things; `/physical-ai/`, `/cloud/`, and `/world-models/` are
+honest stubs until their long versions land.
 
 ## What's in it
 
@@ -18,6 +25,9 @@ framework, no backend. Open `index.html` or drop the folder on any static host.
 | Conveyor method | `main.js` → `updateBelt()` | Scroll-driven belt; the "YOUR LAB" part moves station to station. |
 | Readiness quiz | `assets/js/quiz.js` | 7 questions, analog gauge with an overshooting needle, tiered results, mailto summary. |
 | SKY-1 chat | `assets/js/assistant.js` | Scripted intent matcher that runs in the browser. Optional hook for a real AI backend (see below). |
+| The loop | `assets/js/loop.js` | The home-page loop diagram's traveller: one lap every twelve seconds, parks at the station you hover or focus. |
+| Perception lab | `assets/js/vision-lab.js` | `/vision/`: a synthetic bin of parts on a canvas. Toggle six pipeline stages, watch latency accumulate, ruin the lighting. |
+| Latency budget | `assets/js/calc-latency.js` | `/embedded/`: the control period as one bar; stages stack to scale, the p99.9 tail hatches, overflow goes red. |
 | Extras | `main.js` | Boot sequence, vision-system cursor reticle, paper/graphite sheets, optional sound FX, Konami code / type `robot` / click the logo 5× for dance mode. |
 
 Everything respects `prefers-reduced-motion`, works on touch, and degrades to
@@ -102,7 +112,10 @@ front for HTTPS. Set `Cache-Control` on `assets/*` if you like.
 3. In the repo Settings, Pages, confirm the domain and tick "Enforce HTTPS"
    once the certificate is issued (usually within an hour).
 
-Everything is relative-path, so it also works at a subpath if you ever move it.
+Asset paths are root-absolute (`/assets/...`), matching `404.html`, so the site
+expects to live at a domain apex. `/vision/`-style directory URLs resolve on
+GitHub Pages, Netlify, and Vercel; CloudFront needs a small function that
+appends `index.html` to directory requests.
 
 ## Give SKY-1 a real brain (optional)
 
@@ -127,10 +140,12 @@ this folder; the browser can't keep secrets.
 ## Files
 
 ```
-index.html          the site
+index.html          the home page
+vision/ embedded/   full domain pages, each with an instrument
+physical-ai/ cloud/ world-models/   stubs, in voice, until the long versions land
 404.html            quirky not-found page
-assets/css/         styles.css
-assets/js/          config, sound, sky, mascot, arm, builder, quiz, assistant, main
+assets/css/         styles.css (tokens + shared), pages.css (everything V1 added)
+assets/js/          config, sound, sky, mascot, arm, builder, quiz, assistant, loop, calc-kit, vision-lab, calc-latency, main
 assets/img/         favicon.svg
 netlify.toml        Netlify config (optional)
 vercel.json         Vercel config (optional)

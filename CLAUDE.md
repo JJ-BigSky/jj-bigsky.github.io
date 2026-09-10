@@ -27,10 +27,26 @@ back to it.
 
 ## Site map
 
-- `index.html` — the page. Copy lives here.
+- `index.html` — the home page: hero, the loop (section 01), services in two
+  groups, playground, lab builder, method, diagnostic, contact.
+- `vision/`, `embedded/` — full domain pages (honest version → what works →
+  an instrument → services → next). `physical-ai/`, `cloud/`, `world-models/`
+  — voice-correct stubs until their long versions land.
+- `assets/css/styles.css` — the shared sheet and the tokens (`:root`).
+  `assets/css/pages.css` — everything V1 added: page hero, loop line, plates,
+  the loop diagram, the instruments.
 - `assets/js/config.js` — email, lab time zone (Eastern), boot, reticle, optional assistant endpoint.
-- `assets/js/sky.js` hero contour sky · `mascot.js` SKY-1 · `arm.js` IK arm · `builder.js` lab builder · `quiz.js` gauge · `assistant.js` scripted chat · `main.js` wiring.
+- `assets/js/sky.js` hero contour sky · `mascot.js` SKY-1 · `arm.js` IK arm ·
+  `builder.js` lab builder · `quiz.js` gauge · `assistant.js` scripted chat
+  (knows the five stations; `data-page` on `<body>` picks the greeting) ·
+  `loop.js` the part that rides the loop · `calc-kit.js` shared calculator
+  helpers · `vision-lab.js` perception lab · `calc-latency.js` latency budget
+  builder · `main.js` wiring.
 - `404.html`, `robots.txt`, `netlify.toml`, `vercel.json`, `.nojekyll`.
+
+Domain pages carry the home page's chrome byte for byte (nav, footer, sprite,
+SKY-1). When the chrome changes on `index.html`, change it on all five. Paths
+are root-absolute (`/assets/...`), so the site expects a domain apex.
 
 ## Working here
 
