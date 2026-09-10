@@ -108,6 +108,7 @@
 
   // ---- section commentary (once each per visit) ----
   const LINES = {
+    loop: "Five stations and no end. I live in the DECIDE one, mostly.",
     services: "Six services. I helped write the safety one. I'm biased, but I'm also a robot.",
     playground: "Ooh, the arm. Be gentle. It's my cousin.",
     builder: "Build something. I'll be honest but kind. Mostly honest.",

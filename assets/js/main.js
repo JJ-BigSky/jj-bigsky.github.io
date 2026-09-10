@@ -62,12 +62,13 @@
   const burger = $("navBurger"), links = $("navLinks");
   burger.addEventListener("click", () => { const open = links.classList.toggle("is-open"); burger.setAttribute("aria-expanded", String(open)); });
   links.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { links.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); }));
-  const sections = ["services", "playground", "builder", "method", "diagnostic", "contact"].map((id) => $(id)).filter(Boolean);
+  const sections = ["loop", "services", "playground", "builder", "method", "diagnostic", "contact"].map((id) => $(id)).filter(Boolean);
+  const navFor = { builder: "playground", diagnostic: "playground" }; // "Lab" covers the three toys
   const toTop = $("toTop");
   function onScroll() {
     const y = window.scrollY + 140;
     let cur = null; sections.forEach((s) => { if (s.offsetTop <= y) cur = s.id; });
-    links.querySelectorAll("a").forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + cur));
+    links.querySelectorAll("a").forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + (navFor[cur] || cur)));
     toTop.hidden = window.scrollY < 600;
     updateBelt();
   }
@@ -133,9 +134,12 @@
 
   // ---- 3D tilt + flip cards ----
   document.querySelectorAll(".card").forEach((card) => {
-    const flip = () => { card.classList.toggle("is-flipped"); if (S()) S().click(); };
-    card.addEventListener("click", flip);
-    card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+    const backLinks = card.querySelectorAll(".card__back a");
+    const syncLinks = () => backLinks.forEach((a) => { a.tabIndex = card.classList.contains("is-flipped") ? 0 : -1; });
+    syncLinks();
+    const flip = () => { card.classList.toggle("is-flipped"); syncLinks(); if (S()) S().click(); };
+    card.addEventListener("click", (e) => { if (e.target.closest("a")) return; flip(); });
+    card.addEventListener("keydown", (e) => { if (e.target !== card) return; if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
     if (fine && !reduce) {
       card.addEventListener("pointermove", (e) => { const r = card.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; card.style.transform = "rotateX(" + (-y * 8).toFixed(2) + "deg) rotateY(" + (x * 10).toFixed(2) + "deg)"; });
       card.addEventListener("pointerleave", () => { card.style.transform = ""; });

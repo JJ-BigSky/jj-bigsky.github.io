@@ -9,13 +9,14 @@
   <meta property="og:title" content="Big Sky Systems — Robotics Lab Consulting" />
   <meta property="og:description" content="We build robotics labs that actually ship. Drive the arm, build a lab, and meet SKY-1." />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages.css" />
 </head>
-<body>
+<body data-page="home">
 
 <!-- ===== Boot overlay (skipped on repeat visits and reduced motion) ===== -->
 <div id="boot" class="boot" aria-hidden="true">
@@ -45,6 +46,8 @@
     <symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 9h18M5 9v11M19 9v11M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 5l3 4M10 5l-3 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
     <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/></symbol>
+    <symbol id="i-sim" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
@@ -60,11 +63,10 @@
     <span class="brand-text">Big Sky <b>Systems</b></span>
   </a>
   <nav class="nav__links" id="navLinks" aria-label="Primary">
-    <a href="#services">Services</a>
-    <a href="#playground">Playground</a>
-    <a href="#builder">Lab Builder</a>
+    <a href="#services">Work</a>
+    <a href="#loop">The Loop</a>
+    <a href="#playground">Lab</a>
     <a href="#method">Method</a>
-    <a href="#diagnostic">Diagnostic</a>
     <a href="#contact" class="nav__cta">Talk to us</a>
   </nav>
   <div class="nav__tools">
@@ -83,11 +85,12 @@
     <div class="hero__content container">
       <p class="eyebrow mono"><span class="led"></span> Lab status: awake</p>
       <h1 class="hero__title">We build robotics labs that actually <span class="typed" id="typed" aria-label="ship">ship.</span></h1>
-      <p class="hero__lede">Big Sky Systems is a robotics lab consultancy. We take you from an empty bay to a humming cell: layout, robots, ROS&nbsp;2 software, safety, and the humans who run it.</p>
+      <p class="hero__lede">Big Sky Systems is a robotics lab consultancy. We take you from an empty bay to a humming cell — layout, robots, ROS&nbsp;2, safety, and the humans who run it — and then from a humming cell to a system that learns: perception, on-robot autonomy, simulation, and the data loop behind both.</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="#builder" data-cursor="BUILD">Build your lab</a>
         <a class="btn" href="#playground" data-cursor="PLAY">Drive the arm</a>
         <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Meet SKY-1</button>
+        <a class="btn btn--link" href="#loop" data-cursor="TRACE">See the loop</a>
       </div>
     </div>
     <div class="telemetry mono" id="telemetry" aria-label="Playful lab telemetry">
@@ -96,14 +99,55 @@
       <span>Cursor <b id="tCursor">Searching</b></span>
       <span>Coffee <b id="tCoffee">87%</b></span>
       <span>Uptime <b id="tUptime">0s</b></span>
+      <span>Loop <b id="tLoop">closed</b></span>
     </div>
     <a class="hero__scroll" href="#services" aria-label="Scroll to services"><span></span></a>
+  </section>
+
+  <!-- ===== 01 // The loop ===== -->
+  <section class="section" id="loop">
+    <div class="container">
+      <p class="eyebrow mono reveal">01 // The loop</p>
+      <h2 class="section__title reveal">A robot lab is a loop, not a shelf.<span class="muted">The belt has an end. The loop doesn't.</span></h2>
+      <div class="loop">
+        <div class="loop__text reveal">
+          <div class="fig mono"><b>Fig. 02</b>The stack, as a closed loop. Hover a station and the part comes to you.</div>
+          <p>You can buy a robot in an afternoon. What takes a year is the loop around it: something has to see the part, something has to decide what to do about it in under ten milliseconds, something has to move, something has to record what happened, and something has to use that recording to make next week better.</p>
+          <p>Most labs are excellent at one station and quietly missing three. That's why the demo works and the deployment doesn't.</p>
+          <p>We build the whole loop, and we're specific about which parts of it your project doesn't need yet.</p>
+        </div>
+        <div class="loop__diagram reveal">
+          <svg class="loop__svg" id="loopSvg" viewBox="0 0 900 600" aria-hidden="true" focusable="false">
+            <path id="loopPath" d="M450 140 A225 160 0 1 1 450 460 A225 160 0 1 1 450 140" fill="none" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="3 5"/>
+            <path d="M-6 -4.5L0 0l-6 4.5" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" opacity=".6" transform="translate(568.5 164.0) rotate(23.8)"/>
+            <path d="M-6 -4.5L0 0l-6 4.5" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" opacity=".6" transform="translate(659.6 358.2) rotate(118.8)"/>
+            <path d="M-6 -4.5L0 0l-6 4.5" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" opacity=".6" transform="translate(450.0 460.0) rotate(-180.0)"/>
+            <path d="M-6 -4.5L0 0l-6 4.5" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" opacity=".6" transform="translate(240.5 358.4) rotate(-118.8)"/>
+            <path d="M-6 -4.5L0 0l-6 4.5" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" opacity=".6" transform="translate(331.2 164.1) rotate(-23.8)"/>
+            <g class="loop__center" aria-hidden="true">
+              <path d="M450 284v32M434 300h32" stroke="var(--line-strong)" stroke-width="1"/>
+              <text x="450" y="332" text-anchor="middle">The loop</text>
+            </g>
+          </svg>
+          <ol class="loop__nodes" aria-label="The five stations of the loop">
+            <li><a class="loop__node marks" href="/vision/" data-i="0" data-cursor="PERCEIVE"><span class="loop__node__head"><svg aria-hidden="true"><use href="#i-eye"/></svg><span class="loop__node__verb">Perceive</span></span><b>Visual intelligence</b><span class="loop__node__sub">Cameras, depth, pose, and what breaks them</span></a></li>
+            <li><a class="loop__node marks" href="/embedded/" data-i="1" data-cursor="DECIDE"><span class="loop__node__head"><svg aria-hidden="true"><use href="#i-chip"/></svg><span class="loop__node__verb">Decide</span></span><b>On-robot autonomy</b><span class="loop__node__sub">The policy, the silicon, the latency budget</span></a></li>
+            <li><a class="loop__node marks" href="#services" data-i="2" data-cursor="ACT"><span class="loop__node__head"><svg aria-hidden="true"><use href="#i-cell"/></svg><span class="loop__node__verb">Act</span></span><b>The cell</b><span class="loop__node__sub">Arms, tooling, safety, the physical lab</span></a></li>
+            <li><a class="loop__node marks" href="/cloud/" data-i="3" data-cursor="CAPTURE"><span class="loop__node__head"><svg aria-hidden="true"><use href="#i-rack"/></svg><span class="loop__node__verb">Capture</span></span><b>Robot data &amp; cloud</b><span class="loop__node__sub">Logs, datasets, training, fleet rollout</span></a></li>
+            <li><a class="loop__node marks" href="/world-models/" data-i="4" data-cursor="IMAGINE"><span class="loop__node__head"><svg aria-hidden="true"><use href="#i-sim"/></svg><span class="loop__node__verb">Imagine</span></span><b>Simulation &amp; world models</b><span class="loop__node__sub">Test it a million times before it touches steel</span></a></li>
+          </ol>
+          <svg class="loop__svg loop__svg--over" viewBox="0 0 900 600" aria-hidden="true" focusable="false"><rect id="loopDot" x="-5" y="-5" width="10" height="10" fill="var(--accent)" stroke="var(--bg)" stroke-width="2" transform="translate(450 140)"/></svg>
+          <p class="loop__return mono" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 3v4h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> and back to Perceive</p>
+        </div>
+      </div>
+      <p class="loop__close mono reveal"><a href="/physical-ai/" data-cursor="GO">Physical AI is what happens when the loop closes. →</a></p>
+    </div>
   </section>
 
   <!-- ===== Services ===== -->
   <section class="section" id="services">
     <div class="container">
-      <p class="eyebrow mono reveal">01 // What we do</p>
+      <p class="eyebrow mono reveal">02 // What we do</p>
       <h2 class="section__title reveal">Six ways we make your lab boring.<span class="muted">Boring is the goal. Boring means it works.</span></h2>
       <div class="cards" id="serviceCards">
         <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
@@ -221,13 +265,96 @@
           </div>
         </article>
       </div>
+      <h3 class="section__subhead reveal">Four ways we make it think.<span class="muted">Thinking is harder. Boring still wins.</span></h3>
+      <div class="cards cards--4" id="serviceCardsThink">
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front">
+              <span class="card__num mono">S-07</span>
+              <h3>Perception Systems</h3>
+              <p>Cameras, lighting, depth, and pose. The part of your robot that fails on a cloudy Tuesday and nobody knows why.</p>
+              <span class="card__hint mono">Tap to flip</span>
+            </div>
+            <div class="card__face card__back">
+              <h4>You get</h4>
+              <ul>
+                <li>Sensor and lighting selection with a bench test on your parts</li>
+                <li>Hand-eye and intrinsic calibration, plus drift monitoring</li>
+                <li>Detection, segmentation, depth, and 6-DoF pose pipeline</li>
+                <li>Failure taxonomy: what breaks it, and what it does when it breaks</li>
+              </ul>
+              <a class="card__link" href="/vision/" tabindex="-1">The long version →</a>
+            </div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front">
+              <span class="card__num mono">S-08</span>
+              <h3>On-Robot Autonomy</h3>
+              <p>Policies that run on the robot, inside the control loop, on a power budget. Autonomy is a latency problem wearing a trench coat.</p>
+              <span class="card__hint mono">Tap to flip</span>
+            </div>
+            <div class="card__face card__back">
+              <h4>You get</h4>
+              <ul>
+                <li>Compute selection sized to a real latency and thermal budget</li>
+                <li>Model optimization: quantization, fusion, and honest re-validation</li>
+                <li>Real-time architecture — RT kernel, CPU isolation, ROS 2 QoS</li>
+                <li>p99.9 latency measurement, because averages don't crash robots</li>
+              </ul>
+              <a class="card__link" href="/embedded/" tabindex="-1">The long version →</a>
+            </div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front">
+              <span class="card__num mono">S-09</span>
+              <h3>Simulation &amp; World Models</h3>
+              <p>Test it ten thousand times before it touches steel. Then measure how much the simulator lied.</p>
+              <span class="card__hint mono">Tap to flip</span>
+            </div>
+            <div class="card__face card__back">
+              <h4>You get</h4>
+              <ul>
+                <li>Sim environment built from your CAD, or scanned from your cell</li>
+                <li>Domain randomization and system-identification plan</li>
+                <li>Sim-versus-real measurement harness, per task, with numbers</li>
+                <li>Asset pipeline that survives contact with your CAD department</li>
+              </ul>
+              <a class="card__link" href="/world-models/" tabindex="-1">The long version →</a>
+            </div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front">
+              <span class="card__num mono">S-10</span>
+              <h3>Robot Data &amp; Cloud Platform</h3>
+              <p>Your fleet is a data business with a floor plan. Storage is cheap right up until the day it isn't.</p>
+              <span class="card__hint mono">Tap to flip</span>
+            </div>
+            <div class="card__face card__back">
+              <h4>You get</h4>
+              <ul>
+                <li>Capture schema and retention plan sized to your actual bitrate</li>
+                <li>Dataset pipeline from raw logs to training-ready episodes</li>
+                <li>Training and evaluation infrastructure that someone else can run</li>
+                <li>Staged policy rollout with canaries and a rollback that works</li>
+              </ul>
+              <a class="card__link" href="/cloud/" tabindex="-1">The long version →</a>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- ===== Playground: robot arm ===== -->
   <section class="section" id="playground">
     <div class="container">
-      <p class="eyebrow mono reveal">02 // Playground</p>
+      <p class="eyebrow mono reveal">03 // Playground</p>
       <h2 class="section__title reveal">Drive a robot arm.<span class="muted">Real inverse kinematics. No robots were harmed.</span></h2>
       <div class="arm reveal">
         <div class="arm__stage">
@@ -267,7 +394,7 @@
   <!-- ===== Lab Builder ===== -->
   <section class="section" id="builder">
     <div class="container">
-      <p class="eyebrow mono reveal">03 // Lab builder</p>
+      <p class="eyebrow mono reveal">04 // Lab builder</p>
       <h2 class="section__title reveal">Build your lab.<span class="muted">Pick a module, click the floor. SKY-1 will have opinions.</span></h2>
       <div class="builder reveal">
         <div class="builder__palette" id="palette" role="toolbar" aria-label="Modules"></div>
@@ -294,7 +421,7 @@
   <!-- ===== Method: conveyor ===== -->
   <section class="section" id="method">
     <div class="container">
-      <p class="eyebrow mono reveal">04 // The Big Sky method</p>
+      <p class="eyebrow mono reveal">05 // The Big Sky method</p>
       <h2 class="section__title reveal">Five stations. One belt.<span class="muted">Scroll and watch your project move down the line.</span></h2>
     </div>
     <div class="belt-wrap" id="beltWrap">
@@ -315,7 +442,7 @@
   <!-- ===== Diagnostic: gauge quiz ===== -->
   <section class="section" id="diagnostic">
     <div class="container">
-      <p class="eyebrow mono reveal">05 // Lab readiness diagnostic</p>
+      <p class="eyebrow mono reveal">06 // Lab readiness diagnostic</p>
       <h2 class="section__title reveal">How ready is your lab?<span class="muted">Seven questions. One very honest needle.</span></h2>
       <div class="quiz reveal" id="quiz">
         <div class="quiz__panel">
@@ -356,7 +483,7 @@
   <section class="section" id="contact">
     <div class="container contact">
       <div class="contact__text">
-        <p class="eyebrow mono reveal">06 // Talk to a human</p>
+        <p class="eyebrow mono reveal">07 // Talk to a human</p>
         <h2 class="section__title reveal">Tell us about your lab.<span class="muted">Or your empty bay. Or your napkin.</span></h2>
         <p class="reveal">No forms that go nowhere. This one composes an email in your own mail app, addressed to a person.</p>
         <p class="reveal contact__email">
@@ -386,15 +513,27 @@
 </main>
 
 <footer class="footer">
-  <div class="container footer__inner">
-    <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
-    <div class="footer__leds mono">
-      <span><i class="led"></i> arm</span>
-      <span><i class="led"></i> sky</span>
-      <span><i class="led"></i> sky-1</span>
-      <span><i class="led led--warn"></i> coffee</span>
+  <div class="container">
+    <nav class="footer__links" aria-label="The loop">
+      <span class="footer__links__label mono">The loop //</span>
+      <a href="/vision/">Perceive · Vision</a>
+      <a href="/embedded/">Decide · Embedded</a>
+      <a href="/#services">Act · The lab</a>
+      <a href="/cloud/">Capture · Data &amp; cloud</a>
+      <a href="/world-models/">Imagine · World models</a>
+      <a href="/physical-ai/">Physical AI</a>
+    </nav>
+    <div class="footer__inner">
+      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
+      <div class="footer__leds mono">
+        <span><i class="led"></i> arm</span>
+        <span><i class="led"></i> sky</span>
+        <span><i class="led"></i> sky-1</span>
+        <span><i class="led"></i> loop</span>
+        <span><i class="led led--warn"></i> coffee</span>
+      </div>
+      <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
     </div>
-    <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
   </div>
 </footer>
 
@@ -438,14 +577,15 @@
 
 <button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
 
-<script src="assets/js/config.js"></script>
-<script src="assets/js/sound.js"></script>
-<script src="assets/js/sky.js"></script>
-<script src="assets/js/mascot.js"></script>
-<script src="assets/js/arm.js"></script>
-<script src="assets/js/builder.js"></script>
-<script src="assets/js/quiz.js"></script>
-<script src="assets/js/assistant.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/sound.js"></script>
+<script src="/assets/js/sky.js"></script>
+<script src="/assets/js/mascot.js"></script>
+<script src="/assets/js/arm.js"></script>
+<script src="/assets/js/builder.js"></script>
+<script src="/assets/js/quiz.js"></script>
+<script src="/assets/js/assistant.js"></script>
+<script src="/assets/js/loop.js"></script>
+<script src="/assets/js/main.js"></script>
 </body>
 </html>
