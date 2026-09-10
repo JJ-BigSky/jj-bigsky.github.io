@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI in a safety function — Big Sky Systems</title>
+  <meta name="description" content="What the 2025 robot-safety revision and the 2027 EU machinery rules mean if your policy is learned. Descriptive, dated, and not legal advice." />
+  <meta name="theme-color" content="#ECE9E2" />
+  <meta property="og:title" content="AI in a safety function — Big Sky Systems" />
+  <meta property="og:description" content="What the 2025 robot-safety revision and the 2027 EU machinery rules mean if your policy is learned. Descriptive, dated, and not legal advice." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://jj-bigsky.github.io/notes/ai-in-a-safety-function.html" />
+  <meta property="og:image" content="https://jj-bigsky.github.io/assets/img/og/notes.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://jj-bigsky.github.io/notes/ai-in-a-safety-function.html" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body data-page="notes">
+
+<!-- ===== Cursor reticle (desktop, fine pointer only) ===== -->
+<div id="reticle" class="reticle" aria-hidden="true">
+  <span class="reticle__ring"></span>
+  <span class="reticle__dot"></span>
+  <span class="reticle__label" id="reticleLabel"></span>
+</div>
+
+<!-- ===== SVG sprite ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cell" viewBox="0 0 24 24"><path d="M4 20h16M7 20V11l4-6 4 6v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="5" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="i-amr" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="7" cy="19" r="1.8" fill="currentColor"/><circle cx="17" cy="19" r="1.8" fill="currentColor"/><path d="M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+    <symbol id="i-belt" viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18" cy="12" r="1.3" fill="currentColor"/><path d="M8 5l4-2 4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-fence" viewBox="0 0 24 24"><path d="M4 21V9l2-3 2 3v12M10 21V9l2-3 2 3v12M16 21V9l2-3 2 3v12M3 13h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 9h18M5 9v11M19 9v11M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 5l3 4M10 5l-3 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/></symbol>
+    <symbol id="i-teleop" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11v4M6 13h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.5" cy="12" r="1.1" fill="currentColor"/><circle cx="18" cy="14.5" r="1.1" fill="currentColor"/><path d="M12 4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-ingest" viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gpu" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 9.5h3M15 12h3M15 14.5h3M7 18v3M17 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="14" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8l1.5-3h5L16 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="17" y="10" width="2" height="2" fill="currentColor"/></symbol>
+    <symbol id="i-sim" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===== Nav ===== -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="/" aria-label="Big Sky Systems home">
+    <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="1" y="1" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <g class="brand-orbit"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width=".8" stroke-dasharray="1.5 4"/></g>
+      <path d="M6 31 L15 16 L21 24 L26 19 L34 31" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="26" y="7" width="6" height="6" fill="var(--accent)"/>
+    </svg>
+    <span class="brand-text">Big Sky <b>Systems</b></span>
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Primary">
+    <a href="/#services">Work</a>
+    <a href="/#loop">The Loop</a>
+    <a href="/#playground">Lab</a>
+    <a href="/#method">Method</a>
+    <a href="/notes/">Notes</a>
+    <a href="/#contact" class="nav__cta">Talk to us</a>
+  </nav>
+  <div class="nav__tools">
+    <button class="tog" id="soundToggle" type="button" aria-pressed="false" aria-label="Toggle sound effects" data-cursor="SOUND"><i></i><span id="soundLabel">Snd off</span></button>
+    <button class="tog" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch between paper and graphite sheets" data-cursor="SHEET"><i></i><span id="themeLabel">Paper</span></button>
+    <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <article class="note">
+    <div class="note__wrap">
+      <p class="eyebrow mono reveal">Field note 06 // Act · Decide</p>
+      <h1 class="reveal">AI in a safety function.</h1>
+      <p class="page-hero__sub reveal">What the 2025 robot-safety revision and the 2027 EU machinery rules mean if your policy is learned. Descriptive, dated, and not legal advice.</p>
+      <p class="note__meta mono muted reveal">Big Sky Systems · September 2026 · 3 min · from <a href="/physical-ai/">Physical AI</a></p>
+      <hr class="rule" />
+      <div class="prose note__body reveal">
+<p>Most conversations about learned policies in robot cells are about capability. This one is about what changed in the rules, on what dates, and what that means for the design of a cell where a learned policy participates in something safety-related. It is descriptive: here is what changes and when. It is not legal or certification advice, and your notified body, assessor, or counsel has the last word on your machine.</p>
+<h2>What changed in ISO 10218</h2>
+<p>ISO 10218 is the robot-safety standard the industry cites, and it was substantially revised in 2025. ISO 10218-1:2025 covers industrial robots; ISO 10218-2:2025 covers robot applications and cells. Both supersede the 2011 editions. Among the changes, the revision makes functional-safety requirements explicit where they used to be implied, and conflicting national standards are to be withdrawn by March 2027. A cell designed against the 2011 text is designed against a standard that no longer exists, and the people who will read your safety file know that.</p>
+<h2>What changes in the EU</h2>
+<p>The EU Machinery Regulation, (EU) 2023/1230, applies from 20 January 2027 and replaces the Machinery Directive 2006/42/EC. It is a regulation rather than a directive, so it applies directly, and it introduces specific provisions for machinery incorporating AI and machine learning. In particular, machinery where an AI system performs a safety function is treated as high-risk under Annex I, which changes the conformity route.</p>
+<p>An AI-driven robot in the EU therefore sits at the intersection of three frameworks: the Machinery Regulation for the machine, the AI Act for the AI system, and GDPR for the data — including the people in the background of every camera frame.</p>
+<h2>What that means for a learned policy</h2>
+<p>The design consequence is a question you can ask in week one: <em>does the learned policy participate in a safety function, or not?</em></p>
+<p>If it does not — if the policy decides what to pick and how, while a conventional, verifiable safety system decides when the robot may move at all — the policy is a performance component and the safety case is the familiar one. This is the architecture we prefer wherever the task allows it, and it is a strong reason to keep speed-and-separation monitoring, protective stops, and interlocks on hardware and logic that can be assessed the ordinary way.</p>
+<p>If it does — if a model's output gates a protective function, or a learned perception system is what detects a person in the zone — then the compliance path changes, and the evidence you need changes with it: how the system was validated, on what data, with what failure modes, and what happens when it is late or uncertain. That evidence is exactly what an evaluation harness produces when it is built for the purpose, and exactly what a demo never does.</p>
+<p>Either way, the fallback path — what the cell does when the policy is uncertain or doesn't answer in time — is part of the safety architecture and is designed and proven to the same standard as the e-stop. Not bolted on after the model works.</p>
+<h2>What to do this quarter</h2>
+<ul class="list">
+  <li>Inventory which functions the policy touches, and which of those are safety functions. Most teams have never written this down.</li>
+  <li>Decide the architecture on purpose: keep the learned components out of the safety function where the task allows, and document where it doesn't.</li>
+  <li>Update the standards references in your safety file to the 2025 editions, and check what your national standards are doing before March 2027.</li>
+  <li>If you sell into the EU, start the conversation with your notified body about the January 2027 date now, with the architecture decision in hand.</li>
+</ul>
+<p>The dates are real, they are close, and they are a legitimate reason to design the cell properly this quarter rather than next year. That is the whole of our position, and the reason our <a href="/physical-ai/">fallbacks and interlocks work</a> connects to our <a href="/#services">safety and compliance work</a>: same discipline, same file, one architecture.</p>
+<p class="small muted">Descriptive, not legal or certification advice. Standards position current as of September 2026.</p>
+
+      </div>
+      <hr class="rule" />
+      <nav class="note__foot mono" aria-label="Around this note">
+        <a href="/notes/a-fixture-and-a-limit-switch.html">← A fixture and a limit switch.</a>
+        <a href="/notes/">All notes</a>
+        <a href="/physical-ai/">Back to Physical AI</a>
+        <a href="/#contact">Talk to a human</a>
+        
+      </nav>
+    </div>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <nav class="footer__links" aria-label="The loop">
+      <span class="footer__links__label mono">The loop //</span>
+      <a href="/vision/">Perceive · Vision</a>
+      <a href="/embedded/">Decide · Embedded</a>
+      <a href="/#services">Act · The lab</a>
+      <a href="/cloud/">Capture · Data &amp; cloud</a>
+      <a href="/world-models/">Imagine · World models</a>
+      <a href="/physical-ai/">Physical AI</a>
+      <a href="/notes/">Field notes</a>
+    </nav>
+    <div class="footer__inner">
+      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
+      <div class="footer__leds mono">
+        <span><i class="led"></i> arm</span>
+        <span><i class="led"></i> sky</span>
+        <span><i class="led"></i> sky-1</span>
+        <span><i class="led"></i> loop</span>
+        <span><i class="led led--warn"></i> coffee</span>
+      </div>
+      <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SKY-1 mascot + assistant ===== -->
+<div class="mascot" id="mascot">
+  <div class="bubble" id="bubble" role="status" aria-live="polite"><span id="bubbleText"></span></div>
+  <button class="mascot__btn" id="mascotBtn" type="button" aria-label="Open SKY-1 assistant" data-cursor="TALK">
+    <svg class="bot" viewBox="0 0 120 150" aria-hidden="true">
+      <g class="bot__antenna"><line x1="60" y1="28" x2="60" y2="13" stroke="var(--bot-line)" stroke-width="2.5"/><rect x="55" y="6" width="10" height="8" class="bot__light"/></g>
+      <g class="bot__head" id="botHead" style="transform-origin:60px 95px">
+        <rect x="18" y="28" width="84" height="60" rx="3" class="bot__shell"/>
+        <rect x="26" y="37" width="68" height="42" rx="1.5" class="bot__screen"/>
+        <g class="bot__eye" id="eyeL" style="transform-origin:46px 56px"><rect x="40" y="50" width="12" height="12" class="bot__pupil" id="pupilL"/></g>
+        <g class="bot__eye" id="eyeR" style="transform-origin:74px 56px"><rect x="68" y="50" width="12" height="12" class="bot__pupil" id="pupilR"/></g>
+        <path d="M50 69 Q60 75 70 69" class="bot__mouth" id="botMouth"/>
+        <rect x="12" y="52" width="6" height="12" class="bot__ear"/><rect x="102" y="52" width="6" height="12" class="bot__ear"/>
+      </g>
+      <g class="bot__body">
+        <rect x="30" y="92" width="60" height="40" rx="3" class="bot__shell"/>
+        <path d="M40 104h22M40 110h22M40 116h22" class="bot__grille"/>
+        <rect x="72" y="104" width="8" height="8" class="bot__chest"/>
+        <text x="60" y="127" text-anchor="middle" class="bot__label">SKY-1</text>
+        <rect x="38" y="134" width="14" height="8" class="bot__shell"/><rect x="68" y="134" width="14" height="8" class="bot__shell"/>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<div class="chat" id="chat" hidden aria-label="SKY-1 assistant" role="dialog">
+  <div class="chat__head">
+    <div><b>SKY-1</b> <span class="mono muted small" id="chatStatus">// on-page, no cloud</span></div>
+    <button class="icon-btn" id="chatClose" type="button" aria-label="Close">✕</button>
+  </div>
+  <div class="chat__log" id="chatLog"></div>
+  <div class="chat__chips" id="chatChips"></div>
+  <form class="chat__form" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Ask about this note, or the page it came from…" autocomplete="off" aria-label="Message SKY-1" />
+    <button class="btn btn--small" type="submit">Send</button>
+  </form>
+</div>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/sound.js"></script>
+<script src="/assets/js/mascot.js"></script>
+<script src="/assets/js/assistant.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

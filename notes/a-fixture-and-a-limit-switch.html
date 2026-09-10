@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A fixture and a limit switch — Big Sky Systems</title>
+  <meta name="description" content="In defence of not using AI, from people who do use it." />
+  <meta name="theme-color" content="#ECE9E2" />
+  <meta property="og:title" content="A fixture and a limit switch — Big Sky Systems" />
+  <meta property="og:description" content="In defence of not using AI, from people who do use it." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://jj-bigsky.github.io/notes/a-fixture-and-a-limit-switch.html" />
+  <meta property="og:image" content="https://jj-bigsky.github.io/assets/img/og/notes.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://jj-bigsky.github.io/notes/a-fixture-and-a-limit-switch.html" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body data-page="notes">
+
+<!-- ===== Cursor reticle (desktop, fine pointer only) ===== -->
+<div id="reticle" class="reticle" aria-hidden="true">
+  <span class="reticle__ring"></span>
+  <span class="reticle__dot"></span>
+  <span class="reticle__label" id="reticleLabel"></span>
+</div>
+
+<!-- ===== SVG sprite ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cell" viewBox="0 0 24 24"><path d="M4 20h16M7 20V11l4-6 4 6v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="5" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="i-amr" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="7" cy="19" r="1.8" fill="currentColor"/><circle cx="17" cy="19" r="1.8" fill="currentColor"/><path d="M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+    <symbol id="i-belt" viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18" cy="12" r="1.3" fill="currentColor"/><path d="M8 5l4-2 4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-fence" viewBox="0 0 24 24"><path d="M4 21V9l2-3 2 3v12M10 21V9l2-3 2 3v12M16 21V9l2-3 2 3v12M3 13h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 9h18M5 9v11M19 9v11M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 5l3 4M10 5l-3 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/></symbol>
+    <symbol id="i-teleop" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11v4M6 13h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.5" cy="12" r="1.1" fill="currentColor"/><circle cx="18" cy="14.5" r="1.1" fill="currentColor"/><path d="M12 4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-ingest" viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gpu" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 9.5h3M15 12h3M15 14.5h3M7 18v3M17 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="14" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8l1.5-3h5L16 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="17" y="10" width="2" height="2" fill="currentColor"/></symbol>
+    <symbol id="i-sim" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===== Nav ===== -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="/" aria-label="Big Sky Systems home">
+    <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="1" y="1" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <g class="brand-orbit"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width=".8" stroke-dasharray="1.5 4"/></g>
+      <path d="M6 31 L15 16 L21 24 L26 19 L34 31" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="26" y="7" width="6" height="6" fill="var(--accent)"/>
+    </svg>
+    <span class="brand-text">Big Sky <b>Systems</b></span>
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Primary">
+    <a href="/#services">Work</a>
+    <a href="/#loop">The Loop</a>
+    <a href="/#playground">Lab</a>
+    <a href="/#method">Method</a>
+    <a href="/notes/">Notes</a>
+    <a href="/#contact" class="nav__cta">Talk to us</a>
+  </nav>
+  <div class="nav__tools">
+    <button class="tog" id="soundToggle" type="button" aria-pressed="false" aria-label="Toggle sound effects" data-cursor="SOUND"><i></i><span id="soundLabel">Snd off</span></button>
+    <button class="tog" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch between paper and graphite sheets" data-cursor="SHEET"><i></i><span id="themeLabel">Paper</span></button>
+    <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <article class="note">
+    <div class="note__wrap">
+      <p class="eyebrow mono reveal">Field note 05 // Act</p>
+      <h1 class="reveal">A fixture and a limit switch.</h1>
+      <p class="page-hero__sub reveal">In defence of not using AI, from people who do use it.</p>
+      <p class="note__meta mono muted reveal">Big Sky Systems · September 2026 · 3 min · from <a href="/#services">The lab</a></p>
+      <hr class="rule" />
+      <div class="prose note__body reveal">
+<p>We build vision systems and learned policies for a living, so this note is against interest: most of the tasks we are asked to automate with AI should be automated with a fixture and a limit switch. Same part, same pose, every cycle, a datum to locate against, and a switch that says the part is there. It is cheaper. It needs no GPU. It fails in ways a technician can see. And it is most of manufacturing.</p>
+<p>This is not a consolation prize, and saying so is the most useful thing a robotics consultancy can do in the first meeting.</p>
+<h2>The meeting</h2>
+<p>There is a meeting, in every program, where someone says “just use AI.” The phrase is doing a lot of work. Usually it means: the parts vary and we don't want to fixture them; or the task is fiddly and we don't want to program it; or the demo we saw was impressive and we would like our cell to be impressive too.</p>
+<p>The first two are real engineering problems that sometimes have a learned answer. The third is a slide. The job of the meeting is to tell them apart, and the tool for doing that is a boring table.</p>
+<h2>The table</h2>
+<p>A learned policy is probably right when there is high part variation you can't fixture away; when the task is contact-rich and tolerant of feel; when the parts are deformable — cloth, cable, foam, food; when there is a long tail of variants that would need forty programs; and when you already have a data pipeline and an evaluation harness.</p>
+<p>A fixture is probably right when it is the same part in the same pose every cycle; when the move is position-repeatable inside a tenth of a millimetre; when rigid parts arrive on a known datum; when there are four variants and a tool changer would cover them; and when you have neither the pipeline nor the harness, and you do have a deadline.</p>
+<p>Read the right-hand column again. It describes a large fraction of every factory you have ever walked through. It is also the column where the robot works on the first day and keeps working on the thousandth.</p>
+<h2>The cost of being wrong, in each direction</h2>
+<p>Choose AI where a fixture would do, and you pay for demonstrations, a rig, operators, an evaluation harness, and a fallback path, to reach a reliability that a machined datum would have given you for free. You also inherit a maintenance burden: every change to the part, the gripper, or the lighting is a question about whether the model still applies, and the honest answer requires re-evaluation.</p>
+<p>Choose a fixture where the task genuinely varies, and you pay in a different currency: forty programs instead of one policy, a changeover every time a variant appears, and a cell that stops when a part arrives slightly wrong. This is the real case for learned policies, and it is a strong one where it applies.</p>
+<p>The mistakes are symmetric. The triage is what prevents both.</p>
+<h2>The triage</h2>
+<ul class="list">
+  <li><strong>Fixture what can be fixtured.</strong> Start with the datum, the switch, and the tool changer. Remove every task the right-hand column covers.</li>
+  <li><strong>Learn what can't.</strong> What remains is the list of tasks where variation or contact or deformables make a learned policy the honest answer. It is usually three items long.</li>
+  <li><strong>Build the machinery first.</strong> Before the policy: the data pipeline, the evaluation harness, the fallback path. This is the part nobody demos and the part that decides whether the three tasks ever ship.</li>
+  <li><strong>Evaluate, don't believe.</strong> Success rate with confidence intervals, on your parts, under your lighting, measured the same way twice.</li>
+</ul>
+<h2>Why we say this</h2>
+<p>Because the credibility of everything else we do depends on it. A consultancy that recommends AI for every task is a vendor. The value we add is the sentence “you don't need this here,” said early, with the arithmetic attached — and then the sentence “you do need it here, and this is what it will cost,” with the same arithmetic. The <a href="/physical-ai/">Physical AI page</a> has the honest numbers; the <a href="/#services">safety and compliance work</a> is where the fallback path gets proven either way.</p>
+<p>Boring is the goal. A fixture and a limit switch are very boring. That's the highest compliment we have.</p>
+
+      </div>
+      <hr class="rule" />
+      <nav class="note__foot mono" aria-label="Around this note">
+        <a href="/notes/keep-the-raw.html">← Keep the raw.</a>
+        <a href="/notes/">All notes</a>
+        <a href="/#services">Back to The lab</a>
+        <a href="/#contact">Talk to a human</a>
+        <a href="/notes/ai-in-a-safety-function.html">AI in a safety function. →</a>
+      </nav>
+    </div>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <nav class="footer__links" aria-label="The loop">
+      <span class="footer__links__label mono">The loop //</span>
+      <a href="/vision/">Perceive · Vision</a>
+      <a href="/embedded/">Decide · Embedded</a>
+      <a href="/#services">Act · The lab</a>
+      <a href="/cloud/">Capture · Data &amp; cloud</a>
+      <a href="/world-models/">Imagine · World models</a>
+      <a href="/physical-ai/">Physical AI</a>
+      <a href="/notes/">Field notes</a>
+    </nav>
+    <div class="footer__inner">
+      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
+      <div class="footer__leds mono">
+        <span><i class="led"></i> arm</span>
+        <span><i class="led"></i> sky</span>
+        <span><i class="led"></i> sky-1</span>
+        <span><i class="led"></i> loop</span>
+        <span><i class="led led--warn"></i> coffee</span>
+      </div>
+      <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SKY-1 mascot + assistant ===== -->
+<div class="mascot" id="mascot">
+  <div class="bubble" id="bubble" role="status" aria-live="polite"><span id="bubbleText"></span></div>
+  <button class="mascot__btn" id="mascotBtn" type="button" aria-label="Open SKY-1 assistant" data-cursor="TALK">
+    <svg class="bot" viewBox="0 0 120 150" aria-hidden="true">
+      <g class="bot__antenna"><line x1="60" y1="28" x2="60" y2="13" stroke="var(--bot-line)" stroke-width="2.5"/><rect x="55" y="6" width="10" height="8" class="bot__light"/></g>
+      <g class="bot__head" id="botHead" style="transform-origin:60px 95px">
+        <rect x="18" y="28" width="84" height="60" rx="3" class="bot__shell"/>
+        <rect x="26" y="37" width="68" height="42" rx="1.5" class="bot__screen"/>
+        <g class="bot__eye" id="eyeL" style="transform-origin:46px 56px"><rect x="40" y="50" width="12" height="12" class="bot__pupil" id="pupilL"/></g>
+        <g class="bot__eye" id="eyeR" style="transform-origin:74px 56px"><rect x="68" y="50" width="12" height="12" class="bot__pupil" id="pupilR"/></g>
+        <path d="M50 69 Q60 75 70 69" class="bot__mouth" id="botMouth"/>
+        <rect x="12" y="52" width="6" height="12" class="bot__ear"/><rect x="102" y="52" width="6" height="12" class="bot__ear"/>
+      </g>
+      <g class="bot__body">
+        <rect x="30" y="92" width="60" height="40" rx="3" class="bot__shell"/>
+        <path d="M40 104h22M40 110h22M40 116h22" class="bot__grille"/>
+        <rect x="72" y="104" width="8" height="8" class="bot__chest"/>
+        <text x="60" y="127" text-anchor="middle" class="bot__label">SKY-1</text>
+        <rect x="38" y="134" width="14" height="8" class="bot__shell"/><rect x="68" y="134" width="14" height="8" class="bot__shell"/>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<div class="chat" id="chat" hidden aria-label="SKY-1 assistant" role="dialog">
+  <div class="chat__head">
+    <div><b>SKY-1</b> <span class="mono muted small" id="chatStatus">// on-page, no cloud</span></div>
+    <button class="icon-btn" id="chatClose" type="button" aria-label="Close">✕</button>
+  </div>
+  <div class="chat__log" id="chatLog"></div>
+  <div class="chat__chips" id="chatChips"></div>
+  <form class="chat__form" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Ask about this note, or the page it came from…" autocomplete="off" aria-label="Message SKY-1" />
+    <button class="btn btn--small" type="submit">Send</button>
+  </form>
+</div>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/sound.js"></script>
+<script src="/assets/js/mascot.js"></script>
+<script src="/assets/js/assistant.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -9,6 +9,12 @@
   <meta property="og:title" content="Robot Data & Cloud — Big Sky Systems" />
   <meta property="og:description" content="Your fleet is a data business with a floor plan. Capture, datasets, training infrastructure, and fleet rollout." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jj-bigsky.github.io/cloud/" />
+  <meta property="og:image" content="https://jj-bigsky.github.io/assets/img/og/cloud.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://jj-bigsky.github.io/cloud/" />
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,6 +43,10 @@
     <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
     <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/></symbol>
+    <symbol id="i-teleop" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11v4M6 13h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.5" cy="12" r="1.1" fill="currentColor"/><circle cx="18" cy="14.5" r="1.1" fill="currentColor"/><path d="M12 4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-ingest" viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gpu" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 9.5h3M15 12h3M15 14.5h3M7 18v3M17 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="14" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8l1.5-3h5L16 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="17" y="10" width="2" height="2" fill="currentColor"/></symbol>
     <symbol id="i-sim" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
@@ -57,6 +67,7 @@
     <a href="/#loop">The Loop</a>
     <a href="/#playground">Lab</a>
     <a href="/#method">Method</a>
+    <a href="/notes/">Notes</a>
     <a href="/#contact" class="nav__cta">Talk to us</a>
   </nav>
   <div class="nav__tools">
@@ -77,8 +88,8 @@
         <p class="page-hero__sub reveal">The robots are the sensors. The loop is the product.</p>
         <p class="page-hero__lede reveal">Every hour your robots run, they generate the only thing that makes next quarter's policy better than this quarter's. Almost nobody is set up to keep it, find it, or use it. This is the least glamorous page on this site and it's the one that decides whether the rest works.</p>
         <div class="hero__actions reveal">
-          <a class="btn btn--primary" href="/#contact" data-cursor="MAIL">Talk to a human</a>
-          <a class="btn" href="/#loop" data-cursor="TRACE">See the loop</a>
+          <a class="btn btn--primary" href="#calc" data-cursor="COUNT">Do the multiplication</a>
+          <a class="btn" href="/#contact" data-cursor="MAIL">Talk to a human</a>
           <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
         </div>
       </div>
@@ -104,48 +115,147 @@
     </div>
   </section>
 
-  <!-- ===== 01 // The long version ===== -->
-  <section class="section" id="draft">
+  <!-- ===== 01 // The honest version ===== -->
+  <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono reveal">01 // The long version</p>
-      <h2 class="section__title reveal">This sheet is being drafted.<span class="muted">It's the least glamorous page on the site, so it's taking the longest.</span></h2>
+      <p class="eyebrow mono reveal">01 // The honest version</p>
+      <h2 class="section__title reveal">Do the multiplication before you buy the robots.<span class="muted">It's a small sum and it changes the plan.</span></h2>
       <div class="cols reveal">
         <div class="prose">
-          <p>The long version has the multiplication in it: robots, times cameras, times hours, into terabytes a month, what that costs, and the date it becomes a problem. Until it's up, the three rules that prevent the usual mistake:</p>
-          <ul class="list">
-            <li><strong>Keep the raw.</strong> Compressed, tiered to cold storage, but keep it. You will want to re-derive datasets with a labelling scheme you haven't invented yet.</li>
-            <li><strong>Record provenance, not just data.</strong> Which robot, which policy version, which gripper, which calibration, which shift. A trajectory without its context is a video.</li>
-            <li><strong>Decide retention on day one.</strong> Not because storage is expensive, but because “everything forever” is not a policy, and it will be made for you, badly, in a hurry, by whoever gets the bill.</li>
-          </ul>
-          <p>And do the multiplication before you buy the robots. Four cameras at 1080p and thirty frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill.</p>
+          <p>Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it in month four, and respond by deleting the data — which is to say, by turning off the loop that was the entire point.</p>
+          <p>The projects that go wrong here go wrong the same way. Three rules that prevent it:</p>
+          <p><strong>Keep the raw.</strong> Compressed, tiered to cold storage, but keep it. You will want to re-derive datasets with a labelling scheme you haven't invented yet.</p>
+          <p><strong>Record provenance, not just data.</strong> Which robot, which policy version, which gripper, which calibration, which shift. A trajectory without its context is a video.</p>
+          <p><strong>Decide retention on day one.</strong> Not because storage is expensive, but because “everything forever” is not a policy and it will be made for you, badly, in a hurry, by whoever gets the bill.</p>
         </div>
-        <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> training compute is the cheap part. Nobody believes me. The expensive part is the demonstrations and the people who clean them.</div>
+        <div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 says:</b> training compute is the cheap part. Nobody believes me. The expensive part is the demonstrations and the people who clean them.</div>
+          <div class="fig mono"><b>Field note</b><a href="/notes/keep-the-raw.html">Keep the raw: three data decisions made in week one that decide whether you have a flywheel or a NAS →</a></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== 02 // What we do ===== -->
+  <!-- ===== 02 // What actually works ===== -->
+  <section class="section" id="works">
+    <div class="container">
+      <p class="eyebrow mono reveal">02 // What actually works</p>
+      <h2 class="section__title reveal">Two ecosystems, one conversion tax.<span class="muted">Operational logging and learning datasets are not the same thing, and the seam between them is a real cost.</span></h2>
+      <div class="cols reveal">
+        <div class="prose">
+          <p>On the robot, the operational format is MCAP in rosbag2 — the default in modern ROS 2 — a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's the thing you replay when something went wrong at 3 a.m.</p>
+          <p>On the training side, the learning ecosystem has converged on episode-oriented dataset formats built around demonstrations — LeRobot-style datasets, RLDS — with cross-embodiment collections like Open X-Embodiment published in them and tooling that assumes them.</p>
+          <p>These are different shapes for good reasons, and the conversion between them is a pipeline you own forever. Design it early, make it deterministic, version it, and make it possible to regenerate every training set from raw. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.</p>
+          <h3>Training is the cheap part. Nobody believes this.</h3>
+          <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Fine-tuning is a rounding error next to collecting the data and proving the result.</p>
+          <p>Renting serious GPUs is a couple of dollars an hour per card. A parameter-efficient fine-tune of a generalist policy on a few hundred episodes runs overnight on a single card. A full fine-tune across eight cards is a day or two. In money, that's a rounding error against a robotics program.</p>
+          <p>The costs that actually hurt are the ones on the <a href="/physical-ai/">Physical AI page</a>: thousands of teleoperated demonstrations, the operators who perform them, the engineers who clean them, and the evaluation infrastructure that tells you whether any of it worked. Compute is the line item everyone budgets for and the one that matters least.</p>
+          <p>Which is the good news, mostly. It means the expensive part is something you can be strategic about instead of something you rent.</p>
+          <h3>Shipping a policy is a deployment, not a file copy.</h3>
+          <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Treat it like software, because it is software that can move a two-kilo part at speed.</p>
+          <p>Versioned artifacts, staged rollout, a canary robot, automatic rollback on a metric you agreed on in advance, per-robot configuration that survives a re-image, and observability that tells you a cell is degrading before the operator does.</p>
+          <p>Note for people planning around old documentation: the managed cloud-robotics services of the last generation have largely been withdrawn, and the current pattern is edge agents plus your own orchestration, or a fleet platform chosen on its own merits. We're vendor-neutral here for the same reason we are about arms.</p>
+          <h3>Governance</h3>
+          <p>Every frame from a workplace camera has people in the background of it. Decide who can see feeds, how long they're kept, how they're deleted, and what gets blurred before it leaves the site — in week one, not after someone asks. Where the data trains a policy, that intersects with the compliance overlay: in the EU, the AI Act and GDPR sit alongside the machinery rules. This is a flag, not a legal page; we'll help you write the policy and point you at the people who sign it.</p>
+        </div>
+        <div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>The conversion tax, paid once.</b> Raw logs in, training-ready episodes out, deterministic and versioned, so every dataset can be regenerated from the raw when the labelling scheme changes. It will change.</div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>A rollout is a deployment.</b> Canary robot, agreed metric, automatic rollback. If you can't roll back in a minute, you can't roll out.</div>
+          <div class="fig mono"><b>Fig. 01</b>Prices and formats named here are stable as of September 2026. The numbers below are not; that's what the calculator is for.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 03 // Robot data math ===== -->
+  <section class="section" id="calc">
+    <div class="container">
+      <p class="eyebrow mono reveal">03 // Robot data math</p>
+      <h2 class="section__title reveal">Fleet, times sensors, times hours.<span class="muted">Into terabytes a month, what it costs, and the date it becomes a problem.</span></h2>
+      <div class="calc reveal" id="dataCalc">
+        <div class="calc__inputs plate">
+          <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 02</b>Robot data math. The default is a modest pilot. Watch what four cameras do to it.</div>
+          <div class="calc__grid">
+            <label class="range"><span class="mono">Robots in fleet</span><input type="range" id="cRobots" min="1" max="50" value="6" data-out="cRobotsOut" /><output id="cRobotsOut" class="mono">6</output></label>
+            <label class="range"><span class="mono">Cameras per robot</span><input type="range" id="cCams" min="1" max="8" value="4" data-out="cCamsOut" /><output id="cCamsOut" class="mono">4</output></label>
+            <label class="range"><span class="mono">Operating hours per day</span><input type="range" id="cHours" min="1" max="24" value="16" data-out="cHoursOut" /><output id="cHoursOut" class="mono">16</output></label>
+            <label class="range"><span class="mono">Days per month</span><input type="range" id="cDays" min="1" max="31" value="22" data-out="cDaysOut" /><output id="cDaysOut" class="mono">22</output></label>
+            <label class="range"><span class="mono">Hot tier (fast, expensive)</span><input type="range" id="cHot" min="0" max="100" value="10" data-out="cHotOut" /><output id="cHotOut" class="mono">10%</output></label>
+            <label class="range"><span class="mono">Warm tier (the rest goes cold)</span><input type="range" id="cWarm" min="0" max="100" value="30" data-out="cWarmOut" /><output id="cWarmOut" class="mono">30%</output></label>
+            <label class="calc__num"><span class="mono">“It's a problem at”, TB stored</span><input type="number" id="cLimit" min="1" max="100000" step="10" value="100" /></label>
+          </div>
+          <div class="calc__segs">
+            <div><span class="mono muted">Resolution</span><div class="seg" role="group" aria-label="Resolution" id="cRes"><button class="seg__btn" data-v="720" type="button">720p</button><button class="seg__btn is-active" data-v="1080" type="button">1080p</button><button class="seg__btn" data-v="2160" type="button">4K</button></div></div>
+            <div><span class="mono muted">Frame rate</span><div class="seg" role="group" aria-label="Frame rate" id="cFps"><button class="seg__btn" data-v="10" type="button">10</button><button class="seg__btn is-active" data-v="30" type="button">30</button><button class="seg__btn" data-v="60" type="button">60</button></div></div>
+            <div><span class="mono muted">Compression</span><div class="seg" role="group" aria-label="Compression" id="cCodec"><button class="seg__btn" data-v="raw" type="button">Raw</button><button class="seg__btn" data-v="lossless" type="button">Lossless</button><button class="seg__btn is-active" data-v="h265" type="button">H.265</button></div></div>
+            <div><span class="mono muted">Retention</span><div class="seg" role="group" aria-label="Retention" id="cRet"><button class="seg__btn" data-v="1" type="button">1 mo</button><button class="seg__btn" data-v="3" type="button">3</button><button class="seg__btn is-active" data-v="12" type="button">12</button><button class="seg__btn" data-v="36" type="button">36</button></div></div>
+          </div>
+          <div class="calc__toggles">
+            <label class="check"><input type="checkbox" id="cDepth" /> <span>Include depth streams</span><small class="mono">+40%</small></label>
+            <label class="check"><input type="checkbox" id="cLogs" checked disabled /> <span>Proprioception &amp; logs</span><small class="mono">small · always on · shown for honesty</small></label>
+          </div>
+        </div>
+        <div class="calc__outputs">
+          <div class="stats">
+            <div class="stat"><span class="mono">Per robot-hour</span><b id="cO1">—</b></div>
+            <div class="stat"><span class="mono">Per day</span><b id="cO2">—</b></div>
+            <div class="stat"><span class="mono">Per month</span><b id="cO3">—</b></div>
+            <div class="stat"><span class="mono">Stored at retention</span><b id="cO4">—</b></div>
+            <div class="stat"><span class="mono">Storage, per month</span><b id="cO5">—</b></div>
+            <div class="stat"><span class="mono">Egress, if you move it once</span><b id="cO6">—</b></div>
+            <div class="stat"><span class="mono">A problem by</span><b id="cO7">—</b></div>
+            <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="cVerdict" aria-live="polite">—</p></div>
+          </div>
+          <p class="mono muted small" id="cReadout" aria-live="polite" style="margin:.8rem 0 0"></p>
+          <div class="lab__actions" style="margin-top:1rem">
+            <button class="btn btn--small" id="cEmail" type="button" data-cursor="SEND">Email me this estimate</button>
+            <button class="btn btn--small btn--ghost" id="cReset" type="button">Reset</button>
+          </div>
+          <p class="muted small" style="margin-top:1rem">Bitrates are illustrative and depend heavily on scene content, encoder settings, and how much your parts move. Cloud storage and egress prices vary by provider, region, and how good you are at negotiating; the bands here are list-price-shaped, not quotes. Numbers are rounded with enthusiasm. Nothing here is stored or sent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 04 // What we do ===== -->
   <section class="section" id="offer">
     <div class="container">
-      <p class="eyebrow mono reveal">02 // What we do</p>
+      <p class="eyebrow mono reveal">04 // What we do</p>
       <h2 class="section__title reveal">Four things, in your account, that your team can run.<span class="muted">No lock-in to us. That's the point.</span></h2>
-      <div class="cols reveal">
-        <ul class="list prose">
-          <li><strong>Capture architecture.</strong> Schema, provenance, on-robot buffering, and an ingest path sized to your actual bitrate and your actual network.</li>
-          <li><strong>Dataset pipeline.</strong> Deterministic, versioned, reproducible conversion from raw logs to training-ready episodes.</li>
-          <li><strong>Training &amp; evaluation infrastructure.</strong> Set up so your team runs it, in your account, with cost visibility and no lock-in to us.</li>
-          <li><strong>Fleet rollout.</strong> Versioned policies, staged canaries, metric-triggered rollback, and observability that pages someone before the line stops.</li>
-        </ul>
-        <div class="callout"><span class="sq"></span><b>Two ecosystems, one conversion tax.</b> On the robot, MCAP in rosbag2. On the training side, episode-oriented dataset formats. The conversion between them is a pipeline you own forever. Design it early, make it deterministic, version it.</div>
+      <div class="cards cards--4">
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">C-01</span><h3>Capture architecture</h3><p>Schema, provenance, on-robot buffering, and an ingest path sized to your actual bitrate and your actual network.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Capture schema with provenance on every record</li><li>On-robot buffering that survives the Wi-Fi dropping</li><li>Ingest path sized from the multiplication, not a guess</li><li>Retention and tiering policy, decided on day one</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">C-02</span><h3>Dataset pipeline</h3><p>Deterministic, versioned, reproducible conversion from raw logs to training-ready episodes.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>MCAP in, episode datasets out, the same way every time</li><li>Versioned so any training set regenerates from raw</li><li>QC that drops the bad episodes before they train</li><li>A catalogue your team can actually search</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">C-03</span><h3>Training &amp; evaluation infrastructure</h3><p>Set up so your team runs it, in your account, with cost visibility and no lock-in to us.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Training jobs in your cloud account or on your rack, scripted</li><li>Evaluation that runs on every candidate, automatically</li><li>Cost visibility per experiment, before the bill</li><li>Runbooks, so nobody needs us to press the button</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">C-04</span><h3>Fleet rollout</h3><p>Versioned policies, staged canaries, metric-triggered rollback, and observability that pages someone before the line stops.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Versioned policy artifacts with a rollback that works</li><li>Canary robot and an agreed metric that decides</li><li>Per-robot configuration that survives a re-image</li><li>Dashboards and alerts that page before the operator notices</li></ul></div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
 
-  <!-- ===== 03 // Next: loop navigation + the one contact section ===== -->
+  <!-- ===== 05 // Next: loop navigation + the one contact section ===== -->
   <section class="section" id="next">
     <div class="container">
-      <p class="eyebrow mono reveal">03 // Next</p>
+      <p class="eyebrow mono reveal">05 // Next</p>
       <h2 class="section__title reveal">Captured. Now imagine.<span class="muted">Logs are only useful if something learns from them.</span></h2>
       <div class="next">
         <a class="next__plate marks reveal" href="/#services" data-cursor="BACK">
@@ -192,6 +302,7 @@
       <a href="/cloud/">Capture · Data &amp; cloud</a>
       <a href="/world-models/">Imagine · World models</a>
       <a href="/physical-ai/">Physical AI</a>
+      <a href="/notes/">Field notes</a>
     </nav>
     <div class="footer__inner">
       <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
@@ -254,6 +365,7 @@
 <script src="/assets/js/mascot.js"></script>
 <script src="/assets/js/assistant.js"></script>
 <script src="/assets/js/calc-kit.js"></script>
+<script src="/assets/js/calc-data.js"></script>
 <script src="/assets/js/main.js"></script>
 </body>
 </html>

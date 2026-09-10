@@ -17,21 +17,23 @@
     embedded: "Latency page. My honest advice: measure the tail, not the mean.",
     "world-models": "Simulation page. I have opinions about which third of your task list belongs in here.",
     cloud: "Data page. Least glamorous, most decisive. Ask me the multiplication.",
-    "physical-ai": "The hub. Everything here is real and most of it is early. Want the honest cost first?"
+    "physical-ai": "The hub. Everything here is real and most of it is early. Want the honest cost first?",
+    notes: "Field notes. The long versions of the arguments. Ask me which one to read first and I'll pick the one that saves you a quarter."
   };
   const PAGE_CHIPS = {
     vision: ["What breaks vision?", "Run the perception lab", "Draft an email"],
     embedded: ["Build a latency budget", "Why p99.9?", "Draft an email"],
     "world-models": ["What is a world model?", "How many demos?", "Draft an email"],
     cloud: ["Keep the raw?", "How many demos?", "Draft an email"],
-    "physical-ai": ["Is AI ready for us?", "How many demos?", "Draft an email"]
+    "physical-ai": ["Is AI ready for us?", "How many demos?", "Draft an email"],
+    notes: ["Which note first?", "Is AI ready for us?", "Draft an email"]
   };
   const HELLO = GREET[PAGE]
     ? GREET[PAGE] + " I can also explain what Big Sky Systems does, how an engagement works, or draft an email to a human."
     : "Hi! I'm SKY-1, the resident robot. I can explain what Big Sky Systems does, how an engagement works, or help you draft an email to a human. What are you building?";
   // where each instrument lives, for __CALC: on a sheet that doesn't have it
   const CALC_PAGES = { visionLab: "/vision/#lab", latencyCalc: "/embedded/#lab", demoCalc: "/physical-ai/", dataCalc: "/cloud/", gapMeter: "/world-models/" };
-  const PAGE_NAMES = { "/vision/": "the Vision page", "/embedded/": "the Embedded page", "/physical-ai/": "the Physical AI page", "/cloud/": "the Data & cloud page", "/world-models/": "the World models page", "/": "the home page" };
+  const PAGE_NAMES = { "/notes/": "the field notes", "/vision/": "the Vision page", "/embedded/": "the Embedded page", "/physical-ai/": "the Physical AI page", "/cloud/": "the Data & cloud page", "/world-models/": "the World models page", "/": "the home page" };
 
   const KB = [
     { k: ["hello", "hi", "hey", "yo", "howdy", "morning", "evening"], a: HELLO, chips: PAGE_CHIPS[PAGE] || ["What do you do?", "Show me the loop", "Draft an email"] },
@@ -47,6 +49,8 @@
     { k: ["vision", "camera", "cameras", "perception", "pose", "6dof", "6-dof", "grasp", "grasping", "bin picking", "depth", "lighting", "calibration", "hand-eye", "segmentation", "detection", "occlusion", "specular", "transparent", "sensor", "what breaks vision"], a: "Six stages: detect, segment, depth, pose, grasp, verify. Four got much easier. Two didn't. What actually ends pilots:\n• Specular and transparent parts\n• Clutter and occlusion\n• Lighting drift and calibration drift\n• The last two percent of pose error\nControlled lighting is the cheapest reliability upgrade in the building. The Vision page has a pipeline you can ruin yourself.", chips: ["Take me to Vision", "Run the perception lab", "Safety"] },
     { k: ["how many demos", "how many demonstrations", "demonstrations", "demos", "demo", "teleop", "teleoperation", "data collection", "imitation learning", "imitation", "behavior cloning", "behaviour cloning", "demo budget"], a: "Rough rule: fifty to two hundred teleoperated demonstrations per task, depending on the task. A cell with twenty distinct tasks lands between one and four thousand. Someone has to perform every one, and someone has to throw out the bad ones.\n\nThirty productive hours a week per operator, not forty, because teleop is tiring and people have meetings. The demonstration budget calculator on the Physical AI page turns that into operator-weeks and a number for your CFO.", chips: ["Take me to Physical AI", "Is AI ready for us?", "Draft an email"] },
     { k: ["is ai ready", "should we use ai", "do we need ai", "need ai", "hype", "worth it", "just use ai", "ready for ai", "ai ready", "use ai", "triage"], a: "Honest triage, in order:\n• Same part, same pose, every cycle: a fixture and a limit switch. Cheaper, and no GPU\n• High part variation, contact-rich, deformable, or a long tail of variants: a learned policy is probably right\n• Either way, the data pipeline and the evaluation harness come first, because that's the part nobody demos\nUsually the answer is three of your tasks, and not the one you're excited about. A human will tell you which three.", chips: ["Physical AI", "How many demos?", "Draft an email"] },
+    { k: ["which note first", "field notes", "notes", "essays", "reading", "blog", "articles"], a: "Six notes, each the long version of a page:\n• Your average latency is a lie (the p99.9 argument)\n• Fifty to two hundred (what demonstrations cost)\n• The simulator lied to you, and that's fine\n• Keep the raw (three data decisions for week one)\n• A fixture and a limit switch (in defence of not using AI)\n• AI in a safety function (the 2025 and 2027 rule changes)\nStart with the fixture one. It's the cheapest advice on the site.", chips: ["Take me to the notes", "Is AI ready for us?", "Draft an email"] },
+    { k: ["take me to the notes", "go to notes", "notes page", "read the notes"], a: "__NAV:/notes/__" },
     { k: ["show me the loop", "the loop", "loop", "five stations", "closed loop"], a: "__GOTO:loop__" },
     { k: ["take me to vision", "go to vision", "vision page"], a: "__NAV:/vision/__" },
     { k: ["take me to embedded", "go to embedded", "embedded page", "autonomy page"], a: "__NAV:/embedded/__" },

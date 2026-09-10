@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keep the raw — Big Sky Systems</title>
+  <meta name="description" content="Three data decisions made in week one that determine whether you have a flywheel or a NAS." />
+  <meta name="theme-color" content="#ECE9E2" />
+  <meta property="og:title" content="Keep the raw — Big Sky Systems" />
+  <meta property="og:description" content="Three data decisions made in week one that determine whether you have a flywheel or a NAS." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://jj-bigsky.github.io/notes/keep-the-raw.html" />
+  <meta property="og:image" content="https://jj-bigsky.github.io/assets/img/og/notes.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://jj-bigsky.github.io/notes/keep-the-raw.html" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body data-page="notes">
+
+<!-- ===== Cursor reticle (desktop, fine pointer only) ===== -->
+<div id="reticle" class="reticle" aria-hidden="true">
+  <span class="reticle__ring"></span>
+  <span class="reticle__dot"></span>
+  <span class="reticle__label" id="reticleLabel"></span>
+</div>
+
+<!-- ===== SVG sprite ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cell" viewBox="0 0 24 24"><path d="M4 20h16M7 20V11l4-6 4 6v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="5" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="i-amr" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="7" cy="19" r="1.8" fill="currentColor"/><circle cx="17" cy="19" r="1.8" fill="currentColor"/><path d="M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+    <symbol id="i-belt" viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18" cy="12" r="1.3" fill="currentColor"/><path d="M8 5l4-2 4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-fence" viewBox="0 0 24 24"><path d="M4 21V9l2-3 2 3v12M10 21V9l2-3 2 3v12M16 21V9l2-3 2 3v12M3 13h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 9h18M5 9v11M19 9v11M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 5l3 4M10 5l-3 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/></symbol>
+    <symbol id="i-teleop" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11v4M6 13h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.5" cy="12" r="1.1" fill="currentColor"/><circle cx="18" cy="14.5" r="1.1" fill="currentColor"/><path d="M12 4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-ingest" viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gpu" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 9.5h3M15 12h3M15 14.5h3M7 18v3M17 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="14" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8l1.5-3h5L16 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="17" y="10" width="2" height="2" fill="currentColor"/></symbol>
+    <symbol id="i-sim" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===== Nav ===== -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="/" aria-label="Big Sky Systems home">
+    <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="1" y="1" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <g class="brand-orbit"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width=".8" stroke-dasharray="1.5 4"/></g>
+      <path d="M6 31 L15 16 L21 24 L26 19 L34 31" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="26" y="7" width="6" height="6" fill="var(--accent)"/>
+    </svg>
+    <span class="brand-text">Big Sky <b>Systems</b></span>
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Primary">
+    <a href="/#services">Work</a>
+    <a href="/#loop">The Loop</a>
+    <a href="/#playground">Lab</a>
+    <a href="/#method">Method</a>
+    <a href="/notes/">Notes</a>
+    <a href="/#contact" class="nav__cta">Talk to us</a>
+  </nav>
+  <div class="nav__tools">
+    <button class="tog" id="soundToggle" type="button" aria-pressed="false" aria-label="Toggle sound effects" data-cursor="SOUND"><i></i><span id="soundLabel">Snd off</span></button>
+    <button class="tog" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch between paper and graphite sheets" data-cursor="SHEET"><i></i><span id="themeLabel">Paper</span></button>
+    <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <article class="note">
+    <div class="note__wrap">
+      <p class="eyebrow mono reveal">Field note 04 // Capture</p>
+      <h1 class="reveal">Keep the raw.</h1>
+      <p class="page-hero__sub reveal">Three data decisions made in week one that determine whether you have a flywheel or a NAS.</p>
+      <p class="note__meta mono muted reveal">Big Sky Systems · September 2026 · 3 min · from <a href="/cloud/">Robot data & cloud</a></p>
+      <hr class="rule" />
+      <div class="prose note__body reveal">
+<p>Somewhere in month four, a team that built a very good robot cell discovers that it has filled a NAS. The discovery arrives as a ticket, or a bill, or a full disk that stops the recorder. The response, under pressure, is to delete the old data. And with that, the loop that was the entire point of the program — the recording that makes next week's policy better than this week's — is quietly switched off.</p>
+<p>This happens because the data architecture was designed after the robots arrived. Three decisions, made in week one, prevent it. None of them is technically difficult. All of them are hard to make later.</p>
+<h2>Decision one: keep the raw</h2>
+<p>Keep the raw sensor data. Compressed, yes. Tiered to cold storage after a few weeks, yes. But keep it, because you will want to re-derive datasets with a labelling scheme you haven't invented yet.</p>
+<p>The dataset you build today encodes today's assumptions: which frames matter, what counts as a success, how episodes begin and end. In six months, when the policy fails on a class of parts nobody anticipated, the question will be “what did the camera actually see?” If the raw is gone, the answer is a shrug and a re-collection. If the raw is there, the answer is a script.</p>
+<p>Do the multiplication first. Four cameras at 1080p and thirty frames a second, two shifts, six robots, is a facilities decision and a recurring bill, not a folder. The <a href="/cloud/#calc">robot data math</a> gives you the terabytes a month, the cost by tier, and the date it becomes a problem. Knowing the date in week one is what makes “keep the raw” a plan instead of a wish.</p>
+<h2>Decision two: record provenance, not just data</h2>
+<p>A trajectory without its context is a video. To train on it, evaluate against it, or decide whether it still describes the cell you have, you need to know: which robot, which policy version, which gripper, which camera calibration, which part revision, which operator, which shift. All of it, on every record, at capture time.</p>
+<p>Provenance is cheap to record and impossible to reconstruct. It is also what turns a change on the floor — a new gripper, a bumped mount — from “the dataset is now suspect” into “these 1,400 episodes are now suspect, and the rest are fine.” That difference is weeks.</p>
+<h2>Decision three: decide retention on day one</h2>
+<p>Not because storage is expensive — it mostly isn't, tiered properly — but because “everything forever” is not a policy. If you don't write one, it will be written for you, badly, in a hurry, by whoever gets the bill. Decide what is kept hot, what goes warm, what goes cold, and what is deleted and when. Write down who can see the camera feeds, because every frame from a workplace has people in it, and write down how deletion actually happens.</p>
+<h2>The conversion tax</h2>
+<p>The three decisions sit on top of a structural fact: the robot's operational format and the training ecosystem's dataset format are different things, for good reasons. On the robot, MCAP in rosbag2 handles heterogeneous, timestamped, multi-schema streams and is what you replay when something went wrong at 3 a.m. On the training side, episode-oriented dataset formats are what the tooling assumes.</p>
+<p>The conversion between them is a pipeline you own forever. Make it deterministic, version it, and make it possible to regenerate every training set from raw with one command. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.</p>
+<h2>Training is the cheap part</h2>
+<p>People budget carefully for GPUs and loosely for everything else, which is backwards. Renting a serious card is a couple of dollars an hour. Fine-tuning a policy on a few hundred episodes is an overnight job. The costs that hurt are the demonstrations, the operators who perform them, the engineers who clean them, and the evaluation harness that says whether any of it worked. Compute is the line item everyone plans for and the one that matters least. The good news is that the expensive part is something you can be strategic about, starting with these three decisions.</p>
+<p>Keep the raw. Record provenance. Decide retention. Week one. Then buy the robots.</p>
+
+      </div>
+      <hr class="rule" />
+      <nav class="note__foot mono" aria-label="Around this note">
+        <a href="/notes/the-simulator-lied.html">← The simulator lied to you, and that's fine.</a>
+        <a href="/notes/">All notes</a>
+        <a href="/cloud/">Back to Robot data & cloud</a>
+        <a href="/#contact">Talk to a human</a>
+        <a href="/notes/a-fixture-and-a-limit-switch.html">A fixture and a limit switch. →</a>
+      </nav>
+    </div>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <nav class="footer__links" aria-label="The loop">
+      <span class="footer__links__label mono">The loop //</span>
+      <a href="/vision/">Perceive · Vision</a>
+      <a href="/embedded/">Decide · Embedded</a>
+      <a href="/#services">Act · The lab</a>
+      <a href="/cloud/">Capture · Data &amp; cloud</a>
+      <a href="/world-models/">Imagine · World models</a>
+      <a href="/physical-ai/">Physical AI</a>
+      <a href="/notes/">Field notes</a>
+    </nav>
+    <div class="footer__inner">
+      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
+      <div class="footer__leds mono">
+        <span><i class="led"></i> arm</span>
+        <span><i class="led"></i> sky</span>
+        <span><i class="led"></i> sky-1</span>
+        <span><i class="led"></i> loop</span>
+        <span><i class="led led--warn"></i> coffee</span>
+      </div>
+      <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SKY-1 mascot + assistant ===== -->
+<div class="mascot" id="mascot">
+  <div class="bubble" id="bubble" role="status" aria-live="polite"><span id="bubbleText"></span></div>
+  <button class="mascot__btn" id="mascotBtn" type="button" aria-label="Open SKY-1 assistant" data-cursor="TALK">
+    <svg class="bot" viewBox="0 0 120 150" aria-hidden="true">
+      <g class="bot__antenna"><line x1="60" y1="28" x2="60" y2="13" stroke="var(--bot-line)" stroke-width="2.5"/><rect x="55" y="6" width="10" height="8" class="bot__light"/></g>
+      <g class="bot__head" id="botHead" style="transform-origin:60px 95px">
+        <rect x="18" y="28" width="84" height="60" rx="3" class="bot__shell"/>
+        <rect x="26" y="37" width="68" height="42" rx="1.5" class="bot__screen"/>
+        <g class="bot__eye" id="eyeL" style="transform-origin:46px 56px"><rect x="40" y="50" width="12" height="12" class="bot__pupil" id="pupilL"/></g>
+        <g class="bot__eye" id="eyeR" style="transform-origin:74px 56px"><rect x="68" y="50" width="12" height="12" class="bot__pupil" id="pupilR"/></g>
+        <path d="M50 69 Q60 75 70 69" class="bot__mouth" id="botMouth"/>
+        <rect x="12" y="52" width="6" height="12" class="bot__ear"/><rect x="102" y="52" width="6" height="12" class="bot__ear"/>
+      </g>
+      <g class="bot__body">
+        <rect x="30" y="92" width="60" height="40" rx="3" class="bot__shell"/>
+        <path d="M40 104h22M40 110h22M40 116h22" class="bot__grille"/>
+        <rect x="72" y="104" width="8" height="8" class="bot__chest"/>
+        <text x="60" y="127" text-anchor="middle" class="bot__label">SKY-1</text>
+        <rect x="38" y="134" width="14" height="8" class="bot__shell"/><rect x="68" y="134" width="14" height="8" class="bot__shell"/>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<div class="chat" id="chat" hidden aria-label="SKY-1 assistant" role="dialog">
+  <div class="chat__head">
+    <div><b>SKY-1</b> <span class="mono muted small" id="chatStatus">// on-page, no cloud</span></div>
+    <button class="icon-btn" id="chatClose" type="button" aria-label="Close">✕</button>
+  </div>
+  <div class="chat__log" id="chatLog"></div>
+  <div class="chat__chips" id="chatChips"></div>
+  <form class="chat__form" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Ask about this note, or the page it came from…" autocomplete="off" aria-label="Message SKY-1" />
+    <button class="btn btn--small" type="submit">Send</button>
+  </form>
+</div>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/sound.js"></script>
+<script src="/assets/js/mascot.js"></script>
+<script src="/assets/js/assistant.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
