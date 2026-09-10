@@ -21,6 +21,23 @@ framework, no backend. Open `index.html` or drop the folder on any static host.
 Everything respects `prefers-reduced-motion`, works on touch, and degrades to
 plain content if JavaScript is off.
 
+## Design system
+
+The look is called "engineering paper" and it is meant to be reused. Everything
+needed to make another page, one-pager, dashboard, deck, or document in the
+same language lives in `.claude/skills/bigsky-design/`:
+
+- `SKILL.md` — the rules, tokens, and a pre-delivery checklist (Claude Code
+  loads this automatically for anything visual in this repo; `CLAUDE.md` points to it).
+- `assets/tokens.css` — canonical CSS variables and base components; inline it into single-file deliverables.
+- `assets/template.html` — a starter page (open it next to `tokens.css`).
+- `references/components.md` — copy-paste snippets for buttons, cards, tables, stat rows, callouts, nav.
+- `references/documents.md` — color and font mappings for Word, PowerPoint, Excel, SVG, and email.
+
+In Claude Code, ask for anything for Big Sky Systems and the skill applies; you
+can also invoke it directly with `/bigsky-design`. To use it outside this repo,
+save the packaged `bigsky-design.skill` to your profile.
+
 ## Edit the basics
 
 `assets/js/config.js`:
