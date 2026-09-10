@@ -113,6 +113,7 @@
   .page-hero__grid { padding-top: 3.2rem; }
   .cards--4 { grid-template-columns: 1fr; }
   .loopline li + li::before { width: 12px; margin: 0 .5rem; }
-  .loopline__label { display: none; }
+  .loopline .loopline__end, .loopline .loopline__label { display: none; }
   .stage { min-height: 320px; }
+  .stage__hud { gap: .6rem; font-size: .56rem; flex-wrap: wrap; }
 }
