@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Discovery Sprint — Big Sky Systems</title>
+  <meta name="theme-color" content="#ECE9E2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Single-file deliverable? Replace this link with <style> containing tokens.css. -->
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    /* page-specific styles go here; keep them few */
+    .hero { padding: clamp(3rem, 8vw, 6rem) 0 3rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; }
+    .hero h1 { max-width: 14ch; }
+    .cta { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1.6rem; }
+    @media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#">Big Sky <b>Systems</b></a>
+  <nav class="nav__links"><a href="#scope">Scope</a><a href="#plan">Plan</a><a href="#terms">Terms</a></nav>
+  <a class="btn btn--small" href="mailto:jj@bigsky.systems">Talk to us</a>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <p class="eyebrow mono">01 // Proposal</p>
+      <h1>A two-week discovery sprint that ends in a <span class="serif accent">plan.</span></h1>
+      <p class="muted" style="max-width:56ch">Before anyone buys a robot: we learn your parts, your people, and the thing that keeps breaking, then hand you a layout, a shortlist, and a number you can defend.</p>
+      <div class="cta">
+        <a class="btn btn--primary" href="#terms">Book the sprint</a>
+        <a class="btn" href="#plan">See the plan</a>
+      </div>
+    </div>
+    <div class="fig mono"><b>Fig. 01</b>Prepared for Lovelace Labs. Valid 30 days.</div>
+  </section>
+
+  <section class="section" id="scope">
+    <p class="eyebrow mono">02 // What you get</p>
+    <h2>Three deliverables.<span class="sub">All of them boring on purpose.</span></h2>
+    <div class="grid grid--3">
+      <article class="panel marks"><span class="card__num mono">D-01</span><h3>Floor plan</h3><p class="muted">Reach envelopes, safety zones, utilities, and a build sequence that never blocks itself.</p></article>
+      <article class="panel marks"><span class="card__num mono">D-02</span><h3>Robot shortlist</h3><p class="muted">Requirements matrix, scored options, and the bake-off we'd run with your parts.</p></article>
+      <article class="panel panel--ink marks"><span class="card__num mono">D-03</span><h3>The number</h3><p class="muted">A budget band with the assumptions written down, so it survives the meeting.</p></article>
+    </div>
+  </section>
+
+  <section class="section" id="plan">
+    <p class="eyebrow mono">03 // Plan</p>
+    <h2>Ten working days.<span class="sub">Two on site. Eight at the desk. Demos on Fridays.</span></h2>
+    <div class="grid grid--2">
+      <table class="spec">
+        <thead><tr><th>Day</th><th>Station</th><th class="n">Hours</th></tr></thead>
+        <tbody>
+          <tr><td>1–2</td><td>Listen: site walk, parts, people, failure log</td><td class="n">16</td></tr>
+          <tr><td>3–6</td><td>Sketch: layouts, simulation, vendor matrix</td><td class="n">32</td></tr>
+          <tr><td>7–9</td><td>Prove: risk assessment, cost model</td><td class="n">24</td></tr>
+          <tr><td>10</td><td>Hand off: readout, documents, next steps</td><td class="n">8</td></tr>
+        </tbody>
+      </table>
+      <div class="stats">
+        <div class="stat"><span>Duration</span><b>2 wks</b></div>
+        <div class="stat"><span>On site</span><b>2 days</b></div>
+        <div class="stat"><span>Documents</span><b>5</b></div>
+        <div class="stat"><span>Fee</span><b>Fixed</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="terms">
+    <p class="eyebrow mono">04 // Terms</p>
+    <div class="grid grid--2">
+      <div>
+        <h2>Fixed fee, no surprises.<span class="sub">Invoice on day one, deliverables on day ten.</span></h2>
+        <ul class="list">
+          <li>Everything we produce is yours, editable, vendor-neutral.</li>
+          <li>If we recommend not building a lab, that's the deliverable.</li>
+          <li>Fee credits toward a build engagement within 90 days.</li>
+        </ul>
+      </div>
+      <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> ten days is enough to find the thing that would have cost you a quarter. It's usually the conveyor.</div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer container">
+  <span class="brand">Big Sky <b>Systems</b></span>
+  <span class="mono"><i class="sq sq--ok"></i>arm <i class="sq sq--ok"></i>sky <i class="sq sq--warn"></i>coffee</span>
+  <span>Made under a very big sky. jj@bigsky.systems</span>
+</footer>
+
+</body>
+</html>
