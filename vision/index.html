@@ -25,7 +25,7 @@
   <span class="reticle__label" id="reticleLabel"></span>
 </div>
 
-<!-- ===== SVG sprite (same block as the home page) ===== -->
+<!-- ===== SVG sprite ===== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-cell" viewBox="0 0 24 24"><path d="M4 20h16M7 20V11l4-6 4 6v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="5" r="1.6" fill="currentColor"/></symbol>
@@ -36,10 +36,12 @@
     <symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 9h18M5 9v11M19 9v11M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 5l3 4M10 5l-3 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
     <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/></symbol>
+    <symbol id="i-sim" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
-<!-- ===== Nav (same as the home page; home anchors are root-absolute) ===== -->
+<!-- ===== Nav ===== -->
 <header class="nav" id="nav">
   <a class="nav__brand" href="/" aria-label="Big Sky Systems home">
     <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
@@ -51,11 +53,10 @@
     <span class="brand-text">Big Sky <b>Systems</b></span>
   </a>
   <nav class="nav__links" id="navLinks" aria-label="Primary">
-    <a href="/#services">Services</a>
-    <a href="/#playground">Playground</a>
-    <a href="/#builder">Lab Builder</a>
+    <a href="/#services">Work</a>
+    <a href="/#loop">The Loop</a>
+    <a href="/#playground">Lab</a>
     <a href="/#method">Method</a>
-    <a href="/#diagnostic">Diagnostic</a>
     <a href="/#contact" class="nav__cta">Talk to us</a>
   </nav>
   <div class="nav__tools">
@@ -76,8 +77,8 @@
         <p class="page-hero__sub reveal">And it can see beautifully until Tuesday, when the sun comes through the loading door.</p>
         <p class="page-hero__lede reveal">Vision is the highest-leverage and highest-variance system in a robot cell. Foundation models have quietly made the first four stages of the pipeline much easier than they were three years ago. The last two stages, and the physical environment around all six, are where the year goes.</p>
         <div class="hero__actions reveal">
-          <a class="btn btn--primary" href="#lab" data-cursor="RUN">Run the pipeline</a>
-          <a class="btn" href="/#contact" data-cursor="MAIL">Talk to a human</a>
+          <a class="btn btn--primary" href="#lab" data-cursor="Run the pipeline">RUN</a>
+          <a class="btn" href="/#contact" data-cursor="Talk to a human">MAIL</a>
           <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
         </div>
       </div>
@@ -103,82 +104,135 @@
     </div>
   </section>
 
-  <!-- ===== 01 // The honest version (placeholder body) ===== -->
+  <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
       <p class="eyebrow mono reveal">01 // The honest version</p>
-      <h2 class="section__title reveal">The reality check goes here.<span class="muted">Always first. You earn the right to sell by saying what doesn't work.</span></h2>
+      <h2 class="section__title reveal">Nothing on this list is a model problem.<span class="muted">Every one of them has ended a pilot.</span></h2>
       <div class="cols reveal">
         <div class="prose">
-          <p>Placeholder. This section holds the five things that end perception pilots, none of which are model problems. The copy is written and waiting; it goes in once the skeleton clears the gate.</p>
-          <p>Until then this paragraph exists to show the measure, the rhythm, and how a long argument sits on the sheet next to a note from the robot.</p>
+          <p><strong>Specular and transparent parts.</strong> Polished steel and clear plastic break depth sensing in ways that no amount of fine-tuning fixes. The answer is usually a different sensor or a different light, not a different network.</p>
+          <p><strong>Clutter and occlusion.</strong> A part that's 90% visible is a solved problem. A part that's 30% visible under three other parts is a research topic with a delivery date attached.</p>
+          <p><strong>Lighting drift.</strong> Morning light, afternoon light, someone replaces a failed fixture with a slightly bluer one, and your pose estimates walk. Controlled lighting is the cheapest reliability upgrade in the building and it is skipped constantly.</p>
+          <p><strong>Calibration drift.</strong> Hand-eye calibration is not a one-time ceremony. Somebody bumps the camera mount, and a system that was accurate to half a millimetre is now confidently wrong.</p>
+          <p><strong>The last two percent of pose error.</strong> Ninety-eight percent is a great demo and a daily crash. The gap between them is fixturing, verification, and knowing when to refuse.</p>
         </div>
-        <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> nothing yet. Empty sheet. Very brave.</div>
+        <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> ask me what breaks vision and I'll recite this list. I learned it the way everyone does, at 2 a.m., from a robot that was very sure about the wrong part.</div>
       </div>
     </div>
   </section>
 
-  <!-- ===== 02 // What actually works (placeholder body) ===== -->
+  <!-- ===== 02 // What actually works ===== -->
   <section class="section" id="works">
     <div class="container">
       <p class="eyebrow mono reveal">02 // What actually works</p>
-      <h2 class="section__title reveal">The substance goes here.<span class="muted">Six stages of a pipeline, and which four got easier.</span></h2>
-      <div class="figure reveal">
-        <div class="stage stage--pending" style="min-height:220px" aria-hidden="true"><span class="stage__label mono">Six-stage diagram // not drawn yet</span></div>
-        <div class="fig mono"><b>Fig. 01</b>Detect → segment → depth → pose → grasp → verify. Hairline plates, one line each.</div>
+      <h2 class="section__title reveal">Six stages, and what changed.<span class="muted">Four of them got much easier. Two of them didn't.</span></h2>
+      <ol class="stages reveal" aria-label="The six stages of a perception pipeline">
+        <li class="stages__item marks"><span class="stages__num mono">01</span><h3>Detect</h3><p>Largely solved zero-shot. Open-vocabulary detectors find your part without you training anything.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">02</span><h3>Segment</h3><p>Largely solved zero-shot. Promptable segmentation gives clean masks on parts it has never seen.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">03</span><h3>Depth</h3><p>Monocular depth foundation models are startlingly good and still not metrology. Know which one you need.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">04</span><h3>Pose</h3><p>Zero-shot 6-DoF from a CAD model or a few reference views now works in cluttered bins. This is the big recent change.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">05</span><h3>Grasp</h3><p>Still hard. Geometry proposes; the gripper, the surface, and the physics dispose.</p><span class="badge"><i class="sq sq--warn"></i>Still hard</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">06</span><h3>Verify</h3><p>Still skipped. The camera that checks the robot's work is often worth more than the one that guides it.</p><span class="badge"><i class="sq sq--warn"></i>Still skipped</span></li>
+      </ol>
+      <div class="cols reveal" style="margin-top:1.6rem">
+        <div class="prose">
+          <div class="fig mono" style="margin-bottom:1.2rem"><b>Fig. 01</b>The pipeline, in order. Typical industrial parts, as of September 2026.</div>
+          <p>The practical consequence: in 2026 you should be training far fewer custom models than you were in 2023, and spending the savings on lighting, fixturing, calibration discipline, and verification. That's a less exciting sentence than “we fine-tuned a foundation model,” and it's where the reliability comes from.</p>
+          <h3>Which sensor, when</h3>
+          <p>There is no best camera. There is the right one for your part, your cycle time, and your lighting, and the wrong one is usually the one that came with the robot.</p>
+        </div>
+        <div class="callout"><span class="sq"></span><b>Bookmark this.</b> The table below is the one people come back for. The rule underneath it is simpler: bench-test the sensor on your actual parts, shiny ones included, before anyone signs a purchase order.</div>
+      </div>
+      <div class="spec-wrap reveal" style="margin-top:1.2rem">
+        <table class="spec">
+          <thead><tr><th>Sensor</th><th>Pick this when</th><th>Watch out for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>2D camera</strong></td><td>Presence, in-plane orientation, reading marks, checking the robot's work against a known datum.</td><td class="muted">No depth. Anything that needs height, tilt, or a stack.</td></tr>
+            <tr><td><strong>Stereo</strong></td><td>General-purpose depth on textured parts at modest accuracy. Cheap, fast, forgiving.</td><td class="muted">Textureless, specular, or repetitive surfaces confuse the matcher.</td></tr>
+            <tr><td><strong>Structured light</strong></td><td>Sub-millimetre depth on static or slow scenes: bin picking, inspection that borders on metrology.</td><td class="muted">Ambient light, shiny or transparent parts, motion blur.</td></tr>
+            <tr><td><strong>Time-of-flight</strong></td><td>Fast, longer-range depth for navigation, safety zones, and coarse picking.</td><td class="muted">Multi-path errors near corners. Millimetres of accuracy, not tenths.</td></tr>
+            <tr><td><strong>Line-scan</strong></td><td>Continuous inspection of moving webs, extrusions, and conveyors.</td><td class="muted">Needs constant motion and rock-steady encoder sync.</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <!-- ===== 03 // The interactive (placeholder stage) ===== -->
+  <!-- ===== 03 // Perception pipeline (the instrument) ===== -->
   <section class="section" id="lab">
     <div class="container">
       <p class="eyebrow mono reveal">03 // Perception pipeline</p>
-      <h2 class="section__title reveal">The instrument goes here.<span class="muted">Toggle stages on a bin of parts. Watch latency accumulate and lighting ruin everything.</span></h2>
-      <div class="figure reveal">
-        <div class="stage stage--pending" id="visionLab" data-cursor="WAIT">
-          <div class="stage__hud mono" aria-hidden="true"><span>Found <b>—</b></span><span>Pose σ <b>—</b></span><span>Pipeline <b>—</b></span><span>Budget <b>100 ms</b></span></div>
-          <span class="stage__label mono">Vision lab // canvas pending</span>
+      <h2 class="section__title reveal">Turn on every stage. Then ruin the lighting.<span class="muted">A synthetic bin of parts, drawn in ink. Toggle stages, watch latency accumulate.</span></h2>
+      <div class="lab reveal" id="visionLab">
+        <div class="lab__stage stage" data-cursor="LOOK">
+          <canvas id="visionCanvas" aria-hidden="true"></canvas>
+          <div class="stage__hud mono" id="visionHud" aria-hidden="true"><span>Found <b id="vFound">—</b></span><span>Pose σ <b id="vSigma">—</b></span><span>Pipeline <b id="vMs">—</b></span><span>Budget <b id="vBudget">100 ms</b></span></div>
+          <p class="stage__msg mono" id="visionMsg" hidden>Over budget. Something has to go, or something has to get faster. <a href="/embedded/">On-robot autonomy →</a></p>
+          <p class="mono muted small stage__readout" id="visionReadout" aria-live="polite">Loading the bin…</p>
         </div>
-        <div class="fig mono"><b>Fig. 02</b>Perception pipeline, interactive. Synthetic bin, drawn in ink. No photos.</div>
+        <div class="lab__controls">
+          <div class="fig mono"><b>Fig. 02</b>Perception pipeline, interactive. Each stage adds an overlay and a cost.</div>
+          <div class="lab__toggles" role="group" aria-label="Pipeline stages">
+            <label class="check"><input type="checkbox" id="vs-detect" checked /> <span>Detect</span><small class="mono">8 ms</small></label>
+            <label class="check"><input type="checkbox" id="vs-segment" /> <span>Segment</span><small class="mono">22 ms</small></label>
+            <label class="check"><input type="checkbox" id="vs-depth" /> <span>Depth</span><small class="mono">14 ms</small></label>
+            <label class="check"><input type="checkbox" id="vs-pose" /> <span>Pose</span><small class="mono">31 ms</small></label>
+            <label class="check"><input type="checkbox" id="vs-grasp" /> <span>Grasp</span><small class="mono">12 ms</small></label>
+            <label class="check"><input type="checkbox" id="vs-verify" /> <span>Verify</span><small class="mono">9 ms</small></label>
+          </div>
+          <label class="range"><span class="mono">Lighting</span><input type="range" id="vLight" min="0" max="100" value="85" data-out="vLightOut" /><output id="vLightOut" class="mono">85</output></label>
+          <label class="range"><span class="mono">Clutter</span><input type="range" id="vClutter" min="0" max="100" value="35" data-out="vClutterOut" /><output id="vClutterOut" class="mono">35</output></label>
+          <div class="seg" role="group" aria-label="Latency budget">
+            <button class="seg__btn" data-budget="33" type="button">33 ms · 30 Hz</button>
+            <button class="seg__btn is-active" data-budget="100" type="button">100 ms · 10 Hz</button>
+            <button class="seg__btn" data-budget="250" type="button">250 ms · 4 Hz</button>
+          </div>
+          <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="vVerdict">Camera's on. Turn things on and see what it costs.</p></div>
+          <div class="lab__actions">
+            <button class="btn btn--small" id="vEmail" type="button" data-cursor="SEND">Email this setup</button>
+            <button class="btn btn--small btn--ghost" id="vReset" type="button">Reset</button>
+          </div>
+          <p class="muted small">Stage costs are illustrative defaults from typical embedded pipelines, not measurements of your system. Nothing you set here is stored, sent, or logged. The link in your address bar is the only copy.</p>
+        </div>
       </div>
-      <p class="muted small" style="margin-top:1rem">Numbers will be illustrative and rounded with enthusiasm. Nothing you set here is stored, sent, or logged.</p>
     </div>
   </section>
 
-  <!-- ===== 04 // What we do (placeholder cards) ===== -->
+  <!-- ===== 04 // What we do ===== -->
   <section class="section" id="offer">
     <div class="container">
       <p class="eyebrow mono reveal">04 // What we do</p>
-      <h2 class="section__title reveal">Four services go here.<span class="muted">Each with a four-item “You get”. Always four.</span></h2>
+      <h2 class="section__title reveal">Four ways we make the robot see.<span class="muted">Boring is still the goal. A camera that works on Tuesday is boring.</span></h2>
       <div class="cards cards--4">
         <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">V-01</span><h3>Service one</h3><p>Placeholder front. One honest sentence about what the service is, and one about why it's needed.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Deliverable one</li><li>Deliverable two</li><li>Deliverable three</li><li>Deliverable four, with the joke</li></ul></div>
+            <div class="card__face card__front"><span class="card__num mono">V-01</span><h3>Sensor &amp; lighting selection</h3><p>Bench test on your actual parts, including the shiny one you were hoping we wouldn't ask about.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Bench test on your real parts, shiny ones included</li><li>Sensor shortlist with the trade-offs written down</li><li>Lighting design: geometry, wavelength, and the enclosure nobody budgeted</li><li>A go/no-go before anyone buys a camera</li></ul></div>
           </div>
         </article>
         <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">V-02</span><h3>Service two</h3><p>Placeholder front. Same shape as S-01 through S-06 on the home page, so the cards read as one family.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Deliverable one</li><li>Deliverable two</li><li>Deliverable three</li><li>Deliverable four, with the joke</li></ul></div>
+            <div class="card__face card__front"><span class="card__num mono">V-02</span><h3>Calibration &amp; drift monitoring</h3><p>Hand-eye and intrinsics, plus an automated check that tells you when it's moved before the crash does.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Hand-eye and intrinsic procedure your technicians can repeat</li><li>Fixtures and targets that survive the shop floor</li><li>Automated drift check that flags a bumped mount</li><li>Recalibration runbook with pass/fail numbers</li></ul></div>
           </div>
         </article>
         <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">V-03</span><h3>Service three</h3><p>Placeholder front. The real four are sensor selection, calibration, the pipeline build, and verification.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Deliverable one</li><li>Deliverable two</li><li>Deliverable three</li><li>Deliverable four, with the joke</li></ul></div>
+            <div class="card__face card__front"><span class="card__num mono">V-03</span><h3>Perception pipeline build</h3><p>Detect → segment → depth → pose → grasp → verify, with per-stage latency budgets and a documented failure taxonomy.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Six stages wired into ROS 2, each one optional</li><li>Per-stage latency budget, measured at p99.9</li><li>Failure taxonomy: what breaks it, what it does when it breaks</li><li>Evaluation set from your parts, with a regression suite</li></ul></div>
           </div>
         </article>
         <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">V-04</span><h3>Service four</h3><p>Placeholder front. Flip it. The back is ink, the bullets are squares, and there are exactly four of them.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Deliverable one</li><li>Deliverable two</li><li>Deliverable three</li><li>Deliverable four, with the joke</li></ul></div>
+            <div class="card__face card__front"><span class="card__num mono">V-04</span><h3>Verification systems</h3><p>Independent inspection of the robot's own work, with reject handling that doesn't stop the line.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>A second camera that checks the first one's work</li><li>Reject handling that doesn't stop the line</li><li>Metrics that page a human before the customer does</li><li>The audit trail your quality team will ask for anyway</li></ul></div>
           </div>
         </article>
       </div>
     </div>
   </section>
+
 
   <!-- ===== 05 // Next: loop navigation + the one contact section ===== -->
   <section class="section" id="next">
@@ -189,7 +243,7 @@
         <a class="next__plate marks reveal" href="/world-models/" data-cursor="BACK">
           <span class="card__num mono">← Previous · Imagine</span>
           <h3>Simulation &amp; world models</h3>
-          <p>Test it ten thousand times before it touches steel. Then measure how much the simulator lied.</p>
+          <p>Test it a million times before it touches steel</p>
           <span class="card__hint mono">World models</span>
         </a>
         <a class="next__plate next__plate--hub marks reveal" href="/physical-ai/" data-cursor="HUB">
@@ -201,7 +255,7 @@
         <a class="next__plate marks reveal" href="/embedded/" data-cursor="NEXT">
           <span class="card__num mono">Next · Decide</span>
           <h3>On-robot autonomy</h3>
-          <p>The policy, the silicon, and the latency budget. Ten milliseconds is not a lot of milliseconds.</p>
+          <p>The policy, the silicon, the latency budget</p>
           <span class="card__hint mono">Embedded</span>
         </a>
       </div>
@@ -212,7 +266,7 @@
         </div>
         <div class="hero__actions">
           <a class="btn btn--primary" href="/#contact" data-cursor="MAIL">Talk to a human</a>
-          <button class="btn btn--link" type="button" data-cursor="TALK" onclick="window.BSS_CHAT && window.BSS_CHAT.open()">Or ask SKY-1</button>
+          <button class="btn btn--link" type="button" data-cursor="TALK" onclick="window.BSS_CHAT &amp;&amp; window.BSS_CHAT.open()">Or ask SKY-1</button>
         </div>
       </div>
     </div>
@@ -221,15 +275,27 @@
 </main>
 
 <footer class="footer">
-  <div class="container footer__inner">
-    <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
-    <div class="footer__leds mono">
-      <span><i class="led"></i> arm</span>
-      <span><i class="led"></i> sky</span>
-      <span><i class="led"></i> sky-1</span>
-      <span><i class="led led--warn"></i> coffee</span>
+  <div class="container">
+    <nav class="footer__links" aria-label="The loop">
+      <span class="footer__links__label mono">The loop //</span>
+      <a href="/vision/">Perceive · Vision</a>
+      <a href="/embedded/">Decide · Embedded</a>
+      <a href="/#services">Act · The lab</a>
+      <a href="/cloud/">Capture · Data &amp; cloud</a>
+      <a href="/world-models/">Imagine · World models</a>
+      <a href="/physical-ai/">Physical AI</a>
+    </nav>
+    <div class="footer__inner">
+      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
+      <div class="footer__leds mono">
+        <span><i class="led"></i> arm</span>
+        <span><i class="led"></i> sky</span>
+        <span><i class="led"></i> sky-1</span>
+        <span><i class="led"></i> loop</span>
+        <span><i class="led led--warn"></i> coffee</span>
+      </div>
+      <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
     </div>
-    <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
   </div>
 </footer>
 
@@ -273,11 +339,14 @@
 
 <button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
 
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/sound.js"></script>
 <script src="/assets/js/mascot.js"></script>
 <script src="/assets/js/assistant.js"></script>
 <script src="/assets/js/calc-kit.js"></script>
+<script src="/assets/js/vision-lab.js"></script>
 <script src="/assets/js/main.js"></script>
 </body>
 </html>
