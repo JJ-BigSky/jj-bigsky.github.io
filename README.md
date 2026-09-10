@@ -1,6 +1,8 @@
 # Big Sky Systems — website
 
-**Live:** https://jj-bigsky.github.io/ (GitHub Pages, served from the `main` branch of `JJ-BigSky/jj-bigsky.github.io`). Push to `main` and it redeploys in about a minute.
+**Source:** private repo `JJ-BigSky/bigsky-site` (remote `origin`). Local checkout: `~/Documents/code/bigsky-site`.
+
+**Live:** https://jj-bigsky.github.io/ (GitHub Pages, served from the `main` branch of the public repo `JJ-BigSky/jj-bigsky.github.io`, remote `pages`). Workflow: commit, `git push origin main` to save, `git push pages main` to deploy; the site redeploys in about a minute.
 
 A single-folder static site for a robotics lab consultancy. No build step, no
 framework, no backend. Open `index.html` or drop the folder on any static host.

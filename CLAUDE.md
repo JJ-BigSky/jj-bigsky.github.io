@@ -1,7 +1,9 @@
 # Big Sky Systems — site and design system
 
-Static site, no build step, no framework. Live at https://jj-bigsky.github.io/
-(GitHub Pages, deployed from `main`). Preview locally with
+Static site, no build step, no framework. Source of truth is the private repo
+`JJ-BigSky/bigsky-site` (remote `origin`), checked out at `~/Documents/code/bigsky-site`.
+Live at https://jj-bigsky.github.io/ via GitHub Pages from the public repo
+`JJ-BigSky/jj-bigsky.github.io` (remote `pages`). Preview locally with
 `python3 -m http.server 8741`.
 
 ## Design language: "engineering paper"
@@ -33,4 +35,4 @@ back to it.
 ## Working here
 
 - Verify visually before pushing: render with headless Chrome or open the preview; check both sheets (paper and graphite) and a phone width.
-- Push to `main` deploys. Custom domain steps are in README.md.
+- `git push origin main` saves work (private). `git push pages main` deploys the live site (public). Custom domain steps are in README.md.
