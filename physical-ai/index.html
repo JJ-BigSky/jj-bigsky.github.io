@@ -37,6 +37,10 @@
     <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
     <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/></symbol>
+    <symbol id="i-teleop" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11v4M6 13h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.5" cy="12" r="1.1" fill="currentColor"/><circle cx="18" cy="14.5" r="1.1" fill="currentColor"/><path d="M12 4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-ingest" viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gpu" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 9.5h3M15 12h3M15 14.5h3M7 18v3M17 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="14" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8l1.5-3h5L16 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="17" y="10" width="2" height="2" fill="currentColor"/></symbol>
     <symbol id="i-sim" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
@@ -77,8 +81,8 @@
         <p class="page-hero__sub reveal">Everything here is real. Almost none of it is ready in the way people think it is.</p>
         <p class="page-hero__lede reveal">Physical AI is the part of the field where a model stops answering questions and starts moving mass. It's the most interesting thing to happen to robotics in thirty years, and it is being sold about four years ahead of where it actually is. We work in the gap between those two facts.</p>
         <div class="hero__actions reveal">
-          <a class="btn btn--primary" href="/#contact" data-cursor="MAIL">Talk to a human</a>
-          <a class="btn" href="/#loop" data-cursor="TRACE">See the loop</a>
+          <a class="btn btn--primary" href="#calc" data-cursor="COUNT">Run the budget</a>
+          <a class="btn" href="/#contact" data-cursor="MAIL">Talk to a human</a>
           <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
         </div>
       </div>
@@ -104,49 +108,157 @@
     </div>
   </section>
 
-  <!-- ===== 01 // The long version ===== -->
-  <section class="section" id="draft">
+  <!-- ===== 01 // The honest version ===== -->
+  <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono reveal">01 // The long version</p>
-      <h2 class="section__title reveal">This sheet is being drafted.<span class="muted">The numbers are in. The layout isn't.</span></h2>
+      <p class="eyebrow mono reveal">01 // The honest version</p>
+      <h2 class="section__title reveal">Three numbers before you commit.<span class="muted">We'd rather lose the project than lose the year.</span></h2>
       <div class="cols reveal">
         <div class="prose">
-          <p>The long version of this page has three numbers, a demonstration budget calculator that tells you the true cost of the thing you're excited about, and a table of where a learned policy earns its place and where a fixture and a limit switch still win. It's written. It's being laid out. Until it's up, the short version:</p>
-          <ul class="list">
-            <li><strong>Fifty to two hundred.</strong> Roughly how many teleoperated demonstrations current imitation-learning approaches need per task, depending on the task. A cell with twenty distinct tasks lands somewhere between one and four thousand.</li>
-            <li><strong>Ninety-five to ninety-nine percent.</strong> The uptime a production line expects. Most of the platforms in the demo videos still need a charge or a human well before a shift ends. Both numbers are true at once, and the distance between them is the entire job.</li>
-            <li><strong>2026 reads like a validation year.</strong> Real deployments exist, and they're narrow, supervised, and hard-won. Broad factory-scale adoption reads like a 2030s story. Anyone promising otherwise is selling you a slide.</li>
-            <li><strong>None of this means don't start.</strong> It means start on the task that survives contact with those numbers, and build the data and evaluation machinery first, because that's the part nobody demos.</li>
-          </ul>
+          <p><strong>Fifty to two hundred.</strong> That's roughly how many teleoperated demonstrations current imitation-learning approaches need per task, depending on the task. A cell with twenty distinct tasks lands somewhere between one and four thousand demonstrations. Someone has to perform every one of them, and someone has to throw out the bad ones.</p>
+          <p><strong>Ninety-five to ninety-nine percent.</strong> That's the uptime a production line expects. Most of the platforms in the demo videos still need a charge or a human well before a shift ends. Both numbers are true at once, and the distance between them is the entire job.</p>
+          <p><strong>2026 is a validation year.</strong> Real deployments exist — tote moves, line-side delivery, kitting, machine tending, inspection — and they're narrow, supervised, and hard-won. Broad factory-scale adoption reads like a 2030s story. Anyone promising otherwise is selling you a slide.</p>
+          <p>None of this means don't start. It means start on the task that survives contact with those numbers, and build the data and evaluation machinery first, because that's the part nobody demos.</p>
           <p class="small muted">Figures reflect published industry reporting as of September 2026. Ask us for the current version. They move.</p>
         </div>
-        <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> ask me “how many demos” and I'll give you the rule of thumb until the calculator is up. It's not flattering.</div>
+        <div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 says:</b> ask me “how many demos” and I'll give you the rule of thumb. Then use the calculator below, because the rule of thumb is the flattering version.</div>
+          <div class="fig mono"><b>Field note</b><a href="/notes/fifty-to-two-hundred.html">Fifty to two hundred: what imitation learning actually costs per task →</a></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== 02 // What we do ===== -->
+  <!-- ===== 02 // What actually works ===== -->
+  <section class="section" id="works">
+    <div class="container">
+      <p class="eyebrow mono reveal">02 // What actually works</p>
+      <h2 class="section__title reveal">Where a learned policy earns its place.<span class="muted">And where a fixture and a limit switch still win.</span></h2>
+      <div class="spec-wrap reveal">
+        <table class="spec">
+          <thead><tr><th>A learned policy is probably right</th><th>A fixture is probably right</th></tr></thead>
+          <tbody>
+            <tr><td>High part variation you can't fixture away</td><td>Same part, same pose, every cycle</td></tr>
+            <tr><td>Contact-rich assembly with tolerance for feel</td><td>Position-repeatable moves inside 0.1 mm</td></tr>
+            <tr><td>Deformables — cloth, cable, foam, food</td><td>Rigid parts arriving on a known datum</td></tr>
+            <tr><td>Long tail of variants that would need 40 programs</td><td>Four variants and a tool changer</td></tr>
+            <tr><td>You already have a data pipeline and evaluation</td><td>You have neither, and a deadline</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cols reveal" style="margin-top:1.6rem">
+        <div class="prose">
+          <p>That right-hand column isn't a consolation prize. It's most of manufacturing, it's cheaper, and it doesn't need a GPU. We'll tell you when you're in it.</p>
+          <h3>We run bake-offs on models too.</h3>
+          <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Same rule as robots. Your parts, your bench, your numbers.</p>
+          <p>The generalist policy space moves monthly: flow-matching VLAs, open-weight generalist models trained on cross-embodiment data, diffusion policies, and vendor stacks that ship with the hardware. We hold opinions and we don't hold loyalties. What we care about is how a candidate does on your task, on your bench, measured the same way twice.</p>
+          <p>The evaluation is the deliverable. The model is a detail that will be obsolete by the time your cell is commissioned, and your evaluation harness will still be there.</p>
+        </div>
+        <div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Triage, in order.</b> Fixture what can be fixtured. Learn what can't. Build the data pipeline and the evaluation harness before either, because that's the part nobody demos.</div>
+          <div class="fig mono"><b>Field note</b><a href="/notes/a-fixture-and-a-limit-switch.html">A fixture and a limit switch: in defence of not using AI, from people who do →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 03 // Demonstration budget calculator ===== -->
+  <section class="section" id="calc">
+    <div class="container">
+      <p class="eyebrow mono reveal">03 // Demonstration budget</p>
+      <h2 class="section__title reveal">What the demos actually cost.<span class="muted">In operator-weeks and a number you can send to your CFO.</span></h2>
+      <div class="calc reveal" id="demoCalc">
+        <div class="calc__inputs plate">
+          <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 01</b>Demonstration budget. Every slider is a decision someone will make in month five otherwise.</div>
+          <div class="calc__grid">
+            <label class="range"><span class="mono">Distinct tasks</span><input type="range" id="dTasks" min="1" max="40" value="8" data-out="dTasksOut" /><output id="dTasksOut" class="mono">8</output></label>
+            <label class="range"><span class="mono">Variants per task</span><input type="range" id="dVariants" min="1" max="10" value="3" data-out="dVariantsOut" /><output id="dVariantsOut" class="mono">3</output></label>
+            <label class="range"><span class="mono">Demos per variant</span><input type="range" id="dDemos" min="50" max="200" step="5" value="100" data-out="dDemosOut" /><output id="dDemosOut" class="mono">100</output></label>
+            <label class="range"><span class="mono">Minutes per demo</span><input type="range" id="dMinutes" min="1" max="15" value="4" data-out="dMinutesOut" /><output id="dMinutesOut" class="mono">4</output></label>
+            <label class="range"><span class="mono">Usable-take rate</span><input type="range" id="dTake" min="50" max="95" value="70" data-out="dTakeOut" /><output id="dTakeOut" class="mono">70%</output></label>
+            <label class="range"><span class="mono">Operators</span><input type="range" id="dOps" min="1" max="10" value="2" data-out="dOpsOut" /><output id="dOpsOut" class="mono">2</output></label>
+            <label class="calc__num"><span class="mono">Loaded operator cost, $/hr</span><input type="number" id="dRate" min="10" max="500" step="5" value="45" /></label>
+          </div>
+          <span class="mono muted" style="display:block;margin:1rem 0 .4rem">Task family</span>
+          <div class="seg" role="group" aria-label="Task family" id="dFamily">
+            <button class="seg__btn is-active" data-family="rigid" type="button">Rigid pick</button>
+            <button class="seg__btn" data-family="contact" type="button">Contact-rich</button>
+            <button class="seg__btn" data-family="deform" type="button">Deformables</button>
+          </div>
+          <div class="calc__toggles">
+            <label class="check"><input type="checkbox" id="dSim" /> <span>Augment with simulation</span><small class="mono" id="dSimNote">−60% real demos, +sim build</small></label>
+            <label class="check"><input type="checkbox" id="dEval" checked /> <span>Include evaluation passes</span><small class="mono">15% held out × 4 iterations</small></label>
+          </div>
+        </div>
+        <div class="calc__outputs">
+          <div class="stats">
+            <div class="stat"><span class="mono">Demonstrations</span><b id="oDemos">—</b></div>
+            <div class="stat"><span class="mono">Teleop hours</span><b id="oHours">—</b></div>
+            <div class="stat"><span class="mono">Calendar weeks</span><b id="oWeeks">—</b></div>
+            <div class="stat"><span class="mono">Operator cost</span><b id="oCost">—</b></div>
+            <div class="stat" id="oEvalRow"><span class="mono">Evaluation episodes</span><b id="oEval">—</b></div>
+            <div class="stat" id="oSimRow" hidden><span class="mono">Sim build</span><b id="oSim">—</b></div>
+            <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="oVerdict" aria-live="polite">—</p></div>
+          </div>
+          <p class="mono muted small" id="dReadout" aria-live="polite" style="margin:.8rem 0 0"></p>
+          <div class="lab__actions" style="margin-top:1rem">
+            <button class="btn btn--small" id="dEmail" type="button" data-cursor="SEND">Email me this estimate</button>
+            <button class="btn btn--small btn--ghost" id="dReset" type="button">Reset</button>
+          </div>
+          <p class="muted small" style="margin-top:1rem">Numbers are illustrative and rounded with enthusiasm. Demonstration counts vary enormously by task, gripper, and how forgiving your tolerances are. Thirty productive hours a week per operator, not forty, because teleop is tiring and people have meetings. The sim build is priced at an illustrative engineering rate. Real estimates come from a real conversation. Nothing here is stored or sent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 04 // What we do ===== -->
   <section class="section" id="offer">
     <div class="container">
-      <p class="eyebrow mono reveal">02 // What we do</p>
+      <p class="eyebrow mono reveal">04 // What we do</p>
       <h2 class="section__title reveal">Four things, when the answer is yes.<span class="muted">And one honest conversation when it isn't.</span></h2>
-      <div class="cols reveal">
-        <ul class="list prose">
-          <li><strong>Task triage.</strong> Which of your tasks deserve a learned policy, ranked by payback and risk. Usually the answer is “three of them, and not the one you're excited about.”</li>
-          <li><strong>Data strategy &amp; teleop.</strong> Rig design, demonstration protocols, operator training, per-episode QC, and a schema you won't have to migrate in six months.</li>
-          <li><strong>Policy evaluation harness.</strong> Success rate with confidence intervals, out-of-distribution probes, a standing regression suite, and a red-team task list.</li>
-          <li><strong>Fallbacks &amp; interlocks.</strong> What the cell does when the policy is uncertain, and how that path is proven to the same standard as the rest of your safety architecture.</li>
-        </ul>
-        <div class="callout"><span class="sq"></span><b>Bake-offs, not brochures.</b> Same rule for models as for robots: your parts, your bench, your numbers, measured the same way twice. The evaluation is the deliverable. The model is a detail that will be obsolete by the time your cell is commissioned.</div>
+      <div class="cards cards--4">
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">P-01</span><h3>Task triage</h3><p>Which of your tasks deserve a learned policy, ranked by payback and risk. Usually the answer is “three of them, and not the one you're excited about.”</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Every task scored on variation, contact, tolerance, and payback</li><li>The fixture-first list, with the parts that never needed a model</li><li>The learn-it list, in order, with the demo budget attached</li><li>The one you were excited about, with a reason</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">P-02</span><h3>Data strategy &amp; teleop</h3><p>Rig design, demonstration protocols, operator training, per-episode QC, and a schema you won't have to migrate in six months.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Teleop rig matched to the task, not the trade show</li><li>Demonstration protocol and operator training with a take-rate target</li><li>Per-episode QC so the bad ones never reach training</li><li>Episode schema and provenance that survive a re-labelling</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">P-03</span><h3>Policy evaluation harness</h3><p>Success rate with confidence intervals, out-of-distribution probes, a standing regression suite, and a red-team task list.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Success rates with confidence intervals, not a highlight reel</li><li>Out-of-distribution probes: new parts, new lighting, new operator</li><li>A regression suite that runs on every model, quantized ones included</li><li>A red-team task list that tries to make it fail</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">P-04</span><h3>Fallbacks &amp; interlocks</h3><p>What the cell does when the policy is uncertain, and how that path is proven to the same standard as the rest of your safety architecture.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Uncertainty thresholds and the boring behaviour they trigger</li><li>Interlocks that never depend on the model being right</li><li>Validation of the fallback path to the same standard as the e-stop</li><li>The safety file, written so an assessor can follow it</li></ul></div>
+          </div>
+        </article>
+      </div>
+      <div class="cols reveal" style="margin-top:1.6rem">
+        <div class="prose">
+          <h3>AI in a safety function</h3>
+          <p>If a learned policy participates in a safety function, the compliance path changes. ISO 10218-1:2025 and ISO 10218-2:2025 superseded the 2011 editions and make functional-safety requirements explicit rather than implied; conflicting national standards are to be withdrawn by March 2027. In the EU, the Machinery Regulation (EU) 2023/1230 applies from 20 January 2027, replacing the Machinery Directive, and it introduces specific provisions for machinery incorporating AI, with machinery where an AI system performs a safety function treated as high-risk under Annex I. An AI-driven robot in the EU sits at the intersection of that regulation, the AI Act, and GDPR.</p>
+          <p>That is why P-04 exists, and why it connects to our <a href="/#services">safety and compliance work</a>: the fallback path is designed and proven to the same standard as everything else in the safety architecture, not bolted on after the model works. It's also a legitimate reason to have this conversation this quarter rather than next year.</p>
+          <p class="small muted">Descriptive, not legal or certification advice. Standards position current as of September 2026; talk to your notified body or assessor about your machine.</p>
+        </div>
+        <div class="fig mono"><b>Field note</b><a href="/notes/ai-in-a-safety-function.html">AI in a safety function: what the 2025 robot-safety revision and the 2027 EU machinery rules mean if your policy is learned →</a></div>
       </div>
     </div>
   </section>
 
 
-  <!-- ===== 03 // Next: loop navigation + the one contact section ===== -->
+  <!-- ===== 05 // Next: loop navigation + the one contact section ===== -->
   <section class="section" id="next">
     <div class="container">
-      <p class="eyebrow mono reveal">03 // Next</p>
+      <p class="eyebrow mono reveal">05 // Next</p>
       <h2 class="section__title reveal">Pick a station.<span class="muted">The hub is the argument. The stations are the work.</span></h2>
       <div class="next">
         <a class="next__plate marks reveal" href="/world-models/" data-cursor="BACK">
@@ -255,6 +367,7 @@
 <script src="/assets/js/mascot.js"></script>
 <script src="/assets/js/assistant.js"></script>
 <script src="/assets/js/calc-kit.js"></script>
+<script src="/assets/js/calc-demos.js"></script>
 <script src="/assets/js/main.js"></script>
 </body>
 </html>
