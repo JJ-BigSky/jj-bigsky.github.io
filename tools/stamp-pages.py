@@ -81,6 +81,18 @@ page(slug="cloud", code="C-01", node=3,
      placeholder="Ask about storage, datasets, MCAP, fleet rollout…",
      next_h2="Captured. Now imagine.", next_sub="Logs are only useful if something learns from them.",
      scripts=["calc-data"])
+page(slug="research", code="R-01", node=None,
+     title="Research — Big Sky Systems",
+     description="Every number on the site, rated by how much we trust it, dated by when it was checked, with its sources. Perishable claims age in public.",
+     eyebrow="Research // the evidence",
+     h1="Every number on this site has a source.",
+     sub="Here they are, rated by how much we trust them and dated by when they go stale.",
+     lede="The site's credibility comes from being right. So the research stays where you can see it: each claim, how sure we are, when it was last checked, where it's used, and what it rests on. The perishable ones age in public.",
+     actions=[("btn btn--primary", "#board", "Open the board", "OPEN"), ("btn", "/#contact", "Talk to a human", "MAIL")],
+     placeholder="Ask where a number comes from…",
+     next_h2="Now go check it against your cell.", next_sub="The board is the argument. The bake-off is the proof.",
+     scripts=["research"],
+     tb=[("Sheet", "R-01"), ("Claims", '<span id="rClaims">—</span>'), ("Overdue", '<span id="rOverdue" class="accent">0</span>'), ("Checked", "Sep 2026")])
 page(slug="world-models", code="W-01", node=4,
      title="Simulation & World Models — Big Sky Systems",
      description="Break it ten thousand times where it's free, then measure how much the simulator lied.",
@@ -110,7 +122,10 @@ def plate(n, label, cursor, ink=False):
           <span class="card__hint mono">%s</span>
         </a>''' % (" next__plate--hub" if ink else "", n["href"], cursor, label, n["title"], n["sub"], n["hint"])
 
-def next_strip(node):
+NOTES_PLATE = dict(slug="notes", verb="Notes", title="Field notes", sub="The long versions of the arguments, dated, and honest about what doesn't work.", href="/notes/", hint="Field notes")
+def next_strip(node, slug=None):
+    if slug == "research":
+        return "\n".join([plate(HUB, "← The hub · Physical AI", "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(NOTES_PLATE, "Next · The long versions", "NEXT")])
     if node is None:
         return "\n".join([plate(NODES[4], "← Previous · Imagine", "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(NODES[0], "Start here · Perceive", "NEXT")])
     prev, nxt = NODES[(node - 1) % 5], NODES[(node + 1) % 5]
@@ -124,6 +139,9 @@ def build(slug):
     node = P["node"]
     tb_node = ('<dd class="accent">%s</dd>' % NODES[node]["verb"]) if node is not None else '<dd class="accent">All five</dd>'
     tb_loop = ("%02d / 05" % (node + 1)) if node is not None else "Hub"
+    station = ["perceive", "decide", "act", "capture", "imagine"][node] if node is not None else "hub"
+    tb_rows = P.get("tb") or [("Sheet", P["code"]), ("Node", tb_node), ("Loop", tb_loop), ("Checked", '<a href="/research/?station=%s">Sep 2026</a>' % station)]
+    tb_html = "\n".join("          <dt>%s</dt>%s" % (dt, dd if dd.startswith("<dd") else "<dd>%s</dd>" % dd) for dt, dd in tb_rows)
     actions = "\n".join('          <a class="%s" href="%s" data-cursor="%s">%s</a>' % (cls, href, cur, label) for cls, href, label, cur in P["actions"])
     scripts = "\n".join('<script src="/assets/js/%s.js"></script>' % s for s in ["config", "sound", "mascot", "assistant", "calc-kit"] + P["scripts"] + ["main"])
     out = '''<!doctype html>
@@ -169,10 +187,7 @@ def build(slug):
       </div>
       <aside class="titleblock marks" aria-label="Sheet information">
         <dl>
-          <dt>Sheet</dt><dd>%(code)s</dd>
-          <dt>Node</dt>%(tb_node)s
-          <dt>Loop</dt><dd>%(tb_loop)s</dd>
-          <dt>Checked</dt><dd>Sep 2026</dd>
+%(tb_html)s
         </dl>
       </aside>
     </div>
@@ -216,8 +231,8 @@ def build(slug):
 </html>
 ''' % dict(P, canon=HOST + "/" + slug + "/", og=HOST + "/assets/img/og/" + slug + ".png", fonts=FONTS, reticle=RETICLE, sprite=SPRITE, header=HEADER, footer=FOOTER,
            mascot=MASCOT.replace(HOME_PLACEHOLDER, 'placeholder="%s"' % P["placeholder"]),
-           actions=actions, tb_node=tb_node, tb_loop=tb_loop, loopline=loopline(node), body=body,
-           next_num=next_num, next_strip=next_strip(node), scripts=scripts)
+           actions=actions, tb_html=tb_html, loopline=loopline(node), body=body,
+           next_num=next_num, next_strip=next_strip(node, slug), scripts=scripts)
     d = ROOT / slug; d.mkdir(exist_ok=True)
     (d / "index.html").write_text(out)
     print("wrote", slug + "/index.html", len(out), "bytes,", n_sections + 1, "sections")

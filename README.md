@@ -31,6 +31,7 @@ meter), and six Field Notes under `/notes/`.
 | Demonstration budget | `assets/js/calc-demos.js` | `/physical-ai/`: tasks × variants × demos over the take rate, into teleop hours, weeks, and a cost band; sim shows its own build cost. |
 | Robot data math | `assets/js/calc-data.js` | `/cloud/`: fleet × cameras × hours into TB a month, tiered storage and egress bands, and the month it becomes a problem. |
 | Reality-gap meter | `assets/js/gap-meter.js` | `/world-models/`: the diagnostic's gauge repurposed; a band per task type, modifiers, what closes the gap, what sim won't fix. |
+| Evidence board | `assets/js/research.js` | `/research/`: every claim on the site by station and grade, with sources and where it's used; perishable claims age in public; a dated-events timeline with a live "today" mark. |
 | Extras | `main.js` | Boot sequence, vision-system cursor reticle, paper/graphite sheets, optional sound FX, Konami code / type `robot` / click the logo 5× for dance mode. |
 
 Everything respects `prefers-reduced-motion`, works on touch, and degrades to
@@ -158,12 +159,13 @@ this folder; the browser can't keep secrets.
 index.html          the home page
 vision/ embedded/ physical-ai/ cloud/ world-models/   the five domain pages, each with an instrument
 notes/              Field Notes index and six essays
+research/           the evidence board
 404.html            quirky not-found page
 sitemap.xml         thirteen URLs; robots.txt points at it
 assets/css/         styles.css (tokens + shared), pages.css (everything V1 added)
 assets/js/          config, sound, sky, mascot, arm, builder, quiz, assistant, loop, calc-kit, vision-lab, calc-latency, calc-demos, calc-data, gap-meter, main
 assets/img/         favicon.svg, og/ (one 1200×630 image per page)
-tools/              stamp-pages.py regenerates the domain pages and notes from tools/pages/ (dev utility, not a build step)
+tools/              stamp-pages.py regenerates the domain pages and notes from tools/pages/; og/ has the OG-image template and render.sh (dev utilities, not a build step)
 netlify.toml        Netlify config (optional)
 vercel.json         Vercel config (optional)
 robots.txt, .nojekyll

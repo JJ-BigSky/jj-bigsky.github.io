@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research — Big Sky Systems</title>
+  <meta name="description" content="Every number on the site, rated by how much we trust it, dated by when it was checked, with its sources. Perishable claims age in public." />
+  <meta name="theme-color" content="#ECE9E2" />
+  <meta property="og:title" content="Research — Big Sky Systems" />
+  <meta property="og:description" content="Every number on the site, rated by how much we trust it, dated by when it was checked, with its sources. Perishable claims age in public." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jj-bigsky.github.io/research/" />
+  <meta property="og:image" content="https://jj-bigsky.github.io/assets/img/og/research.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://jj-bigsky.github.io/research/" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body data-page="research">
+
+<!-- ===== Cursor reticle (desktop, fine pointer only) ===== -->
+<div id="reticle" class="reticle" aria-hidden="true">
+  <span class="reticle__ring"></span>
+  <span class="reticle__dot"></span>
+  <span class="reticle__label" id="reticleLabel"></span>
+</div>
+
+<!-- ===== SVG sprite ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cell" viewBox="0 0 24 24"><path d="M4 20h16M7 20V11l4-6 4 6v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="5" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="i-amr" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="7" cy="19" r="1.8" fill="currentColor"/><circle cx="17" cy="19" r="1.8" fill="currentColor"/><path d="M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+    <symbol id="i-belt" viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18" cy="12" r="1.3" fill="currentColor"/><path d="M8 5l4-2 4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-fence" viewBox="0 0 24 24"><path d="M4 21V9l2-3 2 3v12M10 21V9l2-3 2 3v12M16 21V9l2-3 2 3v12M3 13h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 9h18M5 9v11M19 9v11M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 5l3 4M10 5l-3 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/></symbol>
+    <symbol id="i-teleop" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11v4M6 13h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.5" cy="12" r="1.1" fill="currentColor"/><circle cx="18" cy="14.5" r="1.1" fill="currentColor"/><path d="M12 4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-ingest" viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gpu" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 9.5h3M15 12h3M15 14.5h3M7 18v3M17 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="14" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8l1.5-3h5L16 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="17" y="10" width="2" height="2" fill="currentColor"/></symbol>
+    <symbol id="i-sim" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===== Nav ===== -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="/" aria-label="Big Sky Systems home">
+    <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="1" y="1" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <g class="brand-orbit"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width=".8" stroke-dasharray="1.5 4"/></g>
+      <path d="M6 31 L15 16 L21 24 L26 19 L34 31" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="26" y="7" width="6" height="6" fill="var(--accent)"/>
+    </svg>
+    <span class="brand-text">Big Sky <b>Systems</b></span>
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Primary">
+    <a href="/#services">Work</a>
+    <a href="/#loop">The Loop</a>
+    <a href="/#playground">Lab</a>
+    <a href="/#method">Method</a>
+    <a href="/notes/">Notes</a>
+    <a href="/research/">Research</a>
+    <a href="/#contact" class="nav__cta">Talk to us</a>
+  </nav>
+  <div class="nav__tools">
+    <button class="tog" id="soundToggle" type="button" aria-pressed="false" aria-label="Toggle sound effects" data-cursor="SOUND"><i></i><span id="soundLabel">Snd off</span></button>
+    <button class="tog" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch between paper and graphite sheets" data-cursor="SHEET"><i></i><span id="themeLabel">Paper</span></button>
+    <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Page hero ===== -->
+  <section class="page-hero" id="hero">
+    <div class="container page-hero__grid">
+      <div class="page-hero__text">
+        <p class="eyebrow mono"><span class="led"></span> Research // the evidence</p>
+        <h1>Every number on this site has a source.</h1>
+        <p class="page-hero__sub">Here they are, rated by how much we trust them and dated by when they go stale.</p>
+        <p class="page-hero__lede">The site's credibility comes from being right. So the research stays where you can see it: each claim, how sure we are, when it was last checked, where it's used, and what it rests on. The perishable ones age in public.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#board" data-cursor="OPEN">Open the board</a>
+          <a class="btn" href="/#contact" data-cursor="MAIL">Talk to a human</a>
+          <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
+        </div>
+      </div>
+      <aside class="titleblock marks" aria-label="Sheet information">
+        <dl>
+          <dt>Sheet</dt><dd>R-01</dd>
+          <dt>Claims</dt><dd><span id="rClaims">—</span></dd>
+          <dt>Overdue</dt><dd><span id="rOverdue" class="accent">0</span></dd>
+          <dt>Checked</dt><dd>Sep 2026</dd>
+        </dl>
+      </aside>
+    </div>
+    <div class="container">
+      <ol class="loopline" aria-label="Where this page sits in the loop">
+        <li><a href="/vision/" data-cursor="GO">Perceive</a></li>
+        <li><a href="/embedded/" data-cursor="GO">Decide</a></li>
+        <li><a href="/#services" data-cursor="GO">Act</a></li>
+        <li><a href="/cloud/" data-cursor="GO">Capture</a></li>
+        <li><a href="/world-models/" data-cursor="GO">Imagine</a></li>
+        <li class="loopline__end" aria-hidden="true"></li>
+        <li class="loopline__label" aria-hidden="true">The loop // all five</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 01 // How we rate ===== -->
+  <section class="section" id="ratings">
+    <div class="container">
+      <p class="eyebrow mono">01 // How we rate</p>
+      <h2 class="section__title">Four grades and a shelf life.<span class="muted">The site's credibility comes from being right. This is how we keep score.</span></h2>
+      <div class="legend">
+        <div class="plate marks"><b><i class="sq sq--verified"></i>Verified</b><p>From a primary source: a standards body, or a vendor's own spec page.</p></div>
+        <div class="plate marks"><b><i class="sq sq--reported"></i>Reported</b><p>Consistent across multiple industry sources, not primary. Stated as reporting, not as fact.</p></div>
+        <div class="plate marks"><b><i class="sq sq--directional"></i>Directional</b><p>A widely repeated range. Published as a range, never as a precise figure.</p></div>
+        <div class="plate marks"><b><i class="sq sq--position"></i>Position</b><p>Our judgment, labelled as such. Defensible, and yours to disagree with.</p></div>
+        <div class="plate marks"><b><i class="decay decay--aging" style="width:22px;height:5px;margin:0;display:inline-block"><i style="width:60%"></i></i>Perishable</b><p>Will be stale within about two quarters. The bar fills from the day we checked it, in public.</p></div>
+      </div>
+      <div class="cols" style="margin-top:1.6rem">
+        <div class="prose">
+          <p><strong>The standing rule:</strong> prefer a claim that stays true over one that is precise and perishable. “Fifty to two hundred demonstrations per task, depending on the task” outlives “exactly 2,070 FP4 TFLOPS.” Perishable specifics go in body copy with a date, never in a headline, and never in SKY-1's mouth, because SKY-1's answers are the hardest thing to keep current.</p>
+          <p>So some things we know are deliberately not on the pages: part numbers, hourly GPU prices, roadmap dates. They're on the board below, marked perishable, so you can see what we chose not to print and why.</p>
+        </div>
+        <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> ask me “where does this number come from” on any page and I'll point at the plate. If the bar has gone red, ask a human for the current version before you quote it.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 02 // The evidence board ===== -->
+  <section class="section" id="board">
+    <div class="container">
+      <p class="eyebrow mono">02 // The evidence board</p>
+      <h2 class="section__title">Every claim, by station and by grade.<span class="muted">Open a plate for its sources, where it's used, and how long it has left.</span></h2>
+      <div class="evidence" id="evidenceBoard">
+        <div>
+          <div class="evidence__controls">
+            <div class="seg" role="group" aria-label="Station" id="boardStations">
+              <button class="seg__btn is-active" data-station="all" type="button">All</button>
+              <button class="seg__btn" data-station="perceive" type="button">Perceive</button>
+              <button class="seg__btn" data-station="decide" type="button">Decide</button>
+              <button class="seg__btn" data-station="act" type="button">Act</button>
+              <button class="seg__btn" data-station="capture" type="button">Capture</button>
+              <button class="seg__btn" data-station="imagine" type="button">Imagine</button>
+              <button class="seg__btn" data-station="hub" type="button">Hub</button>
+            </div>
+            <input class="evidence__search" type="search" id="boardSearch" placeholder="Search claims and sources…" aria-label="Search claims and sources" />
+          </div>
+          <div class="evidence__filters" role="group" aria-label="Grades">
+            <label class="check"><input type="checkbox" id="rate-verified" checked /> <span><i class="sq sq--verified"></i>Verified</span></label>
+            <label class="check"><input type="checkbox" id="rate-reported" checked /> <span><i class="sq sq--reported"></i>Reported</span></label>
+            <label class="check"><input type="checkbox" id="rate-directional" checked /> <span><i class="sq sq--directional"></i>Directional</span></label>
+            <label class="check"><input type="checkbox" id="rate-position" checked /> <span><i class="sq sq--position"></i>Position</span></label>
+            <label class="check"><input type="checkbox" id="rate-perishable" /> <span>Perishable only</span></label>
+          </div>
+          <div class="board" id="boardGrid" role="group" aria-label="Claims by station and grade"></div>
+          <p class="evidence__count mono muted" id="boardCount" aria-live="polite">—</p>
+          <div class="figure" style="margin-top:1rem;grid-template-columns:1fr">
+            <div class="fig mono"><b>Fig. 01</b>The evidence board. Stations across, grades down. A filled square is a source we checked; a hollow one is a position we hold.</div>
+          </div>
+        </div>
+        <div>
+          <div class="plate marks evidence__detail" id="boardDetail" aria-live="polite"></div>
+          <div class="lab__actions" style="margin-top:1rem">
+            <button class="btn btn--small" id="boardEmail" type="button" data-cursor="SEND">Email me this list</button>
+            <button class="btn btn--small btn--ghost" id="boardReset" type="button">Reset</button>
+          </div>
+          <p class="muted small" style="margin-top:1rem">Ratings are ours. Sources are theirs. Perishable claims age on this page from the day we last checked them; if a bar has gone red, ask us for the current version before you quote it. The link in your address bar carries your filters and the open claim. Nothing here is stored or sent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 03 // Dated events ===== -->
+  <section class="section" id="dates">
+    <div class="container">
+      <p class="eyebrow mono">03 // Dated events</p>
+      <h2 class="section__title">The dates that move the plan.<span class="muted">Standards, regulations, and the day we last checked. Today is wherever today is.</span></h2>
+      <div class="figure">
+        <div class="stage" style="min-height:0;padding:1.2rem .6rem .6rem;display:block">
+          <svg class="timeline" id="evidenceTimeline" viewBox="0 0 900 210" aria-hidden="true"></svg>
+        </div>
+        <div class="fig mono"><b>Fig. 02</b>Dated events, 2023 to 2028. The orange mark is today, computed when the page loads. It will keep moving after we stop.</div>
+      </div>
+      <p class="mono muted small" id="timelineReadout" aria-live="polite" style="margin-top:.8rem"></p>
+      <div class="cols" style="margin-top:1.2rem">
+        <div class="prose">
+          <p>Two of these dates are why the safety work on this site connects to the AI work: the 2025 revision of ISO 10218, and the EU Machinery Regulation applying from 20 January 2027. The <a href="/notes/ai-in-a-safety-function.html">field note</a> is the descriptive version; the <a href="/physical-ai/#offer">fallbacks and interlocks</a> service is what we do about it.</p>
+        </div>
+        <div class="callout"><span class="sq"></span><b>Descriptive, not advice.</b> Dates are what the sources say. Your notified body, assessor, or counsel has the last word on your machine.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 04 // What we do with it ===== -->
+  <section class="section" id="offer">
+    <div class="container">
+      <p class="eyebrow mono">04 // What we do with it</p>
+      <h2 class="section__title">We read the papers so the site stays right.<span class="muted">And so the bake-off is against the current state of the art, not last year's.</span></h2>
+      <div class="cols">
+        <ul class="list prose">
+          <li><strong>Every engagement starts from this board.</strong> The claims that matter to your task get re-checked before we quote a number, and the perishable ones get a date.</li>
+          <li><strong>Bake-offs, not brochures.</strong> Candidate models, sensors, and simulators are evaluated on your parts and your bench, against what the literature says they should do.</li>
+          <li><strong>You get the sources.</strong> Every recommendation in a deliverable cites what it rests on, graded the same way, so your team can argue with it.</li>
+          <li><strong>When the board goes red, we tell you.</strong> A perishable claim past its shelf life is a reason to call, not a reason to trust the page.</li>
+        </ul>
+        <div class="callout"><span class="sq"></span><b>Research current as of September 2026.</b> Ask us for the current version. It moves, and that's the point of writing the date down.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 05 // Next: loop navigation + the one contact section ===== -->
+  <section class="section" id="next">
+    <div class="container">
+      <p class="eyebrow mono">05 // Next</p>
+      <h2 class="section__title">Now go check it against your cell.<span class="muted">The board is the argument. The bake-off is the proof.</span></h2>
+      <div class="next">
+        <a class="next__plate marks" href="/physical-ai/" data-cursor="BACK">
+          <span class="card__num mono">← The hub · Physical AI</span>
+          <h3>Physical AI</h3>
+          <p>What happens when the loop closes. How you decide whether a learned policy is the right answer at all, and what it costs when it is.</p>
+          <span class="card__hint mono">Physical AI</span>
+        </a>
+        <a class="next__plate next__plate--hub marks" href="/#loop" data-cursor="TRACE">
+          <span class="card__num mono">The loop · All five</span>
+          <h3>All five stations</h3>
+          <p>A robot lab is a loop, not a shelf. The belt has an end. The loop doesn't.</p>
+          <span class="card__hint mono">The loop</span>
+        </a>
+        <a class="next__plate marks" href="/notes/" data-cursor="NEXT">
+          <span class="card__num mono">Next · The long versions</span>
+          <h3>Field notes</h3>
+          <p>The long versions of the arguments, dated, and honest about what doesn't work.</p>
+          <span class="card__hint mono">Field notes</span>
+        </a>
+      </div>
+      <div class="plate marks cta">
+        <div>
+          <h3>Tell us about your lab.</h3>
+          <p>One contact page for the whole site, and it composes an email in your own mail app, addressed to a person. No forms that go nowhere.</p>
+        </div>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/#contact" data-cursor="MAIL">Talk to a human</a>
+          <button class="btn btn--link" type="button" data-cursor="TALK" onclick="window.BSS_CHAT &amp;&amp; window.BSS_CHAT.open()">Or ask SKY-1</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <nav class="footer__links" aria-label="The loop">
+      <span class="footer__links__label mono">The loop //</span>
+      <a href="/vision/">Perceive · Vision</a>
+      <a href="/embedded/">Decide · Embedded</a>
+      <a href="/#services">Act · The lab</a>
+      <a href="/cloud/">Capture · Data &amp; cloud</a>
+      <a href="/world-models/">Imagine · World models</a>
+      <a href="/physical-ai/">Physical AI</a>
+      <a href="/notes/">Field notes</a>
+      <a href="/research/">Research</a>
+    </nav>
+    <div class="footer__inner">
+      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
+      <div class="footer__leds mono">
+        <span><i class="led"></i> arm</span>
+        <span><i class="led"></i> sky</span>
+        <span><i class="led"></i> sky-1</span>
+        <span><i class="led"></i> loop</span>
+        <span><i class="led led--warn"></i> coffee</span>
+      </div>
+      <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SKY-1 mascot + assistant ===== -->
+<div class="mascot" id="mascot">
+  <div class="bubble" id="bubble" role="status" aria-live="polite"><span id="bubbleText"></span></div>
+  <button class="mascot__btn" id="mascotBtn" type="button" aria-label="Open SKY-1 assistant" data-cursor="TALK">
+    <svg class="bot" viewBox="0 0 120 150" aria-hidden="true">
+      <g class="bot__antenna"><line x1="60" y1="28" x2="60" y2="13" stroke="var(--bot-line)" stroke-width="2.5"/><rect x="55" y="6" width="10" height="8" class="bot__light"/></g>
+      <g class="bot__head" id="botHead" style="transform-origin:60px 95px">
+        <rect x="18" y="28" width="84" height="60" rx="3" class="bot__shell"/>
+        <rect x="26" y="37" width="68" height="42" rx="1.5" class="bot__screen"/>
+        <g class="bot__eye" id="eyeL" style="transform-origin:46px 56px"><rect x="40" y="50" width="12" height="12" class="bot__pupil" id="pupilL"/></g>
+        <g class="bot__eye" id="eyeR" style="transform-origin:74px 56px"><rect x="68" y="50" width="12" height="12" class="bot__pupil" id="pupilR"/></g>
+        <path d="M50 69 Q60 75 70 69" class="bot__mouth" id="botMouth"/>
+        <rect x="12" y="52" width="6" height="12" class="bot__ear"/><rect x="102" y="52" width="6" height="12" class="bot__ear"/>
+      </g>
+      <g class="bot__body">
+        <rect x="30" y="92" width="60" height="40" rx="3" class="bot__shell"/>
+        <path d="M40 104h22M40 110h22M40 116h22" class="bot__grille"/>
+        <rect x="72" y="104" width="8" height="8" class="bot__chest"/>
+        <text x="60" y="127" text-anchor="middle" class="bot__label">SKY-1</text>
+        <rect x="38" y="134" width="14" height="8" class="bot__shell"/><rect x="68" y="134" width="14" height="8" class="bot__shell"/>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<div class="chat" id="chat" hidden aria-label="SKY-1 assistant" role="dialog">
+  <div class="chat__head">
+    <div><b>SKY-1</b> <span class="mono muted small" id="chatStatus">// on-page, no cloud</span></div>
+    <button class="icon-btn" id="chatClose" type="button" aria-label="Close">✕</button>
+  </div>
+  <div class="chat__log" id="chatLog"></div>
+  <div class="chat__chips" id="chatChips"></div>
+  <form class="chat__form" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Ask where a number comes from…" autocomplete="off" aria-label="Message SKY-1" />
+    <button class="btn btn--small" type="submit">Send</button>
+  </form>
+</div>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/sound.js"></script>
+<script src="/assets/js/mascot.js"></script>
+<script src="/assets/js/assistant.js"></script>
+<script src="/assets/js/calc-kit.js"></script>
+<script src="/assets/js/research.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

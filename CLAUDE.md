@@ -32,6 +32,10 @@ back to it.
 - `vision/`, `embedded/`, `physical-ai/`, `cloud/`, `world-models/` — the
   five domain pages (honest version → what works → an instrument → services →
   next). `notes/` — Field Notes index and six essays in the article template.
+  `research/` — the evidence board: every claim the site makes, graded and
+  dated, with sources; perishable claims age in public from the checked date.
+  New facts go in the `CLAIMS` array in `assets/js/research.js`, graded, with
+  a checked date and a `rots` flag if they'll be stale within two quarters.
 - `assets/img/og/` — one 1200×630 OG image per page. `sitemap.xml`,
   canonicals and JSON-LD carry the live origin `https://jj-bigsky.github.io`;
   on the domain move, sed that host across `*.html`, `notes/*.html`, and
@@ -46,7 +50,8 @@ back to it.
   `loop.js` the part that rides the loop · `calc-kit.js` shared calculator
   helpers · `vision-lab.js` perception lab · `calc-latency.js` latency budget
   builder · `calc-demos.js` demonstration budget · `calc-data.js` robot data
-  math · `gap-meter.js` reality-gap meter · `main.js` wiring.
+  math · `gap-meter.js` reality-gap meter · `research.js` evidence board ·
+  `main.js` wiring.
 - `404.html`, `robots.txt`, `netlify.toml`, `vercel.json`, `.nojekyll`.
 
 Domain pages and notes carry the home page's chrome byte for byte (nav,
