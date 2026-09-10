@@ -1,0 +1,19 @@
+{
+  "skill_name": "bigsky-design",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Make a one-page HTML capability statement for Big Sky Systems' Safety & Compliance service that I can send to a prospect. Include a short intro, what's included, a small table of the standards we work against (ISO 10218, ISO/TS 15066, ANSI/RIA R15.06), a typical timeline, and a call to action to email jj@bigsky.systems. Single self-contained HTML file named safety-one-pager.html.",
+      "expected_output": "A single HTML file on bone paper with the dot grid, Archivo headings, one serif italic accent word, mono uppercase eyebrows numbered 01 //, a spec table with hairline rows and an ink header underline, an ink primary button with an arrow, corner marks on panels, orange used only for numbers/dash/one word. No gradients, pills, or shadows.",
+      "files": [],
+      "assertions": ["design language checks (fonts, paper bg, orange accent, no SaaS palette, no gradients, radii <= 4px, no shadows, mono uppercase labels, numbered labels, no emoji)", "mailto:jj@bigsky.systems present", "all three standards named inside a <table>", "timeline section present"]
+    },
+    {
+      "id": 1,
+      "prompt": "Build a small self-contained HTML dashboard page called cell-uptime.html for Big Sky Systems showing last week's uptime for four robot cells (Cell A 97.2%, Cell B 91.5%, Cell C 99.1%, Cell D 84.3%): a bar chart, a stat row with the fleet average and the worst cell, and a short list of the top three faults (gripper timeout 14, vision retry 9, e-stop 2). No external JS libraries.",
+      "expected_output": "A paper-sheet dashboard: mono uppercase axis labels, hairline gridlines, ink bars with the worst cell highlighted in orange, stat rows (mono label left, Archivo number right) instead of colored KPI cards, a square-marker fault list, a FIG. caption. Fleet average 93.0%, worst cell D.",
+      "files": [],
+      "assertions": ["design language checks", "all four values present", "fleet average 93.0", "Cell D identified as worst", "faults with counts", "no <script src>", "bar chart present"]
+    }
+  ]
+}
