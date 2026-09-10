@@ -9,14 +9,14 @@ framework, no backend. Open `index.html` or drop the folder on any static host.
 
 | Piece | Where | What it does |
 | --- | --- | --- |
-| Hero sky | `assets/js/sky.js` | Stars that constellate around the cursor, shooting stars, parallax ridgelines. Crossfades to a daytime sky when the theme flips. |
+| Hero sky | `assets/js/sky.js` | Ink contour ridgelines that bulge under the cursor, survey marks that constellate around it, streaks, a drafting sun. Crossfades between the paper and graphite sheets. |
 | SKY-1 mascot | `assets/js/mascot.js` | Eyes track the cursor, it blinks, it comments once per section, idle chatter, moods. |
 | Robot arm | `assets/js/arm.js` | 3-link planar arm solved with FABRIK inverse kinematics. Follow / Teach (record + replay waypoints) / Draw modes, reach envelope, trail, joint readouts. |
 | Lab Builder | `assets/js/builder.js` | Click-to-place modules on an 8×6 floor. Live footprint, power, budget band, safety grade, and SKY-1 warnings. "Email this plan" composes a mailto. |
 | Conveyor method | `main.js` → `updateBelt()` | Scroll-driven belt; the "YOUR LAB" part moves station to station. |
 | Readiness quiz | `assets/js/quiz.js` | 7 questions, analog gauge with an overshooting needle, tiered results, mailto summary. |
 | SKY-1 chat | `assets/js/assistant.js` | Scripted intent matcher that runs in the browser. Optional hook for a real AI backend (see below). |
-| Extras | `main.js` | Boot sequence, vision-system cursor reticle, day/night theme, optional sound FX, Konami code / type `robot` / click the logo 5× for dance mode. |
+| Extras | `main.js` | Boot sequence, vision-system cursor reticle, paper/graphite sheets, optional sound FX, Konami code / type `robot` / click the logo 5× for dance mode. |
 
 Everything respects `prefers-reduced-motion`, works on touch, and degrades to
 plain content if JavaScript is off.
@@ -41,7 +41,7 @@ scripted answers live in the `KB` array in `assets/js/assistant.js`; its
 section one-liners are in `LINES` in `assets/js/mascot.js`.
 
 Colors and fonts are CSS variables at the top of `assets/css/styles.css`.
-Night is the default theme; the `[data-theme="day"]` block is the other sky.
+Paper is the default sheet; the `[data-theme="graphite"]` block is the other one. Type is Archivo (wide grotesque), Instrument Serif italic for accent words, and JetBrains Mono for labels, all from Google Fonts.
 
 ## Preview locally
 

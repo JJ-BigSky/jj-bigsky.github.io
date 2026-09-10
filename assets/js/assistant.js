@@ -31,7 +31,7 @@
     { k: ["who are you", "what are you", "are you ai", "are you real", "are you a bot", "chatgpt", "claude", "model", "sky-1", "sky1", "your name"], a: "I'm SKY-1. By default I'm a small scripted brain running entirely in your browser: no cloud, no tracking, nothing leaves this page. The site owner can plug me into a real AI backend if they want me smarter. Until then I'm charmingly limited.", chips: ["What do you do?", "Tell me a joke"] },
     { k: ["joke", "funny", "laugh", "pun"], a: "__JOKE__" },
     { k: ["dance", "party", "celebrate", "konami"], a: "__DANCE__" },
-    { k: ["dark", "light", "theme", "day", "night", "sky"], a: "__THEME__" },
+    { k: ["dark", "light", "theme", "day", "night", "sky", "paper", "graphite", "sheet"], a: "__THEME__" },
     { k: ["open the lab builder", "lab builder", "builder"], a: "__GOTO:builder__" },
     { k: ["scroll to contact", "go to contact"], a: "__GOTO:contact__" },
     { k: ["playground", "drive the arm", "robot arm"], a: "__GOTO:playground__" },
@@ -103,7 +103,7 @@
     }
     if (text === "__JOKE__") return { text: JOKES[Math.floor(Math.random() * JOKES.length)], chips: ["Another one", "What do you do?"] };
     if (text === "__DANCE__") { setTimeout(() => window.BSS_DANCE && window.BSS_DANCE(), 300); return { text: "Initiating dance protocol. The arm is in on it. So are the stars.", chips: ["Stop", "Services"] }; }
-    if (text === "__THEME__") { setTimeout(() => document.getElementById("themeToggle").click(), 300); return { text: "Flipping the sky for you. I prefer night, personally. Less glare on my screen.", chips: ["Flip it back", "Services"] }; }
+    if (text === "__THEME__") { setTimeout(() => document.getElementById("themeToggle").click(), 300); return { text: "Flipping the sheet for you. I prefer graphite, personally. Less glare on my screen.", chips: ["Flip it back", "Services"] }; }
     if (text.startsWith("__GOTO:")) { const id = text.slice(7, -2); setTimeout(() => document.getElementById(id).scrollIntoView({ behavior: "smooth" }), 300); return { text: "Taking you there. Watch your step.", chips: ["Services", "Draft an email"] }; }
     return null;
   }

@@ -16,23 +16,25 @@
   const themeBtn = $("themeToggle");
   function applyTheme(t, silent) {
     html.dataset.theme = t;
-    document.querySelector('meta[name="theme-color"]').setAttribute("content", t === "day" ? "#eaf4ff" : "#070b16");
-    window.BSS_SKY && window.BSS_SKY.setDay(t === "day");
+    const tl = $("themeLabel"); if (tl) tl.textContent = t;
+    themeBtn.setAttribute("aria-pressed", String(t === "graphite"));
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", t === "paper" ? "#ECE9E2" : "#161616");
+    window.BSS_SKY && window.BSS_SKY.setDay(t === "paper");
     document.dispatchEvent(new CustomEvent("bss:theme", { detail: t }));
     try { localStorage.setItem("bss.theme", t); } catch (e) {}
     if (!silent && S()) S().click();
   }
   let saved = null; try { saved = localStorage.getItem("bss.theme"); } catch (e) {}
-  applyTheme(saved === "day" ? "day" : "night", true);
+  applyTheme(saved === "graphite" ? "graphite" : "paper", true);
   themeBtn.addEventListener("click", () => {
-    const next = html.dataset.theme === "day" ? "night" : "day";
+    const next = html.dataset.theme === "paper" ? "graphite" : "paper";
     applyTheme(next);
-    if (!applyTheme.said) { applyTheme.said = true; M() && M().say(next === "day" ? "Daylight. Squinting. Still happy to help." : "Ah, night. My screen thanks you.", { mood: "smirk" }); }
+    if (!applyTheme.said) { applyTheme.said = true; M() && M().say(next === "paper" ? "Paper. Bright, but a good bright." : "Graphite. My screen thanks you.", { mood: "smirk" }); }
   });
 
   // ---- sound ----
   const soundBtn = $("soundToggle");
-  function syncSound() { soundBtn.setAttribute("aria-pressed", S().enabled ? "true" : "false"); }
+  function syncSound() { soundBtn.setAttribute("aria-pressed", S().enabled ? "true" : "false"); const sl = $("soundLabel"); if (sl) sl.textContent = S().enabled ? "Snd on" : "Snd off"; }
   syncSound();
   soundBtn.addEventListener("click", () => { S().enabled = !S().enabled; syncSound(); window.BSS_TOAST(S().enabled ? "Beeps on. SKY-1 can now bleep." : "Beeps off."); });
   document.addEventListener("click", (e) => { if (e.target.closest && e.target.closest(".btn, .chip, .pal") && S()) S().tick(); }, true);

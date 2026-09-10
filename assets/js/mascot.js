@@ -13,11 +13,11 @@
   const S = () => window.BSS_SOUND;
 
   const MOUTHS = {
-    happy: "M50 71 Q60 78 70 71",
-    flat: "M51 72 L69 72",
-    o: "M55 68 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0",
-    wow: "M53 66 Q60 63 67 66 Q67 78 60 79 Q53 78 53 66",
-    smirk: "M50 72 Q60 76 70 69"
+    happy: "M50 69 Q60 75 70 69",
+    flat: "M50 70 L70 70",
+    o: "M55 66 H65 V74 H55 Z",
+    wow: "M52 65 H68 V76 H52 Z",
+    smirk: "M50 70 Q60 74 70 67"
   };
 
   // ---- eye tracking ----
@@ -131,7 +131,7 @@
   const IDLE = [
     "I counted the stars again. Same number. Suspicious.",
     "Fun fact: I run entirely in your browser. No cloud. Just JavaScript and ambition.",
-    "You can flip the sky with the sun button up top. I prefer night. Less glare on my screen.",
+    "You can flip the sheet with the toggle up top. I prefer graphite. Less glare on my screen.",
     "Try typing the Konami code. Or press Dance mode. I won't tell anyone.",
     "Robots don't dream. But if I did, it would be about well-labeled cables.",
     "The arm over there has real inverse kinematics. I have real opinions. We're a team.",
