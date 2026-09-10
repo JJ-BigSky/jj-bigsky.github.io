@@ -29,9 +29,13 @@ back to it.
 
 - `index.html` — the home page: hero, the loop (section 01), services in two
   groups, playground, lab builder, method, diagnostic, contact.
-- `vision/`, `embedded/` — full domain pages (honest version → what works →
-  an instrument → services → next). `physical-ai/`, `cloud/`, `world-models/`
-  — voice-correct stubs until their long versions land.
+- `vision/`, `embedded/`, `physical-ai/`, `cloud/`, `world-models/` — the
+  five domain pages (honest version → what works → an instrument → services →
+  next). `notes/` — Field Notes index and six essays in the article template.
+- `assets/img/og/` — one 1200×630 OG image per page. `sitemap.xml`,
+  canonicals and JSON-LD carry the live origin `https://jj-bigsky.github.io`;
+  on the domain move, sed that host across `*.html`, `notes/*.html`, and
+  `sitemap.xml`.
 - `assets/css/styles.css` — the shared sheet and the tokens (`:root`).
   `assets/css/pages.css` — everything V1 added: page hero, loop line, plates,
   the loop diagram, the instruments.
@@ -41,7 +45,8 @@ back to it.
   (knows the five stations; `data-page` on `<body>` picks the greeting) ·
   `loop.js` the part that rides the loop · `calc-kit.js` shared calculator
   helpers · `vision-lab.js` perception lab · `calc-latency.js` latency budget
-  builder · `main.js` wiring.
+  builder · `calc-demos.js` demonstration budget · `calc-data.js` robot data
+  math · `gap-meter.js` reality-gap meter · `main.js` wiring.
 - `404.html`, `robots.txt`, `netlify.toml`, `vercel.json`, `.nojekyll`.
 
 Domain pages carry the home page's chrome byte for byte (nav, footer, sprite,

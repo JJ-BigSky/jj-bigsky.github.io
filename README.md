@@ -9,10 +9,10 @@ framework, no backend. Serve the folder from a domain apex (paths are
 root-absolute) with `python3 -m http.server 8741` or any static host.
 
 V1 adds the loop: a home-page diagram of the five stations of a robot lab
-(perceive, decide, act, capture, imagine), four more services, and a page per
-station. `/vision/` and `/embedded/` are complete, each with an instrument that
-talks you out of things; `/physical-ai/`, `/cloud/`, and `/world-models/` are
-honest stubs until their long versions land.
+(perceive, decide, act, capture, imagine), four more services, a page per
+station, each with an instrument that talks you out of things (perception
+lab, latency budget, demonstration budget, robot data math, reality-gap
+meter), and six Field Notes under `/notes/`.
 
 ## What's in it
 
@@ -28,6 +28,9 @@ honest stubs until their long versions land.
 | The loop | `assets/js/loop.js` | The home-page loop diagram's traveller: one lap every twelve seconds, parks at the station you hover or focus. |
 | Perception lab | `assets/js/vision-lab.js` | `/vision/`: a synthetic bin of parts on a canvas. Toggle six pipeline stages, watch latency accumulate, ruin the lighting. |
 | Latency budget | `assets/js/calc-latency.js` | `/embedded/`: the control period as one bar; stages stack to scale, the p99.9 tail hatches, overflow goes red. |
+| Demonstration budget | `assets/js/calc-demos.js` | `/physical-ai/`: tasks × variants × demos over the take rate, into teleop hours, weeks, and a cost band; sim shows its own build cost. |
+| Robot data math | `assets/js/calc-data.js` | `/cloud/`: fleet × cameras × hours into TB a month, tiered storage and egress bands, and the month it becomes a problem. |
+| Reality-gap meter | `assets/js/gap-meter.js` | `/world-models/`: the diagnostic's gauge repurposed; a band per task type, modifiers, what closes the gap, what sim won't fix. |
 | Extras | `main.js` | Boot sequence, vision-system cursor reticle, paper/graphite sheets, optional sound FX, Konami code / type `robot` / click the logo 5× for dance mode. |
 
 Everything respects `prefers-reduced-motion`, works on touch, and degrades to
@@ -102,7 +105,19 @@ gh api -X POST repos/{owner}/bigsky-site/pages -f build_type=legacy -f "source[b
 
 **AWS S3 + CloudFront:** upload to a bucket with static website hosting,
 index document `index.html`, error document `404.html`, put CloudFront in
-front for HTTPS. Set `Cache-Control` on `assets/*` if you like.
+front for HTTPS. Set `Cache-Control` on `assets/*` if you like. CloudFront
+only applies a default root object at the distribution root, so directory
+URLs like `/vision/` need a viewer-request CloudFront Function that appends
+`index.html`:
+
+```js
+function handler(event) {
+  var req = event.request;
+  if (req.uri.endsWith("/")) req.uri += "index.html";
+  else if (!req.uri.includes(".")) req.uri += "/index.html";
+  return req;
+}
+```
 
 **Custom domain (bigsky.systems) on GitHub Pages:**
 1. Add a file named `CNAME` containing `bigsky.systems` to the repo root and push.
@@ -141,12 +156,13 @@ this folder; the browser can't keep secrets.
 
 ```
 index.html          the home page
-vision/ embedded/   full domain pages, each with an instrument
-physical-ai/ cloud/ world-models/   stubs, in voice, until the long versions land
+vision/ embedded/ physical-ai/ cloud/ world-models/   the five domain pages, each with an instrument
+notes/              Field Notes index and six essays
 404.html            quirky not-found page
+sitemap.xml         thirteen URLs; robots.txt points at it
 assets/css/         styles.css (tokens + shared), pages.css (everything V1 added)
-assets/js/          config, sound, sky, mascot, arm, builder, quiz, assistant, loop, calc-kit, vision-lab, calc-latency, main
-assets/img/         favicon.svg
+assets/js/          config, sound, sky, mascot, arm, builder, quiz, assistant, loop, calc-kit, vision-lab, calc-latency, calc-demos, calc-data, gap-meter, main
+assets/img/         favicon.svg, og/ (one 1200×630 image per page)
 netlify.toml        Netlify config (optional)
 vercel.json         Vercel config (optional)
 robots.txt, .nojekyll
