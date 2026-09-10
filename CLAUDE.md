@@ -49,9 +49,11 @@ back to it.
   math · `gap-meter.js` reality-gap meter · `main.js` wiring.
 - `404.html`, `robots.txt`, `netlify.toml`, `vercel.json`, `.nojekyll`.
 
-Domain pages carry the home page's chrome byte for byte (nav, footer, sprite,
-SKY-1). When the chrome changes on `index.html`, change it on all five. Paths
-are root-absolute (`/assets/...`), so the site expects a domain apex.
+Domain pages and notes carry the home page's chrome byte for byte (nav,
+footer, sprite, SKY-1). They are stamped by `tools/stamp-pages.py` from
+`index.html` plus the bodies in `tools/pages/`; after changing the chrome or a
+body, re-run it and commit the HTML (the site never runs it). Paths are
+root-absolute (`/assets/...`), so the site expects a domain apex.
 
 ## Working here
 

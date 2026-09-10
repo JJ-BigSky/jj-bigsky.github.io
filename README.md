@@ -163,6 +163,7 @@ sitemap.xml         thirteen URLs; robots.txt points at it
 assets/css/         styles.css (tokens + shared), pages.css (everything V1 added)
 assets/js/          config, sound, sky, mascot, arm, builder, quiz, assistant, loop, calc-kit, vision-lab, calc-latency, calc-demos, calc-data, gap-meter, main
 assets/img/         favicon.svg, og/ (one 1200×630 image per page)
+tools/              stamp-pages.py regenerates the domain pages and notes from tools/pages/ (dev utility, not a build step)
 netlify.toml        Netlify config (optional)
 vercel.json         Vercel config (optional)
 robots.txt, .nojekyll
