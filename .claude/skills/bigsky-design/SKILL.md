@@ -107,7 +107,9 @@ allowed to be wry; the company voice is calm. No exclamation marks in UI.
 
 Use the print series palette from the Lab Builder, in this order:
 `#FF4A00` orange, `#2C5DD6` cobalt, `#B8860B` ochre, `#8B5E3C` umber,
-`#C62F1B` red, `#3F7D4E` green, `#1F8A70` teal, `#5B5B5B` graphite.
+`#C62F1B` red, `#3F7D4E` green, `#1F8A70` teal, `#5B5B5B` graphite, then
+`#4A5A6B` slate, `#2C6E8F` steel, `#6B3F2E` deep umber, `#7A6A1F` dark ochre.
+They are `--s1`…`--s12` in the tokens; scripts read `var(--sN)`, never the hex.
 Highlight one series in orange and set the rest in ink at reduced opacity
 when the story is about one thing. Gridlines are `--line`, axis labels are
 mono, no 3D, no gradients, no rounded bar caps. A stat tile is a `.stat` row

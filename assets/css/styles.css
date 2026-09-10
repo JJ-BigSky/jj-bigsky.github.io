@@ -21,6 +21,9 @@
   --ok: #2F8F5B;
   --warn: #C98F00;
   --danger: #C62F1B;
+  /* print series: Lab Builder modules and any chart, in order of use. Same on both sheets. */
+  --s1: #FF4A00; --s2: #2C5DD6; --s3: #B8860B; --s4: #8B5E3C; --s5: #C62F1B; --s6: #3F7D4E; --s7: #1F8A70; --s8: #5B5B5B;
+  --s9: #4A5A6B; --s10: #2C6E8F; --s11: #6B3F2E; --s12: #7A6A1F;
   /* legacy aliases used by a few scripts */
   --sky: var(--accent); --sky-2: var(--accent); --sun: var(--accent); --sunset: var(--danger);
   --font-head: "Archivo", "Helvetica Neue", Arial, sans-serif;

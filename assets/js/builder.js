@@ -9,14 +9,14 @@
   const COLS = 8, ROWS = 6;
 
   const MODS = [
-    { id: "cell", name: "Robot cell", icon: "i-cell", area: 9, kw: 6, cost: [60, 180], color: "#FF4A00", tag: "6-axis arm + controller" },
-    { id: "amr", name: "AMR dock", icon: "i-amr", area: 6, kw: 1.5, cost: [25, 90], color: "#2C5DD6", tag: "mobile robot + station" },
-    { id: "vision", name: "Vision station", icon: "i-eye", area: 4, kw: .8, cost: [15, 60], color: "#B8860B", tag: "cameras + lighting" },
-    { id: "belt", name: "Conveyor", icon: "i-belt", area: 5, kw: 1.2, cost: [8, 30], color: "#8B5E3C", tag: "per segment" },
-    { id: "fence", name: "Safety fence", icon: "i-fence", area: 2, kw: 0, cost: [3, 10], color: "#C62F1B", tag: "guarding + interlock" },
-    { id: "bench", name: "Workbench", icon: "i-bench", area: 4, kw: .5, cost: [2, 8], color: "#3F7D4E", tag: "humans need tables" },
-    { id: "plug", name: "Charging bay", icon: "i-plug", area: 3, kw: 3, cost: [5, 20], color: "#1F8A70", tag: "for the AMRs" },
-    { id: "rack", name: "Server rack", icon: "i-rack", area: 2, kw: 4, cost: [10, 50], color: "#5B5B5B", tag: "compute + network" }
+    { id: "cell", name: "Robot cell", icon: "i-cell", area: 9, kw: 6, cost: [60, 180], series: 1, tag: "6-axis arm + controller" },
+    { id: "amr", name: "AMR dock", icon: "i-amr", area: 6, kw: 1.5, cost: [25, 90], series: 2, tag: "mobile robot + station" },
+    { id: "vision", name: "Vision station", icon: "i-eye", area: 4, kw: .8, cost: [15, 60], series: 3, tag: "cameras + lighting" },
+    { id: "belt", name: "Conveyor", icon: "i-belt", area: 5, kw: 1.2, cost: [8, 30], series: 4, tag: "per segment" },
+    { id: "fence", name: "Safety fence", icon: "i-fence", area: 2, kw: 0, cost: [3, 10], series: 5, tag: "guarding + interlock" },
+    { id: "bench", name: "Workbench", icon: "i-bench", area: 4, kw: .5, cost: [2, 8], series: 6, tag: "humans need tables" },
+    { id: "plug", name: "Charging bay", icon: "i-plug", area: 3, kw: 3, cost: [5, 20], series: 7, tag: "for the AMRs" },
+    { id: "rack", name: "Server rack", icon: "i-rack", area: 2, kw: 4, cost: [10, 50], series: 8, tag: "compute + network" }
   ];
   const byId = Object.fromEntries(MODS.map((m) => [m.id, m]));
   const grid = new Array(COLS * ROWS).fill(null);
@@ -57,7 +57,7 @@
     if (id) {
       const m = byId[id];
       t.querySelector("use").setAttribute("href", "#" + m.icon);
-      t.style.setProperty("--mod", m.color);
+      t.style.setProperty("--mod", "var(--s" + m.series + ")");
       t.classList.add("has-mod");
       t.classList.remove("is-pop"); void t.offsetWidth; t.classList.add("is-pop");
       if (!silent && S()) S().place();

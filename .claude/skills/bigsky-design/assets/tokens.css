@@ -8,8 +8,9 @@
   --line: rgba(20,20,20,.14); --line-strong: rgba(20,20,20,.34); --grid: rgba(20,20,20,.11);
   --accent: #FF4A00; --on-accent: #FFFFFF;
   --ok: #2F8F5B; --warn: #C98F00; --danger: #C62F1B;
-  /* chart series, in order of use */
+  /* print series: Lab Builder modules and any chart, in order of use. Same on both sheets. */
   --s1: #FF4A00; --s2: #2C5DD6; --s3: #B8860B; --s4: #8B5E3C; --s5: #C62F1B; --s6: #3F7D4E; --s7: #1F8A70; --s8: #5B5B5B;
+  --s9: #4A5A6B; --s10: #2C6E8F; --s11: #6B3F2E; --s12: #7A6A1F;
   --font-head: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Instrument Serif", "Times New Roman", Georgia, serif;
