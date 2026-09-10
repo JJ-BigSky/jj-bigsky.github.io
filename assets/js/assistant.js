@@ -7,7 +7,7 @@
   if (!chat) return;
   const S = () => window.BSS_SOUND, M = () => window.BSS_MASCOT;
   const cfg = window.BSS_CONFIG || {};
-  const EMAIL = cfg.email || "jj@bigsky.systems";
+  const EMAIL = cfg.email || "build@bigsky.systems";
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const history = [];
   let opened = false;

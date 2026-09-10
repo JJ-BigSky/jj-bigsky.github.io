@@ -84,7 +84,7 @@
   // ---- typed headline ----
   const typed = $("typed");
   if (typed && !reduce) {
-    const words = ["ship.", "shi— ship.", "work.", "stay boring.", "pass audit.", "ship."];
+    const words = ["ship.", "work.", "stay boring.", "pass audit.", "ship."];
     let wi = 0;
     function typeWord(word, done) {
       let i = 0; typed.textContent = "";
@@ -162,7 +162,7 @@
   }
   // ---- contact ----
   const ce = $("copyEmail"); if (ce) ce.addEventListener("click", async () => {
-    const email = cfg.email || "jj@bigsky.systems";
+    const email = cfg.email || "build@bigsky.systems";
     try { await navigator.clipboard.writeText(email); window.BSS_TOAST("Copied " + email); if (S()) S().success(); }
     catch (e) { window.BSS_TOAST("Select and copy: " + email); }
   });
@@ -171,7 +171,7 @@
     const f = new FormData(e.target), name = f.get("name") || "", org = f.get("org") || "", msg = f.get("msg") || "", budget = f.get("budget") || "";
     const subject = "Robotics lab inquiry" + (org ? " — " + org : "");
     const body = ["Hi Big Sky Systems,", "", msg || "[what we're building]", "", "Budget band: " + (budget || "n/a"), "", "— " + (name || "[name]") + (org ? ", " + org : ""), ""].join("\n");
-    window.location.href = "mailto:" + (cfg.email || "jj@bigsky.systems") + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    window.location.href = "mailto:" + (cfg.email || "build@bigsky.systems") + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
     window.BSS_TOAST("Opening your mail app…"); if (S()) S().success();
     M() && M().say("Off it goes. Well, off it goes once you press send in your mail app. I can't do that part.", { mood: "wow" });
   });

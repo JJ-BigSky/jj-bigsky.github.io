@@ -3,10 +3,10 @@
   "evals": [
     {
       "id": 0,
-      "prompt": "Make a one-page HTML capability statement for Big Sky Systems' Safety & Compliance service that I can send to a prospect. Include a short intro, what's included, a small table of the standards we work against (ISO 10218, ISO/TS 15066, ANSI/RIA R15.06), a typical timeline, and a call to action to email jj@bigsky.systems. Single self-contained HTML file named safety-one-pager.html.",
+      "prompt": "Make a one-page HTML capability statement for Big Sky Systems' Safety & Compliance service that I can send to a prospect. Include a short intro, what's included, a small table of the standards we work against (ISO 10218, ISO/TS 15066, ANSI/RIA R15.06), a typical timeline, and a call to action to email build@bigsky.systems. Single self-contained HTML file named safety-one-pager.html.",
       "expected_output": "A single HTML file on bone paper with the dot grid, Archivo headings, one serif italic accent word, mono uppercase eyebrows numbered 01 //, a spec table with hairline rows and an ink header underline, an ink primary button with an arrow, corner marks on panels, orange used only for numbers/dash/one word. No gradients, pills, or shadows.",
       "files": [],
-      "assertions": ["design language checks (fonts, paper bg, orange accent, no SaaS palette, no gradients, radii <= 4px, no shadows, mono uppercase labels, numbered labels, no emoji)", "mailto:jj@bigsky.systems present", "all three standards named inside a <table>", "timeline section present"]
+      "assertions": ["design language checks (fonts, paper bg, orange accent, no SaaS palette, no gradients, radii <= 4px, no shadows, mono uppercase labels, numbered labels, no emoji)", "mailto:build@bigsky.systems present", "all three standards named inside a <table>", "timeline section present"]
     },
     {
       "id": 1,

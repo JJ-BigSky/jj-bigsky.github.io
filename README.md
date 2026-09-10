@@ -60,7 +60,7 @@ save the packaged `bigsky-design.skill` to your profile.
 ```js
 window.BSS_CONFIG = {
   company: "Big Sky Systems",
-  email: "jj@bigsky.systems",
+  email: "build@bigsky.systems",
   labTimeZone: "America/New_York", // hero "LAB TIME" clock
   boot: true,                      // 1.5s boot overlay on first visit
   reticle: true,                   // custom cursor on desktop

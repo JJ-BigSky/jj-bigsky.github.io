@@ -1,7 +1,7 @@
 /* Big Sky Systems — site configuration. Edit freely. */
 window.BSS_CONFIG = {
   company: "Big Sky Systems",
-  email: "jj@bigsky.systems",
+  email: "build@bigsky.systems",
   // Time zone shown in the hero telemetry strip as "LAB TIME".
   labTimeZone: "America/New_York",
   // Show the 1.5s boot sequence on first visit per browser session.

@@ -46,7 +46,7 @@
   // Compose the export email. `lines` is an array of strings; null/undefined entries are skipped.
   function mailto(subject, lines, greeting) {
     const body = [greeting || "Hi Big Sky Systems,", "", ...lines.filter((l) => l != null), "", "Can we talk about it?", ""].join("\n");
-    window.location.href = "mailto:" + (cfg().email || "jj@bigsky.systems") + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    window.location.href = "mailto:" + (cfg().email || "build@bigsky.systems") + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
     window.BSS_TOAST && window.BSS_TOAST("Opening your mail app…");
     if (window.BSS_SOUND) window.BSS_SOUND.success();
   }

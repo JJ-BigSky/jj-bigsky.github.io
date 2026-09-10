@@ -69,7 +69,7 @@
     $("quizEmail").onclick = () => {
       const cfg = window.BSS_CONFIG || {};
       const body = ["Hi Big Sky Systems,", "", "I ran your Lab Readiness Diagnostic and scored " + pct + "/100 (" + tier.name + ").", "Suggested track: " + tier.track, "", "My answers:", ...QUESTIONS.map((Q, n) => (n + 1) + ". " + Q.q + "\n   -> " + Q.a[picks[n]][0]), "", "I'd like to talk about a plan.", ""].join("\n");
-      window.location.href = "mailto:" + (cfg.email || "jj@bigsky.systems") + "?subject=" + encodeURIComponent("Lab readiness: " + tier.name + " (" + pct + "/100)") + "&body=" + encodeURIComponent(body);
+      window.location.href = "mailto:" + (cfg.email || "build@bigsky.systems") + "?subject=" + encodeURIComponent("Lab readiness: " + tier.name + " (" + pct + "/100)") + "&body=" + encodeURIComponent(body);
       window.BSS_TOAST && window.BSS_TOAST("Opening your mail app…");
     };
   }

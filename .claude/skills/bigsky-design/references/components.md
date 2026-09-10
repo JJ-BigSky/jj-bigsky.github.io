@@ -103,7 +103,7 @@ Archivo 800 (`class="n"`).
 <header class="nav">
   <a class="brand" href="/">Big Sky <b>Systems</b></a>
   <nav class="nav__links"><a href="#a">Scope</a><a href="#b">Plan</a></nav>
-  <a class="btn btn--small" href="mailto:jj@bigsky.systems">Talk to us</a>
+  <a class="btn btn--small" href="mailto:build@bigsky.systems">Talk to us</a>
 </header>
 ```
 

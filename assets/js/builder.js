@@ -169,7 +169,7 @@
       "", "Footprint: ~" + c.area + " m²", "Power: ~" + (Math.round(c.kw * 10) / 10) + " kW", "Budget band: " + money(c.lo) + " – " + money(c.hi), "Safety: " + c.safety,
       "", "Floor map (" + MODS.map((m) => m.letter + "=" + m.id).join(" ") + "):", ...map, "",
       c.warnings.length ? "SKY-1 flagged: " + c.warnings.map((w) => w.t).join(" ") : "SKY-1 had no notes.", "", "Can we talk about it?", ""].join("\n");
-    window.location.href = "mailto:" + (cfg.email || "jj@bigsky.systems") + "?subject=" + encodeURIComponent("Lab plan from the Big Sky Systems site") + "&body=" + encodeURIComponent(body);
+    window.location.href = "mailto:" + (cfg.email || "build@bigsky.systems") + "?subject=" + encodeURIComponent("Lab plan from the Big Sky Systems site") + "&body=" + encodeURIComponent(body);
     window.BSS_TOAST && window.BSS_TOAST("Opening your mail app with the plan…");
     if (S()) S().success();
   });

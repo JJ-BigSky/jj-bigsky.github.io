@@ -38,7 +38,7 @@ Never letter-space body text; do letter-space mono labels (+10%).
 - Tables: header row text mono uppercase muted, header underline ink 1pt, body rows hairline 0.5pt, numbers right-aligned bold.
 - Callouts: left border 3pt accent, no fill, or fill panel `F4F2ED`.
 - Bullets: square glyph (▪) in accent.
-- Footer: mono, `BIG SKY SYSTEMS // ROBOTICS LAB CONSULTING · jj@bigsky.systems · page n`.
+- Footer: mono, `BIG SKY SYSTEMS // ROBOTICS LAB CONSULTING · build@bigsky.systems · page n`.
 
 ## Slides (pptx skill)
 
@@ -66,5 +66,5 @@ Never letter-space body text; do letter-space mono labels (+10%).
 ## Email / plain text
 
 - Mono-friendly structure: `01 // SUBJECT` style headers, `//` separators, square bullets (▪).
-- Sign-off: `— Big Sky Systems // jj@bigsky.systems`.
+- Sign-off: `— Big Sky Systems // build@bigsky.systems`.
 - Keep it dry and short; the voice is calm and confident, SKY-1 may add one wry line at most.
