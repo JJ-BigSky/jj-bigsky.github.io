@@ -1,0 +1,118 @@
+/* =========================================================
+   Big Sky Systems — pages.css
+   Everything V1 adds on top of styles.css: the domain-page hero, the loop
+   line, plates and figures, the "next" strip, prose measure, calculators.
+   No new tokens live here. Tokens are the :root of styles.css, mirrored in
+   .claude/skills/bigsky-design/assets/tokens.css. Change both.
+   ========================================================= */
+
+/* ---------- type utilities the site sheet lacks ---------- */
+.serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-stretch: 100%; letter-spacing: 0; text-transform: none; }
+.accent { color: var(--accent); }
+.sq { display: inline-block; width: 6px; height: 6px; background: var(--accent); vertical-align: 1px; margin-right: .5rem; }
+.sq--ok { background: var(--ok); } .sq--warn { background: var(--warn); } .sq--danger { background: var(--danger); } .sq--muted { background: var(--muted-2); }
+.prose { max-width: 62ch; }
+.prose p { margin-bottom: 1.1em; }
+.prose h3 { margin-top: 2.2rem; font-size: 1.25rem; }
+.prose .small { color: var(--muted); }
+.list { margin: 0 0 1em; padding: 0; list-style: none; }
+.list li { position: relative; padding-left: 1rem; margin-bottom: .5rem; }
+.list li::before { content: ""; position: absolute; left: 0; top: .55em; width: 5px; height: 5px; background: var(--accent); }
+
+/* ---------- page hero (domain pages: no canvas, no telemetry) ---------- */
+.page-hero { position: relative; border-bottom: 1px solid var(--line); }
+.page-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 2rem 3.5rem; align-items: end; padding: clamp(4.5rem, 9vw, 7rem) 0 2.4rem; }
+.page-hero h1 { max-width: 24ch; margin-bottom: 1.1rem; }
+.page-hero__sub { display: block; font-family: var(--font-serif); font-style: italic; font-weight: 400; font-stretch: 100%; letter-spacing: 0; font-size: clamp(1.3rem, 2.2vw, 1.75rem); line-height: 1.2; color: var(--muted); max-width: 40ch; margin: 0 0 1.6rem; }
+.page-hero__lede { font-size: clamp(1rem, 1.5vw, 1.18rem); max-width: 580px; line-height: 1.55; margin-bottom: 2rem; }
+.page-hero .hero__actions .btn:not(.btn--primary):not(.btn--link) { background: transparent; }
+
+/* drawing title block: the sheet's own registration, mono on hairlines */
+.titleblock { position: relative; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 1.1rem 1.2rem 1rem; }
+.titleblock dl { display: grid; grid-template-columns: auto 1fr; gap: 0 1.2rem; margin: 0; }
+.titleblock dt, .titleblock dd { padding: .5rem 0; border-bottom: 1px solid var(--line); }
+.titleblock dt:last-of-type, .titleblock dd:last-of-type { border-bottom: 0; }
+.titleblock dt { color: var(--muted); font: 500 .6rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; align-self: baseline; }
+.titleblock dd { margin: 0; text-align: right; font: 800 .8rem var(--font-head); font-stretch: 108%; letter-spacing: .04em; text-transform: uppercase; }
+.titleblock dd .led { margin-right: .45rem; vertical-align: 1px; }
+
+/* the loop line: where this sheet sits. Dashed connectors rhyme with the brand orbit. */
+.loopline { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 0; margin: 0; padding: 1rem 0 1.3rem; list-style: none; border-top: 1px solid var(--line); }
+.loopline li { display: flex; align-items: center; color: var(--muted); font: 600 .62rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.loopline li + li::before { content: ""; width: 26px; margin: 0 .8rem; border-top: 1px dashed var(--line-strong); }
+.loopline a { color: inherit; text-decoration: none !important; padding: .2rem 0; transition: color .15s ease; }
+.loopline a:hover { color: var(--ink); }
+.loopline .is-here { color: var(--accent); }
+.loopline .is-here i { width: 6px; height: 6px; background: var(--accent); margin-right: .55rem; }
+.loopline__end::after { content: ""; width: 6px; height: 6px; border: 1px solid var(--line-strong); }
+.loopline__label { margin-left: auto; color: var(--muted-2); }
+
+/* ---------- section layouts ---------- */
+.cols { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); gap: 2rem 3.5rem; align-items: start; }
+.cols--even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cards--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ---------- plates, callouts, figures ---------- */
+.plate { position: relative; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 1.4rem; }
+.plate--ink { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.plate--ink .muted { color: color-mix(in srgb, var(--bg) 65%, transparent); }
+.plate--ink.marks::before, .plate--ink.marks::after { border-color: var(--bg); }
+.plate h3 { font-size: 1.3rem; margin-bottom: .7rem; }
+.plate p:last-child { margin-bottom: 0; }
+.callout { position: relative; padding: .9rem 1rem .9rem 1.2rem; background: var(--surface); border: 1px solid var(--ink); border-radius: var(--radius); font-size: .9rem; line-height: 1.5; }
+.callout::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+.callout b { font-weight: 700; }
+.fig { padding-left: .8rem; border-left: 1px solid var(--accent); color: var(--muted); line-height: 1.7; max-width: 240px; }
+.fig b { display: block; color: var(--ink); font-weight: 600; }
+.figure { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 1rem 1.5rem; align-items: start; }
+.figure .fig { padding-top: .2rem; }
+.stage { position: relative; min-height: 420px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); overflow: hidden; display: grid; place-items: center; }
+.stage--pending { background-image: repeating-linear-gradient(-45deg, transparent 0 9px, var(--line) 9px 10px); }
+.stage__label { padding: .55rem .85rem; background: var(--surface); border: 1px solid var(--line-strong); color: var(--muted); }
+.stage__hud { position: absolute; left: .8rem; top: .8rem; display: flex; gap: 1rem; color: var(--muted); font-size: .62rem; background: var(--surface); padding: .45rem .6rem; border: 1px solid var(--line-strong); }
+.stage__hud b { color: var(--accent); font-weight: 600; margin-left: .3rem; }
+.stage__hud.is-over b { color: var(--danger); }
+
+/* ---------- spec table ---------- */
+.spec { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.spec th { font: 600 .62rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--ink); }
+.spec td { padding: .7rem .8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.spec td.n, .spec th.n { text-align: right; }
+.spec td.n { font-family: var(--font-head); font-weight: 800; font-stretch: 108%; font-size: 1.05rem; }
+.spec tr:hover td { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.spec-wrap { overflow-x: auto; }
+
+/* ---------- "next" strip: previous node, the hub, next node ---------- */
+.next { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+.next__plate { position: relative; display: flex; flex-direction: column; min-height: 190px; padding: 1.5rem 1.4rem 1.3rem; color: var(--ink); text-decoration: none !important; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); transition: border-color .2s ease; }
+.next__plate:hover, .next__plate:focus-visible { border-color: var(--ink); }
+.next__plate .card__num { margin-bottom: 1.1rem; }
+.next__plate h3 { font-size: 1.25rem; margin-bottom: .5rem; }
+.next__plate p { flex: 1; margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+.next__plate .card__hint { margin-top: 1.1rem; }
+.next__plate--hub { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.next__plate--hub p { color: color-mix(in srgb, var(--bg) 65%, transparent); }
+.next__plate--hub .card__hint { color: color-mix(in srgb, var(--bg) 55%, transparent); }
+.next__plate--hub.marks::before, .next__plate--hub.marks::after { border-color: var(--bg); }
+.cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 3rem; align-items: center; }
+.cta h3 { font-size: 1.5rem; margin-bottom: .4rem; }
+.cta p { margin: 0; color: var(--muted); max-width: 48ch; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px) {
+  .page-hero__grid { grid-template-columns: 1fr; gap: 1.8rem; align-items: start; }
+  .titleblock { max-width: 320px; }
+  .cols, .cols--even { grid-template-columns: 1fr; }
+  .cards--4 { grid-template-columns: repeat(2, 1fr); }
+  .figure { grid-template-columns: 1fr; }
+  .figure .fig { max-width: none; }
+  .next { grid-template-columns: 1fr; }
+  .cta { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .page-hero__grid { padding-top: 3.2rem; }
+  .cards--4 { grid-template-columns: 1fr; }
+  .loopline li + li::before { width: 12px; margin: 0 .5rem; }
+  .loopline__label { display: none; }
+  .stage { min-height: 320px; }
+}

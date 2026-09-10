@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visual Intelligence — Big Sky Systems</title>
+  <meta name="description" content="Perception is where robotics projects die quietly. Sensors, lighting, pose, grasping, and what actually breaks them." />
+  <meta name="theme-color" content="#ECE9E2" />
+  <meta property="og:title" content="Visual Intelligence — Big Sky Systems" />
+  <meta property="og:description" content="Perception is where robotics projects die quietly. Sensors, lighting, pose, grasping, and what actually breaks them." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages.css" />
+</head>
+<body data-page="vision">
+
+<!-- ===== Cursor reticle (desktop, fine pointer only) ===== -->
+<div id="reticle" class="reticle" aria-hidden="true">
+  <span class="reticle__ring"></span>
+  <span class="reticle__dot"></span>
+  <span class="reticle__label" id="reticleLabel"></span>
+</div>
+
+<!-- ===== SVG sprite (same block as the home page) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cell" viewBox="0 0 24 24"><path d="M4 20h16M7 20V11l4-6 4 6v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="5" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="i-amr" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="7" cy="19" r="1.8" fill="currentColor"/><circle cx="17" cy="19" r="1.8" fill="currentColor"/><path d="M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+    <symbol id="i-belt" viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18" cy="12" r="1.3" fill="currentColor"/><path d="M8 5l4-2 4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-fence" viewBox="0 0 24 24"><path d="M4 21V9l2-3 2 3v12M10 21V9l2-3 2 3v12M16 21V9l2-3 2 3v12M3 13h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 9h18M5 9v11M19 9v11M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 5l3 4M10 5l-3 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8zM12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-rack" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="8" r=".9" fill="currentColor"/><circle cx="16" cy="12" r=".9" fill="currentColor"/><circle cx="16" cy="16" r=".9" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===== Nav (same as the home page; home anchors are root-absolute) ===== -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="/" aria-label="Big Sky Systems home">
+    <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="1" y="1" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <g class="brand-orbit"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width=".8" stroke-dasharray="1.5 4"/></g>
+      <path d="M6 31 L15 16 L21 24 L26 19 L34 31" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="26" y="7" width="6" height="6" fill="var(--accent)"/>
+    </svg>
+    <span class="brand-text">Big Sky <b>Systems</b></span>
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Primary">
+    <a href="/#services">Services</a>
+    <a href="/#playground">Playground</a>
+    <a href="/#builder">Lab Builder</a>
+    <a href="/#method">Method</a>
+    <a href="/#diagnostic">Diagnostic</a>
+    <a href="/#contact" class="nav__cta">Talk to us</a>
+  </nav>
+  <div class="nav__tools">
+    <button class="tog" id="soundToggle" type="button" aria-pressed="false" aria-label="Toggle sound effects" data-cursor="SOUND"><i></i><span id="soundLabel">Snd off</span></button>
+    <button class="tog" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch between paper and graphite sheets" data-cursor="SHEET"><i></i><span id="themeLabel">Paper</span></button>
+    <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Page hero ===== -->
+  <section class="page-hero" id="hero">
+    <div class="container page-hero__grid">
+      <div class="page-hero__text">
+        <p class="eyebrow mono reveal"><span class="led"></span> Visual intelligence // perceive</p>
+        <h1 class="reveal">The robot can't do anything it can't see.</h1>
+        <p class="page-hero__sub reveal">And it can see beautifully until Tuesday, when the sun comes through the loading door.</p>
+        <p class="page-hero__lede reveal">Vision is the highest-leverage and highest-variance system in a robot cell. Foundation models have quietly made the first four stages of the pipeline much easier than they were three years ago. The last two stages, and the physical environment around all six, are where the year goes.</p>
+        <div class="hero__actions reveal">
+          <a class="btn btn--primary" href="#lab" data-cursor="RUN">Run the pipeline</a>
+          <a class="btn" href="/#contact" data-cursor="MAIL">Talk to a human</a>
+          <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
+        </div>
+      </div>
+      <aside class="titleblock marks reveal" aria-label="Sheet information">
+        <dl>
+          <dt>Sheet</dt><dd>V-01</dd>
+          <dt>Node</dt><dd class="accent">Perceive</dd>
+          <dt>Loop</dt><dd>01 / 05</dd>
+          <dt>Checked</dt><dd>Sep 2026</dd>
+        </dl>
+      </aside>
+    </div>
+    <div class="container">
+      <ol class="loopline" aria-label="Where this page sits in the loop">
+        <li class="is-here" aria-current="page"><i aria-hidden="true"></i>Perceive</li>
+        <li><a href="/embedded/" data-cursor="GO">Decide</a></li>
+        <li><a href="/#services" data-cursor="GO">Act</a></li>
+        <li><a href="/cloud/" data-cursor="GO">Capture</a></li>
+        <li><a href="/world-models/" data-cursor="GO">Imagine</a></li>
+        <li class="loopline__end" aria-hidden="true"></li>
+        <li class="loopline__label" aria-hidden="true">The loop // 5 nodes</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 01 // The honest version (placeholder body) ===== -->
+  <section class="section" id="honest">
+    <div class="container">
+      <p class="eyebrow mono reveal">01 // The honest version</p>
+      <h2 class="section__title reveal">The reality check goes here.<span class="muted">Always first. You earn the right to sell by saying what doesn't work.</span></h2>
+      <div class="cols reveal">
+        <div class="prose">
+          <p>Placeholder. This section holds the five things that end perception pilots, none of which are model problems. The copy is written and waiting; it goes in once the skeleton clears the gate.</p>
+          <p>Until then this paragraph exists to show the measure, the rhythm, and how a long argument sits on the sheet next to a note from the robot.</p>
+        </div>
+        <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> nothing yet. Empty sheet. Very brave.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 02 // What actually works (placeholder body) ===== -->
+  <section class="section" id="works">
+    <div class="container">
+      <p class="eyebrow mono reveal">02 // What actually works</p>
+      <h2 class="section__title reveal">The substance goes here.<span class="muted">Six stages of a pipeline, and which four got easier.</span></h2>
+      <div class="figure reveal">
+        <div class="stage stage--pending" style="min-height:220px" aria-hidden="true"><span class="stage__label mono">Six-stage diagram // not drawn yet</span></div>
+        <div class="fig mono"><b>Fig. 01</b>Detect → segment → depth → pose → grasp → verify. Hairline plates, one line each.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 03 // The interactive (placeholder stage) ===== -->
+  <section class="section" id="lab">
+    <div class="container">
+      <p class="eyebrow mono reveal">03 // Perception pipeline</p>
+      <h2 class="section__title reveal">The instrument goes here.<span class="muted">Toggle stages on a bin of parts. Watch latency accumulate and lighting ruin everything.</span></h2>
+      <div class="figure reveal">
+        <div class="stage stage--pending" id="visionLab" data-cursor="WAIT">
+          <div class="stage__hud mono" aria-hidden="true"><span>Found <b>—</b></span><span>Pose σ <b>—</b></span><span>Pipeline <b>—</b></span><span>Budget <b>100 ms</b></span></div>
+          <span class="stage__label mono">Vision lab // canvas pending</span>
+        </div>
+        <div class="fig mono"><b>Fig. 02</b>Perception pipeline, interactive. Synthetic bin, drawn in ink. No photos.</div>
+      </div>
+      <p class="muted small" style="margin-top:1rem">Numbers will be illustrative and rounded with enthusiasm. Nothing you set here is stored, sent, or logged.</p>
+    </div>
+  </section>
+
+  <!-- ===== 04 // What we do (placeholder cards) ===== -->
+  <section class="section" id="offer">
+    <div class="container">
+      <p class="eyebrow mono reveal">04 // What we do</p>
+      <h2 class="section__title reveal">Four services go here.<span class="muted">Each with a four-item “You get”. Always four.</span></h2>
+      <div class="cards cards--4">
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">V-01</span><h3>Service one</h3><p>Placeholder front. One honest sentence about what the service is, and one about why it's needed.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Deliverable one</li><li>Deliverable two</li><li>Deliverable three</li><li>Deliverable four, with the joke</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">V-02</span><h3>Service two</h3><p>Placeholder front. Same shape as S-01 through S-06 on the home page, so the cards read as one family.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Deliverable one</li><li>Deliverable two</li><li>Deliverable three</li><li>Deliverable four, with the joke</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">V-03</span><h3>Service three</h3><p>Placeholder front. The real four are sensor selection, calibration, the pipeline build, and verification.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Deliverable one</li><li>Deliverable two</li><li>Deliverable three</li><li>Deliverable four, with the joke</li></ul></div>
+          </div>
+        </article>
+        <article class="card tilt reveal" tabindex="0" data-cursor="FLIP">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">V-04</span><h3>Service four</h3><p>Placeholder front. Flip it. The back is ink, the bullets are squares, and there are exactly four of them.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Deliverable one</li><li>Deliverable two</li><li>Deliverable three</li><li>Deliverable four, with the joke</li></ul></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 05 // Next: loop navigation + the one contact section ===== -->
+  <section class="section" id="next">
+    <div class="container">
+      <p class="eyebrow mono reveal">05 // Next</p>
+      <h2 class="section__title reveal">The loop doesn't stop here.<span class="muted">Seeing the part is station one. Something has to decide what to do about it.</span></h2>
+      <div class="next">
+        <a class="next__plate marks reveal" href="/world-models/" data-cursor="BACK">
+          <span class="card__num mono">← Previous · Imagine</span>
+          <h3>Simulation &amp; world models</h3>
+          <p>Test it ten thousand times before it touches steel. Then measure how much the simulator lied.</p>
+          <span class="card__hint mono">World models</span>
+        </a>
+        <a class="next__plate next__plate--hub marks reveal" href="/physical-ai/" data-cursor="HUB">
+          <span class="card__num mono">The hub · All five</span>
+          <h3>Physical AI</h3>
+          <p>What happens when the loop closes. How you decide whether a learned policy is the right answer at all, and what it costs when it is.</p>
+          <span class="card__hint mono">Physical AI</span>
+        </a>
+        <a class="next__plate marks reveal" href="/embedded/" data-cursor="NEXT">
+          <span class="card__num mono">Next · Decide</span>
+          <h3>On-robot autonomy</h3>
+          <p>The policy, the silicon, and the latency budget. Ten milliseconds is not a lot of milliseconds.</p>
+          <span class="card__hint mono">Embedded</span>
+        </a>
+      </div>
+      <div class="plate marks cta reveal">
+        <div>
+          <h3>Tell us about your lab.</h3>
+          <p>One contact page for the whole site, and it composes an email in your own mail app, addressed to a person. No forms that go nowhere.</p>
+        </div>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/#contact" data-cursor="MAIL">Talk to a human</a>
+          <button class="btn btn--link" type="button" data-cursor="TALK" onclick="window.BSS_CHAT && window.BSS_CHAT.open()">Or ask SKY-1</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
+    <div class="footer__leds mono">
+      <span><i class="led"></i> arm</span>
+      <span><i class="led"></i> sky</span>
+      <span><i class="led"></i> sky-1</span>
+      <span><i class="led led--warn"></i> coffee</span>
+    </div>
+    <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
+  </div>
+</footer>
+
+<!-- ===== SKY-1 mascot + assistant ===== -->
+<div class="mascot" id="mascot">
+  <div class="bubble" id="bubble" role="status" aria-live="polite"><span id="bubbleText"></span></div>
+  <button class="mascot__btn" id="mascotBtn" type="button" aria-label="Open SKY-1 assistant" data-cursor="TALK">
+    <svg class="bot" viewBox="0 0 120 150" aria-hidden="true">
+      <g class="bot__antenna"><line x1="60" y1="28" x2="60" y2="13" stroke="var(--bot-line)" stroke-width="2.5"/><rect x="55" y="6" width="10" height="8" class="bot__light"/></g>
+      <g class="bot__head" id="botHead" style="transform-origin:60px 95px">
+        <rect x="18" y="28" width="84" height="60" rx="3" class="bot__shell"/>
+        <rect x="26" y="37" width="68" height="42" rx="1.5" class="bot__screen"/>
+        <g class="bot__eye" id="eyeL" style="transform-origin:46px 56px"><rect x="40" y="50" width="12" height="12" class="bot__pupil" id="pupilL"/></g>
+        <g class="bot__eye" id="eyeR" style="transform-origin:74px 56px"><rect x="68" y="50" width="12" height="12" class="bot__pupil" id="pupilR"/></g>
+        <path d="M50 69 Q60 75 70 69" class="bot__mouth" id="botMouth"/>
+        <rect x="12" y="52" width="6" height="12" class="bot__ear"/><rect x="102" y="52" width="6" height="12" class="bot__ear"/>
+      </g>
+      <g class="bot__body">
+        <rect x="30" y="92" width="60" height="40" rx="3" class="bot__shell"/>
+        <path d="M40 104h22M40 110h22M40 116h22" class="bot__grille"/>
+        <rect x="72" y="104" width="8" height="8" class="bot__chest"/>
+        <text x="60" y="127" text-anchor="middle" class="bot__label">SKY-1</text>
+        <rect x="38" y="134" width="14" height="8" class="bot__shell"/><rect x="68" y="134" width="14" height="8" class="bot__shell"/>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<div class="chat" id="chat" hidden aria-label="SKY-1 assistant" role="dialog">
+  <div class="chat__head">
+    <div><b>SKY-1</b> <span class="mono muted small" id="chatStatus">// on-page, no cloud</span></div>
+    <button class="icon-btn" id="chatClose" type="button" aria-label="Close">✕</button>
+  </div>
+  <div class="chat__log" id="chatLog"></div>
+  <div class="chat__chips" id="chatChips"></div>
+  <form class="chat__form" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Ask about cameras, lighting, pose, calibration…" autocomplete="off" aria-label="Message SKY-1" />
+    <button class="btn btn--small" type="submit">Send</button>
+  </form>
+</div>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/sound.js"></script>
+<script src="/assets/js/mascot.js"></script>
+<script src="/assets/js/assistant.js"></script>
+<script src="/assets/js/calc-kit.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
