@@ -1,5 +1,7 @@
 # Big Sky Systems — website
 
+**Live:** https://jj-bigsky.github.io/ (GitHub Pages, served from the `main` branch of `JJ-BigSky/jj-bigsky.github.io`). Push to `main` and it redeploys in about a minute.
+
 A single-folder static site for a robotics lab consultancy. No build step, no
 framework, no backend. Open `index.html` or drop the folder on any static host.
 
@@ -73,8 +75,15 @@ gh api -X POST repos/{owner}/bigsky-site/pages -f build_type=legacy -f "source[b
 index document `index.html`, error document `404.html`, put CloudFront in
 front for HTTPS. Set `Cache-Control` on `assets/*` if you like.
 
-**Custom domain:** point `bigsky.systems` (or `www`) at the host per their
-docs. Everything is relative-path, so it works at a domain root or a subpath.
+**Custom domain (bigsky.systems) on GitHub Pages:**
+1. Add a file named `CNAME` containing `bigsky.systems` to the repo root and push.
+2. At your DNS provider, add A records for the apex `@` pointing to
+   `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`,
+   and a CNAME for `www` pointing to `jj-bigsky.github.io`.
+3. In the repo Settings, Pages, confirm the domain and tick "Enforce HTTPS"
+   once the certificate is issued (usually within an hour).
+
+Everything is relative-path, so it also works at a subpath if you ever move it.
 
 ## Give SKY-1 a real brain (optional)
 
