@@ -126,7 +126,7 @@
 
 <p>Every inference benchmark you will be shown is a mean. Robots are broken by tails. A perception stack that runs in 20 ms on average and 140 ms once every few thousand frames will pass every test you write and then put a gripper through a fixture on the second shift.</p>
 
-<p>Measure the tail. Budget for the tail. Design the fallback for the tail. If the policy can't answer in time, the correct behaviour is a defined, safe, boring one — hold position, re-approach, ask a human — and that behaviour has to be proven, not assumed.</p>
+<p>Measure the tail. Budget for the tail. Design the fallback for the tail. If the policy can't answer in time, the correct behaviour is a defined, safe, boring one (hold position, re-approach, ask a human), and that behaviour has to be proven, not assumed.</p>
 
 <p>The second lie is thermal. Every compute module has a headline TOPS number and a power range, and the headline number assumes cooling you do not have inside a sealed arm on a summer afternoon. Size for the sustained clock, not the datasheet.</p>
 
@@ -161,7 +161,7 @@
 
 <h3>Making it fit</h3>
 
-<p>Quantization is the biggest lever and the most abused one. Dropping precision routinely buys large speedups, and it <em>changes the model's behaviour</em>. Not “slightly reduces accuracy” in the abstract — changes which grasps it picks, on which parts, under which lighting.</p>
+<p>Quantization is the biggest lever and the most abused one. Dropping precision routinely buys large speedups, and it <em>changes the model's behaviour</em>. Not “slightly reduces accuracy” in the abstract. It changes which grasps it picks, on which parts, under which lighting.</p>
 
 <p>So the rule is simple and non-negotiable: <strong>the quantized model is a different model, and it gets the full evaluation suite.</strong> Every time. If that sounds expensive, note that it's exactly why the evaluation harness on the Physical AI page is the deliverable and the model is a detail.</p>
 

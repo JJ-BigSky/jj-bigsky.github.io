@@ -88,7 +88,7 @@
       <p class="note__meta mono muted">Big Sky Systems · September 2026 · 3 min · from <a href="/cloud/">Robot data & cloud</a></p>
       <hr class="rule" />
       <div class="prose note__body">
-<p>Somewhere in month four, a team that built a very good robot cell discovers that it has filled a NAS. The discovery arrives as a ticket, or a bill, or a full disk that stops the recorder. The response, under pressure, is to delete the old data. And with that, the loop that was the entire point of the program — the recording that makes next week's policy better than this week's — is quietly switched off.</p>
+<p>Somewhere in month four, a team that built a very good robot cell discovers that it has filled a NAS. The discovery arrives as a ticket, or a bill, or a full disk that stops the recorder. The response, under pressure, is to delete the old data. And with that, the loop that was the entire point of the program, the recording that makes next week's policy better than this week's, is switched off.</p>
 
 <p>This happens because the data architecture was designed after the robots arrived. Three decisions, made in week one, prevent it. None of them is technically difficult. All of them are hard to make later.</p>
 
@@ -104,15 +104,15 @@
 
 <p>A trajectory without its context is a video. To train on it, evaluate against it, or decide whether it still describes the cell you have, you need to know: which robot, which policy version, which gripper, which camera calibration, which part revision, which operator, which shift. All of it, on every record, at capture time.</p>
 
-<p>Provenance is cheap to record and impossible to reconstruct. It is also what turns a change on the floor — a new gripper, a bumped mount — from “the dataset is now suspect” into “these 1,400 episodes are now suspect, and the rest are fine.” That difference is weeks.</p>
+<p>Provenance is cheap to record and impossible to reconstruct. It is also what turns a change on the floor (a new gripper, a bumped mount) from “the dataset is now suspect” into “these 1,400 episodes are now suspect, and the rest are fine.” That difference is weeks.</p>
 
 <h2>Decision three: decide retention on day one</h2>
 
-<p>Not because storage is expensive — it mostly isn't, tiered properly — but because “everything forever” is not a policy. If you don't write one, it will be written for you, badly, in a hurry, by whoever gets the bill. Decide what is kept hot, what goes warm, what goes cold, and what is deleted and when. Write down who can see the camera feeds, because every frame from a workplace has people in it, and write down how deletion actually happens.</p>
+<p>Not because storage is expensive (it mostly isn't, tiered properly) but because “everything forever” is not a policy. If you don't write one, it will be written for you, badly, in a hurry, by whoever gets the bill. Decide what is kept hot, what goes warm, what goes cold, and what is deleted and when. Write down who can see the camera feeds, because every frame from a workplace has people in it, and write down how deletion actually happens.</p>
 
 <h2>The conversion tax</h2>
 
-<p>The three decisions sit on top of a structural fact: the robot's operational format and the training ecosystem's dataset format are different things, for good reasons. On the robot, MCAP in rosbag2 handles heterogeneous, timestamped, multi-schema streams and is what you replay when something went wrong at 3 a.m. On the training side, episode-oriented dataset formats are what the tooling assumes.</p>
+<p>The three decisions sit on top of a structural fact: the robot's operational format and the training side's dataset format are different things, for good reasons. On the robot, MCAP in rosbag2 handles heterogeneous, timestamped, multi-schema streams and is what you replay when something went wrong at 3 a.m. On the training side, episode-oriented dataset formats are what the tooling assumes.</p>
 
 <p>The conversion between them is a pipeline you own forever. Make it deterministic, version it, and make it possible to regenerate every training set from raw with one command. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.</p>
 

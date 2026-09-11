@@ -340,7 +340,7 @@ def build_notes_index():
 
 if __name__ == "__main__":
     targets = sys.argv[1:]
-    if targets == ["all"]: targets = [f.stem for f in sorted((ROOT / "content").glob("*.md"))] + ["notes"]
+    if targets == ["all"]: targets = [f.stem for f in sorted((ROOT / "content").glob("*.md")) if f.read_text().startswith("---")] + ["notes"]
     for slug in targets:
         if slug == "notes": build_notes_index(); [build_note(n) for n in NOTES]
         else: build(slug)

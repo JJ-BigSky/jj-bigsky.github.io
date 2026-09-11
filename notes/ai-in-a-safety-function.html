@@ -98,17 +98,17 @@
 
 <p>The EU Machinery Regulation, (EU) 2023/1230, applies from 20 January 2027 and replaces the Machinery Directive 2006/42/EC. It is a regulation rather than a directive, so it applies directly, and it introduces specific provisions for machinery incorporating AI and machine learning. In particular, machinery where an AI system performs a safety function is treated as high-risk under Annex I, which changes the conformity route.</p>
 
-<p>An AI-driven robot in the EU therefore sits at the intersection of three frameworks: the Machinery Regulation for the machine, the AI Act for the AI system, and GDPR for the data — including the people in the background of every camera frame.</p>
+<p>An AI-driven robot in the EU therefore sits at the intersection of three frameworks: the Machinery Regulation for the machine, the AI Act for the AI system, and GDPR for the data, including the people in the background of every camera frame.</p>
 
 <h2>What that means for a learned policy</h2>
 
 <p>The design consequence is a question you can ask in week one: <em>does the learned policy participate in a safety function, or not?</em></p>
 
-<p>If it does not — if the policy decides what to pick and how, while a conventional, verifiable safety system decides when the robot may move at all — the policy is a performance component and the safety case is the familiar one. This is the architecture we prefer wherever the task allows it, and it is a strong reason to keep speed-and-separation monitoring, protective stops, and interlocks on hardware and logic that can be assessed the ordinary way.</p>
+<p>If it does not (the policy decides what to pick and how, while a conventional, verifiable safety system decides when the robot may move at all), the policy is a performance component and the safety case is the familiar one. This is the architecture we prefer wherever the task allows it, and it is a strong reason to keep speed-and-separation monitoring, protective stops, and interlocks on hardware and logic that can be assessed the ordinary way.</p>
 
-<p>If it does — if a model's output gates a protective function, or a learned perception system is what detects a person in the zone — then the compliance path changes, and the evidence you need changes with it: how the system was validated, on what data, with what failure modes, and what happens when it is late or uncertain. That evidence is exactly what an evaluation harness produces when it is built for the purpose, and exactly what a demo never does.</p>
+<p>If it does (a model's output gates a protective function, or a learned perception system is what detects a person in the zone), the compliance path changes, and the evidence you need changes with it: how the system was validated, on what data, with what failure modes, and what happens when it is late or uncertain. That evidence is exactly what an evaluation harness produces when it is built for the purpose, and exactly what a demo never does.</p>
 
-<p>Either way, the fallback path — what the cell does when the policy is uncertain or doesn't answer in time — is part of the safety architecture and is designed and proven to the same standard as the e-stop. Not bolted on after the model works.</p>
+<p>Either way, the fallback path, meaning what the cell does when the policy is uncertain or doesn't answer in time, is part of the safety architecture and is designed and proven to the same standard as the e-stop. Not bolted on after the model works.</p>
 
 <h2>What to do this quarter</h2>
 

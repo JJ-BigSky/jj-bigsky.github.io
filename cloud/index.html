@@ -124,7 +124,7 @@
       <div class="cols">
         <div class="prose">
 
-<p>Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it in month four, and respond by deleting the data — which is to say, by turning off the loop that was the entire point.</p>
+<p>Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it in month four, and respond by deleting the data, which is to say by turning off the loop that was the entire point.</p>
 
 <p>The projects that go wrong here go wrong the same way. Three rules that prevent it:</p>
 
@@ -151,9 +151,9 @@
       <div class="cols">
         <div class="prose">
 
-<p>On the robot, the operational format is MCAP in rosbag2 — the default in modern ROS 2 — a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's the thing you replay when something went wrong at 3 a.m.</p>
+<p>On the robot, the operational format is MCAP in rosbag2, the default in modern ROS 2: a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's the thing you replay when something went wrong at 3 a.m.</p>
 
-<p>On the training side, the learning ecosystem has converged on episode-oriented dataset formats built around demonstrations — LeRobot-style datasets, RLDS — with cross-embodiment collections like Open X-Embodiment published in them and tooling that assumes them.</p>
+<p>On the training side, the tooling has converged on episode-oriented dataset formats built around demonstrations (LeRobot-style datasets, RLDS), with cross-embodiment collections like Open X-Embodiment published in them and tooling that assumes them.</p>
 
 <p>These are different shapes for good reasons, and the conversion between them is a pipeline you own forever. Design it early, make it deterministic, version it, and make it possible to regenerate every training set from raw. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.</p>
 
@@ -177,7 +177,7 @@
 
 <h3>Governance</h3>
 
-<p>Every frame from a workplace camera has people in the background of it. Decide who can see feeds, how long they're kept, how they're deleted, and what gets blurred before it leaves the site — in week one, not after someone asks. Where the data trains a policy, that intersects with the compliance overlay: in the EU, the AI Act and GDPR sit alongside the machinery rules. This is a flag, not a legal page; we'll help you write the policy and point you at the people who sign it.</p>
+<p>Every frame from a workplace camera has people in the background of it. Decide who can see feeds, how long they're kept, how they're deleted, and what gets blurred before it leaves the site, in week one, not after someone asks. Where the data trains a policy, that intersects with the compliance overlay: in the EU, the AI Act and GDPR sit alongside the machinery rules. This is a flag, not a legal page; we'll help you write the policy and point you at the people who sign it.</p>
 
         </div>
         <div>
