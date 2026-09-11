@@ -247,6 +247,10 @@
 .legend .plate p { margin: 0; font-size: .84rem; color: var(--muted); line-height: 1.45; }
 .timeline { display: block; width: 100%; height: auto; overflow: visible; }
 .timeline text { font: 500 11px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; fill: var(--muted); }
+.events { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 1.5rem; font-size: .84rem; line-height: 1.4; }
+.events li { display: grid; grid-template-columns: auto 1fr; gap: .2rem .7rem; padding: .55rem 0; border-top: 1px solid var(--line); }
+.events li .mono { color: var(--muted); font-size: .56rem; padding-top: .25rem; white-space: nowrap; }
+.events li.is-checked .mono { color: var(--accent); }
 
 /* ---------- spec table ---------- */
 .spec { width: 100%; border-collapse: collapse; font-size: .92rem; }
@@ -329,6 +333,7 @@
   .evidence { grid-template-columns: 1fr; }
   .evidence__detail { position: static; }
   .legend { grid-template-columns: repeat(2, 1fr); }
+  .events { grid-template-columns: 1fr; }
   .gap { grid-template-columns: 1fr; }
   .page-hero__grid { grid-template-columns: 1fr; gap: 1.8rem; align-items: start; }
   .titleblock { max-width: 320px; }

@@ -140,7 +140,7 @@
       '<p class="muted detail__note">' + c.note + '</p>' +
       '<dl class="detail__meta mono">' +
       '<dt>Rating</dt><dd><i class="sq sq--' + c.r + '"></i>' + RATINGS[c.r].name + ' — ' + RATINGS[c.r].def + '</dd>' +
-      '<dt>Checked</dt><dd>' + fmtDate(c.checked) + ' · ' + ageDays(c.checked) + ' days ago</dd>' +
+      '<dt>Checked</dt><dd>' + fmtDate(c.checked) + ' · ' + (ageDays(c.checked) === 0 ? 'today' : ageDays(c.checked) === 1 ? 'yesterday' : ageDays(c.checked) + ' days ago') + '</dd>' +
       (d ? '<dt>Shelf life</dt><dd><b class="decay decay--' + d.state + ' decay--wide"><i style="width:' + Math.round(d.frac * 100) + '%"></i></b>' + (d.state === "overdue" ? "Overdue. Ask us for the current version." : d.state === "aging" ? "Aging. Treat the specifics as last quarter's." : "Fresh. About two quarters before we re-check.") + '</dd>' : "") +
       '<dt>Used on</dt><dd>' + c.used.map((u) => '<a href="' + u + '">' + u + '</a>').join(" · ") + '</dd>' +
       '</dl>' +
@@ -155,14 +155,16 @@
     let html = '<line x1="60" y1="120" x2="840" y2="120" stroke="var(--line-strong)" stroke-width="1"/>';
     for (let y = 2023; y <= 2028; y++) { const x = X(y + "-01-01"); html += '<line x1="' + x + '" y1="114" x2="' + x + '" y2="126" stroke="var(--ink)" stroke-width="1"/><text x="' + x + '" y="146" text-anchor="middle">' + y + '</text>'; }
     EVENTS.forEach((e, i) => {
-      const x = X(e.d), up = i % 2 === 0, y = up ? 62 : 178, ty = up ? 50 : 196;
+      const x = X(e.d), up = i % 2 === 0, y = up ? 70 : 170, ty = up ? 58 : 190;
       html += '<line x1="' + x + '" y1="120" x2="' + x + '" y2="' + y + '" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="2 3"/>';
       html += e.checked ? '<rect x="' + (x - 4) + '" y="' + (y - 4) + '" width="8" height="8" fill="var(--accent)"/>' : '<rect x="' + (x - 3.5) + '" y="' + (y - 3.5) + '" width="7" height="7" fill="none" stroke="var(--ink)" stroke-width="1.5"/>';
-      html += '<text x="' + x + '" y="' + ty + '" text-anchor="' + (x > 700 ? "end" : x < 200 ? "start" : "middle") + '"' + (e.checked ? ' fill="var(--accent)"' : "") + '>' + e.label + '</text>';
+      html += '<text x="' + x + '" y="' + ty + '" text-anchor="middle"' + (e.checked ? ' fill="var(--accent)"' : "") + '>' + String(i + 1).padStart(2, "0") + '</text>';
     });
     const xt = X(TODAY.toISOString().slice(0, 10));
     html += '<line x1="' + xt + '" y1="100" x2="' + xt + '" y2="140" stroke="var(--accent)" stroke-width="1.5"/><text x="' + xt + '" y="96" text-anchor="middle" fill="var(--accent)">Today</text>';
     svg.innerHTML = html;
+    const list = $("timelineList");
+    if (list) list.innerHTML = EVENTS.map((e, i) => '<li' + (e.checked ? ' class="is-checked"' : "") + '><span class="mono">' + String(i + 1).padStart(2, "0") + ' · ' + fmtDate(e.d) + '</span>' + e.label + '</li>').join("");
     $("timelineReadout").textContent = EVENTS.map((e) => fmtDate(e.d) + ": " + e.label).join(" · ") + " · today is " + fmtDate(TODAY.toISOString().slice(0, 10));
   }
 
