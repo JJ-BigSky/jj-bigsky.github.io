@@ -165,7 +165,8 @@ sitemap.xml         thirteen URLs; robots.txt points at it
 assets/css/         styles.css (tokens + shared), pages.css (everything V1 added)
 assets/js/          config, sound, sky, mascot, arm, builder, quiz, assistant, loop, calc-kit, vision-lab, calc-latency, calc-demos, calc-data, gap-meter, main
 assets/img/         favicon.svg, og/ (one 1200×630 image per page)
-tools/              stamp-pages.py regenerates the domain pages and notes from tools/pages/; og/ has the OG-image template and render.sh (dev utilities, not a build step)
+content/            the copy: one Markdown file per domain page and per field note (see content/README.md)
+tools/              stamp-pages.py renders content/ into the pages and notes; og/ has the OG-image template and render.sh (dev utilities, not a build step)
 netlify.toml        Netlify config (optional)
 vercel.json         Vercel config (optional)
 robots.txt, .nojekyll

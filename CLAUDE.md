@@ -55,10 +55,17 @@ back to it.
 - `404.html`, `robots.txt`, `netlify.toml`, `vercel.json`, `.nojekyll`.
 
 Domain pages and notes carry the home page's chrome byte for byte (nav,
-footer, sprite, SKY-1). They are stamped by `tools/stamp-pages.py` from
-`index.html` plus the bodies in `tools/pages/`; after changing the chrome or a
-body, re-run it and commit the HTML (the site never runs it). Paths are
-root-absolute (`/assets/...`), so the site expects a domain apex.
+footer, sprite, SKY-1). Their copy lives in `content/*.md` and
+`content/notes/*.md` (front matter + Markdown, see `content/README.md`);
+`python3 tools/stamp-pages.py all` renders them with the chrome from
+`index.html`. After editing copy or chrome, re-run it and commit the Markdown
+and the HTML together (the site never runs it). Paths are root-absolute
+(`/assets/...`), so the site expects a domain apex.
+
+Voice check before committing copy: no exclamation marks, no
+"leverage/seamless/unlock/journey" register, no "genuinely", em dashes only
+where a comma or colon won't do, and "the part nobody demos" once per page at
+most. Deliverables come in fours. Standards named exactly.
 
 ## Working here
 

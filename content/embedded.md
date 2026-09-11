@@ -1,3 +1,21 @@
+---
+title: On-Robot Autonomy — Big Sky Systems
+description: Autonomy is a latency budget with a power budget stapled to it. Compute selection, optimization, and real-time architecture.
+code: E-01
+node: 1
+eyebrow: On-robot autonomy // decide
+h1: Ten milliseconds is not a lot of milliseconds.
+sub: Everything interesting about on-robot AI is a fight over a very small number.
+lede: A model that answers in two seconds is a chatbot. A model that answers inside your control period is a controller. The engineering between those two sentences is most of what we do on this page.
+actions:
+  - btn btn--primary | #lab | Build a budget | BUILD
+  - btn | /#contact | Talk to a human | MAIL
+placeholder: Ask about latency, Jetson-class compute, quantization, RT kernels…
+next_h2: Decided. Now move.
+next_sub: The policy answered in time. The cell is where it has to be right.
+scripts: calc-latency
+---
+
   <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
@@ -5,9 +23,13 @@
       <h2 class="section__title">Your average latency is a lie.<span class="muted">The number that breaks robots is p99.9.</span></h2>
       <div class="cols">
         <div class="prose">
-          <p>Every inference benchmark you will be shown is a mean. Robots are broken by tails. A perception stack that runs in 20 ms on average and 140 ms once every few thousand frames will pass every test you write and then put a gripper through a fixture on the second shift.</p>
-          <p>Measure the tail. Budget for the tail. Design the fallback for the tail. If the policy can't answer in time, the correct behaviour is a defined, safe, boring one — hold position, re-approach, ask a human — and that behaviour has to be proven, not assumed.</p>
-          <p>The second lie is thermal. Every compute module has a headline TOPS number and a power range, and the headline number assumes cooling you do not have inside a sealed arm on a summer afternoon. Size for the sustained clock, not the datasheet.</p>
+
+Every inference benchmark you will be shown is a mean. Robots are broken by tails. A perception stack that runs in 20 ms on average and 140 ms once every few thousand frames will pass every test you write and then put a gripper through a fixture on the second shift.
+
+Measure the tail. Budget for the tail. Design the fallback for the tail. If the policy can't answer in time, the correct behaviour is a defined, safe, boring one (hold position, re-approach, ask a human), and that behaviour has to be proven, not assumed.
+
+The second lie is thermal. Every compute module has a headline TOPS number and a power range, and the headline number assumes cooling you do not have inside a sealed arm on a summer afternoon. Size for the sustained clock, not the datasheet.
+
         </div>
         <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> measure the tail, budget for the tail, design the fallback for the tail. I'd embroider it on something if I had hands.</div>
       </div>
@@ -34,19 +56,25 @@
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
           <div class="fig mono" style="margin-bottom:1.2rem"><b>Fig. 01</b>Control rates and what fits inside them. Standard practice, not a citation.</div>
-          <p>The architecture follows from that table and not from a vendor's block diagram. Anything inside the control loop runs on the robot. Anything that can tolerate a second of delay and a lost network can go to the cloud. There is no third category, and “we'll just put it in the cloud and it'll be fine” is how you learn what your Wi-Fi does when a forklift passes.</p>
-          <h3>Making it fit</h3>
-          <p>Quantization is the biggest lever and the most abused one. Dropping precision routinely buys large speedups, and it <em>changes the model's behaviour</em>. Not “slightly reduces accuracy” in the abstract — changes which grasps it picks, on which parts, under which lighting.</p>
-          <p>So the rule is simple and non-negotiable: <strong>the quantized model is a different model, and it gets the full evaluation suite.</strong> Every time. If that sounds expensive, note that it's exactly why the evaluation harness on the Physical AI page is the deliverable and the model is a detail.</p>
-          <h3>Determinism</h3>
-          <p>A GPU in the loop makes “real-time” a spectrum, and the difference between soft and hard real-time is the difference between “usually on time” and “provably on time.” Most of what closes that gap is boring configuration, done once and documented:</p>
-          <ul class="list">
-            <li>RT-patched kernel, with the latency actually measured under load</li>
-            <li>CPU core isolation and affinity, so the control thread never waits for a browser tab</li>
-            <li>IRQ pinning, so the camera driver's interrupts land where you put them</li>
-            <li>ROS 2 DDS and QoS configuration that matches the loop, and is written down</li>
-            <li>Memory locking and a startup that has already paged everything in</li>
-          </ul>
+
+The architecture follows from that table and not from a vendor's block diagram. Anything inside the control loop runs on the robot. Anything that can tolerate a second of delay and a lost network can go to the cloud. There is no third category, and “we'll just put it in the cloud and it'll be fine” is how you learn what your Wi-Fi does when a forklift passes.
+
+### Making it fit
+
+Quantization is the biggest lever and the most abused one. Dropping precision routinely buys large speedups, and it *changes the model's behaviour*. Not “slightly reduces accuracy” in the abstract. It changes which grasps it picks, on which parts, under which lighting.
+
+So the rule is simple and non-negotiable: **the quantized model is a different model, and it gets the full evaluation suite.** Every time. If that sounds expensive, note that it's exactly why the evaluation harness on the Physical AI page is the deliverable and the model is a detail.
+
+### Determinism
+
+A GPU in the loop makes “real-time” a spectrum, and the difference between soft and hard real-time is the difference between “usually on time” and “provably on time.” Most of what closes that gap is boring configuration, done once and documented:
+
+- RT-patched kernel, with the latency actually measured under load
+- CPU core isolation and affinity, so the control thread never waits for a browser tab
+- IRQ pinning, so the camera driver's interrupts land where you put them
+- ROS 2 DDS and QoS configuration that matches the loop, and is written down
+- Memory locking and a startup that has already paged everything in
+
         </div>
         <div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Two categories.</b> On the robot: anything inside the control loop. In the cloud: anything that can wait a second and survive a dropped network. If a thing doesn't fit either description, it isn't designed yet.</div>
@@ -133,4 +161,3 @@
       </div>
     </div>
   </section>
-

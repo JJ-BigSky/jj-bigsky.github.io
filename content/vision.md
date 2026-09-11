@@ -1,3 +1,21 @@
+---
+title: Visual Intelligence — Big Sky Systems
+description: Perception is where robotics projects die quietly. Sensors, lighting, pose, grasping, and what actually breaks them.
+code: V-01
+node: 0
+eyebrow: Visual intelligence // perceive
+h1: The robot can't do anything it can't see.
+sub: And it can see beautifully until Tuesday, when the sun comes through the loading door.
+lede: Vision is the highest-payoff and highest-variance system in a robot cell. Foundation models have made the first four stages of the pipeline much easier than they were three years ago. The last two stages, and the physical environment around all six, are where the year goes.
+actions:
+  - btn btn--primary | #lab | Run the pipeline | RUN
+  - btn | /#contact | Talk to a human | MAIL
+placeholder: Ask about cameras, lighting, pose, calibration…
+next_h2: The loop doesn't stop here.
+next_sub: Seeing the part is station one. Something has to decide what to do about it.
+scripts: vision-lab
+---
+
   <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
@@ -5,11 +23,17 @@
       <h2 class="section__title">Nothing on this list is a model problem.<span class="muted">Every one of them has ended a pilot.</span></h2>
       <div class="cols">
         <div class="prose">
-          <p><strong>Specular and transparent parts.</strong> Polished steel and clear plastic break depth sensing in ways that no amount of fine-tuning fixes. The answer is usually a different sensor or a different light, not a different network.</p>
-          <p><strong>Clutter and occlusion.</strong> A part that's 90% visible is a solved problem. A part that's 30% visible under three other parts is a research topic with a delivery date attached.</p>
-          <p><strong>Lighting drift.</strong> Morning light, afternoon light, someone replaces a failed fixture with a slightly bluer one, and your pose estimates walk. Controlled lighting is the cheapest reliability upgrade in the building and it is skipped constantly.</p>
-          <p><strong>Calibration drift.</strong> Hand-eye calibration is not a one-time ceremony. Somebody bumps the camera mount, and a system that was accurate to half a millimetre is now confidently wrong.</p>
-          <p><strong>The last two percent of pose error.</strong> Ninety-eight percent is a great demo and a daily crash. The gap between them is fixturing, verification, and knowing when to refuse.</p>
+
+**Specular and transparent parts.** Polished steel and clear plastic break depth sensing in ways that no amount of fine-tuning fixes. The answer is usually a different sensor or a different light, not a different network.
+
+**Clutter and occlusion.** A part that's 90% visible is a solved problem. A part that's 30% visible under three other parts is a research topic with a delivery date attached.
+
+**Lighting drift.** Morning light, afternoon light, someone replaces a failed fixture with a slightly bluer one, and your pose estimates walk. Controlled lighting is the cheapest reliability upgrade in the building and it is skipped constantly.
+
+**Calibration drift.** Hand-eye calibration is not a one-time ceremony. Somebody bumps the camera mount, and a system that was accurate to half a millimetre is now confidently wrong.
+
+**The last two percent of pose error.** Ninety-eight percent is a great demo and a daily crash. The gap between them is fixturing, verification, and knowing when to refuse.
+
         </div>
         <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> ask me what breaks vision and I'll recite this list. I learned it the way everyone does, at 2 a.m., from a robot that was very sure about the wrong part.</div>
       </div>
@@ -32,9 +56,13 @@
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
           <div class="fig mono" style="margin-bottom:1.2rem"><b>Fig. 01</b>The pipeline, in order. Typical industrial parts, as of September 2026.</div>
-          <p>The practical consequence: in 2026 you should be training far fewer custom models than you were in 2023, and spending the savings on lighting, fixturing, calibration discipline, and verification. That's a less exciting sentence than “we fine-tuned a foundation model,” and it's where the reliability comes from.</p>
-          <h3>Which sensor, when</h3>
-          <p>There is no best camera. There is the right one for your part, your cycle time, and your lighting, and the wrong one is usually the one that came with the robot.</p>
+
+The practical consequence: in 2026 you should be training far fewer custom models than you were in 2023, and spending the savings on lighting, fixturing, calibration discipline, and verification. That's a less exciting sentence than “we fine-tuned a foundation model,” and it's where the reliability comes from.
+
+### Which sensor, when
+
+There is no best camera. There is the right one for your part, your cycle time, and your lighting, and the wrong one is usually the one that came with the robot.
+
         </div>
         <div class="callout"><span class="sq"></span><b>Bookmark this.</b> The table below is the one people come back for. The rule underneath it is simpler: bench-test the sensor on your actual parts, shiny ones included, before anyone signs a purchase order.</div>
       </div>
@@ -126,4 +154,3 @@
       </div>
     </div>
   </section>
-

@@ -1,3 +1,21 @@
+---
+title: Simulation & World Models — Big Sky Systems
+description: Break it ten thousand times where it's free, then measure how much the simulator lied.
+code: W-01
+node: 4
+eyebrow: Simulation &amp; world models // imagine
+h1: Break it ten thousand times where it's free.
+sub: Then find out how much the simulator lied to you. That second part is the job.
+lede: Simulation stopped being a nice-to-have the moment policies started needing thousands of episodes. What's new is that “simulator” now means three quite different things, and picking the wrong one costs a quarter.
+actions:
+  - btn btn--primary | #calc | Measure the gap | GAUGE
+  - btn | /#contact | Talk to a human | MAIL
+placeholder: Ask about sim-to-real, world models, digital twins…
+next_h2: Imagined. Now look again.
+next_sub: The loop closes where it started: something has to see the part.
+scripts: gap-meter
+---
+
   <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
@@ -5,9 +23,13 @@
       <h2 class="section__title">The gap is real, and it's task-shaped.<span class="muted">Sim transfers beautifully for some things and not at all for others. The difference is predictable.</span></h2>
       <div class="cols">
         <div class="prose">
-          <p>Locomotion transfers well. Rigid pick-and-place transfers well. Contact-rich assembly transfers badly. Deformables transfer badly and expensively. Anything that depends on surface friction, compliance, or the exact behaviour of a suction cup on a slightly dusty part transfers about as well as a weather forecast.</p>
-          <p>This is knowable <em>before</em> you build the environment, and it should determine how much you build. A team that spends three months on a photoreal digital twin to train a task that was always going to need real contact data has not made a mistake of execution. They made a mistake of triage, in week one, for free.</p>
-          <p>The measurement discipline matters more than the fidelity. A modest simulator you have honestly characterised against the real cell is worth more than a beautiful one you trust.</p>
+
+Locomotion transfers well. Rigid pick-and-place transfers well. Contact-rich assembly transfers badly. Deformables transfer badly and expensively. Anything that depends on surface friction, compliance, or the exact behaviour of a suction cup on a slightly dusty part transfers about as well as a weather forecast.
+
+This is knowable *before* you build the environment, and it should determine how much you build. A team that spends three months on a photoreal digital twin to train a task that was always going to need real contact data has not made a mistake of execution. They made a mistake of triage, in week one, for free.
+
+The measurement discipline matters more than the fidelity. A modest simulator you have honestly characterised against the real cell is worth more than a beautiful one you trust.
+
         </div>
         <div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 says:</b> the digital twin is doing great. The physical one has a loose cable. Both of those sentences are the point.</div>
@@ -23,17 +45,23 @@
       <p class="eyebrow mono">02 // What actually works</p>
       <h2 class="section__title">Three things are called “world models.” Only one of them is new.<span class="muted">Physics gets the budget. The other two get watched closely.</span></h2>
       <div class="plates">
-        <article class="plate marks"><span class="card__num mono">W · 1</span><h3>Physics simulators</h3><p class="serif muted plate__sub">Classical, and getting much faster.</p><p>GPU-parallel rigid-body simulation running thousands of environments at once. This is where locomotion and most manipulation policies are actually trained today. The notable recent development is open, GPU-accelerated, differentiable physics with multiple solvers under one roof — including deformables, signed-distance-field collision, and validated policy transfer between engines. Mature, boring in the good way, and where most of your budget should go.</p></article>
-        <article class="plate marks"><span class="card__num mono">W · 2</span><h3>Video world models</h3><p class="serif muted plate__sub">New, genuinely impressive, not yet a training environment for your cell.</p><p>Models that generate consistent, interactive environments from text or an image, navigable in real time. Enormously promising for data augmentation, rare-event generation, and scenario coverage. Not a substitute for physics when your policy's success depends on contact forces, because a model that predicts plausible pixels is not predicting your friction coefficient.</p></article>
-        <article class="plate marks"><span class="card__num mono">W · 3</span><h3>Latent world models</h3><p class="serif muted plate__sub">The planning-flavoured branch.</p><p>Models that learn compact dynamics and let a policy plan by imagining forward in latent space. This is the line of work that offers what pure behaviour-cloning can't — counterfactual reasoning, long-horizon planning, and better data efficiency out of distribution. Early in industrial practice. Worth watching closely and not worth betting a delivery date on.</p></article>
+        <article class="plate marks"><span class="card__num mono">W · 1</span><h3>Physics simulators</h3><p class="serif muted plate__sub">Classical, and getting much faster.</p><p>GPU-parallel rigid-body simulation running thousands of environments at once. This is where locomotion and most manipulation policies are actually trained today. The notable recent development is open, GPU-accelerated, differentiable physics with multiple solvers under one roof, including deformables, signed-distance-field collision, and validated policy transfer between engines. Mature, boring in the good way, and where most of your budget should go.</p></article>
+        <article class="plate marks"><span class="card__num mono">W · 2</span><h3>Video world models</h3><p class="serif muted plate__sub">New, impressive, and not yet a training environment for your cell.</p><p>Models that generate consistent, interactive environments from text or an image, navigable in real time. Enormously promising for data augmentation, rare-event generation, and scenario coverage. Not a substitute for physics when your policy's success depends on contact forces, because a model that predicts plausible pixels is not predicting your friction coefficient.</p></article>
+        <article class="plate marks"><span class="card__num mono">W · 3</span><h3>Latent world models</h3><p class="serif muted plate__sub">The planning-flavoured branch.</p><p>Models that learn compact dynamics and let a policy plan by imagining forward in latent space. This is the line of work that offers what pure behaviour-cloning can't: counterfactual reasoning, long-horizon planning, and better data efficiency out of distribution. Early in industrial practice. Worth watching closely and not worth betting a delivery date on.</p></article>
       </div>
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
-          <p>Our position, stated plainly so you can disagree with it: physics simulation is where your budget goes today, learned world models are where your data augmentation goes next, and anyone telling you the third category is production-ready for contact-rich manipulation is describing a roadmap, not a product.</p>
-          <h3>Your CAD is not a simulation asset.</h3>
+
+Our position, stated plainly so you can disagree with it: physics simulation is where your budget goes today, learned world models are where your data augmentation goes next, and anyone telling you the third category is production-ready for contact-rich manipulation is describing a roadmap, not a product.
+
+### Your CAD is not a simulation asset.
+
           <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">This is the sentence everyone learns in month two.</p>
-          <p>Getting from a mechanical assembly to something a physics engine can run at speed means decimation, convex decomposition, collision geometry, joint definition, mass and inertia that aren't defaults, and materials that mean something. Doing it once is a project. Doing it every time the design changes is a pipeline, and the pipeline is the deliverable.</p>
-          <p>The other route in is photographic. Reconstruct the real cell from a few dozen images with 3D Gaussian splatting, get a photorealistic scene in minutes, then convert it to collision-ready geometry for the physics engine. It's the fastest way to simulate an environment that already exists — and it captures the cable tray that isn't in anybody's CAD.</p>
+
+Getting from a mechanical assembly to something a physics engine can run at speed means decimation, convex decomposition, collision geometry, joint definition, mass and inertia that aren't defaults, and materials that mean something. Doing it once is a project. Doing it every time the design changes is a pipeline, and the pipeline is the deliverable.
+
+The other route in is photographic. Reconstruct the real cell from a few dozen images with 3D Gaussian splatting, get a photorealistic scene in minutes, then convert it to collision-ready geometry for the physics engine. It's the fastest way to simulate an environment that already exists, and it captures the cable tray that isn't in anybody's CAD.
+
         </div>
         <div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Name the tools, not the bets.</b> MuJoCo, Isaac Sim and Isaac Lab, Gazebo, Newton: pick by what your task needs to transfer, then measure the transfer. The engine is a detail; the measurement harness is the deliverable.</div>
@@ -125,4 +153,3 @@
       </div>
     </div>
   </section>
-

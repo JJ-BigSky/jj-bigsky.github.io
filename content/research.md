@@ -1,3 +1,26 @@
+---
+title: Research — Big Sky Systems
+description: Every number on the site, rated by how much we trust it, dated by when it was checked, with its sources. Perishable claims age in public.
+code: R-01
+node: none
+eyebrow: Research // the evidence
+h1: Every number on this site has a source.
+sub: Here they are, rated by how much we trust them and dated by when they go stale.
+lede: The site's credibility comes from being right. So the research stays where you can see it: each claim, how sure we are, when it was last checked, where it's used, and what it rests on. The perishable ones age in public.
+actions:
+  - btn btn--primary | #board | Open the board | OPEN
+  - btn | /#contact | Talk to a human | MAIL
+placeholder: Ask where a number comes from…
+next_h2: Now go check it against your cell.
+next_sub: The board is the argument. The bake-off is the proof.
+scripts: research
+tb:
+  - Sheet | R-01
+  - Claims | <span id="rClaims">—</span>
+  - Overdue | <span id="rOverdue" class="accent">0</span>
+  - Checked | Sep 2026
+---
+
   <!-- ===== 01 // How we rate ===== -->
   <section class="section" id="ratings">
     <div class="container">
@@ -12,8 +35,11 @@
       </div>
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
-          <p><strong>The standing rule:</strong> prefer a claim that stays true over one that is precise and perishable. “Fifty to two hundred demonstrations per task, depending on the task” outlives “exactly 2,070 FP4 TFLOPS.” Perishable specifics go in body copy with a date, never in a headline, and never in SKY-1's mouth, because SKY-1's answers are the hardest thing to keep current.</p>
-          <p>So some things we know are deliberately not on the pages: part numbers, hourly GPU prices, roadmap dates. They're on the board below, marked perishable, so you can see what we chose not to print and why.</p>
+
+**The standing rule:** prefer a claim that stays true over one that is precise and perishable. “Fifty to two hundred demonstrations per task, depending on the task” outlives “exactly 2,070 FP4 TFLOPS.” Perishable specifics go in body copy with a date, never in a headline, and never in SKY-1's mouth, because SKY-1's answers are the hardest thing to keep current.
+
+So some things we know are deliberately not on the pages: part numbers, hourly GPU prices, roadmap dates. They're on the board below, marked perishable, so you can see what we chose not to print and why.
+
         </div>
         <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> ask me “where does this number come from” on any page and I'll point at the plate. If the bar has gone red, ask a human for the current version before you quote it.</div>
       </div>
@@ -79,7 +105,9 @@
       <p class="mono muted small" id="timelineReadout" aria-live="polite" style="margin-top:.8rem"></p>
       <div class="cols" style="margin-top:1.2rem">
         <div class="prose">
-          <p>Two of these dates are why the safety work on this site connects to the AI work: the 2025 revision of ISO 10218, and the EU Machinery Regulation applying from 20 January 2027. The <a href="/notes/ai-in-a-safety-function.html">field note</a> is the descriptive version; the <a href="/physical-ai/#offer">fallbacks and interlocks</a> service is what we do about it.</p>
+
+Two of these dates are why the safety work on this site connects to the AI work: the 2025 revision of ISO 10218, and the EU Machinery Regulation applying from 20 January 2027. The [field note](/notes/ai-in-a-safety-function.html) is the descriptive version; the [fallbacks and interlocks](/physical-ai/#offer) service is what we do about it.
+
         </div>
         <div class="callout"><span class="sq"></span><b>Descriptive, not advice.</b> Dates are what the sources say. Your notified body, assessor, or counsel has the last word on your machine.</div>
       </div>
@@ -90,7 +118,7 @@
   <section class="section" id="offer">
     <div class="container">
       <p class="eyebrow mono">04 // What we do with it</p>
-      <h2 class="section__title">We read the papers so the site stays right.<span class="muted">And so the bake-off is against the current state of the art, not last year's.</span></h2>
+      <h2 class="section__title">We read the papers so the site stays right.<span class="muted">And so the bake-off is against what's current, not last year's.</span></h2>
       <div class="cols">
         <ul class="list prose">
           <li><strong>Every engagement starts from this board.</strong> The claims that matter to your task get re-checked before we quote a number, and the perishable ones get a date.</li>
@@ -102,4 +130,3 @@
       </div>
     </div>
   </section>
-

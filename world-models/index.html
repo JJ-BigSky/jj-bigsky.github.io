@@ -123,9 +123,13 @@
       <h2 class="section__title">The gap is real, and it's task-shaped.<span class="muted">Sim transfers beautifully for some things and not at all for others. The difference is predictable.</span></h2>
       <div class="cols">
         <div class="prose">
-          <p>Locomotion transfers well. Rigid pick-and-place transfers well. Contact-rich assembly transfers badly. Deformables transfer badly and expensively. Anything that depends on surface friction, compliance, or the exact behaviour of a suction cup on a slightly dusty part transfers about as well as a weather forecast.</p>
-          <p>This is knowable <em>before</em> you build the environment, and it should determine how much you build. A team that spends three months on a photoreal digital twin to train a task that was always going to need real contact data has not made a mistake of execution. They made a mistake of triage, in week one, for free.</p>
-          <p>The measurement discipline matters more than the fidelity. A modest simulator you have honestly characterised against the real cell is worth more than a beautiful one you trust.</p>
+
+<p>Locomotion transfers well. Rigid pick-and-place transfers well. Contact-rich assembly transfers badly. Deformables transfer badly and expensively. Anything that depends on surface friction, compliance, or the exact behaviour of a suction cup on a slightly dusty part transfers about as well as a weather forecast.</p>
+
+<p>This is knowable <em>before</em> you build the environment, and it should determine how much you build. A team that spends three months on a photoreal digital twin to train a task that was always going to need real contact data has not made a mistake of execution. They made a mistake of triage, in week one, for free.</p>
+
+<p>The measurement discipline matters more than the fidelity. A modest simulator you have honestly characterised against the real cell is worth more than a beautiful one you trust.</p>
+
         </div>
         <div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 says:</b> the digital twin is doing great. The physical one has a loose cable. Both of those sentences are the point.</div>
@@ -147,11 +151,17 @@
       </div>
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
-          <p>Our position, stated plainly so you can disagree with it: physics simulation is where your budget goes today, learned world models are where your data augmentation goes next, and anyone telling you the third category is production-ready for contact-rich manipulation is describing a roadmap, not a product.</p>
-          <h3>Your CAD is not a simulation asset.</h3>
+
+<p>Our position, stated plainly so you can disagree with it: physics simulation is where your budget goes today, learned world models are where your data augmentation goes next, and anyone telling you the third category is production-ready for contact-rich manipulation is describing a roadmap, not a product.</p>
+
+<h3>Your CAD is not a simulation asset.</h3>
+
           <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">This is the sentence everyone learns in month two.</p>
-          <p>Getting from a mechanical assembly to something a physics engine can run at speed means decimation, convex decomposition, collision geometry, joint definition, mass and inertia that aren't defaults, and materials that mean something. Doing it once is a project. Doing it every time the design changes is a pipeline, and the pipeline is the deliverable.</p>
-          <p>The other route in is photographic. Reconstruct the real cell from a few dozen images with 3D Gaussian splatting, get a photorealistic scene in minutes, then convert it to collision-ready geometry for the physics engine. It's the fastest way to simulate an environment that already exists — and it captures the cable tray that isn't in anybody's CAD.</p>
+
+<p>Getting from a mechanical assembly to something a physics engine can run at speed means decimation, convex decomposition, collision geometry, joint definition, mass and inertia that aren't defaults, and materials that mean something. Doing it once is a project. Doing it every time the design changes is a pipeline, and the pipeline is the deliverable.</p>
+
+<p>The other route in is photographic. Reconstruct the real cell from a few dozen images with 3D Gaussian splatting, get a photorealistic scene in minutes, then convert it to collision-ready geometry for the physics engine. It's the fastest way to simulate an environment that already exists — and it captures the cable tray that isn't in anybody's CAD.</p>
+
         </div>
         <div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Name the tools, not the bets.</b> MuJoCo, Isaac Sim and Isaac Lab, Gazebo, Newton: pick by what your task needs to transfer, then measure the transfer. The engine is a detail; the measurement harness is the deliverable.</div>
@@ -243,7 +253,6 @@
       </div>
     </div>
   </section>
-
 
   <!-- ===== 05 // Next: loop navigation + the one contact section ===== -->
   <section class="section" id="next">

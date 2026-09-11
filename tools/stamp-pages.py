@@ -1,13 +1,15 @@
-"""Stamp the domain pages and field notes from the home page's chrome plus per-page bodies.
+"""Stamp the domain pages and field notes from the home page's chrome plus the copy in content/.
 
 A dev utility, not a build step: the generated HTML is committed and the site runs
-without this. Run it from the repo root after changing the chrome on index.html or a
-body under tools/pages/:
+without this. Run it from the repo root after editing anything under content/ or the
+chrome on index.html:
 
-    python3 tools/stamp-pages.py vision embedded physical-ai cloud world-models notes
+    python3 tools/stamp-pages.py all          # every page and note
+    python3 tools/stamp-pages.py vision notes # or just some
 
-Bodies: tools/pages/<slug>.body.html (sections between the hero and Next) and
-tools/pages/notes/<slug>.body.html (the essay). Page metadata lives in PAGES and NOTES below."""
+content/<slug>.md holds a page: front matter (title, description, hero copy, actions)
+and the body, written in Markdown with the section wrappers left as plain HTML lines.
+content/notes/<slug>.md holds an essay the same way. See content/README.md."""
 import pathlib, sys, html, re
 HOST = "https://jj-bigsky.github.io"  # live origin; on the domain move, sed this and sitemap.xml
 ROOT = pathlib.Path(".").resolve()
@@ -24,6 +26,54 @@ MASCOT = between(HOME, '<!-- ===== SKY-1 mascot + assistant ===== -->', '<button
 HOME_PLACEHOLDER = 'placeholder="Ask about services, timelines, ROS 2, safety…"'
 assert HOME_PLACEHOLDER in MASCOT
 
+# ---------- a small Markdown: paragraphs, ###/## headings, - lists, | tables, **bold**, *italic*, [text](url).
+# Any block whose first line starts with "<" passes through as HTML, so layout wrappers and
+# instruments live alongside the prose untouched. Bare "&" is escaped; entities are left alone.
+def md_inline(t):
+    t = re.sub(r"&(?![a-zA-Z#0-9]+;)", "&amp;", t)
+    t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+    t = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", t)
+    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", r'<a href="\2">\1</a>', t)
+    return t
+def md_render(text):
+    out = []
+    for block in re.split(r"\n\s*\n", text.strip("\n")):
+        lines = block.split("\n"); first = lines[0].lstrip()
+        if not first: continue
+        if first.startswith("<"): out.append(block); continue
+        if first.startswith("### "): out.append("<h3>" + md_inline(first[4:].strip()) + "</h3>"); continue
+        if first.startswith("## "): out.append("<h2>" + md_inline(first[3:].strip()) + "</h2>"); continue
+        if first.startswith("- "):
+            out.append('<ul class="list">\n' + "\n".join("  <li>" + md_inline(l.lstrip()[2:].strip()) + "</li>" for l in lines if l.strip()) + "\n</ul>"); continue
+        if first.startswith("|"):
+            rows = [[c.strip() for c in l.strip().strip("|").split("|")] for l in lines if l.strip() and not re.match(r"^\s*\|?\s*:?-{2,}", l)]
+            head, body = rows[0], rows[1:]
+            out.append('<div class="spec-wrap">\n<table class="spec">\n<thead><tr>' + "".join("<th>" + md_inline(c) + "</th>" for c in head) + "</tr></thead>\n<tbody>\n" +
+                       "\n".join("<tr>" + "".join("<td>" + md_inline(c) + "</td>" for c in r) + "</tr>" for r in body) + "\n</tbody>\n</table>\n</div>"); continue
+        out.append("<p>" + md_inline(" ".join(l.strip() for l in lines)) + "</p>")
+    return "\n\n".join(out) + "\n"
+def parse_front(text):
+    """--- key: value ... --- with 'key:' + '  - item' lists. Returns (meta, body)."""
+    m = re.match(r"^---\n(.*?)\n---\n?(.*)$", text, re.S)
+    if not m: return {}, text
+    meta, key = {}, None
+    for line in m.group(1).split("\n"):
+        if re.match(r"^\s+-\s", line) and key: meta[key].append(line.strip()[2:].strip()); continue
+        mm = re.match(r"^([A-Za-z_][\w-]*):\s*(.*)$", line)
+        if mm:
+            key, val = mm.group(1), mm.group(2).strip()
+            meta[key] = [] if val == "" else val
+    return meta, m.group(2)
+def load_page(slug):
+    meta, body = parse_front((ROOT / "content" / (slug + ".md")).read_text())
+    P = dict(slug=slug, code=meta.get("code", ""), title=meta["title"], description=meta["description"], eyebrow=meta["eyebrow"], h1=meta["h1"], sub=meta["sub"], lede=meta["lede"],
+             placeholder=meta.get("placeholder", "Ask about this page…"), next_h2=meta["next_h2"], next_sub=meta["next_sub"])
+    P["node"] = None if meta.get("node", "none") in ("none", "", None) else int(meta["node"])
+    P["actions"] = [tuple(x.strip() for x in a.split("|")) for a in meta.get("actions", [])]
+    P["scripts"] = [x.strip() for x in meta.get("scripts", "").split(",") if x.strip()] if isinstance(meta.get("scripts", ""), str) else meta["scripts"]
+    if meta.get("tb"): P["tb"] = [tuple(x.strip() for x in t.split("|", 1)) for t in meta["tb"]]
+    return P, md_render(body)
+
 NODES = [
     dict(slug="vision", verb="Perceive", title="Visual intelligence", sub="Cameras, depth, pose, and what breaks them", href="/vision/", hint="Vision"),
     dict(slug="embedded", verb="Decide", title="On-robot autonomy", sub="The policy, the silicon, the latency budget", href="/embedded/", hint="Embedded"),
@@ -34,76 +84,6 @@ NODES = [
 HUB = dict(slug="physical-ai", verb="The hub", title="Physical AI", sub="What happens when the loop closes. How you decide whether a learned policy is the right answer at all, and what it costs when it is.", href="/physical-ai/", hint="Physical AI")
 LOOP_HOME = dict(slug="loop", verb="The loop", title="All five stations", sub="A robot lab is a loop, not a shelf. The belt has an end. The loop doesn't.", href="/#loop", hint="The loop")
 
-PAGES = {}
-def page(**k): PAGES[k["slug"]] = k
-
-page(slug="vision", code="V-01", node=0,
-     title="Visual Intelligence — Big Sky Systems",
-     description="Perception is where robotics projects die quietly. Sensors, lighting, pose, grasping, and what actually breaks them.",
-     eyebrow="Visual intelligence // perceive",
-     h1="The robot can't do anything it can't see.",
-     sub="And it can see beautifully until Tuesday, when the sun comes through the loading door.",
-     lede="Vision is the highest-leverage and highest-variance system in a robot cell. Foundation models have quietly made the first four stages of the pipeline much easier than they were three years ago. The last two stages, and the physical environment around all six, are where the year goes.",
-     actions=[("btn btn--primary", "#lab", "Run the pipeline", "RUN"), ("btn", "/#contact", "Talk to a human", "MAIL")],
-     placeholder="Ask about cameras, lighting, pose, calibration…",
-     next_h2="The loop doesn't stop here.", next_sub="Seeing the part is station one. Something has to decide what to do about it.",
-     scripts=["vision-lab"])
-page(slug="embedded", code="E-01", node=1,
-     title="On-Robot Autonomy — Big Sky Systems",
-     description="Autonomy is a latency budget with a power budget stapled to it. Compute selection, optimization, and real-time architecture.",
-     eyebrow="On-robot autonomy // decide",
-     h1="Ten milliseconds is not a lot of milliseconds.",
-     sub="Everything interesting about on-robot AI is a fight over a very small number.",
-     lede="A model that answers in two seconds is a chatbot. A model that answers inside your control period is a controller. The engineering between those two sentences is most of what we do on this page.",
-     actions=[("btn btn--primary", "#lab", "Build a budget", "BUILD"), ("btn", "/#contact", "Talk to a human", "MAIL")],
-     placeholder="Ask about latency, Jetson-class compute, quantization, RT kernels…",
-     next_h2="Decided. Now move.", next_sub="The policy answered in time. The cell is where it has to be right.",
-     scripts=["calc-latency"])
-page(slug="physical-ai", code="P-01", node=None,
-     title="Physical AI — Big Sky Systems",
-     description="Learned policies are real and early. We work in the gap: demonstrations, evaluation, and the cost nobody demos.",
-     eyebrow="Physical AI // the hub",
-     h1="Physical AI, minus the demo reel.",
-     sub="Everything here is real. Almost none of it is ready in the way people think it is.",
-     lede="Physical AI is the part of the field where a model stops answering questions and starts moving mass. It's the most interesting thing to happen to robotics in thirty years, and it is being sold about four years ahead of where it actually is. We work in the gap between those two facts.",
-     actions=[("btn btn--primary", "#calc", "Run the budget", "COUNT"), ("btn", "/#contact", "Talk to a human", "MAIL")],
-     placeholder="Ask how many demos, or whether you need AI at all…",
-     next_h2="Pick a station.", next_sub="The hub is the argument. The stations are the work.",
-     scripts=["calc-demos"])
-page(slug="cloud", code="C-01", node=3,
-     title="Robot Data & Cloud — Big Sky Systems",
-     description="Your fleet is a data business with a floor plan. Capture, datasets, training infrastructure, and fleet rollout.",
-     eyebrow="Robot data &amp; cloud // capture",
-     h1="Your fleet is a data business with a floor plan.",
-     sub="The robots are the sensors. The loop is the product.",
-     lede="Every hour your robots run, they generate the only thing that makes next quarter's policy better than this quarter's. Almost nobody is set up to keep it, find it, or use it. This is the least glamorous page on this site and it's the one that decides whether the rest works.",
-     actions=[("btn btn--primary", "#calc", "Do the multiplication", "COUNT"), ("btn", "/#contact", "Talk to a human", "MAIL")],
-     placeholder="Ask about storage, datasets, MCAP, fleet rollout…",
-     next_h2="Captured. Now imagine.", next_sub="Logs are only useful if something learns from them.",
-     scripts=["calc-data"])
-page(slug="research", code="R-01", node=None,
-     title="Research — Big Sky Systems",
-     description="Every number on the site, rated by how much we trust it, dated by when it was checked, with its sources. Perishable claims age in public.",
-     eyebrow="Research // the evidence",
-     h1="Every number on this site has a source.",
-     sub="Here they are, rated by how much we trust them and dated by when they go stale.",
-     lede="The site's credibility comes from being right. So the research stays where you can see it: each claim, how sure we are, when it was last checked, where it's used, and what it rests on. The perishable ones age in public.",
-     actions=[("btn btn--primary", "#board", "Open the board", "OPEN"), ("btn", "/#contact", "Talk to a human", "MAIL")],
-     placeholder="Ask where a number comes from…",
-     next_h2="Now go check it against your cell.", next_sub="The board is the argument. The bake-off is the proof.",
-     scripts=["research"],
-     tb=[("Sheet", "R-01"), ("Claims", '<span id="rClaims">—</span>'), ("Overdue", '<span id="rOverdue" class="accent">0</span>'), ("Checked", "Sep 2026")])
-page(slug="world-models", code="W-01", node=4,
-     title="Simulation & World Models — Big Sky Systems",
-     description="Break it ten thousand times where it's free, then measure how much the simulator lied.",
-     eyebrow="Simulation &amp; world models // imagine",
-     h1="Break it ten thousand times where it's free.",
-     sub="Then find out how much the simulator lied to you. That second part is the job.",
-     lede="Simulation stopped being a nice-to-have the moment policies started needing thousands of episodes. What's new is that “simulator” now means three quite different things, and picking the wrong one costs a quarter.",
-     actions=[("btn btn--primary", "#calc", "Measure the gap", "GAUGE"), ("btn", "/#contact", "Talk to a human", "MAIL")],
-     placeholder="Ask about sim-to-real, world models, digital twins…",
-     next_h2="Imagined. Now look again.", next_sub="The loop closes where it started: something has to see the part.",
-     scripts=["gap-meter"])
 
 def loopline(node):
     items = []
@@ -132,8 +112,7 @@ def next_strip(node, slug=None):
     return "\n".join([plate(prev, "← Previous · " + prev["verb"], "BACK"), plate(HUB, "The hub · All five", "HUB", ink=True), plate(nxt, "Next · " + nxt["verb"], "NEXT")])
 
 def build(slug):
-    P = PAGES[slug]
-    body = (HERE / "pages" / (slug + ".body.html")).read_text()
+    P, body = load_page(slug)
     n_sections = body.count('<section class="section"')
     next_num = "%02d" % (n_sections + 1)
     node = P["node"]
@@ -238,14 +217,6 @@ def build(slug):
     print("wrote", slug + "/index.html", len(out), "bytes,", n_sections + 1, "sections")
 
 
-NOTES = [
-    dict(slug="your-average-latency-is-a-lie", n="01", station="Decide", page="/embedded/", page_name="On-robot autonomy", title="Your average latency is a lie.", standfirst="The p99.9 argument, with a worked example of a pipeline that passes every test and breaks on the second shift.", date="September 2026"),
-    dict(slug="fifty-to-two-hundred", n="02", station="The hub", page="/physical-ai/", page_name="Physical AI", title="Fifty to two hundred.", standfirst="What imitation learning actually costs per task, and how to pick the three tasks worth it.", date="September 2026"),
-    dict(slug="the-simulator-lied", n="03", station="Imagine", page="/world-models/", page_name="Simulation & world models", title="The simulator lied to you, and that's fine.", standfirst="Reality gap as a measurable, task-shaped, budgetable quantity rather than a disappointment.", date="September 2026"),
-    dict(slug="keep-the-raw", n="04", station="Capture", page="/cloud/", page_name="Robot data & cloud", title="Keep the raw.", standfirst="Three data decisions made in week one that determine whether you have a flywheel or a NAS.", date="September 2026"),
-    dict(slug="a-fixture-and-a-limit-switch", n="05", station="Act", page="/#services", page_name="The lab", title="A fixture and a limit switch.", standfirst="In defence of not using AI, from people who do use it.", date="September 2026"),
-    dict(slug="ai-in-a-safety-function", n="06", station="Act · Decide", page="/physical-ai/", page_name="Physical AI", title="AI in a safety function.", standfirst="What the 2025 robot-safety revision and the 2027 EU machinery rules mean if your policy is learned. Descriptive, dated, and not legal advice.", date="September 2026"),
-]
 NOTES_DESC = "Working notes on robotics, physical AI, and the parts of both that don't demo well."
 
 def chrome(title, description, page, body_main, placeholder, canon, og):
@@ -289,8 +260,16 @@ def chrome(title, description, page, body_main, placeholder, canon, og):
 </html>
 """ % dict(title=title, description=description, page=page, canon=canon, og=og, fonts=FONTS, reticle=RETICLE, sprite=SPRITE, header=HEADER, footer=FOOTER, mascot=MASCOT.replace(HOME_PLACEHOLDER, 'placeholder="%s"' % placeholder), main=body_main, scripts=scripts)
 
+def load_notes():
+    notes = []
+    for f in sorted((ROOT / "content" / "notes").glob("*.md")):
+        meta, body = parse_front(f.read_text())
+        notes.append(dict(meta, slug=f.stem, body=md_render(body)))
+    return sorted(notes, key=lambda n: n["n"])
+NOTES = load_notes()
+
 def build_note(note):
-    body = (HERE / "pages" / "notes" / (note["slug"] + ".body.html")).read_text()
+    body = note["body"]
     words = len(re.sub(r"<[^>]+>", " ", body).split()); mins = max(3, round(words / 220))
     i = NOTES.index(note); prev = NOTES[i - 1] if i else None; nxt = NOTES[i + 1] if i + 1 < len(NOTES) else None
     main = """
@@ -359,6 +338,9 @@ def build_notes_index():
     out = chrome("Field Notes — Big Sky Systems", NOTES_DESC, "notes", main, "Ask which note to read first…", HOST + "/notes/", HOST + "/assets/img/og/notes.png")
     (ROOT / "notes" / "index.html").write_text(out); print("wrote notes/index.html")
 
-for slug in sys.argv[1:]:
-    if slug == "notes": build_notes_index(); [build_note(n) for n in NOTES]
-    else: build(slug)
+if __name__ == "__main__":
+    targets = sys.argv[1:]
+    if targets == ["all"]: targets = [f.stem for f in sorted((ROOT / "content").glob("*.md"))] + ["notes"]
+    for slug in targets:
+        if slug == "notes": build_notes_index(); [build_note(n) for n in NOTES]
+        else: build(slug)

@@ -1,3 +1,21 @@
+---
+title: Robot Data & Cloud — Big Sky Systems
+description: Your fleet is a data business with a floor plan. Capture, datasets, training infrastructure, and fleet rollout.
+code: C-01
+node: 3
+eyebrow: Robot data &amp; cloud // capture
+h1: Your fleet is a data business with a floor plan.
+sub: The robots are the sensors. The loop is the product.
+lede: Every hour your robots run, they generate the only thing that makes next quarter's policy better than this quarter's. Almost nobody is set up to keep it, find it, or use it. This is the least glamorous page on this site and it's the one that decides whether the rest works.
+actions:
+  - btn btn--primary | #calc | Do the multiplication | COUNT
+  - btn | /#contact | Talk to a human | MAIL
+placeholder: Ask about storage, datasets, MCAP, fleet rollout…
+next_h2: Captured. Now imagine.
+next_sub: Logs are only useful if something learns from them.
+scripts: calc-data
+---
+
   <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
@@ -5,11 +23,17 @@
       <h2 class="section__title">Do the multiplication before you buy the robots.<span class="muted">It's a small sum and it changes the plan.</span></h2>
       <div class="cols">
         <div class="prose">
-          <p>Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it in month four, and respond by deleting the data — which is to say, by turning off the loop that was the entire point.</p>
-          <p>The projects that go wrong here go wrong the same way. Three rules that prevent it:</p>
-          <p><strong>Keep the raw.</strong> Compressed, tiered to cold storage, but keep it. You will want to re-derive datasets with a labelling scheme you haven't invented yet.</p>
-          <p><strong>Record provenance, not just data.</strong> Which robot, which policy version, which gripper, which calibration, which shift. A trajectory without its context is a video.</p>
-          <p><strong>Decide retention on day one.</strong> Not because storage is expensive, but because “everything forever” is not a policy and it will be made for you, badly, in a hurry, by whoever gets the bill.</p>
+
+Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it in month four, and respond by deleting the data, which is to say by turning off the loop that was the entire point.
+
+The projects that go wrong here go wrong the same way. Three rules that prevent it:
+
+**Keep the raw.** Compressed, tiered to cold storage, but keep it. You will want to re-derive datasets with a labelling scheme you haven't invented yet.
+
+**Record provenance, not just data.** Which robot, which policy version, which gripper, which calibration, which shift. A trajectory without its context is a video.
+
+**Decide retention on day one.** Not because storage is expensive, but because “everything forever” is not a policy and it will be made for you, badly, in a hurry, by whoever gets the bill.
+
         </div>
         <div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 says:</b> training compute is the cheap part. Nobody believes me. The expensive part is the demonstrations and the people who clean them.</div>
@@ -26,20 +50,35 @@
       <h2 class="section__title">Two ecosystems, one conversion tax.<span class="muted">Operational logging and learning datasets are not the same thing, and the seam between them is a real cost.</span></h2>
       <div class="cols">
         <div class="prose">
-          <p>On the robot, the operational format is MCAP in rosbag2 — the default in modern ROS 2 — a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's the thing you replay when something went wrong at 3 a.m.</p>
-          <p>On the training side, the learning ecosystem has converged on episode-oriented dataset formats built around demonstrations — LeRobot-style datasets, RLDS — with cross-embodiment collections like Open X-Embodiment published in them and tooling that assumes them.</p>
-          <p>These are different shapes for good reasons, and the conversion between them is a pipeline you own forever. Design it early, make it deterministic, version it, and make it possible to regenerate every training set from raw. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.</p>
-          <h3>Training is the cheap part. Nobody believes this.</h3>
+
+On the robot, the operational format is MCAP in rosbag2, the default in modern ROS 2: a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's the thing you replay when something went wrong at 3 a.m.
+
+On the training side, the tooling has converged on episode-oriented dataset formats built around demonstrations (LeRobot-style datasets, RLDS), with cross-embodiment collections like Open X-Embodiment published in them and tooling that assumes them.
+
+These are different shapes for good reasons, and the conversion between them is a pipeline you own forever. Design it early, make it deterministic, version it, and make it possible to regenerate every training set from raw. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.
+
+### Training is the cheap part. Nobody believes this.
+
           <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Fine-tuning is a rounding error next to collecting the data and proving the result.</p>
-          <p>Renting serious GPUs is a couple of dollars an hour per card. A parameter-efficient fine-tune of a generalist policy on a few hundred episodes runs overnight on a single card. A full fine-tune across eight cards is a day or two. In money, that's a rounding error against a robotics program.</p>
-          <p>The costs that actually hurt are the ones on the <a href="/physical-ai/">Physical AI page</a>: thousands of teleoperated demonstrations, the operators who perform them, the engineers who clean them, and the evaluation infrastructure that tells you whether any of it worked. Compute is the line item everyone budgets for and the one that matters least.</p>
-          <p>Which is the good news, mostly. It means the expensive part is something you can be strategic about instead of something you rent.</p>
-          <h3>Shipping a policy is a deployment, not a file copy.</h3>
+
+Renting serious GPUs is a couple of dollars an hour per card. A parameter-efficient fine-tune of a generalist policy on a few hundred episodes runs overnight on a single card. A full fine-tune across eight cards is a day or two. In money, that's a rounding error against a robotics program.
+
+The costs that actually hurt are the ones on the [Physical AI page](/physical-ai/): thousands of teleoperated demonstrations, the operators who perform them, the engineers who clean them, and the evaluation infrastructure that tells you whether any of it worked. Compute is the line item everyone budgets for and the one that matters least.
+
+Which is the good news, mostly. It means the expensive part is something you can be strategic about instead of something you rent.
+
+### Shipping a policy is a deployment, not a file copy.
+
           <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Treat it like software, because it is software that can move a two-kilo part at speed.</p>
-          <p>Versioned artifacts, staged rollout, a canary robot, automatic rollback on a metric you agreed on in advance, per-robot configuration that survives a re-image, and observability that tells you a cell is degrading before the operator does.</p>
-          <p>Note for people planning around old documentation: the managed cloud-robotics services of the last generation have largely been withdrawn, and the current pattern is edge agents plus your own orchestration, or a fleet platform chosen on its own merits. We're vendor-neutral here for the same reason we are about arms.</p>
-          <h3>Governance</h3>
-          <p>Every frame from a workplace camera has people in the background of it. Decide who can see feeds, how long they're kept, how they're deleted, and what gets blurred before it leaves the site — in week one, not after someone asks. Where the data trains a policy, that intersects with the compliance overlay: in the EU, the AI Act and GDPR sit alongside the machinery rules. This is a flag, not a legal page; we'll help you write the policy and point you at the people who sign it.</p>
+
+Versioned artifacts, staged rollout, a canary robot, automatic rollback on a metric you agreed on in advance, per-robot configuration that survives a re-image, and observability that tells you a cell is degrading before the operator does.
+
+Note for people planning around old documentation: the managed cloud-robotics services of the last generation have largely been withdrawn, and the current pattern is edge agents plus your own orchestration, or a fleet platform chosen on its own merits. We're vendor-neutral here for the same reason we are about arms.
+
+### Governance
+
+Every frame from a workplace camera has people in the background of it. Decide who can see feeds, how long they're kept, how they're deleted, and what gets blurred before it leaves the site, in week one, not after someone asks. Where the data trains a policy, that intersects with the compliance overlay: in the EU, the AI Act and GDPR sit alongside the machinery rules. This is a flag, not a legal page; we'll help you write the policy and point you at the people who sign it.
+
         </div>
         <div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>The conversion tax, paid once.</b> Raw logs in, training-ready episodes out, deterministic and versioned, so every dataset can be regenerated from the raw when the labelling scheme changes. It will change.</div>
@@ -133,4 +172,3 @@
       </div>
     </div>
   </section>
-

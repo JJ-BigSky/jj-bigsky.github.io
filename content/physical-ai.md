@@ -1,3 +1,21 @@
+---
+title: Physical AI — Big Sky Systems
+description: Learned policies are real and early. We work in the gap: demonstrations, evaluation, and the cost nobody demos.
+code: P-01
+node: none
+eyebrow: Physical AI // the hub
+h1: Physical AI, minus the demo reel.
+sub: Everything here is real. Almost none of it is ready in the way people think it is.
+lede: Physical AI is the part of the field where a model stops answering questions and starts moving mass. It's the most interesting thing to happen to robotics in thirty years, and it is being sold about four years ahead of where it actually is. We work in the gap between those two facts.
+actions:
+  - btn btn--primary | #calc | Run the budget | COUNT
+  - btn | /#contact | Talk to a human | MAIL
+placeholder: Ask how many demos, or whether you need AI at all…
+next_h2: Pick a station.
+next_sub: The hub is the argument. The stations are the work.
+scripts: calc-demos
+---
+
   <!-- ===== 01 // The honest version ===== -->
   <section class="section" id="honest">
     <div class="container">
@@ -5,10 +23,15 @@
       <h2 class="section__title">Three numbers before you commit.<span class="muted">We'd rather lose the project than lose the year.</span></h2>
       <div class="cols">
         <div class="prose">
-          <p><strong>Fifty to two hundred.</strong> That's roughly how many teleoperated demonstrations current imitation-learning approaches need per task, depending on the task. A cell with twenty distinct tasks lands somewhere between one and four thousand demonstrations. Someone has to perform every one of them, and someone has to throw out the bad ones.</p>
-          <p><strong>Ninety-five to ninety-nine percent.</strong> That's the uptime a production line expects. Most of the platforms in the demo videos still need a charge or a human well before a shift ends. Both numbers are true at once, and the distance between them is the entire job.</p>
-          <p><strong>2026 is a validation year.</strong> Real deployments exist — tote moves, line-side delivery, kitting, machine tending, inspection — and they're narrow, supervised, and hard-won. Broad factory-scale adoption reads like a 2030s story. Anyone promising otherwise is selling you a slide.</p>
-          <p>None of this means don't start. It means start on the task that survives contact with those numbers, and build the data and evaluation machinery first, because that's the part nobody demos.</p>
+
+**Fifty to two hundred.** That's roughly how many teleoperated demonstrations current imitation-learning approaches need per task, depending on the task. A cell with twenty distinct tasks lands somewhere between one and four thousand demonstrations. Someone has to perform every one of them, and someone has to throw out the bad ones.
+
+**Ninety-five to ninety-nine percent.** That's the uptime a production line expects. Most of the platforms in the demo videos still need a charge or a human well before a shift ends. Both numbers are true at once, and the distance between them is the entire job.
+
+**2026 is a validation year.** Real deployments exist (tote moves, line-side delivery, kitting, machine tending, inspection), and they're narrow, supervised, and hard-won. Broad factory-scale adoption reads like a 2030s story. Anyone promising otherwise is selling you a slide.
+
+None of this means don't start. It means start on the task that survives contact with those numbers, and build the data and evaluation machinery first, because that's the part nobody demos.
+
           <p class="small muted">Figures reflect published industry reporting as of September 2026. Ask us for the current version. They move.</p>
         </div>
         <div>
@@ -24,28 +47,31 @@
     <div class="container">
       <p class="eyebrow mono">02 // What actually works</p>
       <h2 class="section__title">Where a learned policy earns its place.<span class="muted">And where a fixture and a limit switch still win.</span></h2>
-      <div class="spec-wrap">
-        <table class="spec">
-          <thead><tr><th>A learned policy is probably right</th><th>A fixture is probably right</th></tr></thead>
-          <tbody>
-            <tr><td>High part variation you can't fixture away</td><td>Same part, same pose, every cycle</td></tr>
-            <tr><td>Contact-rich assembly with tolerance for feel</td><td>Position-repeatable moves inside 0.1 mm</td></tr>
-            <tr><td>Deformables — cloth, cable, foam, food</td><td>Rigid parts arriving on a known datum</td></tr>
-            <tr><td>Long tail of variants that would need 40 programs</td><td>Four variants and a tool changer</td></tr>
-            <tr><td>You already have a data pipeline and evaluation</td><td>You have neither, and a deadline</td></tr>
-          </tbody>
-        </table>
-      </div>
+
+| A learned policy is probably right | A fixture is probably right |
+|---|---|
+| High part variation you can't fixture away | Same part, same pose, every cycle |
+| Contact-rich assembly with tolerance for feel | Position-repeatable moves inside 0.1 mm |
+| Deformables: cloth, cable, foam, food | Rigid parts arriving on a known datum |
+| Long tail of variants that would need 40 programs | Four variants and a tool changer |
+| You already have a data pipeline and evaluation | You have neither, and a deadline |
+
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
-          <p>That right-hand column isn't a consolation prize. It's most of manufacturing, it's cheaper, and it doesn't need a GPU. We'll tell you when you're in it.</p>
-          <h3>We run bake-offs on models too.</h3>
+
+That right-hand column isn't a consolation prize. It's most of manufacturing, it's cheaper, and it doesn't need a GPU. We'll tell you when you're in it.
+
+### We run bake-offs on models too.
+
           <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Same rule as robots. Your parts, your bench, your numbers.</p>
-          <p>The generalist policy space moves monthly: flow-matching VLAs, open-weight generalist models trained on cross-embodiment data, diffusion policies, and vendor stacks that ship with the hardware. We hold opinions and we don't hold loyalties. What we care about is how a candidate does on your task, on your bench, measured the same way twice.</p>
-          <p>The evaluation is the deliverable. The model is a detail that will be obsolete by the time your cell is commissioned, and your evaluation harness will still be there.</p>
+
+The generalist policy space moves monthly: flow-matching VLAs, open-weight generalist models trained on cross-embodiment data, diffusion policies, and vendor stacks that ship with the hardware. We hold opinions and we don't hold loyalties. What we care about is how a candidate does on your task, on your bench, measured the same way twice.
+
+The evaluation is the deliverable. The model is a detail that will be obsolete by the time your cell is commissioned, and your evaluation harness will still be there.
+
         </div>
         <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Triage, in order.</b> Fixture what can be fixtured. Learn what can't. Build the data pipeline and the evaluation harness before either, because that's the part nobody demos.</div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Triage, in order.</b> Fixture what can be fixtured. Learn what can't. Build the data pipeline and the evaluation harness before either. That's the part the demo skips.</div>
           <div class="fig mono"><b>Field note</b><a href="/notes/a-fixture-and-a-limit-switch.html">A fixture and a limit switch: in defence of not using AI, from people who do →</a></div>
         </div>
       </div>
@@ -134,13 +160,16 @@
       </div>
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
-          <h3>AI in a safety function</h3>
-          <p>If a learned policy participates in a safety function, the compliance path changes. ISO 10218-1:2025 and ISO 10218-2:2025 superseded the 2011 editions and make functional-safety requirements explicit rather than implied; conflicting national standards are to be withdrawn by March 2027. In the EU, the Machinery Regulation (EU) 2023/1230 applies from 20 January 2027, replacing the Machinery Directive, and it introduces specific provisions for machinery incorporating AI, with machinery where an AI system performs a safety function treated as high-risk under Annex I. An AI-driven robot in the EU sits at the intersection of that regulation, the AI Act, and GDPR.</p>
-          <p>That is why P-04 exists, and why it connects to our <a href="/#services">safety and compliance work</a>: the fallback path is designed and proven to the same standard as everything else in the safety architecture, not bolted on after the model works. It's also a legitimate reason to have this conversation this quarter rather than next year.</p>
+
+### AI in a safety function
+
+If a learned policy participates in a safety function, the compliance path changes. ISO 10218-1:2025 and ISO 10218-2:2025 superseded the 2011 editions and make functional-safety requirements explicit rather than implied; conflicting national standards are to be withdrawn by March 2027. In the EU, the Machinery Regulation (EU) 2023/1230 applies from 20 January 2027, replacing the Machinery Directive, and it introduces specific provisions for machinery incorporating AI, with machinery where an AI system performs a safety function treated as high-risk under Annex I. An AI-driven robot in the EU sits at the intersection of that regulation, the AI Act, and GDPR.
+
+That is why P-04 exists, and why it connects to our [safety and compliance work](/#services): the fallback path is designed and proven to the same standard as everything else in the safety architecture, not bolted on after the model works. It's also a legitimate reason to have this conversation this quarter rather than next year.
+
           <p class="small muted">Descriptive, not legal or certification advice. Standards position current as of September 2026; talk to your notified body or assessor about your machine.</p>
         </div>
         <div class="fig mono"><b>Field note</b><a href="/notes/ai-in-a-safety-function.html">AI in a safety function: what the 2025 robot-safety revision and the 2027 EU machinery rules mean if your policy is learned →</a></div>
       </div>
     </div>
   </section>
-
