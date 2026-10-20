@@ -5,10 +5,11 @@ code: C-01
 node: 3
 eyebrow: Robot data &amp; cloud // capture
 h1: Every hour a robot runs, it writes the next dataset.
-sub: Only if your ring buffers, schemas, and ingest pipelines are built to keep it.
-lede: Every shift your robots run, they generate the sensor logs and edge cases that make next quarter's policy better than this quarter's. Almost nobody is set up to buffer, index, or query them. This is the least glamorous station in the loop and the one that decides whether the rest improves over time.
+sub: On-robot ring buffers, MCAP-to-episode ETL pipelines, training workflows, and canary fleet rollouts in your own account.
+lede: Every shift your robots run, they generate the edge cases and failure traces that make next quarter's policy better than this quarter's. We build the buffering, provenance schemas, dataset pipelines, and rollback infrastructure in your own cloud or on-prem rack—with zero vendor lock-in.
 actions:
-  - btn btn--primary | #calc | Do the multiplication | COUNT
+  - btn btn--primary | #offer | See deliverables | WORK
+  - btn | #calc | Size your storage | COUNT
   - btn | /#contact | Talk to a human | MAIL
 placeholder: Ask about storage, datasets, MCAP, fleet rollout…
 next_h2: Captured. Now imagine.
@@ -16,43 +17,55 @@ next_sub: Logs are only useful if something learns from them.
 scripts: calc-data
 ---
 
-  <!-- ===== 01 // Bitrate & retention ===== -->
-  <section class="section" id="honest">
+  <!-- ===== 01 // What we deliver ===== -->
+  <section class="section" id="offer">
     <div class="container">
-      <p class="eyebrow mono">01 // Bitrate &amp; retention</p>
-      <h2 class="section__title">Do the multiplication before you buy the robots.<span class="muted">It's a small sum and it changes the plan.</span></h2>
-      <div class="cols">
-        <div class="prose">
-
-Four 1080p cameras at 30 fps across six robots running two shifts is a facilities, network, and storage bill. Teams that discover that bitrate when the NAS fills up respond by deleting raw logs—turning off the data flywheel they built the fleet to feed.
-
-**Keep the raw.** Tiered to cold storage and compressed, so you can re-derive datasets when your action space or labeling scheme changes.
-
-**Record provenance on every episode.** Robot ID, policy checkpoint, gripper, camera extrinsics, and shift. Without calibration and controller metadata, a trajectory cannot be trained on.
-
-**Set retention rules on day one.** Triggered ring buffers keep high-rate sensor streams around faults, interventions, and out-of-distribution grasps while summarizing routine cycles.
-
-        </div>
-        <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Cost reality:</b> GPU training hours are a fraction of your budget. The real cost sits in demonstration collection, episode curation, and storage egress.</div>
-          <div class="fig mono"><b>Field note</b><a href="/notes/keep-the-raw.html">Keep the raw: three data decisions made in week one that decide whether you have a flywheel or a NAS →</a></div>
-        </div>
+      <p class="eyebrow mono">01 // What we deliver</p>
+      <h2 class="section__title">Four data &amp; fleet engagements, deployed in your account.<span class="muted">Your cloud, your storage buckets, your runbooks. No recurring platform lock-in to us.</span></h2>
+      <div class="cards cards--4">
+        <article class="card">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">C-01 // EDGE BUFFERING &amp; INGEST</span><h3>Capture architecture</h3><p>Triggered on-robot ring buffers, provenance schemas, and an upload pipeline sized to your plant's actual bitrate and Wi-Fi.</p></div>
+            <div class="card__face card__back"><h4>Deliverables</h4><ul><li>ROS 2 MCAP capture schema with full calibration &amp; policy provenance</li><li>On-robot ring buffer that survives network drops and triggers on faults</li><li>Edge privacy redaction (face/badge blurring) before frames leave site</li><li>Day-one hot/warm/cold retention and storage tiering policy</li></ul></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">C-02 // MCAP TO EPISODES</span><h3>Dataset pipeline</h3><p>Deterministic, versioned ETL from raw operational rosbag2/MCAP logs into training-ready episode datasets (LeRobot, RLDS).</p></div>
+            <div class="card__face card__back"><h4>Deliverables</h4><ul><li>Deterministic MCAP → LeRobot / RLDS episode conversion pipeline</li><li>Dataset versioning so any training set regenerates from raw logs</li><li>Automated episode QC filter (drops stalls, e-stops, corrupt sync)</li><li>Searchable episode catalog indexed by task, part, and failure mode</li></ul></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">C-03 // TRAINING &amp; EVAL</span><h3>Training infrastructure</h3><p>Scripted fine-tuning and evaluation workflows inside your cloud account or on-prem GPU rack, with per-run cost visibility.</p></div>
+            <div class="card__face card__back"><h4>Deliverables</h4><ul><li>One-command training jobs on your cloud or on-prem GPUs</li><li>Automated post-training evaluation pass on every candidate checkpoint</li><li>Per-experiment GPU &amp; storage cost tracking before bills spike</li><li>Complete runbooks so your engineers run training without us</li></ul></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">C-04 // CANARY DEPLOYMENT</span><h3>Fleet rollout</h3><p>Signed policy artifacts, staged canary cells, metric-triggered rollback, and fleet telemetry that pages before the line stops.</p></div>
+            <div class="card__face card__back"><h4>Deliverables</h4><ul><li>Versioned, OCI-packaged policy artifacts with one-command rollback</li><li>Canary cell rollout gated on agreed cycle-time and intervention metrics</li><li>Per-robot calibration and configuration state that survives re-imaging</li><li>Grafana/Foxglove observability dashboards and drift alerts</li></ul></div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== 02 // What actually works ===== -->
+  <!-- ===== 02 // Architecture & data rules ===== -->
   <section class="section" id="works">
     <div class="container">
-      <p class="eyebrow mono">02 // What actually works</p>
-      <h2 class="section__title">Two ecosystems, one conversion tax.<span class="muted">Operational logging and learning datasets are not the same thing.</span></h2>
-      <div class="cols">
+      <p class="eyebrow mono">02 // Architecture &amp; retention rules</p>
+      <h2 class="section__title">Two ecosystems, one conversion pipeline.<span class="muted">Operational diagnostics and policy-training datasets require different formats—and a deterministic bridge between them.</span></h2>
+
+| Layer | Standard format | What it's built for | What breaks without it |
+|---|---|---|---|
+| **On-robot operational log** | `rosbag2` / **MCAP** | Asynchronous, multi-rate sensor streams, TF trees, and fault replay. | You can't diagnose why a cell faulted at 2:14 a.m. |
+| **Provenance manifest** | **JSON / Parquet** | Robot ID, camera extrinsics, gripper TCP, policy SHA, operator ID. | Recorded trajectories are unusable after the next calibration. |
+| **Training dataset** | **LeRobot / RLDS** | Time-aligned `(observation, action, reward)` episodes for GPU dataloaders. | Training scripts stall on raw bag parsing and mismatched timestamps. |
+
+      <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
-
-**MCAP to episode datasets.** On the robot, the operational format is MCAP in rosbag2: heterogeneous, multi-schema, timestamped streams built for fault replay. On the training side, tooling expects clean episode datasets (LeRobot, RLDS). Build a deterministic, versioned conversion pipeline early so any training set can be regenerated from raw logs.
-
-**Training compute vs. fleet rollout.** A parameter-efficient fine-tune of a generalist policy on a few hundred episodes runs overnight on a single rented GPU; full fine-tunes across eight cards take a day or two. The engineering work that matters is staged deployment: versioned policy artifacts, a canary cell, automated rollback when cycle metrics degrade, and on-edge privacy redaction before camera frames leave the plant.
-
+          <p><strong>Keep the raw, tier it cold, and budget for data over compute.</strong> Fine-tuning a generalist policy on a few hundred episodes runs overnight on a single rented GPU ($2–$4/hr). The real line items are storage, egress, and episode curation—which is why retention rules and triggered ring buffers belong in week one.</p>
         </div>
         <div class="callout"><span class="sq"></span><b>Rollout rule:</b> versioned artifacts, canary cell, agreed cycle metric, and one-command rollback. If you cannot roll back in under a minute, you are not ready to roll out.</div>
       </div>
@@ -62,11 +75,11 @@ Four 1080p cameras at 30 fps across six robots running two shifts is a facilitie
   <!-- ===== 03 // Robot data math ===== -->
   <section class="section" id="calc">
     <div class="container">
-      <p class="eyebrow mono">03 // Robot data math</p>
-      <h2 class="section__title">Fleet, times sensors, times hours.<span class="muted">Into terabytes a month, what it costs, and the date it becomes a problem.</span></h2>
+      <p class="eyebrow mono">03 // Interactive storage &amp; cost calculator</p>
+      <h2 class="section__title">Size your fleet data footprint.<span class="muted">Multiply robots, cameras, and shift hours into monthly terabytes, cloud storage cost, and when your array fills up.</span></h2>
       <div class="calc" id="dataCalc">
         <div class="calc__inputs plate">
-          <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 02</b>Robot data math. The default is a modest pilot. Watch what four cameras do to it.</div>
+          <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 01</b>The default models a 6-robot pilot with four 1080p cameras per cell.</div>
           <div class="calc__grid">
             <label class="range"><span class="mono">Robots in fleet</span><input type="range" id="cRobots" min="1" max="50" value="6" data-out="cRobotsOut" /><output id="cRobotsOut" class="mono">6</output></label>
             <label class="range"><span class="mono">Cameras per robot</span><input type="range" id="cCams" min="1" max="8" value="4" data-out="cCamsOut" /><output id="cCamsOut" class="mono">4</output></label>
@@ -105,40 +118,6 @@ Four 1080p cameras at 30 fps across six robots running two shifts is a facilitie
           </div>
           <p class="muted small" style="margin-top:1rem">First-order bitrate and list-price cloud storage estimate. State stays in the URL.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 04 // What we do ===== -->
-  <section class="section" id="offer">
-    <div class="container">
-      <p class="eyebrow mono">04 // What we do</p>
-      <h2 class="section__title">Four things, in your account, that your team can run.<span class="muted">No lock-in to us. That's the point.</span></h2>
-      <div class="cards cards--4">
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
-          <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">C-01</span><h3>Capture architecture</h3><p>Schema, provenance, on-robot buffering, and an ingest path sized to your actual bitrate and your actual network.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Capture schema with provenance on every record</li><li>On-robot buffering that survives the Wi-Fi dropping</li><li>Ingest path sized from the multiplication, not a guess</li><li>Retention and tiering policy, decided on day one</li></ul></div>
-          </div>
-        </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
-          <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">C-02</span><h3>Dataset pipeline</h3><p>Deterministic, versioned, reproducible conversion from raw logs to training-ready episodes.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>MCAP in, episode datasets out, the same way every time</li><li>Versioned so any training set regenerates from raw</li><li>QC that drops the bad episodes before they train</li><li>A catalog your team can actually search</li></ul></div>
-          </div>
-        </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
-          <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">C-03</span><h3>Training infrastructure</h3><p>Set up so your team runs it, in your account, with cost visibility and no lock-in to us.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Training jobs in your cloud account or on your rack, scripted</li><li>Evaluation that runs on every candidate, automatically</li><li>Cost visibility per experiment, before the bill</li><li>Runbooks, so nobody needs us to press the button</li></ul></div>
-          </div>
-        </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
-          <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">C-04</span><h3>Fleet rollout</h3><p>Versioned policies, staged canaries, metric-triggered rollback, and observability that pages someone before the line stops.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Versioned policy artifacts with a rollback that works</li><li>Canary robot and an agreed metric that decides</li><li>Per-robot configuration that survives a re-image</li><li>Dashboards and alerts that page before the operator notices</li></ul></div>
-          </div>
-        </article>
       </div>
     </div>
   </section>

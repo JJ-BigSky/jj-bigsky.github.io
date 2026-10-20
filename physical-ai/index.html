@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Physical AI — Big Sky Systems</title>
-  <meta name="description" content="Learned policies are real and early. We work in the gap: demonstrations, evaluation, and the cost nobody demos." />
+  <meta name="description" content="Practical Physical AI engineering: task triage, teleoperation rigs, demonstration collection, closed-loop policy evaluation, and ISO 10218:2025 safety interlocks." />
   <meta name="theme-color" content="#ECE9E2" />
   <meta property="og:title" content="Physical AI — Big Sky Systems" />
-  <meta property="og:description" content="Learned policies are real and early. We work in the gap: demonstrations, evaluation, and the cost nobody demos." />
+  <meta property="og:description" content="Practical Physical AI engineering: task triage, teleoperation rigs, demonstration collection, closed-loop policy evaluation, and ISO 10218:2025 safety interlocks." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jj-bigsky.github.io/physical-ai/" />
   <meta property="og:image" content="https://jj-bigsky.github.io/assets/img/og/physical-ai.png" />
@@ -65,9 +65,8 @@
   <nav class="nav__links" id="navLinks" aria-label="Primary">
     <a href="/#services">Work</a>
     <a href="/#loop">The Loop</a>
-    <a href="/#playground">Lab</a>
     <a href="/#method">Method</a>
-    <a href="/notes/">Notes</a>
+    <a href="/#builder">Lab</a>
     <a href="/research/">Research</a>
     <a href="/#contact" class="nav__cta">Talk to us</a>
   </nav>
@@ -86,10 +85,11 @@
       <div class="page-hero__text">
         <p class="eyebrow mono"><span class="led"></span> Physical AI // the hub</p>
         <h1>Physical AI, minus the demo reel.</h1>
-        <p class="page-hero__sub">Everything here is real. Almost none of it is ready in the way people think it is.</p>
-        <p class="page-hero__lede">Physical AI is the part of the field where a model stops answering questions and starts moving mass. It's the most interesting thing to happen to robotics in thirty years, and it is being sold about four years ahead of where it actually is. We work in the gap between those two facts.</p>
+        <p class="page-hero__sub">Task triage, teleoperation rigs, closed-loop policy evaluation, and safety-rated interlocks.</p>
+        <p class="page-hero__lede">Learned policies are the biggest shift in robotics in thirty years, and they are routinely sold four years ahead of factory reality. We help you pick the tasks where a learned policy beats a mechanical fixture, size the demonstration budget, and build the evaluation and safety harness that gets it onto the line.</p>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="#calc" data-cursor="COUNT">Run the budget</a>
+          <a class="btn btn--primary" href="#offer" data-cursor="WORK">See deliverables</a>
+          <a class="btn" href="#calc" data-cursor="COUNT">Estimate demo cost</a>
           <a class="btn" href="/#contact" data-cursor="MAIL">Talk to a human</a>
           <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
         </div>
@@ -116,34 +116,45 @@
     </div>
   </section>
 
-  <!-- ===== 01 // Field numbers ===== -->
-  <section class="section" id="honest">
+  <!-- ===== 01 // What we deliver ===== -->
+  <section class="section" id="offer">
     <div class="container">
-      <p class="eyebrow mono">01 // Field numbers</p>
-      <h2 class="section__title">Three numbers before you commit.<span class="muted">We'd rather lose the project than lose the year.</span></h2>
-      <div class="cols">
-        <div class="prose">
-
-<p><strong>50 to 200 demonstrations per task.</strong> That is what current imitation-learning policies require per task variant. A cell with twenty tasks lands between one and four thousand clean teleoperated episodes, plus the QC pass to discard bad takes.</p>
-
-<p><strong>95% to 99% line uptime.</strong> Production lines expect shift-long reliability; most general-purpose demo platforms still require battery swaps or human intervention well before a shift ends. Closing that gap is the entire engineering job.</p>
-
-<p><strong>2026 is a narrow-deployment year.</strong> Production wins today are scoped to tote handling, machine tending, kitting, and inspection under tight supervision. Build the data and evaluation machinery first.</p>
-
-        </div>
-        <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Triage rule:</b> fixture what can be fixtured, learn what can't, and build the evaluation harness before either.</div>
-          <div class="fig mono"><b>Field note</b><a href="/notes/fifty-to-two-hundred.html">Fifty to two hundred: what imitation learning actually costs per task →</a></div>
-        </div>
+      <p class="eyebrow mono">01 // What we deliver</p>
+      <h2 class="section__title">Four engagements when a learned policy is right.<span class="muted">And an honest mechanical fixture recommendation when it isn't.</span></h2>
+      <div class="cards cards--4">
+        <article class="card">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">P-01 // FEASIBILITY &amp; ROI</span><h3>Task triage</h3><p>We score your candidate tasks on part variation, contact complexity, cycle time, and demonstration cost before you commit a year.</p></div>
+            <div class="card__face card__back"><h4>Deliverables</h4><ul><li>Every candidate task scored on variation, tolerance, and payback</li><li>The fixture-first list: tasks cheaper to solve with hard automation</li><li>The learned-policy shortlist with a demonstration &amp; compute budget</li><li>Architecture recommendation (VLA fine-tune, diffusion policy, or classical)</li></ul></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">P-02 // COLLECTION &amp; QC</span><h3>Data &amp; teleop rigs</h3><p>Leader-follower or VR teleoperation rigs, operator collection protocols, and automated per-episode quality control.</p></div>
+            <div class="card__face card__back"><h4>Deliverables</h4><ul><li>Teleop rig matched to your manipulator and gripper kinematics</li><li>Operator collection protocol with usable-take rate tracking</li><li>Automated per-episode QC that rejects stalls and bad trajectories</li><li>Versioned LeRobot / RLDS episode schema with full provenance</li></ul></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">P-03 // BAKE-OFFS &amp; BENCHMARKS</span><h3>Evaluation harness</h3><p>Closed-loop bench testing with confidence intervals, out-of-distribution probes, and model-agnostic bake-offs.</p></div>
+            <div class="card__face card__back"><h4>Deliverables</h4><ul><li>Statistically powered success-rate benchmarks on your real parts</li><li>Out-of-distribution test pass (lighting shifts, novel poses, distractors)</li><li>Automated regression suite for new checkpoints and quantized builds</li><li>Head-to-head bake-off across open-weight and vendor policies</li></ul></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__inner">
+            <div class="card__face card__front"><span class="card__num mono">P-04 // SAFETY ARCHITECTURE</span><h3>Fallbacks &amp; interlocks</h3><p>Deterministic hardware safety envelopes and recovery states around learned policies, aligned with ISO 10218:2025 and EU 2023/1230.</p></div>
+            <div class="card__face card__back"><h4>Deliverables</h4><ul><li>Hardware-rated safety envelope independent of neural network weights</li><li>Policy uncertainty thresholds and deterministic recovery states</li><li>Compliance mapping for ISO 10218:2025 and EU Machinery Reg 2023/1230</li><li>Safety validation test report ready for your assessor</li></ul></div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== 02 // What actually works ===== -->
+  <!-- ===== 02 // Decision guide ===== -->
   <section class="section" id="works">
     <div class="container">
-      <p class="eyebrow mono">02 // What actually works</p>
-      <h2 class="section__title">Where a learned policy earns its place.<span class="muted">And where a fixture and a limit switch still win.</span></h2>
+      <p class="eyebrow mono">02 // Triage &amp; field numbers</p>
+      <h2 class="section__title">Where a learned policy earns its place.<span class="muted">And where a mechanical fixture and a limit switch still win.</span></h2>
 
 <div class="spec-wrap">
 <table class="spec">
@@ -158,13 +169,10 @@
 </table>
 </div>
 
-      <div class="cols" style="margin-top:1.6rem">
-        <div class="prose">
-
-<p>The right-hand column is most of manufacturing: cheaper, deterministic, and no GPU required. When your task sits on the left, we run model bake-offs (flow-matching VLAs, diffusion policies, open-weight generalists) on your bench, with your parts. Model weights will be replaced twice before full production; the closed-loop evaluation harness is the asset that lasts.</p>
-
-        </div>
-        <div class="fig mono"><b>Field note</b><a href="/notes/a-fixture-and-a-limit-switch.html">A fixture and a limit switch: in defense of not using AI, from people who do →</a></div>
+      <div class="plates" style="margin-top:1.4rem">
+        <article class="plate marks"><span class="card__num mono">50 – 200 DEMOS / TASK</span><h3>Demonstration cost</h3><p>Imitation-learning policies need 50–200 clean teleoperated episodes per task variant. A 20-task cell means 1,000–4,000 episodes plus QC.</p></article>
+        <article class="plate marks"><span class="card__num mono">95% – 99% UPTIME</span><h3>The production gap</h3><p>Factory lines expect shift-long reliability. Closing the gap between an 85% demo reel and a 99% cell is fixturing, verification, and recovery logic.</p></article>
+        <article class="plate marks"><span class="card__num mono">ISO 10218:2025 &amp; EU 2023/1230</span><h3>AI in safety functions</h3><p>Keep learned policies inside a deterministic, hardware-rated safety envelope so model updates don't trigger high-risk recertification.</p></article>
       </div>
     </div>
   </section>
@@ -172,11 +180,11 @@
   <!-- ===== 03 // Demonstration budget calculator ===== -->
   <section class="section" id="calc">
     <div class="container">
-      <p class="eyebrow mono">03 // Demonstration budget</p>
-      <h2 class="section__title">What the demos actually cost.<span class="muted">In operator-weeks and a number you can send to your CFO.</span></h2>
+      <p class="eyebrow mono">03 // Interactive demonstration calculator</p>
+      <h2 class="section__title">Estimate your demonstration budget.<span class="muted">Size the teleop hours, calendar weeks, and operator budget before starting collection.</span></h2>
       <div class="calc" id="demoCalc">
         <div class="calc__inputs plate">
-          <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 01</b>Demonstration budget. Adjust task count, variants, and usable take rate to size the collection campaign.</div>
+          <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 01</b>Adjust task count, variants, and usable take rate to size your collection campaign.</div>
           <div class="calc__grid">
             <label class="range"><span class="mono">Distinct tasks</span><input type="range" id="dTasks" min="1" max="40" value="8" data-out="dTasksOut" /><output id="dTasksOut" class="mono">8</output></label>
             <label class="range"><span class="mono">Variants per task</span><input type="range" id="dVariants" min="1" max="10" value="3" data-out="dVariantsOut" /><output id="dVariantsOut" class="mono">3</output></label>
@@ -218,52 +226,10 @@
     </div>
   </section>
 
-  <!-- ===== 04 // What we do ===== -->
-  <section class="section" id="offer">
-    <div class="container">
-      <p class="eyebrow mono">04 // What we do</p>
-      <h2 class="section__title">Four things, when the answer is yes.<span class="muted">And a fixture recommendation when it isn't.</span></h2>
-      <div class="cards cards--4">
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
-          <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">P-01</span><h3>Task triage</h3><p>Which of your tasks deserve a learned policy, ranked by payback and risk. Usually the answer is “three of them, and not the one you're excited about.”</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Every task scored on variation, contact, tolerance, and payback</li><li>The fixture-first list, with the parts that never needed a model</li><li>The learn-it list, in order, with the demo budget attached</li><li>The one you were excited about, with a reason</li></ul></div>
-          </div>
-        </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
-          <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">P-02</span><h3>Data &amp; teleop rigs</h3><p>Rig design, demonstration protocols, operator training, per-episode QC, and a schema you won't have to migrate in six months.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Teleop rig matched to the task, not the trade show</li><li>Demonstration protocol and operator training with a take-rate target</li><li>Per-episode QC so the bad ones never reach training</li><li>Episode schema and provenance that survive a re-labeling</li></ul></div>
-          </div>
-        </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
-          <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">P-03</span><h3>Evaluation harness</h3><p>Success rate with confidence intervals, out-of-distribution probes, a standing regression suite, and a red-team task list.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Success rates with confidence intervals, not a highlight reel</li><li>Out-of-distribution probes: new parts, new lighting, new operator</li><li>A regression suite that runs on every model, quantized ones included</li><li>A red-team task list that tries to make it fail</li></ul></div>
-          </div>
-        </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
-          <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">P-04</span><h3>Fallbacks &amp; interlocks</h3><p>What the cell does when the policy is uncertain, and how that path is proven to the same standard as the rest of your safety architecture.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Uncertainty thresholds and the deterministic recovery state they trigger</li><li>Interlocks that never depend on the model being right</li><li>Validation of the fallback path to the same standard as the e-stop</li><li>The safety file, written so an assessor can follow it</li></ul></div>
-          </div>
-        </article>
-      </div>
-      <div class="cols" style="margin-top:1.6rem">
-        <div class="prose">
-
-<p><strong>AI in a safety function.</strong> ISO 10218-1/2:2025 makes functional-safety requirements explicit, and EU Machinery Regulation 2023/1230 (applying January 2027) treats AI performing a safety function as high-risk under Annex I. We keep learned policies outside the safety-rated envelope and validate deterministic hardware interlocks around them (<a href="/#services">see our safety work</a>).</p>
-
-        </div>
-        <div class="fig mono"><b>Field note</b><a href="/notes/ai-in-a-safety-function.html">AI in a safety function: what ISO 10218:2025 and the 2027 EU machinery rules mean if your policy is learned →</a></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 05 // Next: loop navigation + the one contact section ===== -->
+  <!-- ===== 04 // Next: loop navigation + the one contact section ===== -->
   <section class="section" id="next">
     <div class="container">
-      <p class="eyebrow mono">05 // Next</p>
+      <p class="eyebrow mono">04 // Next</p>
       <h2 class="section__title">Pick a station.<span class="muted">The hub is the argument. The stations are the work.</span></h2>
       <div class="next">
         <a class="next__plate marks" href="/world-models/" data-cursor="BACK">
@@ -310,7 +276,6 @@
       <a href="/cloud/">Capture · Data &amp; cloud</a>
       <a href="/world-models/">Imagine · World models</a>
       <a href="/physical-ai/">Physical AI</a>
-      <a href="/notes/">Field notes</a>
       <a href="/research/">Research</a>
     </nav>
     <div class="footer__inner">

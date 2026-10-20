@@ -52,7 +52,7 @@
 /* ---------- section layouts ---------- */
 .cols { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); gap: 2rem 3.5rem; align-items: start; }
 .cols--even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.cards--4 { grid-template-columns: repeat(4, 1fr); }
+.cards--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 /* ---------- plates, callouts, figures ---------- */
 .plate { position: relative; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 1.4rem; }
@@ -300,14 +300,11 @@
 .telemetry span:nth-child(6) b { color: var(--ok); }
 
 /* ---------- services: second group, card back link ---------- */
-.cards--4 .card { min-height: 242px; }
-.cards--4 .card__front h3 { font-size: 1.04rem; }
-.cards--4 .card__back h4 { margin-bottom: .55rem; }
-.cards--4 .card__back ul { font-size: .82rem; line-height: 1.38; }
-.cards--4 .card__back li { margin-bottom: .32rem; }
+.cards--4 .card__front h3 { font-size: 1.18rem; }
 .section__subhead { margin: 3.2rem 0 1.8rem; max-width: 900px; font-size: clamp(1.35rem, 2.6vw, 2rem); text-transform: uppercase; letter-spacing: -.01em; }
 .section__subhead .muted { display: block; font-family: var(--font-serif); font-style: italic; font-weight: 400; font-stretch: 100%; text-transform: none; letter-spacing: 0; font-size: clamp(1.15rem, 1.8vw, 1.45rem); line-height: 1.2; margin-top: .5rem; color: var(--muted); }
-.card__back .card__link { margin-top: auto; padding-top: .55rem; align-self: flex-start; color: var(--bg); font: 600 .62rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; transition: color .15s ease; }
+.card__back .card__link { margin-top: auto; padding-top: .75rem; border-top: 1px dashed var(--line); width: 100%; color: var(--ink); font: 600 .62rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; transition: color .15s ease; }
+.card__back ul + .card__link { margin-top: .8rem; }
 .card__back .card__link:hover { color: var(--accent); }
 
 /* ---------- footer link row ---------- */

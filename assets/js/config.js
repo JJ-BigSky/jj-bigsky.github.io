@@ -5,7 +5,7 @@ window.BSS_CONFIG = {
   // Time zone shown in the hero telemetry strip as "LAB TIME".
   labTimeZone: "America/New_York",
   // Show the 1.5s boot sequence on first visit per browser session.
-  boot: true,
+  boot: false,
   // Vision-system cursor reticle on desktop (fine pointers only).
   reticle: true,
   // Optional: point SKY-1 at your own AI backend. Leave empty to use the

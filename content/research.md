@@ -73,7 +73,7 @@ tb:
       <div class="cols" style="margin-top:1.4rem">
         <div class="prose">
 
-Two of these milestones directly govern how learned policies are deployed on physical cells: the **2025 revision of ISO 10218** and the **EU Machinery Regulation (EU) 2023/1230** taking effect on **20 January 2027**. Read the [AI in a safety function field note](/notes/ai-in-a-safety-function.html) for the regulatory breakdown, or see [Fallbacks and interlocks](/physical-ai/#offer) for how we architect the safety envelope.
+Two of these milestones directly govern how learned policies are deployed on physical cells: the **2025 revision of ISO 10218** and the **EU Machinery Regulation (EU) 2023/1230** taking effect on **20 January 2027**. See [Fallbacks and interlocks](/physical-ai/#offer) and [Safety & compliance](/#services) for how we architect the safety envelope outside the learned policy.
 
         </div>
         <div class="callout"><span class="sq"></span><b>Compliance note:</b> Dates reflect published standards and regulatory texts as of September 2026. Your notified body, NRTL, or legal counsel has final authority over machine sign-off.</div>

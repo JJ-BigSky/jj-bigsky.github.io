@@ -37,7 +37,7 @@
 <body data-page="home">
 
 <!-- ===== Boot overlay (skipped on repeat visits and reduced motion) ===== -->
-<div id="boot" class="boot" aria-hidden="true">
+<div id="boot" class="boot" aria-hidden="true" hidden>
   <div class="boot__inner">
     <div class="boot__logo">Big Sky Systems <span>// lab os</span></div>
     <ul class="boot__log" id="bootLog"></ul>
@@ -87,9 +87,8 @@
   <nav class="nav__links" id="navLinks" aria-label="Primary">
     <a href="#services">Work</a>
     <a href="#loop">The Loop</a>
-    <a href="#playground">Lab</a>
     <a href="#method">Method</a>
-    <a href="/notes/">Notes</a>
+    <a href="#builder">Lab</a>
     <a href="/research/">Research</a>
     <a href="#contact" class="nav__cta">Talk to us</a>
   </nav>
@@ -111,10 +110,10 @@
       <h1 class="hero__title">We build robotics labs that actually <span class="typed" id="typed" aria-label="ship">ship.</span></h1>
       <p class="hero__lede">Big Sky Systems is a robotics lab consultancy. We take you from an empty bay to a humming cell: layout, robots, ROS&nbsp;2, safety, and the humans who run it. Then from a humming cell to a system that learns: perception, on-robot autonomy, simulation, and the data loop behind both.</p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="#builder" data-cursor="BUILD">Build your lab</a>
-        <a class="btn" href="#playground" data-cursor="PLAY">Drive the arm</a>
-        <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Meet SKY-1</button>
+        <a class="btn btn--primary" href="#services" data-cursor="WORK">See what we deliver</a>
+        <a class="btn" href="#builder" data-cursor="BUILD">Scope your lab</a>
         <a class="btn btn--link" href="#loop" data-cursor="TRACE">See the loop</a>
+        <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Meet SKY-1</button>
       </div>
     </div>
     <div class="telemetry mono" id="telemetry" aria-label="Playful lab telemetry">
@@ -135,10 +134,10 @@
       <h2 class="section__title">Five stations, one closed loop.<span class="muted">From camera exposure to motor torque, fleet telemetry, and back into simulation.</span></h2>
       <div class="loop">
         <div class="loop__text">
-          <div class="fig mono"><b>Fig. 02</b>The stack, as a closed loop. Hover a station and the part comes to you.</div>
-          <p>You can buy a robot in an afternoon. What takes a year is the loop around it: something has to see the part, something has to decide what to do about it in under ten milliseconds, something has to move, something has to record what happened, and something has to use that recording to make next week better.</p>
-          <p>Most labs are excellent at one station and quietly missing three. That's why the demo works and the deployment doesn't.</p>
-          <p>We build the whole loop, and we're specific about which parts of it your project doesn't need yet.</p>
+          <div class="fig mono"><b>Fig. 02</b>Click any station to inspect our deliverables and run its scoping calculator.</div>
+          <p>You can buy a robot arm in an afternoon. Commissioning the closed loop around it is the real work: seeing the part, running the policy inside a 10&nbsp;ms control period, actuating safely in the physical cell, logging every episode, and stress-testing edge cases in simulation.</p>
+          <p>We sell two things: <strong>physical cell buildout</strong> (layout, hardware bake-offs, ROS&nbsp;2, and safety sign-off) and <strong>closed-loop autonomy</strong> (perception, on-robot inference, simulation, and data infrastructure).</p>
+          <p>Hire us for one station or the whole loop—we tell you up front which pieces your line doesn't need yet.</p>
         </div>
         <div class="loop__diagram">
           <svg class="loop__svg" id="loopSvg" viewBox="0 0 900 600" aria-hidden="true" focusable="false">
@@ -171,119 +170,113 @@
   <!-- ===== Services ===== -->
   <section class="section" id="services">
     <div class="container">
-      <p class="eyebrow mono">02 // What we do</p>
+      <p class="eyebrow mono">02 // What we deliver</p>
       <h2 class="section__title">Six ways we build the cell.<span class="muted">Physical infrastructure, robot commissioning, ROS 2 architecture, and safety sign-off.</span></h2>
       <div class="cards" id="serviceCards">
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
               <span class="card__num mono">S-01</span>
               <h3>Lab Design &amp; Buildout</h3>
-              <p>From empty bay to humming cell. Layout, power, air, networking, safety zoning, and the procurement list nobody wants to write.</p>
-              <span class="card__hint mono">Tap to flip</span>
+              <p>From empty bay to humming cell: floor layout, utilities, safety zoning, and vendor-neutral procurement.</p>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
                 <li>Floor plan with reach envelopes and safety zones</li>
                 <li>Utility &amp; network schedule (power, air, data)</li>
                 <li>Bill of materials with vendor-neutral options</li>
-                <li>Build sequencing so nothing blocks anything</li>
+                <li>Build sequencing so nothing blocks commissioning</li>
               </ul>
             </div>
           </div>
         </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
               <span class="card__num mono">S-02</span>
               <h3>Robot Selection &amp; Integration</h3>
-              <p>Arms, cobots, AMRs, grippers, cameras. We run bake-offs, not brochures, and integrate what wins.</p>
-              <span class="card__hint mono">Tap to flip</span>
+              <p>Arms, cobots, AMRs, grippers, and cameras. We run bench bake-offs on your parts and integrate what wins.</p>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
-                <li>Requirements matrix and scored shortlist</li>
-                <li>Hands-on bake-offs with your parts</li>
-                <li>End-of-arm tooling and fixturing design</li>
-                <li>Commissioning and acceptance tests</li>
+                <li>Requirements matrix and scored hardware shortlist</li>
+                <li>Hands-on bake-offs with your actual production parts</li>
+                <li>End-of-arm tooling and mechanical fixturing design</li>
+                <li>Site commissioning and factory acceptance tests</li>
               </ul>
             </div>
           </div>
         </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
               <span class="card__num mono">S-03</span>
               <h3>Software &amp; Simulation</h3>
-              <p>ROS 2 architecture, simulation, digital twins, and CI that runs on robots. Code that survives the intern.</p>
-              <span class="card__hint mono">Tap to flip</span>
+              <p>Production ROS 2 architecture, digital twins, and hardware-in-the-loop CI that your team can maintain.</p>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
-                <li>ROS 2 workspace, packages, and conventions</li>
-                <li>Sim-first workflows (Isaac, Gazebo, MuJoCo)</li>
-                <li>Data pipelines for logs, datasets, and evals</li>
-                <li>Hardware-in-the-loop test rigs</li>
+                <li>Versioned ROS 2 workspace, nodes, and launch stack</li>
+                <li>Sim-first workflows (Isaac Lab, Gazebo, MuJoCo)</li>
+                <li>Data pipelines for MCAP logs, datasets, and evals</li>
+                <li>Automated hardware-in-the-loop regression rig</li>
               </ul>
             </div>
           </div>
         </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
               <span class="card__num mono">S-04</span>
               <h3>Safety &amp; Compliance</h3>
-              <p>Risk assessments, ISO 10218-1:2025 / -2:2025, ISO/TS 15066, ANSI/RIA R15.06, e-stop circuits that actually stop things.</p>
-              <span class="card__hint mono">Tap to flip</span>
+              <p>Task-based risk assessments, ISO 10218:2025 / ISO/TS 15066 validation, and rated e-stop architecture.</p>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
                 <li>Task-based risk assessment and hazard log</li>
-                <li>Safety architecture (PL, categories, zones)</li>
-                <li>Collaborative-operation validation</li>
-                <li>Sign-off package for your insurer and your sleep</li>
+                <li>Rated safety architecture (PLr, categories, zones)</li>
+                <li>Collaborative force/speed validation measurements</li>
+                <li>Compliance technical file for EHS and insurers</li>
               </ul>
             </div>
           </div>
         </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
               <span class="card__num mono">S-05</span>
               <h3>Fractional Robotics Lead</h3>
-              <p>A part-time head of robotics: roadmap, hiring, vendor wrangling, and the meeting where someone says “just use AI”.</p>
-              <span class="card__hint mono">Tap to flip</span>
+              <p>Senior technical leadership on retainer: architecture reviews, hiring loops, vendor audits, and roadmap scoping.</p>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
-                <li>Quarterly roadmap tied to real milestones</li>
-                <li>Hiring plans, interview loops, and rubrics</li>
-                <li>Vendor and budget management</li>
-                <li>Clear technical ownership across hardware and software milestones</li>
+                <li>Quarterly technical roadmap tied to cell milestones</li>
+                <li>Engineering hiring plans, interview loops, and rubrics</li>
+                <li>Vendor quote audits and capital budget reviews</li>
+                <li>Weekly architecture and milestone sign-off</li>
               </ul>
             </div>
           </div>
         </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
               <span class="card__num mono">S-06</span>
               <h3>Training &amp; Enablement</h3>
-              <p>Hands-on courses for your team, from teach pendants to ROS 2 to “why is the robot doing that”.</p>
-              <span class="card__hint mono">Tap to flip</span>
+              <p>Hands-on curricula and runbooks so your operators and engineers own the cell after we leave.</p>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
-                <li>Role-based curricula (operators, engineers, leads)</li>
-                <li>Runbooks and troubleshooting trees</li>
-                <li>Recorded walkthroughs of your actual lab</li>
-                <li>A team that doesn't need us anymore</li>
+                <li>Role-based training (operators, technicians, engineers)</li>
+                <li>Fault recovery runbooks and troubleshooting trees</li>
+                <li>Recorded walkthroughs on your actual hardware</li>
+                <li>Clean handoff with zero recurring consultancy lock-in</li>
               </ul>
             </div>
           </div>
@@ -291,83 +284,79 @@
       </div>
       <h3 class="section__subhead">Four ways we close the autonomy loop.<span class="muted">Perception, real-time on-robot inference, calibrated simulation, and fleet data pipelines.</span></h3>
       <div class="cards cards--4" id="serviceCardsThink">
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
-              <span class="card__num mono">S-07</span>
+              <span class="card__num mono">S-07 // PERCEIVE</span>
               <h3>Perception Systems</h3>
               <p>Cameras, illumination, depth, and 6-DoF pose estimation engineered to hold calibration across shift changes and ambient light swings.</p>
-              <span class="card__hint mono">Tap to flip</span>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
                 <li>Sensor and lighting selection with a bench test on your parts</li>
-                <li>Hand-eye and intrinsic calibration, plus drift monitoring</li>
+                <li>Hand-eye and intrinsic calibration, plus automated drift checks</li>
                 <li>Detection, segmentation, depth, and 6-DoF pose pipeline</li>
-                <li>Failure taxonomy: what breaks it, and what it does when it breaks</li>
+                <li>Independent post-grasp verification camera and reject logic</li>
               </ul>
-              <a class="card__link" href="/vision/" tabindex="-1">The long version →</a>
+              <a class="card__link" href="/vision/">Explore Perception &amp; pipeline lab →</a>
             </div>
           </div>
         </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
-              <span class="card__num mono">S-08</span>
+              <span class="card__num mono">S-08 // DECIDE</span>
               <h3>On-Robot Autonomy</h3>
               <p>Learned policies and classical controllers running on embedded silicon inside hard control-loop and thermal budgets.</p>
-              <span class="card__hint mono">Tap to flip</span>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
-                <li>Compute selection sized to a real latency and thermal budget</li>
-                <li>Model optimization: quantization, layer fusion, and closed-loop re-validation</li>
-                <li>Real-time architecture: RT kernel, CPU isolation, ROS 2 QoS</li>
-                <li>p99.9 latency measurement, because averages don't crash robots</li>
+                <li>Compute selection benchmarked at 45 °C enclosure ambient</li>
+                <li>Quantization (INT8/FP4), layer fusion, and closed-loop re-validation</li>
+                <li>Real-time Linux stack: RT kernel, CPU isolation, ROS 2 QoS</li>
+                <li>Fault-injected late-frame fallback and p99.9 latency report</li>
               </ul>
-              <a class="card__link" href="/embedded/" tabindex="-1">The long version →</a>
+              <a class="card__link" href="/embedded/">Explore Autonomy &amp; latency calculator →</a>
             </div>
           </div>
         </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
-              <span class="card__num mono">S-09</span>
+              <span class="card__num mono">S-09 // IMAGINE</span>
               <h3>Simulation &amp; World Models</h3>
               <p>Test policies across ten thousand contact variations before touching hardware, and quantify the sim-to-real transfer gap per task.</p>
-              <span class="card__hint mono">Tap to flip</span>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
-                <li>Sim environment built from your CAD, or scanned from your cell</li>
-                <li>Domain randomization and system-identification plan</li>
-                <li>Sim-versus-real measurement harness, per task, with numbers</li>
-                <li>Asset pipeline that survives contact with your CAD department</li>
+                <li>Collision-ready sim assets from CAD or 3D Gaussian splats</li>
+                <li>Domain randomization and actuator system-identification pass</li>
+                <li>Paired sim-versus-real evaluation harness per task</li>
+                <li>Rare-event and fault scenario synthesis for policy testing</li>
               </ul>
-              <a class="card__link" href="/world-models/" tabindex="-1">The long version →</a>
+              <a class="card__link" href="/world-models/">Explore Simulation &amp; reality-gap meter →</a>
             </div>
           </div>
         </article>
-        <article class="card tilt" tabindex="0" data-cursor="FLIP">
+        <article class="card">
           <div class="card__inner">
             <div class="card__face card__front">
-              <span class="card__num mono">S-10</span>
+              <span class="card__num mono">S-10 // CAPTURE</span>
               <h3>Robot Data &amp; Cloud</h3>
               <p>Ring buffers, episode indexing, training pipelines, and staged policy rollouts sized to your fleet's actual sensor bitrate.</p>
-              <span class="card__hint mono">Tap to flip</span>
             </div>
             <div class="card__face card__back">
-              <h4>You get</h4>
+              <h4>Deliverables</h4>
               <ul>
-                <li>Capture schema and retention plan sized to your actual bitrate</li>
-                <li>Dataset pipeline from raw logs to training-ready episodes</li>
-                <li>Training and evaluation infrastructure that someone else can run</li>
-                <li>Staged policy rollout with canaries and a rollback that works</li>
+                <li>On-robot ring buffers, provenance schema, and retention tiers</li>
+                <li>Deterministic ETL from raw MCAP logs to episode datasets</li>
+                <li>Scripted training and evaluation jobs inside your cloud account</li>
+                <li>Canary fleet deployment with metric-triggered rollback</li>
               </ul>
-              <a class="card__link" href="/cloud/" tabindex="-1">The long version →</a>
+              <a class="card__link" href="/cloud/">Explore Data &amp; storage calculator →</a>
             </div>
           </div>
         </article>
@@ -375,42 +364,23 @@
     </div>
   </section>
 
-  <!-- ===== Playground: robot arm ===== -->
-  <section class="section" id="playground">
+  <!-- ===== Method: conveyor ===== -->
+  <section class="section" id="method">
     <div class="container">
-      <p class="eyebrow mono">03 // Playground</p>
-      <h2 class="section__title">Drive a robot arm.<span class="muted">Real inverse kinematics. No robots were harmed.</span></h2>
-      <div class="arm">
-        <div class="arm__stage">
-          <canvas id="armCanvas" data-cursor="TARGET"></canvas>
-          <div class="arm__hud mono" id="armHud">
-            <span>J1 <b id="j1">0°</b></span>
-            <span>J2 <b id="j2">0°</b></span>
-            <span>J3 <b id="j3">0°</b></span>
-            <span>Mode <b id="armModeLabel">Follow</b></span>
-          </div>
-          <p class="arm__hint mono" id="armHint">Move your cursor. Click to close the gripper.</p>
-        </div>
-        <div class="arm__controls">
-          <div class="seg" role="group" aria-label="Arm mode">
-            <button class="seg__btn is-active" data-mode="follow" type="button">Follow</button>
-            <button class="seg__btn" data-mode="teach" type="button">Teach</button>
-            <button class="seg__btn" data-mode="draw" type="button">Draw</button>
-          </div>
-          <div class="arm__teach" id="teachControls" hidden>
-            <button class="btn btn--small" id="teachPlay" type="button">▶ Play path</button>
-            <button class="btn btn--small btn--ghost" id="teachClear" type="button">Clear</button>
-            <span class="mono muted" id="teachCount">0 waypoints</span>
-          </div>
-          <label class="check"><input type="checkbox" id="armEnvelope" checked /> <span>Show reach envelope</span></label>
-          <label class="check"><input type="checkbox" id="armTrail" /> <span>Leave a trail</span></label>
-          <label class="range">
-            <span class="mono">Speed</span>
-            <input type="range" id="armSpeed" min="1" max="10" value="6" />
-          </label>
-          <button class="btn btn--small btn--ghost" id="armDance" type="button" data-cursor="DANCE">Dance mode</button>
-          <p class="muted small">Teach mode works like a real teach pendant: click to record waypoints, then play them back. Draw mode paints with the end effector.</p>
-        </div>
+      <p class="eyebrow mono">03 // How engagements work</p>
+      <h2 class="section__title">Five stations. One belt.<span class="muted">From discovery sprint to handoff, with working hardware demos every week.</span></h2>
+    </div>
+    <div class="belt-wrap" id="beltWrap">
+      <div class="belt" id="belt">
+        <div class="belt__track"></div>
+        <div class="belt__part" id="beltPart"><span class="mono">Your lab</span></div>
+        <ol class="stations" id="stations">
+          <li class="station" data-i="0"><span class="station__num mono">01</span><h3>Listen</h3><p>Two-week discovery sprint on your parts, cycle-time target, and failure modes.</p></li>
+          <li class="station" data-i="1"><span class="station__num mono">02</span><h3>Sketch</h3><p>Cell layout, reach simulation, and hardware bake-off before you sign a PO.</p></li>
+          <li class="station" data-i="2"><span class="station__num mono">03</span><h3>Build</h3><p>Integrate hardware and ROS 2 software in weekly loops with live bench demos.</p></li>
+          <li class="station" data-i="3"><span class="station__num mono">04</span><h3>Prove</h3><p>Factory acceptance tests, ISO 10218:2025 safety sign-off, and an overnight soak test.</p></li>
+          <li class="station" data-i="4"><span class="station__num mono">05</span><h3>Hand off</h3><p>Operator training, runbooks, and full source/CAD ownership. Zero lock-in.</p></li>
+        </ol>
       </div>
     </div>
   </section>
@@ -418,8 +388,8 @@
   <!-- ===== Lab Builder ===== -->
   <section class="section" id="builder">
     <div class="container">
-      <p class="eyebrow mono">04 // Lab builder</p>
-      <h2 class="section__title">Build your lab.<span class="muted">Pick a module, click the floor. SKY-1 will have opinions.</span></h2>
+      <p class="eyebrow mono">04 // Scope your bay</p>
+      <h2 class="section__title">Build your lab.<span class="muted">Place cells, sensors, and compute on the floor grid to estimate footprint, power, and budget band.</span></h2>
       <div class="builder">
         <div class="builder__palette" id="palette" role="toolbar" aria-label="Modules"></div>
         <div class="builder__floor-wrap">
@@ -442,31 +412,10 @@
     </div>
   </section>
 
-  <!-- ===== Method: conveyor ===== -->
-  <section class="section" id="method">
-    <div class="container">
-      <p class="eyebrow mono">05 // The Big Sky method</p>
-      <h2 class="section__title">Five stations. One belt.<span class="muted">Scroll and watch your project move down the line.</span></h2>
-    </div>
-    <div class="belt-wrap" id="beltWrap">
-      <div class="belt" id="belt">
-        <div class="belt__track"></div>
-        <div class="belt__part" id="beltPart"><span class="mono">Your lab</span></div>
-        <ol class="stations" id="stations">
-          <li class="station" data-i="0"><span class="station__num mono">01</span><h3>Listen</h3><p>Discovery sprint. We learn your parts, people, and the thing that keeps breaking.</p></li>
-          <li class="station" data-i="1"><span class="station__num mono">02</span><h3>Sketch</h3><p>Concepts, layouts, and simulations before anyone buys a robot.</p></li>
-          <li class="station" data-i="2"><span class="station__num mono">03</span><h3>Build</h3><p>Integrate hardware and software in short loops with demos every week.</p></li>
-          <li class="station" data-i="3"><span class="station__num mono">04</span><h3>Prove</h3><p>Acceptance tests, safety validation, and a soak test that runs while you sleep.</p></li>
-          <li class="station" data-i="4"><span class="station__num mono">05</span><h3>Hand off</h3><p>Training, runbooks, and documentation. Your team owns it. We wave.</p></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== Diagnostic: gauge quiz ===== -->
   <section class="section" id="diagnostic">
     <div class="container">
-      <p class="eyebrow mono">06 // Lab readiness diagnostic</p>
+      <p class="eyebrow mono">05 // Lab readiness diagnostic</p>
       <h2 class="section__title">How ready is your lab?<span class="muted">Seven questions across hardware, safety, software, and operations.</span></h2>
       <div class="quiz" id="quiz">
         <div class="quiz__panel">
@@ -498,6 +447,46 @@
             <text x="170" y="118" class="gauge__tick">100</text>
           </svg>
           <div class="gauge__value"><b id="gaugeValue">0</b><span class="mono">Readiness</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Playground: robot arm ===== -->
+  <section class="section" id="playground">
+    <div class="container">
+      <p class="eyebrow mono">06 // Kinematic sandbox</p>
+      <h2 class="section__title">Drive a robot arm.<span class="muted">Real inverse kinematics, waypoint teaching, and reach-envelope visualization.</span></h2>
+      <div class="arm">
+        <div class="arm__stage">
+          <canvas id="armCanvas" data-cursor="TARGET"></canvas>
+          <div class="arm__hud mono" id="armHud">
+            <span>J1 <b id="j1">0°</b></span>
+            <span>J2 <b id="j2">0°</b></span>
+            <span>J3 <b id="j3">0°</b></span>
+            <span>Mode <b id="armModeLabel">Follow</b></span>
+          </div>
+          <p class="arm__hint mono" id="armHint">Move your cursor. Click to close the gripper.</p>
+        </div>
+        <div class="arm__controls">
+          <div class="seg" role="group" aria-label="Arm mode">
+            <button class="seg__btn is-active" data-mode="follow" type="button">Follow</button>
+            <button class="seg__btn" data-mode="teach" type="button">Teach</button>
+            <button class="seg__btn" data-mode="draw" type="button">Draw</button>
+          </div>
+          <div class="arm__teach" id="teachControls" hidden>
+            <button class="btn btn--small" id="teachPlay" type="button">▶ Play path</button>
+            <button class="btn btn--small btn--ghost" id="teachClear" type="button">Clear</button>
+            <span class="mono muted" id="teachCount">0 waypoints</span>
+          </div>
+          <label class="check"><input type="checkbox" id="armEnvelope" checked /> <span>Show reach envelope</span></label>
+          <label class="check"><input type="checkbox" id="armTrail" /> <span>Leave a trail</span></label>
+          <label class="range">
+            <span class="mono">Speed</span>
+            <input type="range" id="armSpeed" min="1" max="10" value="6" />
+          </label>
+          <button class="btn btn--small btn--ghost" id="armDance" type="button" data-cursor="DANCE">Dance mode</button>
+          <p class="muted small">Teach mode works like a real teach pendant: click to record waypoints, then play them back. Draw mode paints with the end effector.</p>
         </div>
       </div>
     </div>
@@ -546,7 +535,6 @@
       <a href="/cloud/">Capture · Data &amp; cloud</a>
       <a href="/world-models/">Imagine · World models</a>
       <a href="/physical-ai/">Physical AI</a>
-      <a href="/notes/">Field notes</a>
       <a href="/research/">Research</a>
     </nav>
     <div class="footer__inner">

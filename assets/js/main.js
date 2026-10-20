@@ -42,9 +42,9 @@
   // ---- boot (home only) ----
   const boot = $("boot");
   if (boot) {
-    function finishBoot() { boot.classList.add("is-done"); setTimeout(() => { boot.hidden = true; }, 600); if (!finishBoot.done) { finishBoot.done = true; setTimeout(() => M() && M().say("Hi. I'm SKY-1. I live here. Hover the stars, they like attention.", { mood: "happy" }), 900); } }
+    function finishBoot() { boot.classList.add("is-done"); setTimeout(() => { boot.hidden = true; }, 600); }
     let seen = false; try { seen = sessionStorage.getItem("bss.booted") === "1"; } catch (e) {}
-    if (!cfg.boot || reduce || seen) { boot.hidden = true; setTimeout(() => M() && M().say("Welcome back. The stars are where you left them.", {}), 1200); }
+    if (!cfg.boot || reduce || seen) { boot.hidden = true; }
     else {
       try { sessionStorage.setItem("bss.booted", "1"); } catch (e) {}
       const lines = [["mounting robot arm", "ok"], ["calibrating joints", "ok"], ["counting stars", String(window.BSS_SKY ? window.BSS_SKY.starCount : 300)], ["waking SKY-1", "ok"], ["brewing coffee", "skipped", true], ["opening the sky", "ok"]];
@@ -62,8 +62,8 @@
   const burger = $("navBurger"), links = $("navLinks");
   burger.addEventListener("click", () => { const open = links.classList.toggle("is-open"); burger.setAttribute("aria-expanded", String(open)); });
   links.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { links.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); }));
-  const sections = ["loop", "services", "playground", "builder", "method", "diagnostic", "contact"].map((id) => $(id)).filter(Boolean);
-  const navFor = { builder: "playground", diagnostic: "playground" }; // "Lab" covers the three toys
+  const sections = ["loop", "services", "method", "builder", "diagnostic", "playground", "contact"].map((id) => $(id)).filter(Boolean);
+  const navFor = { diagnostic: "builder", playground: "builder" }; // "Lab" covers the three tools
   const toTop = $("toTop");
   function onScroll() {
     const y = window.scrollY + 140;
@@ -117,7 +117,7 @@
     window.addEventListener("pointerdown", () => ret.classList.add("is-down"));
     window.addEventListener("pointerup", () => ret.classList.remove("is-down"));
     document.addEventListener("pointerover", (e) => {
-      const t = e.target.closest && e.target.closest("[data-cursor], a, button, .tile, .opt, .card, input, textarea, select, label");
+      const t = e.target.closest && e.target.closest("[data-cursor], a, button, .tile, .opt, input, textarea, select, label");
       if (t) { ret.classList.add("is-hover"); retLabel.textContent = t.dataset.cursor || (t.matches("input,textarea,select,label") ? "TYPE" : t.matches("a") ? "GO" : "PRESS"); }
       else ret.classList.remove("is-hover");
     }, { passive: true });
@@ -126,18 +126,11 @@
     document.addEventListener("pointerenter", () => { ret.style.opacity = ""; });
   }
 
-  // ---- 3D tilt + flip cards ----
+  // ---- service spec cards: ensure links are always keyboard-accessible ----
   document.querySelectorAll(".card").forEach((card) => {
-    const backLinks = card.querySelectorAll(".card__back a");
-    const syncLinks = () => backLinks.forEach((a) => { a.tabIndex = card.classList.contains("is-flipped") ? 0 : -1; });
-    syncLinks();
-    const flip = () => { card.classList.toggle("is-flipped"); syncLinks(); if (S()) S().click(); };
-    card.addEventListener("click", (e) => { if (e.target.closest("a")) return; flip(); });
-    card.addEventListener("keydown", (e) => { if (e.target !== card) return; if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
-    if (fine && !reduce) {
-      card.addEventListener("pointermove", (e) => { const r = card.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; card.style.transform = "rotateX(" + (-y * 8).toFixed(2) + "deg) rotateY(" + (x * 10).toFixed(2) + "deg)"; });
-      card.addEventListener("pointerleave", () => { card.style.transform = ""; });
-    }
+    card.removeAttribute("tabindex");
+    if (card.dataset.cursor === "FLIP") delete card.dataset.cursor;
+    card.querySelectorAll(".card__back a").forEach((a) => { a.removeAttribute("tabindex"); });
   });
 
   // ---- conveyor belt driven by scroll ----

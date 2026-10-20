@@ -31,6 +31,7 @@ assert HOME_PLACEHOLDER in MASCOT
 # instruments live alongside the prose untouched. Bare "&" is escaped; entities are left alone.
 def md_inline(t):
     t = re.sub(r"&(?![a-zA-Z#0-9]+;)", "&amp;", t)
+    t = re.sub(r"`([^`]+)`", r"<code>\1</code>", t)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", t)
     t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", r'<a href="\2">\1</a>', t)
@@ -102,10 +103,9 @@ def plate(n, label, cursor, ink=False):
           <span class="card__hint mono">%s</span>
         </a>''' % (" next__plate--hub" if ink else "", n["href"], cursor, label, n["title"], n["sub"], n["hint"])
 
-NOTES_PLATE = dict(slug="notes", verb="Notes", title="Field notes", sub="Technical memos on tail latency, demonstration scaling, sim-to-real transfer, and safety.", href="/notes/", hint="Field notes")
 def next_strip(node, slug=None):
     if slug == "research":
-        return "\n".join([plate(HUB, "← The hub · Physical AI", "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(NOTES_PLATE, "Next · The long versions", "NEXT")])
+        return "\n".join([plate(HUB, "← The hub · Physical AI", "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(NODES[0], "Start here · Perceive", "NEXT")])
     if node is None:
         return "\n".join([plate(NODES[4], "← Previous · Imagine", "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(NODES[0], "Start here · Perceive", "NEXT")])
     prev, nxt = NODES[(node - 1) % 5], NODES[(node + 1) % 5]
@@ -215,128 +215,8 @@ def build(slug):
     print("wrote", slug + "/index.html", len(out), "bytes,", n_sections + 1, "sections")
 
 
-NOTES_DESC = "Working notes on robotics, physical AI, and the parts of both that don't demo well."
-
-def chrome(title, description, page, body_main, placeholder, canon, og):
-    scripts = "\n".join('<script src="/assets/js/%s.js"></script>' % s for s in ["config", "sound", "mascot", "assistant", "main"])
-    return """<!doctype html>
-<html lang="en" data-theme="paper">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>%(title)s</title>
-  <meta name="description" content="%(description)s" />
-  <meta name="theme-color" content="#ECE9E2" />
-  <meta property="og:title" content="%(title)s" />
-  <meta property="og:description" content="%(description)s" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="%(canon)s" />
-  <meta property="og:image" content="%(og)s" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="%(canon)s" />
-  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
-%(fonts)s  <link rel="stylesheet" href="/assets/css/styles.css" />
-  <link rel="stylesheet" href="/assets/css/pages.css" />
-</head>
-<body data-page="%(page)s">
-
-%(reticle)s
-%(sprite)s
-%(header)s
-<main id="top">
-%(main)s
-</main>
-
-%(footer)s
-%(mascot)s
-%(scripts)s
-</body>
-</html>
-""" % dict(title=title, description=description, page=page, canon=canon, og=og, fonts=FONTS, reticle=RETICLE, sprite=SPRITE, header=HEADER, footer=FOOTER, mascot=MASCOT.replace(HOME_PLACEHOLDER, 'placeholder="%s"' % placeholder), main=body_main, scripts=scripts)
-
-def load_notes():
-    notes = []
-    for f in sorted((ROOT / "content" / "notes").glob("*.md")):
-        meta, body = parse_front(f.read_text())
-        notes.append(dict(meta, slug=f.stem, body=md_render(body)))
-    return sorted(notes, key=lambda n: n["n"])
-NOTES = load_notes()
-
-def build_note(note):
-    body = note["body"]
-    words = len(re.sub(r"<[^>]+>", " ", body).split()); mins = max(3, round(words / 220))
-    i = NOTES.index(note); prev = NOTES[i - 1] if i else None; nxt = NOTES[i + 1] if i + 1 < len(NOTES) else None
-    main = """
-  <article class="note">
-    <div class="note__wrap">
-      <p class="eyebrow mono">Field note %(n)s // %(station)s</p>
-      <h1>%(title)s</h1>
-      <p class="page-hero__sub">%(standfirst)s</p>
-      <p class="note__meta mono muted">Big Sky Systems · %(date)s · %(mins)s min · from <a href="%(page)s">%(page_name)s</a></p>
-      <hr class="rule" />
-      <div class="prose note__body">
-%(body)s
-      </div>
-      <hr class="rule" />
-      <nav class="note__foot mono" aria-label="Around this note">
-        %(prev)s
-        <a href="/notes/">All notes</a>
-        <a href="%(page)s">Back to %(page_name)s</a>
-        <a href="/#contact">Talk to a human</a>
-        %(next)s
-      </nav>
-    </div>
-  </article>
-""" % dict(note, mins=mins, body=body,
-           prev=('<a href="/notes/%s.html">← %s</a>' % (prev["slug"], prev["title"])) if prev else "",
-           next=('<a href="/notes/%s.html">%s →</a>' % (nxt["slug"], nxt["title"])) if nxt else "")
-    out = chrome(note["title"].rstrip(".") + " — Big Sky Systems", note["standfirst"].replace('"', "&quot;"), "notes", main, "Ask about this note, or the page it came from…", HOST + "/notes/" + note["slug"] + ".html", HOST + "/assets/img/og/notes.png")
-    (ROOT / "notes" / (note["slug"] + ".html")).write_text(out); print("wrote notes/%s.html (%d words)" % (note["slug"], words))
-
-def build_notes_index():
-    items = "\n".join("""        <li class="notes__item">
-          <span class="notes__num mono">%(n)s</span>
-          <div>
-            <h2><a href="/notes/%(slug)s.html">%(title)s</a></h2>
-            <p>%(standfirst)s</p>
-            <p class="mono muted small">%(date)s · %(station)s · <a href="%(page)s">%(page_name)s</a></p>
-          </div>
-        </li>""" % n for n in NOTES)
-    main = """
-  <section class="page-hero" id="hero">
-    <div class="container page-hero__grid">
-      <div class="page-hero__text">
-        <p class="eyebrow mono"><span class="led"></span> Field notes // the long versions</p>
-        <h1>Field notes.</h1>
-        <p class="page-hero__sub">%(desc)s</p>
-        <p class="page-hero__lede">Technical memos expanding on the engineering calculations and architecture decisions across the site. Each note is dated and grounded in measured bench or deployment failure modes.</p>
-      </div>
-      <aside class="titleblock marks" aria-label="Sheet information">
-        <dl>
-          <dt>Sheet</dt><dd>N-01</dd>
-          <dt>Notes</dt><dd class="accent">%(count)d</dd>
-          <dt>Cadence</dt><dd>When ready</dd>
-          <dt>Checked</dt><dd>Sep 2026</dd>
-        </dl>
-      </aside>
-    </div>
-  </section>
-  <section class="section" id="list">
-    <div class="container">
-      <ol class="notes">
-%(items)s
-      </ol>
-    </div>
-  </section>
-""" % dict(desc=NOTES_DESC, count=len(NOTES), items=items)
-    out = chrome("Field Notes — Big Sky Systems", NOTES_DESC, "notes", main, "Ask which note to read first…", HOST + "/notes/", HOST + "/assets/img/og/notes.png")
-    (ROOT / "notes" / "index.html").write_text(out); print("wrote notes/index.html")
-
 if __name__ == "__main__":
     targets = sys.argv[1:]
-    if targets == ["all"]: targets = [f.stem for f in sorted((ROOT / "content").glob("*.md")) if f.read_text().startswith("---")] + ["notes"]
+    if targets == ["all"]: targets = [f.stem for f in sorted((ROOT / "content").glob("*.md")) if f.read_text().startswith("---")]
     for slug in targets:
-        if slug == "notes": build_notes_index(); [build_note(n) for n in NOTES]
-        else: build(slug)
+        build(slug)

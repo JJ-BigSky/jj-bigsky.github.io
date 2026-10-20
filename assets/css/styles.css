@@ -226,29 +226,30 @@ html.has-reticle *:not(input):not(textarea):not(select) { cursor: none !importan
 .marks > .mk::after { bottom: 7px; left: 7px; border-width: 0 0 1px 1px; }
 
 /* ---------- service cards ---------- */
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; perspective: 1400px; }
-.card { position: relative; min-height: 218px; cursor: pointer; transform-style: preserve-3d; transition: transform .25s ease; }
-.card__inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
-.card.is-flipped .card__inner { transform: rotateY(180deg); }
-.card__face {
-  position: absolute; inset: 0; padding: 1.3rem 1.35rem 1.15rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line-strong);
-  backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; transition: border-color .2s ease;
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.card {
+  position: relative; display: flex; flex-direction: column; padding: 1.25rem 1.35rem 1.2rem;
+  border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line-strong);
+  transition: border-color .15s ease;
 }
-.card__face::before, .card__face::after { content: ""; position: absolute; width: 9px; height: 9px; border: 0 solid var(--ink); opacity: .5; }
-.card__face::before { top: 7px; left: 7px; border-width: 1px 0 0 1px; }
-.card__face::after { bottom: 7px; right: 7px; border-width: 0 1px 1px 0; }
-.card:hover .card__face { border-color: var(--ink); }
-.card__back { transform: rotateY(180deg); background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.card__back::before, .card__back::after { border-color: var(--bg); }
-.card__num { color: var(--accent); margin-bottom: .85rem; }
-.card__front h3 { font-size: 1.25rem; margin-bottom: .55rem; }
-.card__front p { color: var(--muted); flex: 1; font-size: .92rem; line-height: 1.52; margin-bottom: .75rem; }
-.card__hint { color: var(--muted-2); font-size: .6rem; }
-.card__hint::after { content: " →"; }
-.card__back h4 { font: 500 .66rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; }
-.card__back ul { margin: 0; padding: 0; list-style: none; font-size: .88rem; line-height: 1.45; }
-.card__back li { margin-bottom: .45rem; padding-left: 1rem; position: relative; }
-.card__back li::before { content: ""; position: absolute; left: 0; top: .55em; width: 5px; height: 5px; background: var(--accent); }
+.card::before, .card::after { content: ""; position: absolute; width: 9px; height: 9px; border: 0 solid var(--ink); opacity: .5; pointer-events: none; }
+.card::before { top: 7px; left: 7px; border-width: 1px 0 0 1px; }
+.card::after { bottom: 7px; right: 7px; border-width: 0 1px 1px 0; }
+.card:hover { border-color: var(--ink); }
+.card__inner { display: flex; flex-direction: column; flex: 1; }
+.card__face { position: static; padding: 0; border: 0; background: transparent; color: inherit; display: flex; flex-direction: column; }
+.card__face::before, .card__face::after { display: none; }
+.card__front { padding-bottom: .8rem; margin-bottom: .8rem; border-bottom: 1px solid var(--line); }
+.card__num { display: block; color: var(--accent); font-size: .62rem; margin-bottom: .4rem; }
+.card__front h3 { font-size: 1.18rem; line-height: 1.25; margin-bottom: .4rem; }
+.card__front p { color: var(--muted); font-size: .88rem; line-height: 1.48; margin: 0; }
+.card__hint { display: none; }
+.card__back { flex: 1; display: flex; flex-direction: column; background: transparent; color: var(--ink); transform: none; }
+.card__back h4 { font: 600 .58rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 .5rem; }
+.card__back ul { margin: 0; padding: 0; list-style: none; font-size: .84rem; line-height: 1.42; color: var(--ink); }
+.card__back li { margin-bottom: .34rem; padding-left: .95rem; position: relative; }
+.card__back li:last-child { margin-bottom: 0; }
+.card__back li::before { content: ""; position: absolute; left: 0; top: .52em; width: 5px; height: 5px; background: var(--accent); }
 
 /* ---------- arm playground ---------- */
 .arm { display: grid; grid-template-columns: 1.6fr .8fr; gap: 1rem; align-items: start; }
