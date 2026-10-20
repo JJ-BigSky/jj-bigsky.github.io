@@ -227,11 +227,11 @@ html.has-reticle *:not(input):not(textarea):not(select) { cursor: none !importan
 
 /* ---------- service cards ---------- */
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; perspective: 1400px; }
-.card { position: relative; min-height: 300px; cursor: pointer; transform-style: preserve-3d; transition: transform .25s ease; }
+.card { position: relative; min-height: 218px; cursor: pointer; transform-style: preserve-3d; transition: transform .25s ease; }
 .card__inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
 .card.is-flipped .card__inner { transform: rotateY(180deg); }
 .card__face {
-  position: absolute; inset: 0; padding: 1.5rem 1.4rem 1.3rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line-strong);
+  position: absolute; inset: 0; padding: 1.3rem 1.35rem 1.15rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line-strong);
   backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; transition: border-color .2s ease;
 }
 .card__face::before, .card__face::after { content: ""; position: absolute; width: 9px; height: 9px; border: 0 solid var(--ink); opacity: .5; }
@@ -240,14 +240,14 @@ html.has-reticle *:not(input):not(textarea):not(select) { cursor: none !importan
 .card:hover .card__face { border-color: var(--ink); }
 .card__back { transform: rotateY(180deg); background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .card__back::before, .card__back::after { border-color: var(--bg); }
-.card__num { color: var(--accent); margin-bottom: 1.3rem; }
-.card__front h3 { font-size: 1.3rem; margin-bottom: .7rem; }
-.card__front p { color: var(--muted); flex: 1; font-size: .92rem; line-height: 1.55; }
+.card__num { color: var(--accent); margin-bottom: .85rem; }
+.card__front h3 { font-size: 1.25rem; margin-bottom: .55rem; }
+.card__front p { color: var(--muted); flex: 1; font-size: .92rem; line-height: 1.52; margin-bottom: .75rem; }
 .card__hint { color: var(--muted-2); font-size: .6rem; }
 .card__hint::after { content: " →"; }
-.card__back h4 { font: 500 .66rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
-.card__back ul { margin: 0; padding: 0; list-style: none; font-size: .92rem; line-height: 1.5; }
-.card__back li { margin-bottom: .55rem; padding-left: 1rem; position: relative; }
+.card__back h4 { font: 500 .66rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; }
+.card__back ul { margin: 0; padding: 0; list-style: none; font-size: .88rem; line-height: 1.45; }
+.card__back li { margin-bottom: .45rem; padding-left: 1rem; position: relative; }
 .card__back li::before { content: ""; position: absolute; left: 0; top: .55em; width: 5px; height: 5px; background: var(--accent); }
 
 /* ---------- arm playground ---------- */
@@ -476,7 +476,7 @@ body.is-dancing .brand-orbit { animation-duration: 1s; }
   .tog span { display: none; }
   .tog i { width: 9px; height: 9px; }
   .cards { grid-template-columns: 1fr; }
-  .card { min-height: 280px; }
+  .card { min-height: 210px; }
   .hero__content { padding: 4rem 0 8rem; }
   .telemetry { gap: .5rem 1.2rem; font-size: .58rem; padding-right: 96px; }
   .telemetry span:nth-child(3), .telemetry span:nth-child(4), .telemetry span:nth-child(5) { display: none; }

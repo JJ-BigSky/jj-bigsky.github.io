@@ -311,10 +311,14 @@
 .telemetry span:nth-child(6) b { color: var(--ok); }
 
 /* ---------- services: second group, card back link ---------- */
+.cards--4 .card { min-height: 242px; }
 .cards--4 .card__front h3 { font-size: 1.04rem; }
+.cards--4 .card__back h4 { margin-bottom: .55rem; }
+.cards--4 .card__back ul { font-size: .82rem; line-height: 1.38; }
+.cards--4 .card__back li { margin-bottom: .32rem; }
 .section__subhead { margin: 3.2rem 0 1.8rem; max-width: 900px; font-size: clamp(1.35rem, 2.6vw, 2rem); text-transform: uppercase; letter-spacing: -.01em; }
 .section__subhead .muted { display: block; font-family: var(--font-serif); font-style: italic; font-weight: 400; font-stretch: 100%; text-transform: none; letter-spacing: 0; font-size: clamp(1.15rem, 1.8vw, 1.45rem); line-height: 1.2; margin-top: .5rem; color: var(--muted); }
-.card__back .card__link { margin-top: auto; padding-top: .8rem; align-self: flex-start; color: var(--bg); font: 600 .62rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; transition: color .15s ease; }
+.card__back .card__link { margin-top: auto; padding-top: .55rem; align-self: flex-start; color: var(--bg); font: 600 .62rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; transition: color .15s ease; }
 .card__back .card__link:hover { color: var(--accent); }
 
 /* ---------- footer link row ---------- */
