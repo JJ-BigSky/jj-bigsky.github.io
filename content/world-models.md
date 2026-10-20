@@ -113,7 +113,7 @@ scripts: gap-meter
             <button class="btn btn--small" id="gmEmail" type="button" data-cursor="SEND">Email me this read</button>
             <button class="btn btn--small btn--ghost" id="gmReset" type="button">Reset</button>
           </div>
-          <p class="muted small" style="margin-top:1rem">Transfer bands reflect published benchmarks and contact mechanics as of September 2026. State stays in the URL.</p>
+          <p class="muted small" style="margin-top:1rem">Transfer bands reflect published benchmarks and contact mechanics as of September 2026. Nothing is stored or sent.</p>
         </div>
       </div>
     </div>

@@ -82,7 +82,6 @@ NODES = [
     dict(slug="cloud", verb="Capture", title="Robot data &amp; cloud", sub="Logs, datasets, training, fleet rollout", href="/cloud/", hint="Data &amp; cloud"),
     dict(slug="world-models", verb="Imagine", title="Simulation &amp; world models", sub="Test it a million times before it touches steel", href="/world-models/", hint="World models"),
 ]
-HUB = dict(slug="physical-ai", verb="The hub", title="Physical AI", sub="Closing the loop across perception, policy inference, actuation, fleet data, and simulation.", href="/physical-ai/", hint="Physical AI")
 LOOP_HOME = dict(slug="loop", verb="The loop", title="All five stations", sub="From camera exposure to motor torque, fleet telemetry, and back into simulation.", href="/#loop", hint="The loop")
 
 
@@ -104,12 +103,10 @@ def plate(n, label, cursor, ink=False):
         </a>''' % (" next__plate--hub" if ink else "", n["href"], cursor, label, n["title"], n["sub"], n["hint"])
 
 def next_strip(node, slug=None):
-    if slug == "research":
-        return "\n".join([plate(HUB, "← The hub · Physical AI", "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(NODES[0], "Start here · Perceive", "NEXT")])
     if node is None:
         return "\n".join([plate(NODES[4], "← Previous · Imagine", "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(NODES[0], "Start here · Perceive", "NEXT")])
     prev, nxt = NODES[(node - 1) % 5], NODES[(node + 1) % 5]
-    return "\n".join([plate(prev, "← Previous · " + prev["verb"], "BACK"), plate(HUB, "The hub · All five", "HUB", ink=True), plate(nxt, "Next · " + nxt["verb"], "NEXT")])
+    return "\n".join([plate(prev, "← Previous · " + prev["verb"], "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(nxt, "Next · " + nxt["verb"], "NEXT")])
 
 def build(slug):
     P, body = load_page(slug)

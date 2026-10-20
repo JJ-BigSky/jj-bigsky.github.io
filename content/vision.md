@@ -114,7 +114,7 @@ scripts: vision-lab
             <button class="btn btn--small" id="vEmail" type="button" data-cursor="SEND">Email this setup</button>
             <button class="btn btn--small btn--ghost" id="vReset" type="button">Reset</button>
           </div>
-          <p class="muted small">Illustrative embedded stage costs. State stays in the URL.</p>
+          <p class="muted small">Illustrative embedded stage costs. Nothing is stored or sent.</p>
         </div>
       </div>
     </div>

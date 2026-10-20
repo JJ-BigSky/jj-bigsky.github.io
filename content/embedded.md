@@ -115,7 +115,7 @@ scripts: calc-latency
             <button class="btn btn--small" id="lbEmail" type="button" data-cursor="SEND">Email this budget</button>
             <button class="btn btn--small btn--ghost" id="lbReset" type="button">Reset</button>
           </div>
-          <p class="muted small">Illustrative stage costs and precision multipliers. State stays in the URL.</p>
+          <p class="muted small">Illustrative stage costs and precision multipliers. Nothing is stored or sent.</p>
         </div>
       </div>
     </div>

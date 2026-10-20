@@ -116,7 +116,7 @@ scripts: calc-data
             <button class="btn btn--small" id="cEmail" type="button" data-cursor="SEND">Email me this estimate</button>
             <button class="btn btn--small btn--ghost" id="cReset" type="button">Reset</button>
           </div>
-          <p class="muted small" style="margin-top:1rem">First-order bitrate and list-price cloud storage estimate. State stays in the URL.</p>
+          <p class="muted small" style="margin-top:1rem">First-order bitrate and list-price cloud storage estimate. Nothing is stored or sent.</p>
         </div>
       </div>
     </div>

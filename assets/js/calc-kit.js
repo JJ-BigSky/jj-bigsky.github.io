@@ -53,14 +53,9 @@
 
   function debounce(fn, ms) { let t; return function () { clearTimeout(t); const a = arguments; t = setTimeout(() => fn.apply(null, a), ms || 150); }; }
 
-  // URL state: readState() -> {k: "v"}; writeState({k: v}) replaces the query string without a reload.
+  // URL state: readState() -> {k: "v"}; writeState() is a no-op so clean URLs are preserved.
   function readState() { const o = {}; new URLSearchParams(window.location.search).forEach((v, k) => { o[k] = v; }); return o; }
-  function writeState(obj) {
-    const p = new URLSearchParams();
-    Object.keys(obj).forEach((k) => { if (obj[k] !== "" && obj[k] != null && obj[k] !== false) p.set(k, String(obj[k])); });
-    const q = p.toString();
-    try { history.replaceState(null, "", window.location.pathname + (q ? "?" + q : "") + window.location.hash); } catch (e) {}
-  }
+  function writeState() {}
 
   window.BSS_CALC = { fmt, money, band, bandPct, bindRange, verdict, mailto, debounce, readState, writeState };
 })();
