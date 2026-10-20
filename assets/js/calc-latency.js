@@ -17,7 +17,7 @@
   ];
   const RATES = { 100: 10, 30: 33, 10: 100, 1: 1000 };
   const PREC = { fp16: 1, int8: .55, fp4: .38 }; // illustrative scaling of the two inference stages
-  const WARN = { int8: "INT8 selected. This is now a different model. Re-run the evaluation suite.", fp4: "FP4 selected. This is now a very different model. Re-run the evaluation suite, then ask whether you believe it." };
+  const WARN = { int8: "INT8 selected. This is now a different model. Re-run the evaluation suite.", fp4: "FP4 selected. Aggressive quantization alters grasp selection and edge-case behavior; re-run the full closed-loop evaluation suite." };
   const DEFAULT = () => ({ rate: 10, prec: "fp16", tail: false, on: STAGES.map(() => true), ms: STAGES.map((s) => s.ms) });
   const state = DEFAULT();
   const q = K.readState();
@@ -74,7 +74,7 @@
   function verdict(R) {
     const pct = R.headroom / R.budget;
     if (R.over && state.rate === 100) return "Nothing learned runs at a kilohertz and very little runs at a hundred. This is what distillation is for.";
-    if (R.over) return "That's not a control loop, that's a strong opinion arriving late. Cut a stage, drop precision and re-validate, or slow the loop down and admit it.";
+    if (R.over) return "Total latency exceeds the control period. Cut a stage, drop precision and re-validate, or lower the control rate.";
     if (!R.total) return "Nothing running. Infinite headroom, zero robot. Turn something on.";
     if (pct > .3) return "Comfortable. Suspiciously comfortable. Did you measure this or estimate it?";
     if (pct < .1) return "It fits, on a good day, with nothing else running. Add the p99.9 tail and tell me if you still like it.";

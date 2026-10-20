@@ -8,13 +8,13 @@ page: /cloud/
 page_name: Robot data & cloud
 ---
 
-Somewhere in month four, a team that built a very good robot cell discovers that it has filled a NAS. The discovery arrives as a ticket, or a bill, or a full disk that stops the recorder. The response, under pressure, is to delete the old data. And with that, the loop that was the entire point of the program, the recording that makes next week's policy better than this week's, is switched off.
+A few months into operations, most teams that built a robot cell discover they have filled their local storage array. The discovery arrives as a ticket, or a bill, or a full disk that stops the recorder. The response, under pressure, is to delete the old data. And with that, the loop that was the entire point of the program, the recording that makes next week's policy better than this week's, is switched off.
 
 This happens because the data architecture was designed after the robots arrived. Three decisions, made in week one, prevent it. None of them is technically difficult. All of them are hard to make later.
 
 ## Decision one: keep the raw
 
-Keep the raw sensor data. Compressed, yes. Tiered to cold storage after a few weeks, yes. But keep it, because you will want to re-derive datasets with a labelling scheme you haven't invented yet.
+Keep the raw sensor data. Compressed, yes. Tiered to cold storage after a few weeks, yes. But keep it, because you will want to re-derive datasets with a labeling scheme you haven't invented yet.
 
 The dataset you build today encodes today's assumptions: which frames matter, what counts as a success, how episodes begin and end. In six months, when the policy fails on a class of parts nobody anticipated, the question will be “what did the camera actually see?” If the raw is gone, the answer is a shrug and a re-collection. If the raw is there, the answer is a script.
 
@@ -22,7 +22,7 @@ Do the multiplication first. Four cameras at 1080p and thirty frames a second, t
 
 ## Decision two: record provenance, not just data
 
-A trajectory without its context is a video. To train on it, evaluate against it, or decide whether it still describes the cell you have, you need to know: which robot, which policy version, which gripper, which camera calibration, which part revision, which operator, which shift. All of it, on every record, at capture time.
+Without calibration and controller metadata, a recorded trajectory cannot be replayed or trained on. To use it, evaluate against it, or decide whether it still describes the cell you have, you need to know: which robot, which policy version, which gripper, which camera calibration, which part revision, which operator, which shift. All of it, on every record, at capture time.
 
 Provenance is cheap to record and impossible to reconstruct. It is also what turns a change on the floor (a new gripper, a bumped mount) from “the dataset is now suspect” into “these 1,400 episodes are now suspect, and the rest are fine.” That difference is weeks.
 
@@ -32,7 +32,7 @@ Not because storage is expensive (it mostly isn't, tiered properly) but because 
 
 ## The conversion tax
 
-The three decisions sit on top of a structural fact: the robot's operational format and the training side's dataset format are different things, for good reasons. On the robot, MCAP in rosbag2 handles heterogeneous, timestamped, multi-schema streams and is what you replay when something went wrong at 3 a.m. On the training side, episode-oriented dataset formats are what the tooling assumes.
+The three decisions sit on top of a structural fact: the robot's operational format and the training side's dataset format are different things, for good reasons. On the robot, MCAP in rosbag2 handles heterogeneous, timestamped, multi-schema streams and is what you replay when diagnosing a line fault. On the training side, episode-oriented dataset formats are what the tooling assumes.
 
 The conversion between them is a pipeline you own forever. Make it deterministic, version it, and make it possible to regenerate every training set from raw with one command. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.
 

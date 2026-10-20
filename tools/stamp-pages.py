@@ -81,8 +81,8 @@ NODES = [
     dict(slug="cloud", verb="Capture", title="Robot data &amp; cloud", sub="Logs, datasets, training, fleet rollout", href="/cloud/", hint="Data &amp; cloud"),
     dict(slug="world-models", verb="Imagine", title="Simulation &amp; world models", sub="Test it a million times before it touches steel", href="/world-models/", hint="World models"),
 ]
-HUB = dict(slug="physical-ai", verb="The hub", title="Physical AI", sub="What happens when the loop closes. How you decide whether a learned policy is the right answer at all, and what it costs when it is.", href="/physical-ai/", hint="Physical AI")
-LOOP_HOME = dict(slug="loop", verb="The loop", title="All five stations", sub="A robot lab is a loop, not a shelf. The belt has an end. The loop doesn't.", href="/#loop", hint="The loop")
+HUB = dict(slug="physical-ai", verb="The hub", title="Physical AI", sub="Closing the loop across perception, policy inference, actuation, fleet data, and simulation.", href="/physical-ai/", hint="Physical AI")
+LOOP_HOME = dict(slug="loop", verb="The loop", title="All five stations", sub="From camera exposure to motor torque, fleet telemetry, and back into simulation.", href="/#loop", hint="The loop")
 
 
 def loopline(node):
@@ -102,7 +102,7 @@ def plate(n, label, cursor, ink=False):
           <span class="card__hint mono">%s</span>
         </a>''' % (" next__plate--hub" if ink else "", n["href"], cursor, label, n["title"], n["sub"], n["hint"])
 
-NOTES_PLATE = dict(slug="notes", verb="Notes", title="Field notes", sub="The long versions of the arguments, dated, and honest about what doesn't work.", href="/notes/", hint="Field notes")
+NOTES_PLATE = dict(slug="notes", verb="Notes", title="Field notes", sub="Technical memos on tail latency, demonstration scaling, sim-to-real transfer, and safety.", href="/notes/", hint="Field notes")
 def next_strip(node, slug=None):
     if slug == "research":
         return "\n".join([plate(HUB, "← The hub · Physical AI", "BACK"), plate(LOOP_HOME, "The loop · All five", "TRACE", ink=True), plate(NOTES_PLATE, "Next · The long versions", "NEXT")])
@@ -203,8 +203,6 @@ def build(slug):
 
 %(footer)s
 %(mascot)s
-<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
-
 %(scripts)s
 </body>
 </html>
@@ -253,8 +251,6 @@ def chrome(title, description, page, body_main, placeholder, canon, og):
 
 %(footer)s
 %(mascot)s
-<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
-
 %(scripts)s
 </body>
 </html>
@@ -315,7 +311,7 @@ def build_notes_index():
         <p class="eyebrow mono"><span class="led"></span> Field notes // the long versions</p>
         <h1>Field notes.</h1>
         <p class="page-hero__sub">%(desc)s</p>
-        <p class="page-hero__lede">Each note is an argument one of the pages makes in short, made in full. They're dated, because the field moves, and they're honest about what doesn't work, because that's the part you're paying for.</p>
+        <p class="page-hero__lede">Technical memos expanding on the engineering calculations and architecture decisions across the site. Each note is dated and grounded in measured bench or deployment failure modes.</p>
       </div>
       <aside class="titleblock marks" aria-label="Sheet information">
         <dl>

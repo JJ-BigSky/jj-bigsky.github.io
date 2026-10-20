@@ -5,7 +5,7 @@ code: V-01
 node: 0
 eyebrow: Visual intelligence // perceive
 h1: The robot can't do anything it can't see.
-sub: And it can see beautifully until Tuesday, when the sun comes through the loading door.
+sub: And a bench demo holds up right until direct sunlight comes through the bay door.
 lede: Vision is the highest-payoff and highest-variance system in a robot cell. Foundation models have made the first four stages of the pipeline much easier than they were three years ago. The last two stages, and the physical environment around all six, are where the year goes.
 actions:
   - btn btn--primary | #lab | Run the pipeline | RUN
@@ -16,10 +16,10 @@ next_sub: Seeing the part is station one. Something has to decide what to do abo
 scripts: vision-lab
 ---
 
-  <!-- ===== 01 // The honest version ===== -->
+  <!-- ===== 01 // Field conditions ===== -->
   <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono">01 // The honest version</p>
+      <p class="eyebrow mono">01 // Field conditions</p>
       <h2 class="section__title">Nothing on this list is a model problem.<span class="muted">Every one of them has ended a pilot.</span></h2>
       <div class="cols">
         <div class="prose">
@@ -30,12 +30,12 @@ scripts: vision-lab
 
 **Lighting drift.** Morning light, afternoon light, someone replaces a failed fixture with a slightly bluer one, and your pose estimates walk. Controlled lighting is the cheapest reliability upgrade in the building and it is skipped constantly.
 
-**Calibration drift.** Hand-eye calibration is not a one-time ceremony. Somebody bumps the camera mount, and a system that was accurate to half a millimetre is now confidently wrong.
+**Calibration drift.** Hand-eye calibration is not a one-time ceremony. Somebody bumps the camera mount, and a system that was accurate to half a millimeter is now confidently wrong.
 
 **The last two percent of pose error.** Ninety-eight percent is a great demo and a daily crash. The gap between them is fixturing, verification, and knowing when to refuse.
 
         </div>
-        <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> ask me what breaks vision and I'll recite this list. I learned it the way everyone does, at 2 a.m., from a robot that was very sure about the wrong part.</div>
+        <div class="callout"><span class="sq"></span><b>SKY-1 notes:</b> ask me what breaks vision and I'll walk through these five failure modes. Most perception bugs trace back to optics, illumination, or mount rigidity rather than network weights.</div>
       </div>
     </div>
   </section>
@@ -57,7 +57,7 @@ scripts: vision-lab
         <div class="prose">
           <div class="fig mono" style="margin-bottom:1.2rem"><b>Fig. 01</b>The pipeline, in order. Typical industrial parts, as of September 2026.</div>
 
-The practical consequence: in 2026 you should be training far fewer custom models than you were in 2023, and spending the savings on lighting, fixturing, calibration discipline, and verification. That's a less exciting sentence than “we fine-tuned a foundation model,” and it's where the reliability comes from.
+The practical consequence: in 2026 you should be training far fewer custom detectors than you were in 2023, and putting that engineering budget into controlled illumination, rigid fixturing, calibration checks, and post-grasp verification.
 
 ### Which sensor, when
 
@@ -72,8 +72,8 @@ There is no best camera. There is the right one for your part, your cycle time, 
           <tbody>
             <tr><td><strong>2D camera</strong></td><td>Presence, in-plane orientation, reading marks, checking the robot's work against a known datum.</td><td class="muted">No depth. Anything that needs height, tilt, or a stack.</td></tr>
             <tr><td><strong>Stereo</strong></td><td>General-purpose depth on textured parts at modest accuracy. Cheap, fast, forgiving.</td><td class="muted">Textureless, specular, or repetitive surfaces confuse the matcher.</td></tr>
-            <tr><td><strong>Structured light</strong></td><td>Sub-millimetre depth on static or slow scenes: bin picking, inspection that borders on metrology.</td><td class="muted">Ambient light, shiny or transparent parts, motion blur.</td></tr>
-            <tr><td><strong>Time-of-flight</strong></td><td>Fast, longer-range depth for navigation, safety zones, and coarse picking.</td><td class="muted">Multi-path errors near corners. Millimetres of accuracy, not tenths.</td></tr>
+            <tr><td><strong>Structured light</strong></td><td>Sub-millimeter depth on static or slow scenes: bin picking, inspection that borders on metrology.</td><td class="muted">Ambient light, shiny or transparent parts, motion blur.</td></tr>
+            <tr><td><strong>Time-of-flight</strong></td><td>Fast, longer-range depth for navigation, safety zones, and coarse picking.</td><td class="muted">Multi-path errors near corners. Millimeters of accuracy, not tenths.</td></tr>
             <tr><td><strong>Line-scan</strong></td><td>Continuous inspection of moving webs, extrusions, and conveyors.</td><td class="muted">Needs constant motion and rock-steady encoder sync.</td></tr>
           </tbody>
         </table>
@@ -125,7 +125,7 @@ There is no best camera. There is the right one for your part, your cycle time, 
   <section class="section" id="offer">
     <div class="container">
       <p class="eyebrow mono">04 // What we do</p>
-      <h2 class="section__title">Four ways we make the robot see.<span class="muted">Boring is still the goal. A camera that works on Tuesday is boring.</span></h2>
+      <h2 class="section__title">Four ways we make the robot see.<span class="muted">Optics, calibration monitoring, ROS 2 perception pipelines, and independent verification.</span></h2>
       <div class="cards cards--4">
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">

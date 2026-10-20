@@ -198,10 +198,10 @@ html.has-reticle *:not(input):not(textarea):not(select) { cursor: none !importan
 .typed { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-stretch: 100%; letter-spacing: 0; color: var(--accent); white-space: nowrap; font-size: 1.06em; }
 .typed::after { content: ""; display: inline-block; width: 3px; height: .78em; background: var(--ink); margin-left: .08em; vertical-align: -.04em; animation: caret 1s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0 } }
-.hero__lede { font-size: clamp(1rem, 1.5vw, 1.18rem); color: var(--ink); max-width: 560px; margin-bottom: 2.2rem; line-height: 1.55; text-shadow: 0 0 6px var(--bg), 0 0 12px var(--bg), 0 0 20px var(--bg), 0 0 2px var(--bg); }
-.hero .eyebrow, .hero__title { text-shadow: 0 0 8px var(--bg), 0 0 16px var(--bg); }
+.hero__lede { font-size: clamp(1rem, 1.5vw, 1.18rem); color: var(--ink); max-width: 560px; margin-bottom: 2.2rem; line-height: 1.55; text-shadow: 0 0 4px var(--bg), 0 0 10px var(--bg); }
+.hero .eyebrow, .hero__title { text-shadow: 0 0 4px var(--bg), 0 0 10px var(--bg); }
 .hero__actions .btn:not(.btn--primary):not(.btn--link) { background: var(--bg); }
-.hero__actions .btn--link { text-shadow: 0 0 8px var(--bg), 0 0 14px var(--bg), 0 0 20px var(--bg); }
+.hero__actions .btn--link { text-shadow: 0 0 4px var(--bg), 0 0 10px var(--bg); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; }
 .hero__fig { position: absolute; right: clamp(1rem, 4vw, 2.5rem); top: 15.5rem; z-index: 2; padding-left: .8rem; border-left: 1px solid var(--accent); color: var(--muted); max-width: 200px; line-height: 1.7; }
 .hero__fig b { color: var(--ink); font-weight: 600; display: block; }
@@ -377,8 +377,8 @@ html.has-reticle *:not(input):not(textarea):not(select) { cursor: none !importan
 .footer__note { font-size: .78rem; text-align: right; }
 
 /* ---------- mascot ---------- */
-.mascot { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 900; display: flex; flex-direction: column; align-items: flex-end; gap: .5rem; }
-.mascot__btn { background: none; border: none; padding: 0; width: 84px; height: 106px; cursor: pointer; animation: bob 4s ease-in-out infinite; transition: transform .3s cubic-bezier(.34,1.56,.64,1); filter: drop-shadow(0 6px 0 var(--line)); }
+.mascot { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 900; display: flex; flex-direction: column; align-items: flex-end; gap: .55rem; pointer-events: none; }
+.mascot__btn { pointer-events: auto; background: none; border: none; padding: 0; width: 72px; height: 92px; cursor: pointer; animation: bob 4s ease-in-out infinite; transition: transform .3s cubic-bezier(.34,1.56,.64,1); filter: drop-shadow(0 6px 0 var(--line)); }
 .mascot__btn:hover { transform: translateY(-3px); }
 @keyframes bob { 0%,100% { translate: 0 0 } 50% { translate: 0 -5px } }
 .bot { width: 100%; height: 100%; overflow: visible; }
@@ -399,13 +399,13 @@ html.has-reticle *:not(input):not(textarea):not(select) { cursor: none !importan
 .mascot.is-excited .mascot__btn { animation: excited .5s ease-in-out 2; }
 @keyframes excited { 25% { transform: rotate(-6deg) scale(1.06) } 75% { transform: rotate(6deg) scale(1.06) } }
 .bubble {
-  max-width: 260px; padding: .7rem .9rem .7rem 1rem; background: var(--surface); border: 1px solid var(--ink); border-radius: var(--radius);
-  font-size: .84rem; line-height: 1.45; position: relative; margin-right: 26px; color: var(--ink);
+  max-width: 220px; padding: .6rem .8rem .6rem .95rem; background: var(--surface); border: 1px solid var(--ink); border-radius: var(--radius);
+  font-size: .8rem; line-height: 1.4; position: relative; margin-right: 4px; color: var(--ink);
   opacity: 0; transform: translateY(6px); transition: opacity .2s ease, transform .25s cubic-bezier(.34,1.56,.64,1); pointer-events: none;
 }
 .bubble::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
 .bubble.is-on { opacity: 1; transform: none; }
-.bubble::after { content: ""; position: absolute; right: -6px; bottom: 10px; width: 10px; height: 10px; background: var(--surface); border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); transform: rotate(-45deg); }
+.bubble::after { content: ""; position: absolute; right: 24px; bottom: -6px; width: 10px; height: 10px; background: var(--surface); border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); transform: rotate(45deg); }
 
 /* ---------- chat ---------- */
 .chat {

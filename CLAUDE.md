@@ -1,20 +1,17 @@
 # Big Sky Systems — site and design system
 
 Static site, no build step, no framework. Source of truth is the private repo
-`JJ-BigSky/bigsky-site` (remote `origin`), checked out at `~/Documents/code/bigsky-site`.
+`JJ-BigSky/bigsky-site` (remote `origin`), checked out at `~/Desktop/Code/bigsky-site`.
 Live at https://jj-bigsky.github.io/ via GitHub Pages from the public repo
 `JJ-BigSky/jj-bigsky.github.io` (remote `pages`). Preview locally with
 `python3 -m http.server 8741`.
 
 ## Design language: "engineering paper"
 
-Every visual thing made for Big Sky Systems (pages, artifacts, one-pagers,
-proposals, dashboards, charts, decks, documents, diagrams, emails) uses the
-`bigsky-design` skill in `.claude/skills/bigsky-design/`. Read its SKILL.md
-before making anything visual, even if the request doesn't mention design.
+Read [`DESIGN_LANGUAGE.md`](DESIGN_LANGUAGE.md) at the repo root before making any visual or copy changes. Supporting templates and snippets also live in `.claude/skills/bigsky-design/`:
 
-- Tokens: `.claude/skills/bigsky-design/assets/tokens.css` (canonical) and the
-  `:root` block at the top of `assets/css/styles.css` (the site). Keep both in sync.
+- Manual: [`DESIGN_LANGUAGE.md`](DESIGN_LANGUAGE.md) (authoritative tokens, typography, component anatomy, and editorial voice rules).
+- Tokens: `.claude/skills/bigsky-design/assets/tokens.css` and the `:root` block at the top of `assets/css/styles.css`. Keep both in sync.
 - Starter page: `.claude/skills/bigsky-design/assets/template.html`.
 - Components: `.claude/skills/bigsky-design/references/components.md`.
 - Non-HTML mappings (docx, pptx, xlsx, svg, email): `.claude/skills/bigsky-design/references/documents.md`.

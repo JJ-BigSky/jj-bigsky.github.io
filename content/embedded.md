@@ -1,12 +1,12 @@
 ---
 title: On-Robot Autonomy — Big Sky Systems
-description: Autonomy is a latency budget with a power budget stapled to it. Compute selection, optimization, and real-time architecture.
+description: Real-time on-robot inference within strict control-loop and thermal budgets. Compute selection, model quantization, and RT Linux architecture.
 code: E-01
 node: 1
 eyebrow: On-robot autonomy // decide
 h1: Ten milliseconds is not a lot of milliseconds.
 sub: Everything interesting about on-robot AI is a fight over a very small number.
-lede: A model that answers in two seconds is a chatbot. A model that answers inside your control period is a controller. The engineering between those two sentences is most of what we do on this page.
+lede: On-robot inference has to finish inside the control period every cycle, at sustained thermal load, without starving the real-time servo thread. We size compute, quantize policies, and configure the real-time stack so the loop holds its deadline.
 actions:
   - btn btn--primary | #lab | Build a budget | BUILD
   - btn | /#contact | Talk to a human | MAIL
@@ -16,22 +16,22 @@ next_sub: The policy answered in time. The cell is where it has to be right.
 scripts: calc-latency
 ---
 
-  <!-- ===== 01 // The honest version ===== -->
+  <!-- ===== 01 // Tail latency & thermals ===== -->
   <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono">01 // The honest version</p>
+      <p class="eyebrow mono">01 // Tail latency &amp; thermals</p>
       <h2 class="section__title">Your average latency is a lie.<span class="muted">The number that breaks robots is p99.9.</span></h2>
       <div class="cols">
         <div class="prose">
 
-Every inference benchmark you will be shown is a mean. Robots are broken by tails. A perception stack that runs in 20 ms on average and 140 ms once every few thousand frames will pass every test you write and then put a gripper through a fixture on the second shift.
+Every inference benchmark you will be shown is a mean. Robots are broken by tails. A perception stack that runs in 20 ms on average and 140 ms once every few thousand frames will pass every test you write and then put a gripper through a fixture during production.
 
-Measure the tail. Budget for the tail. Design the fallback for the tail. If the policy can't answer in time, the correct behaviour is a defined, safe, boring one (hold position, re-approach, ask a human), and that behaviour has to be proven, not assumed.
+Measure the tail. Budget for the tail. Design the fallback for the tail. If the policy can't answer in time, the correct behavior is a defined, deterministic fallback (hold position, re-approach, or hand off to an operator), and that behavior has to be proven under fault injection, not assumed.
 
-The second lie is thermal. Every compute module has a headline TOPS number and a power range, and the headline number assumes cooling you do not have inside a sealed arm on a summer afternoon. Size for the sustained clock, not the datasheet.
+The second trap is thermal. Every compute module has a headline TOPS number and a power range, and the headline number assumes airflow you do not have inside a sealed enclosure at 45 °C ambient. Size for the sustained clock, not the datasheet peak.
 
         </div>
-        <div class="callout"><span class="sq"></span><b>SKY-1 says:</b> measure the tail, budget for the tail, design the fallback for the tail. I'd embroider it on something if I had hands.</div>
+        <div class="callout"><span class="sq"></span><b>SKY-1 notes:</b> measure the p99.9 tail under sustained thermal load, budget your control period around that figure, and verify the late-frame fallback on the bench.</div>
       </div>
     </div>
   </section>
@@ -61,13 +61,13 @@ The architecture follows from that table and not from a vendor's block diagram. 
 
 ### Making it fit
 
-Quantization is the biggest lever and the most abused one. Dropping precision routinely buys large speedups, and it *changes the model's behaviour*. Not “slightly reduces accuracy” in the abstract. It changes which grasps it picks, on which parts, under which lighting.
+Quantization is the biggest lever and the most abused one. Dropping precision routinely buys large speedups, and it *changes the model's behavior*. Not “slightly reduces accuracy” in the abstract. It changes which grasps it picks, on which parts, under which lighting.
 
-So the rule is simple and non-negotiable: **the quantized model is a different model, and it gets the full evaluation suite.** Every time. If that sounds expensive, note that it's exactly why the evaluation harness on the Physical AI page is the deliverable and the model is a detail.
+So the rule is simple and non-negotiable: **the quantized model is a different model, and it gets the full evaluation suite.** Every time. That is why we build an automated closed-loop evaluation harness before optimizing the weights.
 
 ### Determinism
 
-A GPU in the loop makes “real-time” a spectrum, and the difference between soft and hard real-time is the difference between “usually on time” and “provably on time.” Most of what closes that gap is boring configuration, done once and documented:
+A GPU in the loop makes “real-time” a spectrum, and the difference between soft and hard real-time is the difference between “usually on time” and “provably on time.” Closing that gap requires explicit OS and middleware configuration, measured under load:
 
 - RT-patched kernel, with the latency actually measured under load
 - CPU core isolation and affinity, so the control thread never waits for a browser tab
@@ -132,17 +132,17 @@ A GPU in the loop makes “real-time” a spectrum, and the difference between s
   <section class="section" id="offer">
     <div class="container">
       <p class="eyebrow mono">04 // What we do</p>
-      <h2 class="section__title">Four ways we make it answer in time.<span class="muted">A controller, not a suggestion.</span></h2>
+      <h2 class="section__title">Four ways we make it answer in time.<span class="muted">Sustained thermal benchmarks, quantized runtimes, RT Linux, and fault-injected fallbacks.</span></h2>
       <div class="cards cards--4">
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">E-01</span><h3>Compute selection</h3><p>Sized against a measured latency and thermal budget, not a TOPS number, including the boring question of what it does at 45°C.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Candidate modules benchmarked with your model, under load, in the enclosure</li><li>Sustained-clock numbers, not datasheet peaks</li><li>Thermal plan: airflow, throttling behaviour, and the summer afternoon</li><li>A shortlist with the power budget written on it</li></ul></div>
+            <div class="card__face card__front"><span class="card__num mono">E-01</span><h3>Compute selection</h3><p>Sized against a measured latency and thermal budget, not a datasheet TOPS peak, including sustained clock behavior at 45 °C enclosure ambient.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Candidate modules benchmarked with your model, under load, in the enclosure</li><li>Sustained-clock numbers, not datasheet peaks</li><li>Thermal plan: airflow, throttling behavior, and enclosure heat dissipation</li><li>A shortlist with the power budget written on it</li></ul></div>
           </div>
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">E-02</span><h3>Model optimization</h3><p>Quantization, fusion, distillation, and compiled runtimes, each followed by a full re-evaluation rather than a vibe.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">E-02</span><h3>Model optimization</h3><p>Quantization, layer fusion, distillation, and compiled runtimes, each verified against your full closed-loop evaluation suite.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Quantization and kernel fusion with the speedup measured, not quoted</li><li>Distilled or pruned variants for the loop rate you actually need</li><li>Compiled runtime pipeline that rebuilds from a script</li><li>The full evaluation suite re-run on every variant. Every time.</li></ul></div>
           </div>
         </article>
@@ -154,7 +154,7 @@ A GPU in the loop makes “real-time” a spectrum, and the difference between s
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">E-04</span><h3>Degradation design</h3><p>Defined behaviour when the policy is late or uncertain, validated to the same standard as the e-stop.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">E-04</span><h3>Degradation design</h3><p>Defined behavior when the policy is late or uncertain, validated to the same standard as the e-stop.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>A late-answer policy: hold, re-approach, or ask a human</li><li>Uncertainty thresholds that trigger it, tested on purpose</li><li>Fault injection: dropped frames, a stalled GPU, an unplugged network</li><li>Evidence that the fallback holds up, written for the safety file</li></ul></div>
           </div>
         </article>

@@ -1,12 +1,12 @@
 ---
 title: Robot Data & Cloud — Big Sky Systems
-description: Your fleet is a data business with a floor plan. Capture, datasets, training infrastructure, and fleet rollout.
+description: On-robot ring buffers, MCAP ingest, reproducible episode datasets, training infrastructure, and staged fleet rollout.
 code: C-01
 node: 3
 eyebrow: Robot data &amp; cloud // capture
-h1: Your fleet is a data business with a floor plan.
-sub: The robots are the sensors. The loop is the product.
-lede: Every hour your robots run, they generate the only thing that makes next quarter's policy better than this quarter's. Almost nobody is set up to keep it, find it, or use it. This is the least glamorous page on this site and it's the one that decides whether the rest works.
+h1: Every hour a robot runs, it writes the next dataset.
+sub: Only if your ring buffers, schemas, and ingest pipelines are built to keep it.
+lede: Every shift your robots run, they generate the sensor logs and edge cases that make next quarter's policy better than this quarter's. Almost nobody is set up to buffer, index, or query them. This is the least glamorous station in the loop and the one that decides whether the rest improves over time.
 actions:
   - btn btn--primary | #calc | Do the multiplication | COUNT
   - btn | /#contact | Talk to a human | MAIL
@@ -16,27 +16,27 @@ next_sub: Logs are only useful if something learns from them.
 scripts: calc-data
 ---
 
-  <!-- ===== 01 // The honest version ===== -->
+  <!-- ===== 01 // Bitrate & retention ===== -->
   <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono">01 // The honest version</p>
+      <p class="eyebrow mono">01 // Bitrate &amp; retention</p>
       <h2 class="section__title">Do the multiplication before you buy the robots.<span class="muted">It's a small sum and it changes the plan.</span></h2>
       <div class="cols">
         <div class="prose">
 
-Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it in month four, and respond by deleting the data, which is to say by turning off the loop that was the entire point.
+Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it when the storage array fills up, and respond by deleting raw logs—turning off the data loop they built the fleet to feed.
 
 The projects that go wrong here go wrong the same way. Three rules that prevent it:
 
-**Keep the raw.** Compressed, tiered to cold storage, but keep it. You will want to re-derive datasets with a labelling scheme you haven't invented yet.
+**Keep the raw.** Compressed, tiered to cold storage, but keep it. You will want to re-derive datasets with a labeling scheme you haven't invented yet.
 
-**Record provenance, not just data.** Which robot, which policy version, which gripper, which calibration, which shift. A trajectory without its context is a video.
+**Record provenance, not just data.** Which robot, which policy version, which gripper, which calibration, which shift. Without calibration and controller metadata, a recorded trajectory cannot be replayed or trained on.
 
 **Decide retention on day one.** Not because storage is expensive, but because “everything forever” is not a policy and it will be made for you, badly, in a hurry, by whoever gets the bill.
 
         </div>
         <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 says:</b> training compute is the cheap part. Nobody believes me. The expensive part is the demonstrations and the people who clean them.</div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 notes:</b> GPU training hours are a fraction of your budget. The real cost sits in demonstration collection, episode curation, and storage egress.</div>
           <div class="fig mono"><b>Field note</b><a href="/notes/keep-the-raw.html">Keep the raw: three data decisions made in week one that decide whether you have a flywheel or a NAS →</a></div>
         </div>
       </div>
@@ -51,15 +51,15 @@ The projects that go wrong here go wrong the same way. Three rules that prevent 
       <div class="cols">
         <div class="prose">
 
-On the robot, the operational format is MCAP in rosbag2, the default in modern ROS 2: a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's the thing you replay when something went wrong at 3 a.m.
+On the robot, the operational format is MCAP in rosbag2, the default in modern ROS 2: a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's what you replay when diagnosing a fault on the line.
 
 On the training side, the tooling has converged on episode-oriented dataset formats built around demonstrations (LeRobot-style datasets, RLDS), with cross-embodiment collections like Open X-Embodiment published in them and tooling that assumes them.
 
 These are different shapes for good reasons, and the conversion between them is a pipeline you own forever. Design it early, make it deterministic, version it, and make it possible to regenerate every training set from raw. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.
 
-### Training is the cheap part. Nobody believes this.
+### Training compute is the smallest line item.
 
-          <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Fine-tuning is a rounding error next to collecting the data and proving the result.</p>
+          <p class="serif muted prose__sub">Fine-tuning is a rounding error next to collecting the data and proving the result.</p>
 
 Renting serious GPUs is a couple of dollars an hour per card. A parameter-efficient fine-tune of a generalist policy on a few hundred episodes runs overnight on a single card. A full fine-tune across eight cards is a day or two. In money, that's a rounding error against a robotics program.
 
@@ -67,9 +67,9 @@ The costs that actually hurt are the ones on the [Physical AI page](/physical-ai
 
 Which is the good news, mostly. It means the expensive part is something you can be strategic about instead of something you rent.
 
-### Shipping a policy is a deployment, not a file copy.
+### Staged policy deployment and rollback.
 
-          <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Treat it like software, because it is software that can move a two-kilo part at speed.</p>
+          <p class="serif muted prose__sub">Versioned artifacts, canary cells, and automated rollback when cycle metrics degrade.</p>
 
 Versioned artifacts, staged rollout, a canary robot, automatic rollback on a metric you agreed on in advance, per-robot configuration that survives a re-image, and observability that tells you a cell is degrading before the operator does.
 
@@ -81,7 +81,7 @@ Every frame from a workplace camera has people in the background of it. Decide w
 
         </div>
         <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>The conversion tax, paid once.</b> Raw logs in, training-ready episodes out, deterministic and versioned, so every dataset can be regenerated from the raw when the labelling scheme changes. It will change.</div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>The conversion tax, paid once.</b> Raw logs in, training-ready episodes out, deterministic and versioned, so every dataset can be regenerated from the raw when the labeling scheme changes. It will change.</div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>A rollout is a deployment.</b> Canary robot, agreed metric, automatic rollback. If you can't roll back in a minute, you can't roll out.</div>
           <div class="fig mono"><b>Fig. 01</b>Prices and formats named here are stable as of September 2026. The numbers below are not; that's what the calculator is for.</div>
         </div>
@@ -114,7 +114,7 @@ Every frame from a workplace camera has people in the background of it. Decide w
           </div>
           <div class="calc__toggles">
             <label class="check"><input type="checkbox" id="cDepth" /> <span>Include depth streams</span><small class="mono">+40%</small></label>
-            <label class="check"><input type="checkbox" id="cLogs" checked disabled /> <span>Proprioception &amp; logs</span><small class="mono">small · always on · shown for honesty</small></label>
+            <label class="check"><input type="checkbox" id="cLogs" checked disabled /> <span>Proprioception &amp; logs</span><small class="mono">small · always on · ~250 MB/hr</small></label>
           </div>
         </div>
         <div class="calc__outputs">
@@ -133,7 +133,7 @@ Every frame from a workplace camera has people in the background of it. Decide w
             <button class="btn btn--small" id="cEmail" type="button" data-cursor="SEND">Email me this estimate</button>
             <button class="btn btn--small btn--ghost" id="cReset" type="button">Reset</button>
           </div>
-          <p class="muted small" style="margin-top:1rem">Bitrates are illustrative and depend heavily on scene content, encoder settings, and how much your parts move. Cloud storage and egress prices vary by provider, region, and how good you are at negotiating; the bands here are list-price-shaped, not quotes. Numbers are rounded with enthusiasm. Nothing here is stored or sent.</p>
+          <p class="muted small" style="margin-top:1rem">Bitrates depend heavily on scene motion, encoder settings, and keyframe intervals. Cloud storage and egress rates reflect standard list-price tiers for capacity planning. Nothing here is stored or sent.</p>
         </div>
       </div>
     </div>
@@ -154,7 +154,7 @@ Every frame from a workplace camera has people in the background of it. Decide w
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">C-02</span><h3>Dataset pipeline</h3><p>Deterministic, versioned, reproducible conversion from raw logs to training-ready episodes.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>MCAP in, episode datasets out, the same way every time</li><li>Versioned so any training set regenerates from raw</li><li>QC that drops the bad episodes before they train</li><li>A catalogue your team can actually search</li></ul></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>MCAP in, episode datasets out, the same way every time</li><li>Versioned so any training set regenerates from raw</li><li>QC that drops the bad episodes before they train</li><li>A catalog your team can actually search</li></ul></div>
           </div>
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">

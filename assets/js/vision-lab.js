@@ -170,7 +170,7 @@
       ctx.fillStyle = danger; ctx.font = "600 9px " + tok("--font-mono"); ctx.fillText("REJECT", cx + 15, cy - 8);
       ctx.fillStyle = ok; ctx.fillRect(bx + bw - 66, by + bh - 18, 5, 5); ctx.fillStyle = muted; ctx.fillText("VERIFIED", bx + bw - 56, by + bh - 12);
     }
-    // over budget: the frame says so, not just the colour
+    // over budget: the frame says so, not just the color
     if (A.over) {
       ctx.strokeStyle = danger; ctx.lineWidth = 2; ctx.strokeRect(bx + 1, by + 1, bw - 2, bh - 2);
       ctx.fillStyle = danger; ctx.font = "600 10px " + tok("--font-mono"); ctx.fillText("OVER BUDGET  ·  " + (1000 / A.ms).toFixed(1) + " HZ", bx + 8, by + bh - 10);
@@ -178,16 +178,16 @@
     return A;
   }
 
-  // ---- readouts, verdicts, and the honest bit ----
+  // ---- readouts and verdicts ----
   let saidBudget = false, saidDark = false;
   function verdict(A) {
-    if (A.over) return "That's not a pipeline, that's a slideshow. Cut a stage, or take it to the embedded page and make something faster.";
+    if (A.over) return "Pipeline latency exceeds the control period. Cut a stage, or move to the Embedded page to quantize and fuse the heavy passes.";
     if (state.light < 35) return "You can't fix this with a model. Buy a light. It's the cheapest thing on the invoice and the one people skip.";
     if (A.n < 6) return "Half the bin is invisible. That's a lighting problem or a fixturing problem, and either is cheaper than it sounds.";
     if (!A.on) return "Camera's on, nothing's running. Technically zero latency. Also zero robot.";
-    if (A.on === 6) return "Six stages under budget. Either your budget is generous or your parts are easy. Check which, before Tuesday.";
+    if (A.on === 6) return "All six stages fit inside your budget. Benchmark this under worst-case part clutter and thermal load.";
     if (!state.verify && state.grasp) return "Grasping without verifying. Bold. The camera that checks the work is usually worth more than the one that guides it.";
-    return "Fine on the bench. Now do it on a cloudy Tuesday, after someone bumps the mount.";
+    return "Within budget on the bench. Next step: verify pose stability across ambient light shifts and mount vibration.";
   }
   function update(paint) {
     const A = paint ? draw() : analyse();

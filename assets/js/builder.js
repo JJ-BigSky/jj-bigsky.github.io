@@ -106,8 +106,8 @@
     // the loop's opinions
     if (count("gpu") && (!count("plug") || kw > 24)) warnings.push({ p: 2.2, t: "Eight kilowatts of training node. Have you told facilities, or is this a surprise for them?" });
     if (count("cell") && count("cam") && !count("teleop")) warnings.push({ p: 4.5, t: "You can see the part and you can move the arm. Nothing here collects the demonstrations that teach it. Add a teleop station or plan on writing the policy by hand." });
-    if (count("teleop") && !count("ingest")) warnings.push({ p: 4.6, t: "Demos with nowhere to go. That's a very expensive way to make video." });
-    if (count("gpu") && !count("ingest")) warnings.push({ p: 4.7, t: "Training node, no data pipeline. That's a space heater with excellent specs." });
+    if (count("teleop") && !count("ingest")) warnings.push({ p: 4.6, t: "Teleop station without a data ingest node. Add ingest so recorded episodes are indexed and usable." });
+    if (count("gpu") && !count("ingest")) warnings.push({ p: 4.7, t: "Training node with no data ingest pipeline. Add an ingest station to feed the GPUs." });
     if (count("cell") >= 4 && !count("rack")) warnings.push({ p: 4.8, t: "Four cells and no compute. Where do you think the perception is running?" });
     if (count("amr") && !count("plug")) warnings.push({ p: 2, t: "Your AMRs have nowhere to charge. They'll be dead by lunch. Add a charging bay." });
     if (placed.length >= 4 && !count("rack")) warnings.push({ p: 5, t: "Where does the compute live? Add a server rack before someone runs ROS on a laptop under a desk." });
@@ -129,10 +129,10 @@
     setStat("sSafety", safety); $("sSafety").style.color = safetyColor;
 
     let note;
-    if (!placed.length) note = "Place something and I'll start judging. Kindly.";
+    if (!placed.length) note = "Select a module from the palette and click the floor grid to start sizing your bay.";
     else if (warnings.length) note = warnings[0].t + (warnings.length > 1 ? " (+" + (warnings.length - 1) + " more)" : "");
     else if (placed.length < 4) note = "Good start. Robots like company: add a conveyor or a vision station.";
-    else note = ["Honestly? This is a nice lab. Email it to a human.", "No notes. I'm as surprised as you are.", "Guarded, powered, and somewhere to put the coffee. Ship it."][placed.length % 3];
+    else note = ["Solid layout—power, guarding, and compute are balanced. Ready to export.", "No warnings flagged. Cells are guarded and utilities are sized.", "Guarded, powered, and somewhere to put the coffee. Ship it."][placed.length % 3];
     $("sNotes").textContent = note;
     if (note !== lastNote && placed.length) { lastNote = note; clearTimeout(recompute._t); recompute._t = setTimeout(() => { M() && M().say(note, { mood: warnings.length ? "flat" : "happy" }); }, 700); }
     recompute.current = { placed, area, kw, lo, hi, safety, warnings, note };

@@ -30,7 +30,7 @@ tb:
         <div class="plate marks"><b><i class="sq sq--verified"></i>Verified</b><p>From a primary source: a standards body, or a vendor's own spec page.</p></div>
         <div class="plate marks"><b><i class="sq sq--reported"></i>Reported</b><p>Consistent across multiple industry sources, not primary. Stated as reporting, not as fact.</p></div>
         <div class="plate marks"><b><i class="sq sq--directional"></i>Directional</b><p>A widely repeated range. Published as a range, never as a precise figure.</p></div>
-        <div class="plate marks"><b><i class="sq sq--position"></i>Position</b><p>Our judgment, labelled as such. Defensible, and yours to disagree with.</p></div>
+        <div class="plate marks"><b><i class="sq sq--position"></i>Position</b><p>Our judgment, labeled as such. Defensible, and yours to disagree with.</p></div>
         <div class="plate marks"><b><i class="decay decay--aging" style="width:22px;height:5px;margin:0;display:inline-block"><i style="width:60%"></i></i>Perishable</b><p>Will be stale within about two quarters. The bar fills from the day we checked it, in public.</p></div>
       </div>
       <div class="cols" style="margin-top:1.6rem">
@@ -94,7 +94,7 @@ So some things we know are deliberately not on the pages: part numbers, hourly G
   <section class="section" id="dates">
     <div class="container">
       <p class="eyebrow mono">03 // Dated events</p>
-      <h2 class="section__title">The dates that move the plan.<span class="muted">Standards, regulations, and the day we last checked. Today is wherever today is.</span></h2>
+      <h2 class="section__title">The dates that move the plan.<span class="muted">Standards, compliance deadlines, and verification dates across the loop.</span></h2>
       <div class="figure">
         <div class="stage" style="min-height:0;padding:1.2rem .6rem .6rem;display:block">
           <svg class="timeline" id="evidenceTimeline" viewBox="0 0 900 210" aria-hidden="true"></svg>

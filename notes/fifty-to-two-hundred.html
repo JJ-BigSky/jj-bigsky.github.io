@@ -88,9 +88,9 @@
       <p class="note__meta mono muted">Big Sky Systems · September 2026 · 3 min · from <a href="/physical-ai/">Physical AI</a></p>
       <hr class="rule" />
       <div class="prose note__body">
-<p>Ask how many demonstrations an imitation-learning policy needs and the honest answer is a range: roughly fifty to two hundred teleoperated demonstrations per task, depending on the task. The range is wide because tasks are wide. A rigid pick from a known pose sits at the bottom. A contact-rich insertion with tolerances you can feel sits at the top, and sometimes above it.</p>
+<p>Ask how many demonstrations an imitation-learning policy needs and empirical benchmarks converge on a clear range: roughly fifty to two hundred teleoperated demonstrations per task, depending on the task. The range is wide because tasks are wide. A rigid pick from a known pose sits at the bottom. A contact-rich insertion with tolerances you can feel sits at the top, and sometimes above it.</p>
 
-<p>The range is the easy part. The arithmetic around it is what surprises people, usually in month five.</p>
+<p>The range is the easy part. The arithmetic around it is what surprises people once collection starts.</p>
 
 <h2>The arithmetic</h2>
 
@@ -120,13 +120,13 @@
 
 <p><strong>Risk.</strong> What happens when the policy is wrong? A dropped tote and a scratched fixture are different answers, and the fallback path has to be designed either way.</p>
 
-<p>Run the four questions and the list sorts itself. The <a href="/physical-ai/#calc">demonstration budget calculator</a> does the multiplication for whatever list you have, and it will tell you, kindly, when the number is the kind that kills programs.</p>
+<p>Run the four questions and the list sorts itself. The <a href="/physical-ai/#calc">demonstration budget calculator</a> does the multiplication for whatever list you have, and surfaces the staffing and calendar requirements before you commit to hardware.</p>
 
 <h2>When simulation changes the answer</h2>
 
 <p>Simulation can remove a large fraction of the real demonstrations for tasks that transfer well: rigid picking, locomotion, gross motion. It removes far fewer for contact and deformables. It also costs weeks of engineering to build the environment, and that cost is fixed while the savings scale with the task list. So at small task counts the simulator costs more weeks than it saves, and at large counts it obviously pays. The calculator shows both lines at once so you can find the crossover for your list, rather than taking our word for where it is.</p>
 
-<p>Fifty to two hundred per task. It's a small phrase. Do the multiplication before you fall in love with the demo.</p>
+<p>Fifty to two hundred demonstrations per task is manageable for three tasks and prohibitive for thirty. Run the multiplication before committing the schedule.</p>
 
       </div>
       <hr class="rule" />
@@ -206,8 +206,6 @@
     <button class="btn btn--small" type="submit">Send</button>
   </form>
 </div>
-
-<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
 
 <button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
 

@@ -111,7 +111,7 @@
     loop: "Five stations and no end. I live in the DECIDE one, mostly.",
     services: "Six services. I helped write the safety one. I'm biased, but I'm also a robot.",
     playground: "Ooh, the arm. Be gentle. It's my cousin.",
-    builder: "Build something. I'll be honest but kind. Mostly honest.",
+    builder: "Drop a few modules on the grid and I'll check power, guarding, and data flow.",
     method: "Watch the little box go down the belt. That's your lab. Metaphorically.",
     diagnostic: "Seven questions. No wrong answers. A few sad ones.",
     contact: "That email goes to a real human. Say hi from me."

@@ -132,7 +132,7 @@
   <section class="section" id="loop">
     <div class="container">
       <p class="eyebrow mono">01 // The loop</p>
-      <h2 class="section__title">A robot lab is a loop, not a shelf.<span class="muted">The belt has an end. The loop doesn't.</span></h2>
+      <h2 class="section__title">Five stations, one closed loop.<span class="muted">From camera exposure to motor torque, fleet telemetry, and back into simulation.</span></h2>
       <div class="loop">
         <div class="loop__text">
           <div class="fig mono"><b>Fig. 02</b>The stack, as a closed loop. Hover a station and the part comes to you.</div>
@@ -172,7 +172,7 @@
   <section class="section" id="services">
     <div class="container">
       <p class="eyebrow mono">02 // What we do</p>
-      <h2 class="section__title">Six ways we make your lab boring.<span class="muted">Boring is the goal. Boring means it works.</span></h2>
+      <h2 class="section__title">Six ways we build the cell.<span class="muted">Physical infrastructure, robot commissioning, ROS 2 architecture, and safety sign-off.</span></h2>
       <div class="cards" id="serviceCards">
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
@@ -264,7 +264,7 @@
                 <li>Quarterly roadmap tied to real milestones</li>
                 <li>Hiring plans, interview loops, and rubrics</li>
                 <li>Vendor and budget management</li>
-                <li>Someone to blame (kindly) when it slips</li>
+                <li>Clear technical ownership across hardware and software milestones</li>
               </ul>
             </div>
           </div>
@@ -289,14 +289,14 @@
           </div>
         </article>
       </div>
-      <h3 class="section__subhead">Four ways we make it think.<span class="muted">Thinking is harder. Boring still wins.</span></h3>
+      <h3 class="section__subhead">Four ways we close the autonomy loop.<span class="muted">Perception, real-time on-robot inference, calibrated simulation, and fleet data pipelines.</span></h3>
       <div class="cards cards--4" id="serviceCardsThink">
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front">
               <span class="card__num mono">S-07</span>
               <h3>Perception Systems</h3>
-              <p>Cameras, lighting, depth, and pose. The part of your robot that fails on a cloudy Tuesday and nobody knows why.</p>
+              <p>Cameras, illumination, depth, and 6-DoF pose estimation engineered to hold calibration across shift changes and ambient light swings.</p>
               <span class="card__hint mono">Tap to flip</span>
             </div>
             <div class="card__face card__back">
@@ -316,14 +316,14 @@
             <div class="card__face card__front">
               <span class="card__num mono">S-08</span>
               <h3>On-Robot Autonomy</h3>
-              <p>Policies that run on the robot, inside the control loop, on a power budget. Autonomy is a latency problem wearing a trench coat.</p>
+              <p>Learned policies and classical controllers running on embedded silicon inside hard control-loop and thermal budgets.</p>
               <span class="card__hint mono">Tap to flip</span>
             </div>
             <div class="card__face card__back">
               <h4>You get</h4>
               <ul>
                 <li>Compute selection sized to a real latency and thermal budget</li>
-                <li>Model optimization: quantization, fusion, and honest re-validation</li>
+                <li>Model optimization: quantization, layer fusion, and closed-loop re-validation</li>
                 <li>Real-time architecture: RT kernel, CPU isolation, ROS 2 QoS</li>
                 <li>p99.9 latency measurement, because averages don't crash robots</li>
               </ul>
@@ -336,7 +336,7 @@
             <div class="card__face card__front">
               <span class="card__num mono">S-09</span>
               <h3>Simulation &amp; World Models</h3>
-              <p>Test it ten thousand times before it touches steel. Then measure how much the simulator lied.</p>
+              <p>Test policies across ten thousand contact variations before touching hardware, and quantify the sim-to-real transfer gap per task.</p>
               <span class="card__hint mono">Tap to flip</span>
             </div>
             <div class="card__face card__back">
@@ -356,7 +356,7 @@
             <div class="card__face card__front">
               <span class="card__num mono">S-10</span>
               <h3>Robot Data &amp; Cloud Platform</h3>
-              <p>Your fleet is a data business with a floor plan. Storage is cheap right up until the day it isn't.</p>
+              <p>Ring buffers, episode indexing, training pipelines, and staged policy rollouts sized to your fleet's actual sensor bitrate.</p>
               <span class="card__hint mono">Tap to flip</span>
             </div>
             <div class="card__face card__back">
@@ -435,8 +435,8 @@
           <div class="stat"><span class="mono">Power</span><b id="sPower">0 kW</b></div>
           <div class="stat"><span class="mono">Budget band</span><b id="sBudget">—</b></div>
           <div class="stat"><span class="mono">Safety</span><b id="sSafety">—</b></div>
-          <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="sNotes">Place something and I'll start judging. Kindly.</p></div>
-          <p class="muted small">Numbers are illustrative and rounded with enthusiasm. Real estimates come from a real conversation.</p>
+          <div class="stat stat--wide"><span class="mono">SKY-1 notes</span><p id="sNotes">Select a module from the palette and click the floor grid to start sizing your bay.</p></div>
+          <p class="muted small">First-order planning estimates for bay area, peak power, and budget band. Actual cell requirements depend on payload, reach, and cycle time.</p>
         </aside>
       </div>
     </div>
@@ -467,7 +467,7 @@
   <section class="section" id="diagnostic">
     <div class="container">
       <p class="eyebrow mono">06 // Lab readiness diagnostic</p>
-      <h2 class="section__title">How ready is your lab?<span class="muted">Seven questions. One very honest needle.</span></h2>
+      <h2 class="section__title">How ready is your lab?<span class="muted">Seven questions across hardware, safety, software, and operations.</span></h2>
       <div class="quiz" id="quiz">
         <div class="quiz__panel">
           <div class="quiz__progress mono" id="quizProgress">Q 1 / 7</div>

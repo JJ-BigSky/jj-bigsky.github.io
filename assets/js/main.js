@@ -78,7 +78,7 @@
   // ---- typed headline ----
   const typed = $("typed");
   if (typed && !reduce) {
-    const words = ["ship.", "work.", "stay boring.", "pass audit.", "ship."];
+    const words = ["ship.", "work.", "hold tolerance.", "pass audit.", "ship."];
     let wi = 0;
     function typeWord(word, done) {
       let i = 0; typed.textContent = "";

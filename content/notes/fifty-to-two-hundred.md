@@ -8,9 +8,9 @@ page: /physical-ai/
 page_name: Physical AI
 ---
 
-Ask how many demonstrations an imitation-learning policy needs and the honest answer is a range: roughly fifty to two hundred teleoperated demonstrations per task, depending on the task. The range is wide because tasks are wide. A rigid pick from a known pose sits at the bottom. A contact-rich insertion with tolerances you can feel sits at the top, and sometimes above it.
+Ask how many demonstrations an imitation-learning policy needs and empirical benchmarks converge on a clear range: roughly fifty to two hundred teleoperated demonstrations per task, depending on the task. The range is wide because tasks are wide. A rigid pick from a known pose sits at the bottom. A contact-rich insertion with tolerances you can feel sits at the top, and sometimes above it.
 
-The range is the easy part. The arithmetic around it is what surprises people, usually in month five.
+The range is the easy part. The arithmetic around it is what surprises people once collection starts.
 
 ## The arithmetic
 
@@ -38,10 +38,10 @@ Most task lists have twenty entries and three that deserve a learned policy. Pic
 
 **Risk.** What happens when the policy is wrong? A dropped tote and a scratched fixture are different answers, and the fallback path has to be designed either way.
 
-Run the four questions and the list sorts itself. The [demonstration budget calculator](/physical-ai/#calc) does the multiplication for whatever list you have, and it will tell you, kindly, when the number is the kind that kills programs.
+Run the four questions and the list sorts itself. The [demonstration budget calculator](/physical-ai/#calc) does the multiplication for whatever list you have, and surfaces the staffing and calendar requirements before you commit to hardware.
 
 ## When simulation changes the answer
 
 Simulation can remove a large fraction of the real demonstrations for tasks that transfer well: rigid picking, locomotion, gross motion. It removes far fewer for contact and deformables. It also costs weeks of engineering to build the environment, and that cost is fixed while the savings scale with the task list. So at small task counts the simulator costs more weeks than it saves, and at large counts it obviously pays. The calculator shows both lines at once so you can find the crossover for your list, rather than taking our word for where it is.
 
-Fifty to two hundred per task. It's a small phrase. Do the multiplication before you fall in love with the demo.
+Fifty to two hundred demonstrations per task is manageable for three tasks and prohibitive for thirty. Run the multiplication before committing the schedule.

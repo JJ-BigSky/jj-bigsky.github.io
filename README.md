@@ -1,6 +1,6 @@
 # Big Sky Systems — website
 
-**Source:** private repo `JJ-BigSky/bigsky-site` (remote `origin`). Local checkout: `~/Documents/code/bigsky-site`.
+**Source:** private repo `JJ-BigSky/bigsky-site` (remote `origin`). Local checkout: `~/Desktop/Code/bigsky-site`.
 
 **Live:** https://jj-bigsky.github.io/ (GitHub Pages, served from the `main` branch of the public repo `JJ-BigSky/jj-bigsky.github.io`, remote `pages`). Workflow: commit, `git push origin main` to save, `git push pages main` to deploy; the site redeploys in about a minute.
 
@@ -37,22 +37,22 @@ meter), and six Field Notes under `/notes/`.
 Everything respects `prefers-reduced-motion`, works on touch, and degrades to
 plain content if JavaScript is off.
 
-## Design system
+## Planning archive
 
-The look is called "engineering paper" and it is meant to be reused. Everything
-needed to make another page, one-pager, dashboard, deck, or document in the
-same language lives in `.claude/skills/bigsky-design/`:
+The original [V1 expansion handoff](docs/planning/bigsky-v1-expansion-handoff.md)
+(written September 10, 2026) is retained for context. It describes the plan
+before implementation; use the current source and this README for the site
+as it stands.
 
-- `SKILL.md` — the rules, tokens, and a pre-delivery checklist (Claude Code
-  loads this automatically for anything visual in this repo; `CLAUDE.md` points to it).
+## Design system & editorial manual
+
+The visual and editorial system ("engineering paper") is documented in [`DESIGN_LANGUAGE.md`](DESIGN_LANGUAGE.md) at the repository root. Supporting templates and snippets also live in `.claude/skills/bigsky-design/`:
+
+- [`DESIGN_LANGUAGE.md`](DESIGN_LANGUAGE.md) — full design language, color tokens (Paper & Graphite + 12-color print series), typography scale, component anatomy, and the unclaudified editorial voice guide.
 - `assets/tokens.css` — canonical CSS variables and base components; inline it into single-file deliverables.
 - `assets/template.html` — a starter page (open it next to `tokens.css`).
 - `references/components.md` — copy-paste snippets for buttons, cards, tables, stat rows, callouts, nav.
 - `references/documents.md` — color and font mappings for Word, PowerPoint, Excel, SVG, and email.
-
-In Claude Code, ask for anything for Big Sky Systems and the skill applies; you
-can also invoke it directly with `/bigsky-design`. To use it outside this repo,
-save the packaged `bigsky-design.skill` to your profile.
 
 ## Edit the basics
 

@@ -99,9 +99,7 @@ is the cheapest way to make a layout feel drafted rather than designed.
 **Density.** Comfortable, not airy: section padding 3–5.5rem, grid gaps
 1rem, panel padding 1.4rem. Text measures under ~65 characters.
 
-**Copy voice.** Dry, confident, a little funny. Short declaratives.
-"Boring is the goal. Boring means it works." SKY-1, the site's robot, is
-allowed to be wry; the company voice is calm. No exclamation marks in UI.
+**Copy voice.** Dry, specific, quantitative, and grounded in physical hardware—like a principal robotics engineer writing a design review. Prefer physical quantities, bus names, and failure mechanics over cute metaphors. Standard US English (`behavior`, `characterized`, `labeled`, `catalog`, `color`, `millimeter`). Never use formulaic LLM aphorisms ("X is not Y, it's Z", "wearing a trench coat", "stapled to it"), meta-commentary about sentences ("Both of those sentences are the point"), or performative repetition of "honest/honestly", "boring", or "kindly". No exclamation marks in UI. See [`DESIGN_LANGUAGE.md`](../../DESIGN_LANGUAGE.md) for the full editorial manual.
 
 ## Charts and data
 

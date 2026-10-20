@@ -38,7 +38,7 @@
     const t = R.tbMonth;
     if (t < 1) return "Comfortable. Keep everything, keep it raw, and enjoy this while it lasts.";
     if (t < 20) return "Normal for a real pilot. Tier it now, while it's a design decision and not an incident.";
-    if (t < 100) return "That's a platform, not a folder. Somebody needs to own this, and it shouldn't be the person who owns the robots.";
+    if (t < 100) return "At this bitrate, ad-hoc NAS folders break down. You need automated ring-buffer ingest, cold-tier lifecycle rules, and an episode index.";
     return "At this rate the interesting question isn't storage cost, it's whether you can find anything. Curation beats capacity.";
   }
   function when(months) {

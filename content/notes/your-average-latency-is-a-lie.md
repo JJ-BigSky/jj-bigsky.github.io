@@ -14,7 +14,7 @@ Robots are broken by tails. This note is about why the mean hides them, how to m
 
 ## A worked example
 
-Take a perception stack that runs a detector and a pose estimator, feeding a policy at 30 Hz. The control period is 33 milliseconds. Mean pipeline time is 20. There are 13 milliseconds of headroom, which is comfortable, and the acceptance test, which runs for ten minutes on a Tuesday morning, passes with room to spare.
+Take a perception stack that runs a detector and a pose estimator, feeding a policy at 30 Hz. The control period is 33 milliseconds. Mean pipeline time is 20. There are 13 milliseconds of headroom, which is comfortable, and the acceptance test, which runs for ten minutes on a cold bench, passes with room to spare.
 
 Now look at the distribution instead of the mean. Once every few thousand frames, something happens: a garbage-collection pause, a memory allocation that wasn't warm, an interrupt that landed on the wrong core, a GPU clock that dropped because the enclosure hit forty-five degrees. That frame takes 140 milliseconds. At 30 frames a second, “every few thousand frames” is every couple of minutes. The policy misses four control periods in a row. If the robot is mid-move, it keeps moving on a stale command.
 
@@ -28,19 +28,19 @@ Measure it properly, which means four things at once: on the real hardware, with
 
 ## Budget for the tail
 
-Once you have the distribution, the latency budget is a design document rather than a hope. Every stage gets a p99.9 allocation, not a mean, and the stages have to fit inside the period with the tails included. When they don't, the choices are honest ones: cut a stage, quantize and re-validate, distill a smaller model, or slow the loop and say so. The [latency budget builder](/embedded/#lab) is that document with a slider on it.
+Once you have the distribution, the latency budget is a design document rather than a hope. Every stage gets a p99.9 allocation, not a mean, and the stages have to fit inside the period with the tails included. When they don't, the engineering choices are straightforward: cut a stage, quantize and re-validate, distill a smaller model, or slow the loop and say so. The [latency budget builder](/embedded/#lab) is that document with a slider on it.
 
 ## Design the fallback for the tail
 
-Even a good budget will be exceeded, because the world is bigger than the test. So the last part of the design is what the controller does when the answer doesn't arrive: a defined, boring behaviour. Hold position. Re-approach. Ask a human. The exact choice depends on the task; the requirement doesn't. It has to be proven, not assumed, and it has to be proven to the same standard as the rest of the safety architecture, because it is part of the safety architecture.
+Even a good budget will be exceeded, because the world is bigger than the test. So the last part of the design is what the controller does when the answer doesn't arrive: a defined, deterministic fallback behavior. Hold position. Re-approach. Hand off to an operator. The exact choice depends on the task; the requirement doesn't. It has to be proven, not assumed, and it has to be proven to the same standard as the rest of the safety architecture, because it is part of the safety architecture.
 
-A learned policy that is late is not a slightly worse policy. It is no policy at all for the duration of the miss, and the cell needs to be safe for exactly that long.
+When a learned policy misses its control deadline, the actuator loop runs open-loop on the last command for the duration of the miss; the safety architecture must bound the motion over that interval.
 
 ## What to put in the document
 
 - The p99.9 latency of each stage and of the whole pipeline, measured as above, with the date and the enclosure temperature.
 - The control period, the headroom with tails included, and what was cut to get there.
-- The late-answer behaviour, the threshold that triggers it, and the test that proved it.
-- A note on what the sustained clock is, as opposed to the datasheet peak, because the summer afternoon is coming.
+- The late-answer behavior, the threshold that triggers it, and the test that proved it.
+- A note on what the sustained clock is, as opposed to the datasheet peak, at peak ambient enclosure temperature.
 
 None of this is exotic. It is the ordinary discipline of real-time systems applied to a component that vendors prefer to describe with a mean. Measure the tail. Budget for the tail. Design the fallback for the tail. The robot doesn't care about the average.

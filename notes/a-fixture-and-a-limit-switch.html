@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>A fixture and a limit switch — Big Sky Systems</title>
-  <meta name="description" content="In defence of not using AI, from people who do use it." />
+  <meta name="description" content="In defense of mechanical datums and hardwired sensors, from engineers who also ship learned policies." />
   <meta name="theme-color" content="#ECE9E2" />
   <meta property="og:title" content="A fixture and a limit switch — Big Sky Systems" />
-  <meta property="og:description" content="In defence of not using AI, from people who do use it." />
+  <meta property="og:description" content="In defense of mechanical datums and hardwired sensors, from engineers who also ship learned policies." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://jj-bigsky.github.io/notes/a-fixture-and-a-limit-switch.html" />
   <meta property="og:image" content="https://jj-bigsky.github.io/assets/img/og/notes.png" />
@@ -84,7 +84,7 @@
     <div class="note__wrap">
       <p class="eyebrow mono">Field note 05 // Act</p>
       <h1>A fixture and a limit switch.</h1>
-      <p class="page-hero__sub">In defence of not using AI, from people who do use it.</p>
+      <p class="page-hero__sub">In defense of mechanical datums and hardwired sensors, from engineers who also ship learned policies.</p>
       <p class="note__meta mono muted">Big Sky Systems · September 2026 · 3 min · from <a href="/#services">The lab</a></p>
       <hr class="rule" />
       <div class="prose note__body">
@@ -96,19 +96,19 @@
 
 <p>There is a meeting, in every program, where someone says “just use AI.” The phrase is doing a lot of work. Usually it means: the parts vary and we don't want to fixture them; or the task is fiddly and we don't want to program it; or the demo we saw was impressive and we would like our cell to be impressive too.</p>
 
-<p>The first two are real engineering problems that sometimes have a learned answer. The third is a slide. The job of the meeting is to tell them apart, and the tool for doing that is a boring table.</p>
+<p>The first two are real engineering problems that sometimes have a learned answer. The third is a slide. The job of the meeting is to tell them apart, and the tool for doing that is a five-factor triage matrix.</p>
 
 <h2>The table</h2>
 
 <p>A learned policy is probably right when there is high part variation you can't fixture away; when the task is contact-rich and tolerant of feel; when the parts are deformable (cloth, cable, foam, food); when there is a long tail of variants that would need forty programs; and when you already have a data pipeline and an evaluation harness.</p>
 
-<p>A fixture is probably right when it is the same part in the same pose every cycle; when the move is position-repeatable inside a tenth of a millimetre; when rigid parts arrive on a known datum; when there are four variants and a tool changer would cover them; and when you have neither the pipeline nor the harness, and you do have a deadline.</p>
+<p>A fixture is probably right when it is the same part in the same pose every cycle; when the move is position-repeatable inside a tenth of a millimeter; when rigid parts arrive on a known datum; when there are four variants and a tool changer would cover them; and when you have neither the pipeline nor the harness, and you do have a deadline.</p>
 
 <p>Read the right-hand column again. It describes a large fraction of every factory you have ever walked through. It is also the column where the robot works on the first day and keeps working on the thousandth.</p>
 
 <h2>The cost of being wrong, in each direction</h2>
 
-<p>Choose AI where a fixture would do, and you pay for demonstrations, a rig, operators, an evaluation harness, and a fallback path, to reach a reliability that a machined datum would have given you for free. You also inherit a maintenance burden: every change to the part, the gripper, or the lighting is a question about whether the model still applies, and the honest answer requires re-evaluation.</p>
+<p>Choose AI where a fixture would do, and you pay for demonstrations, a rig, operators, an evaluation harness, and a fallback path, to reach a reliability that a machined datum would have given you for free. You also inherit a maintenance burden: every change to the part, the gripper, or the lighting is a question about whether the model still applies, and verifying the change requires a full re-evaluation pass.</p>
 
 <p>Choose a fixture where the task really does vary, and you pay in a different currency: forty programs instead of one policy, a changeover every time a variant appears, and a cell that stops when a part arrives slightly wrong. This is the real case for learned policies, and it is a strong one where it applies.</p>
 
@@ -118,16 +118,16 @@
 
 <ul class="list">
   <li><strong>Fixture what can be fixtured.</strong> Start with the datum, the switch, and the tool changer. Remove every task the right-hand column covers.</li>
-  <li><strong>Learn what can't.</strong> What remains is the list of tasks where variation or contact or deformables make a learned policy the honest answer. It is usually three items long.</li>
+  <li><strong>Learn what can't.</strong> What remains is the list of tasks where variation or contact or deformables make a learned policy the right engineering choice. It is usually three items long.</li>
   <li><strong>Build the machinery first.</strong> Before the policy: the data pipeline, the evaluation harness, the fallback path. This is the part the demo skips, and the part that decides whether the three tasks ever ship.</li>
   <li><strong>Evaluate, don't believe.</strong> Success rate with confidence intervals, on your parts, under your lighting, measured the same way twice.</li>
 </ul>
 
 <h2>Why we say this</h2>
 
-<p>Because the credibility of everything else we do depends on it. A consultancy that recommends AI for every task is a vendor. The value we add is the sentence “you don't need this here,” said early, with the arithmetic attached, and then the sentence “you do need it here, and this is what it will cost,” with the same arithmetic. The <a href="/physical-ai/">Physical AI page</a> has the honest numbers; the <a href="/#services">safety and compliance work</a> is where the fallback path gets proven either way.</p>
+<p>Because the credibility of everything else we do depends on it. A consultancy that recommends AI for every task is a vendor. Our job in week one is to separate the tasks that belong on a machined datum from the tasks that justify a demonstration budget, and to price both accurately. The <a href="/physical-ai/">Physical AI page</a> walks through the demonstration math; our <a href="/#services">safety and compliance work</a> covers how the fallback path is validated.</p>
 
-<p>Boring is the goal. A fixture and a limit switch are very boring. That's the highest compliment we have.</p>
+<p>When a machined datum and a photoelectric sensor can hold cycle time for five years without a GPU, build the fixture first.</p>
 
       </div>
       <hr class="rule" />
@@ -207,8 +207,6 @@
     <button class="btn btn--small" type="submit">Send</button>
   </form>
 </div>
-
-<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
 
 <button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
 

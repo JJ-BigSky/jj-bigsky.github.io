@@ -28,7 +28,7 @@
     const simWeeks = state.sim ? Math.max(3, Math.min(8, Math.round(3 + state.tasks / 8))) : 0;
     const simCost = state.sim ? [simWeeks * 40 * ENG_RATE[0], simWeeks * 40 * ENG_RATE[1]] : [0, 0];
     const savedHours = state.sim ? attempts * cut * state.minutes / 60 : 0;   // teleop hours the sim removes
-    const savedWeeks = savedHours / (state.ops * 30);                            // in operator-weeks, the honest unit
+    const savedWeeks = savedHours / (state.ops * 30);                            // in operator-weeks
     const saved = savedHours * state.rate;                                       // and in operator dollars
     return { attempts, real, evalEp, total, hours, weeks, cost, simWeeks, simCost, savedHours, savedWeeks, saved, cut };
   }
@@ -37,9 +37,9 @@
     if (state.sim && R.savedWeeks < R.simWeeks) return "At this size the simulator costs more weeks to build than it buys back in teleop. That's not an argument against sim. It's an argument for a bigger task list before you build one.";
     if (state.sim && R.savedWeeks >= R.simWeeks * 2) return "The simulator pays for itself here: " + R.simWeeks + " weeks of engineering buys back " + K.fmt(R.savedWeeks, 0) + " operator-weeks. This is the size where world models stop being a luxury.";
     if (n < 500) return "That's a real project with a real number. Two operators, a few weeks. Start here, not with twenty tasks.";
-    if (n < 2000) return "Now you have a staffing plan, not a science project. This is the size where the data pipeline stops being optional.";
+    if (n < 2000) return "This requires dedicated teleop staffing and an automated episode QC and ingestion pipeline.";
     if (n < 6000) return "That's most of a year of somebody's life in a teleop rig. Worth asking which eight of those tasks actually pay for themselves.";
-    return "I've seen this number kill programs. Not because it's impossible, because nobody budgeted for it and it showed up in month five. Cut the task list or build the sim pipeline. Preferably both.";
+    return "At this volume, unbudgeted teleop collection becomes the primary schedule bottleneck. Trim the initial task list or stand up simulation augmentation first.";
   }
   let said = false;
   function update() {
@@ -53,7 +53,7 @@
     $("oVerdict").textContent = verdict(R);
     $("dSimNote").textContent = FAMILY[state.family].label + ", +sim build";
     $("dReadout").textContent = K.fmt(R.total, 0) + " demonstrations · " + K.fmt(R.hours, 0) + " teleop hours · " + (R.weeks < 1 ? "under a week" : K.fmt(R.weeks, 1) + " weeks") + " with " + state.ops + " operator" + (state.ops > 1 ? "s" : "") + " · " + K.bandPct(R.cost, .3, K.money) + (state.sim ? " · sim removes " + K.fmt(R.savedHours, 0) + " teleop hours (" + K.fmt(R.savedWeeks, 1) + " operator-weeks, " + K.money(R.saved) + ") for a " + R.simWeeks + "-week build" : "");
-    if (R.total > 6000 && !said) { said = true; M() && M().say("That number has killed programs. Month five, usually.", { mood: "flat" }); }
+    if (R.total > 6000 && !said) { said = true; M() && M().say("Over 6,000 episodes. Trim the initial task list or add simulation augmentation.", { mood: "flat" }); }
     K.writeState({ tasks: state.tasks, variants: state.variants, demos: state.demos, minutes: state.minutes, take: state.take, ops: state.ops, rate: state.rate, family: state.family, sim: state.sim ? 1 : "", evals: state.evals ? "" : 0 });
     update.last = R;
   }

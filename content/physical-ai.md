@@ -16,10 +16,10 @@ next_sub: The hub is the argument. The stations are the work.
 scripts: calc-demos
 ---
 
-  <!-- ===== 01 // The honest version ===== -->
+  <!-- ===== 01 // Field numbers ===== -->
   <section class="section" id="honest">
     <div class="container">
-      <p class="eyebrow mono">01 // The honest version</p>
+      <p class="eyebrow mono">01 // Field numbers</p>
       <h2 class="section__title">Three numbers before you commit.<span class="muted">We'd rather lose the project than lose the year.</span></h2>
       <div class="cols">
         <div class="prose">
@@ -63,16 +63,16 @@ That right-hand column isn't a consolation prize. It's most of manufacturing, it
 
 ### We run bake-offs on models too.
 
-          <p class="serif muted" style="font-size:1.15rem;margin-top:-.3rem">Same rule as robots. Your parts, your bench, your numbers.</p>
+          <p class="serif muted prose__sub">Same rule as robots. Your parts, your bench, your numbers.</p>
 
 The generalist policy space moves monthly: flow-matching VLAs, open-weight generalist models trained on cross-embodiment data, diffusion policies, and vendor stacks that ship with the hardware. We hold opinions and we don't hold loyalties. What we care about is how a candidate does on your task, on your bench, measured the same way twice.
 
-The evaluation is the deliverable. The model is a detail that will be obsolete by the time your cell is commissioned, and your evaluation harness will still be there.
+Model weights will be replaced twice before your cell reaches full production; the closed-loop evaluation harness and task benchmark are the assets that outlast any single checkpoint.
 
         </div>
         <div>
           <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Triage, in order.</b> Fixture what can be fixtured. Learn what can't. Build the data pipeline and the evaluation harness before either. That's the part the demo skips.</div>
-          <div class="fig mono"><b>Field note</b><a href="/notes/a-fixture-and-a-limit-switch.html">A fixture and a limit switch: in defence of not using AI, from people who do →</a></div>
+          <div class="fig mono"><b>Field note</b><a href="/notes/a-fixture-and-a-limit-switch.html">A fixture and a limit switch: in defense of not using AI, from people who do →</a></div>
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@ The evaluation is the deliverable. The model is a detail that will be obsolete b
       <h2 class="section__title">What the demos actually cost.<span class="muted">In operator-weeks and a number you can send to your CFO.</span></h2>
       <div class="calc" id="demoCalc">
         <div class="calc__inputs plate">
-          <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 01</b>Demonstration budget. Every slider is a decision someone will make in month five otherwise.</div>
+          <div class="fig mono" style="margin-bottom:1rem"><b>Fig. 01</b>Demonstration budget. Adjust task count, variants, and usable take rate to size the collection campaign.</div>
           <div class="calc__grid">
             <label class="range"><span class="mono">Distinct tasks</span><input type="range" id="dTasks" min="1" max="40" value="8" data-out="dTasksOut" /><output id="dTasksOut" class="mono">8</output></label>
             <label class="range"><span class="mono">Variants per task</span><input type="range" id="dVariants" min="1" max="10" value="3" data-out="dVariantsOut" /><output id="dVariantsOut" class="mono">3</output></label>
@@ -121,7 +121,7 @@ The evaluation is the deliverable. The model is a detail that will be obsolete b
             <button class="btn btn--small" id="dEmail" type="button" data-cursor="SEND">Email me this estimate</button>
             <button class="btn btn--small btn--ghost" id="dReset" type="button">Reset</button>
           </div>
-          <p class="muted small" style="margin-top:1rem">Numbers are illustrative and rounded with enthusiasm. Demonstration counts vary enormously by task, gripper, and how forgiving your tolerances are. Thirty productive hours a week per operator, not forty, because teleop is tiring and people have meetings. The sim build is priced at an illustrative engineering rate. Real estimates come from a real conversation. Nothing here is stored or sent.</p>
+          <p class="muted small" style="margin-top:1rem">First-order scaling estimates. Demonstration counts vary significantly by task, gripper compliance, and positioning tolerances. We model thirty productive teleop hours per week per operator rather than forty, accounting for operator fatigue and cell resets. Nothing here is stored or sent.</p>
         </div>
       </div>
     </div>
@@ -131,7 +131,7 @@ The evaluation is the deliverable. The model is a detail that will be obsolete b
   <section class="section" id="offer">
     <div class="container">
       <p class="eyebrow mono">04 // What we do</p>
-      <h2 class="section__title">Four things, when the answer is yes.<span class="muted">And one honest conversation when it isn't.</span></h2>
+      <h2 class="section__title">Four things, when the answer is yes.<span class="muted">And a fixture recommendation when it isn't.</span></h2>
       <div class="cards cards--4">
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
@@ -142,7 +142,7 @@ The evaluation is the deliverable. The model is a detail that will be obsolete b
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">P-02</span><h3>Data strategy &amp; teleop</h3><p>Rig design, demonstration protocols, operator training, per-episode QC, and a schema you won't have to migrate in six months.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Teleop rig matched to the task, not the trade show</li><li>Demonstration protocol and operator training with a take-rate target</li><li>Per-episode QC so the bad ones never reach training</li><li>Episode schema and provenance that survive a re-labelling</li></ul></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Teleop rig matched to the task, not the trade show</li><li>Demonstration protocol and operator training with a take-rate target</li><li>Per-episode QC so the bad ones never reach training</li><li>Episode schema and provenance that survive a re-labeling</li></ul></div>
           </div>
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
@@ -154,7 +154,7 @@ The evaluation is the deliverable. The model is a detail that will be obsolete b
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
             <div class="card__face card__front"><span class="card__num mono">P-04</span><h3>Fallbacks &amp; interlocks</h3><p>What the cell does when the policy is uncertain, and how that path is proven to the same standard as the rest of your safety architecture.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Uncertainty thresholds and the boring behaviour they trigger</li><li>Interlocks that never depend on the model being right</li><li>Validation of the fallback path to the same standard as the e-stop</li><li>The safety file, written so an assessor can follow it</li></ul></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Uncertainty thresholds and the deterministic recovery state they trigger</li><li>Interlocks that never depend on the model being right</li><li>Validation of the fallback path to the same standard as the e-stop</li><li>The safety file, written so an assessor can follow it</li></ul></div>
           </div>
         </article>
       </div>
