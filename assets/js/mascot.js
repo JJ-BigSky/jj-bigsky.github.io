@@ -106,48 +106,6 @@
     if (!reduce) blink(2);
   }
 
-  // ---- section commentary (once each per visit) ----
-  const LINES = {
-    loop: "Five stations and no end. I live in the DECIDE one, mostly.",
-    services: "Six services. I helped write the safety one. I'm biased, but I'm also a robot.",
-    playground: "Ooh, the arm. Be gentle. It's my cousin.",
-    builder: "Drop a few modules on the grid and I'll check power, guarding, and data flow.",
-    method: "Watch the little box go down the belt. That's your lab. Metaphorically.",
-    diagnostic: "Seven questions. No wrong answers. A few sad ones.",
-    contact: "That email goes to a real human. Say hi from me."
-  };
-  const said = new Set();
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting && en.intersectionRatio >= .35 && !said.has(en.target.id) && LINES[en.target.id]) {
-          said.add(en.target.id); say(LINES[en.target.id]);
-        }
-      });
-    }, { threshold: [.35] });
-    Object.keys(LINES).forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
-  }
-
-  // ---- idle chatter ----
-  const IDLE = [
-    "I counted the stars again. Same number. Suspicious.",
-    "Fun fact: I run entirely in your browser. No cloud. Just JavaScript and ambition.",
-    "You can flip the sheet with the toggle up top. I prefer graphite. Less glare on my screen.",
-    "Try typing the Konami code. Or press Dance mode. I won't tell anyone.",
-    "Robots don't dream. But if I did, it would be about well-labeled cables.",
-    "The arm over there has real inverse kinematics. I have real opinions. We're a team.",
-    "If you hover the hero stars, they constellate. It's not useful. It's lovely."
-  ];
-  let idleIdx = Math.floor(Math.random() * IDLE.length);
-  (function idle() {
-    setTimeout(() => {
-      if (!speaking && document.visibilityState === "visible" && !document.getElementById("chat").hidden === false) {
-        say(IDLE[idleIdx++ % IDLE.length]);
-      }
-      idle();
-    }, 42000 + Math.random() * 30000);
-  })();
-
   // hover interest: SKY-1 looks at what you're about to click
   document.addEventListener("pointerover", (e) => {
     const t = e.target.closest && e.target.closest("[data-cursor], .btn, .pal, .tile, .opt");

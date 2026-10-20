@@ -120,20 +120,18 @@
   <section class="section" id="honest">
     <div class="container">
       <p class="eyebrow mono">01 // Transfer fidelity</p>
-      <h2 class="section__title">The gap is real, and it's task-shaped.<span class="muted">Sim transfers beautifully for some things and not at all for others. The difference is predictable.</span></h2>
+      <h2 class="section__title">The gap is real, and it's task-shaped.<span class="muted">Sim transfers beautifully for some things and not at all for others.</span></h2>
       <div class="cols">
         <div class="prose">
 
-<p>Locomotion transfers well. Rigid pick-and-place transfers well. Contact-rich assembly transfers badly. Deformables transfer badly and expensively. Anything that depends on surface friction, compliance, or the exact behavior of a suction cup on a slightly dusty part transfers about as well as a weather forecast.</p>
+<p><strong>Know what transfers before you build.</strong> Locomotion and rigid pick-and-place transfer well from simulation. Contact-rich assembly, deformable materials, and vacuum grip on dusty surfaces transfer poorly. Spending three months on a photorealistic digital twin for a contact-bottlenecked task solves a rendering problem while ignoring contact mechanics.</p>
 
-<p>This is knowable <em>before</em> you build the environment, and it should determine how much you build. A team that spends three months on a photoreal digital twin to train a task that was always going to need real contact data is solving a rendering problem when the bottleneck is contact mechanics.</p>
-
-<p>The measurement discipline matters more than the visual fidelity. A modest simulator you have calibrated and benchmarked against the real cell is worth more than a photorealistic one you take on faith.</p>
+<p><strong>Calibration beats rendering.</strong> A modest physics environment with identified actuator dynamics, calibrated friction, and a paired sim-versus-real benchmark outperforms an uncalibrated photoreal scene every time.</p>
 
         </div>
         <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 notes:</b> a photorealistic render does not model seal stiction, cable drag, or a worn vacuum cup. Calibrate contact parameters against the physical cell before scaling episodes.</div>
-          <div class="fig mono"><b>Field note</b><a href="/notes/the-simulator-lied.html">The simulator lied to you, and that's fine: reality gap as a measurable, task-shaped, budgetable quantity →</a></div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Bench rule:</b> a photorealistic render does not model seal stiction, cable drag, or a worn vacuum cup. Calibrate contact parameters against the physical cell before scaling episodes.</div>
+          <div class="fig mono"><b>Field note</b><a href="/notes/the-simulator-lied.html">The simulator lied to you, and that's fine: reality gap as a measurable, task-shaped quantity →</a></div>
         </div>
       </div>
     </div>
@@ -145,28 +143,17 @@
       <p class="eyebrow mono">02 // What actually works</p>
       <h2 class="section__title">Three things are called “world models.” Only one of them is new.<span class="muted">Physics gets the budget. The other two get watched closely.</span></h2>
       <div class="plates">
-        <article class="plate marks"><span class="card__num mono">W · 1</span><h3>Physics simulators</h3><p class="serif muted plate__sub">Classical, and getting much faster.</p><p>GPU-parallel rigid-body simulation running thousands of environments at once. This is where locomotion and most manipulation policies are actually trained today. The notable recent development is open, GPU-accelerated, differentiable physics with multiple solvers under one roof, including deformables, signed-distance-field collision, and validated policy transfer between engines. Mature, fast, and where the majority of your simulation budget belongs.</p></article>
-        <article class="plate marks"><span class="card__num mono">W · 2</span><h3>Video world models</h3><p class="serif muted plate__sub">New, impressive, and not yet a training environment for your cell.</p><p>Models that generate consistent, interactive environments from text or an image, navigable in real time. Enormously promising for data augmentation, rare-event generation, and scenario coverage. Not a substitute for physics when your policy's success depends on contact forces, because a model that predicts plausible pixels is not predicting your friction coefficient.</p></article>
-        <article class="plate marks"><span class="card__num mono">W · 3</span><h3>Latent world models</h3><p class="serif muted plate__sub">The planning-oriented branch.</p><p>Models that learn compact dynamics and let a policy plan by imagining forward in latent space. This is the line of work that offers what pure behavior cloning can't: counterfactual reasoning, long-horizon planning, and better data efficiency out of distribution. Early in industrial practice. Worth watching closely and not worth betting a delivery date on.</p></article>
+        <article class="plate marks"><span class="card__num mono">W · 1</span><h3>Physics simulators</h3><p class="serif muted plate__sub">Where most of your budget belongs.</p><p>GPU-parallel rigid and deformable solvers (MuJoCo, Isaac Lab, Newton) stepping thousands of environments at once. Mature, fast, and responsible for nearly every sim-to-real policy running in production today.</p></article>
+        <article class="plate marks"><span class="card__num mono">W · 2</span><h3>Video world models</h3><p class="serif muted plate__sub">Visual augmentation, not contact physics.</p><p>Generative models that synthesize plausible video rollouts from text or a seed frame. Useful for visual domain randomization and rare-event synthesis, but predicting pixels does not predict contact forces.</p></article>
+        <article class="plate marks"><span class="card__num mono">W · 3</span><h3>Latent world models</h3><p class="serif muted plate__sub">Learned dynamics for planning.</p><p>Models that learn compact state transitions so a policy can plan ahead in latent space. Promising for sample efficiency and counterfactual planning; still early for sub-millimeter industrial manipulation.</p></article>
       </div>
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
 
-<p>Our position, stated plainly so you can disagree with it: physics simulation is where your budget goes today, learned world models are where your data augmentation goes next, and anyone telling you the third category is production-ready for contact-rich manipulation is describing a roadmap, not a product.</p>
-
-<h3>Your CAD is not a simulation asset.</h3>
-
-          <p class="serif muted prose__sub">Mechanical assemblies need convex decomposition, inertia tensors, and calibrated contact materials before a solver can step them.</p>
-
-<p>Getting from a mechanical assembly to something a physics engine can run at speed means decimation, convex decomposition, collision geometry, joint definition, mass and inertia that aren't defaults, and materials that mean something. Doing it once is a project. Doing it every time the mechanical design changes requires an automated asset pipeline.</p>
-
-<p>The other route in is photographic. Reconstruct the real cell from a few dozen images with 3D Gaussian splatting, get a photorealistic scene in minutes, then convert it to collision-ready geometry for the physics engine. It's the fastest way to simulate an environment that already exists, and it captures the cable tray that isn't in anybody's CAD.</p>
+<p><strong>Your CAD is not a simulation asset.</strong> Stepping a mechanical assembly at speed requires mesh decimation, convex decomposition, calibrated inertia tensors, and non-default contact materials. For existing cells, we often combine CAD collision geometry with 3D Gaussian splatting from cell photographs—capturing the cable trays and guarding that never made it into CAD.</p>
 
         </div>
-        <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Name the tools, not the bets.</b> MuJoCo, Isaac Sim and Isaac Lab, Gazebo, Newton: pick by what your task needs to transfer, then measure the transfer. Pick the physics solver around your contact regime, and track transfer error continuously.</div>
-          <div class="fig mono"><b>Fig. 01</b>Three families, one budget. Position current as of September 2026; the third column moves fastest.</div>
-        </div>
+        <div class="callout"><span class="sq"></span><b>Solver choice:</b> pick between MuJoCo, Isaac Lab, Gazebo, and Newton based on the contact regime you have to transfer, then measure sim-to-real correlation on every policy checkpoint.</div>
       </div>
     </div>
   </section>
@@ -209,12 +196,12 @@
             <div class="stat stat--wide"><span class="mono">What closes the gap</span><ul class="list" id="gmCloses"></ul></div>
             <div class="stat stat--wide"><span class="mono">What sim will not fix</span><p id="gmWont">—</p></div>
           </div>
-          <p class="mono muted small" id="gmReadout" aria-live="polite" style="margin:.8rem 0 0"></p>
+          <p class="mono muted small" id="gmReadout" aria-live="polite" hidden></p>
           <div class="lab__actions" style="margin-top:1rem">
             <button class="btn btn--small" id="gmEmail" type="button" data-cursor="SEND">Email me this read</button>
             <button class="btn btn--small btn--ghost" id="gmReset" type="button">Reset</button>
           </div>
-          <p class="muted small" style="margin-top:1rem">Transfer bands reflect published benchmarks and contact mechanics as of September 2026. Actual transfer rates come from a paired sim-versus-real benchmark on your cell. Nothing here is stored or sent.</p>
+          <p class="muted small" style="margin-top:1rem">Transfer bands reflect published benchmarks and contact mechanics as of September 2026. State stays in the URL.</p>
         </div>
       </div>
     </div>
@@ -234,19 +221,19 @@
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">W-02</span><h3>Randomization &amp; system ID</h3><p>A documented plan for what varies in training and a measured match between simulated and real dynamics.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">W-02</span><h3>Randomization &amp; sys-ID</h3><p>A documented plan for what varies in training and a measured match between simulated and real dynamics.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Domain-randomization plan with ranges and reasons</li><li>System-identification pass on the real actuators and contacts</li><li>A written match between sim and real dynamics, with error bars</li><li>The list of things we couldn't match, so nobody pretends</li></ul></div>
           </div>
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">W-03</span><h3>Sim-versus-real harness</h3><p>The same task, scored the same way, in both places, tracked over time, so “the gap” is a number and not a feeling.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">W-03</span><h3>Sim-to-real harness</h3><p>The same task, scored the same way, in both places, tracked over time, so “the gap” is a number and not a feeling.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Identical task definitions and scoring in sim and on the cell</li><li>A transfer number per task, tracked across versions</li><li>Alerts when the gap widens after a change</li><li>A reason to trust the simulator, written down</li></ul></div>
           </div>
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">W-04</span><h3>Scenario &amp; rare-event coverage</h3><p>The failure cases you can't safely stage on a real line, generated and tested where they're free.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">W-04</span><h3>Rare-event coverage</h3><p>The failure cases you can't safely stage on a real line, generated and tested where they're free.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>A scenario catalog built from your incident log and failure modes</li><li>Rare events generated in sim, tested on every policy</li><li>Coverage metrics, so “we tested it” means something</li><li>The short list to stage for real, with a safety plan</li></ul></div>
           </div>
         </article>

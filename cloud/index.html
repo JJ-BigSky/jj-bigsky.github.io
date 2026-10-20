@@ -124,19 +124,17 @@
       <div class="cols">
         <div class="prose">
 
-<p>Four cameras at 1080p and 30 frames a second, running two shifts, across six robots, is not a rounding error. It's a facilities decision, a network decision, and a recurring bill. Teams routinely reach that number by accident, discover it when the storage array fills up, and respond by deleting raw logs—turning off the data loop they built the fleet to feed.</p>
+<p>Four 1080p cameras at 30 fps across six robots running two shifts is a facilities, network, and storage bill. Teams that discover that bitrate when the NAS fills up respond by deleting raw logs—turning off the data flywheel they built the fleet to feed.</p>
 
-<p>The projects that go wrong here go wrong the same way. Three rules that prevent it:</p>
+<p><strong>Keep the raw.</strong> Tiered to cold storage and compressed, so you can re-derive datasets when your action space or labeling scheme changes.</p>
 
-<p><strong>Keep the raw.</strong> Compressed, tiered to cold storage, but keep it. You will want to re-derive datasets with a labeling scheme you haven't invented yet.</p>
+<p><strong>Record provenance on every episode.</strong> Robot ID, policy checkpoint, gripper, camera extrinsics, and shift. Without calibration and controller metadata, a trajectory cannot be trained on.</p>
 
-<p><strong>Record provenance, not just data.</strong> Which robot, which policy version, which gripper, which calibration, which shift. Without calibration and controller metadata, a recorded trajectory cannot be replayed or trained on.</p>
-
-<p><strong>Decide retention on day one.</strong> Not because storage is expensive, but because “everything forever” is not a policy and it will be made for you, badly, in a hurry, by whoever gets the bill.</p>
+<p><strong>Set retention rules on day one.</strong> Triggered ring buffers keep high-rate sensor streams around faults, interventions, and out-of-distribution grasps while summarizing routine cycles.</p>
 
         </div>
         <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 notes:</b> GPU training hours are a fraction of your budget. The real cost sits in demonstration collection, episode curation, and storage egress.</div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Cost reality:</b> GPU training hours are a fraction of your budget. The real cost sits in demonstration collection, episode curation, and storage egress.</div>
           <div class="fig mono"><b>Field note</b><a href="/notes/keep-the-raw.html">Keep the raw: three data decisions made in week one that decide whether you have a flywheel or a NAS →</a></div>
         </div>
       </div>
@@ -147,44 +145,16 @@
   <section class="section" id="works">
     <div class="container">
       <p class="eyebrow mono">02 // What actually works</p>
-      <h2 class="section__title">Two ecosystems, one conversion tax.<span class="muted">Operational logging and learning datasets are not the same thing, and the seam between them is a real cost.</span></h2>
+      <h2 class="section__title">Two ecosystems, one conversion tax.<span class="muted">Operational logging and learning datasets are not the same thing.</span></h2>
       <div class="cols">
         <div class="prose">
 
-<p>On the robot, the operational format is MCAP in rosbag2, the default in modern ROS 2: a self-describing container that handles heterogeneous, multi-schema, timestamped streams. It's what you replay when diagnosing a fault on the line.</p>
+<p><strong>MCAP to episode datasets.</strong> On the robot, the operational format is MCAP in rosbag2: heterogeneous, multi-schema, timestamped streams built for fault replay. On the training side, tooling expects clean episode datasets (LeRobot, RLDS). Build a deterministic, versioned conversion pipeline early so any training set can be regenerated from raw logs.</p>
 
-<p>On the training side, the tooling has converged on episode-oriented dataset formats built around demonstrations (LeRobot-style datasets, RLDS), with cross-embodiment collections like Open X-Embodiment published in them and tooling that assumes them.</p>
-
-<p>These are different shapes for good reasons, and the conversion between them is a pipeline you own forever. Design it early, make it deterministic, version it, and make it possible to regenerate every training set from raw. Teams that skip this end up with datasets nobody can reproduce and a model nobody can explain.</p>
-
-<h3>Training compute is the smallest line item.</h3>
-
-          <p class="serif muted prose__sub">Fine-tuning is a rounding error next to collecting the data and proving the result.</p>
-
-<p>Renting serious GPUs is a couple of dollars an hour per card. A parameter-efficient fine-tune of a generalist policy on a few hundred episodes runs overnight on a single card. A full fine-tune across eight cards is a day or two. In money, that's a rounding error against a robotics program.</p>
-
-<p>The costs that actually hurt are the ones on the <a href="/physical-ai/">Physical AI page</a>: thousands of teleoperated demonstrations, the operators who perform them, the engineers who clean them, and the evaluation infrastructure that tells you whether any of it worked. Compute is the line item everyone budgets for and the one that matters least.</p>
-
-<p>Which is the good news, mostly. It means the expensive part is something you can be strategic about instead of something you rent.</p>
-
-<h3>Staged policy deployment and rollback.</h3>
-
-          <p class="serif muted prose__sub">Versioned artifacts, canary cells, and automated rollback when cycle metrics degrade.</p>
-
-<p>Versioned artifacts, staged rollout, a canary robot, automatic rollback on a metric you agreed on in advance, per-robot configuration that survives a re-image, and observability that tells you a cell is degrading before the operator does.</p>
-
-<p>Note for people planning around old documentation: the managed cloud-robotics services of the last generation have largely been withdrawn, and the current pattern is edge agents plus your own orchestration, or a fleet platform chosen on its own merits. We're vendor-neutral here for the same reason we are about arms.</p>
-
-<h3>Governance</h3>
-
-<p>Every frame from a workplace camera has people in the background of it. Decide who can see feeds, how long they're kept, how they're deleted, and what gets blurred before it leaves the site, in week one, not after someone asks. Where the data trains a policy, that intersects with the compliance overlay: in the EU, the AI Act and GDPR sit alongside the machinery rules. This is a flag, not a legal page; we'll help you write the policy and point you at the people who sign it.</p>
+<p><strong>Training compute vs. fleet rollout.</strong> A parameter-efficient fine-tune of a generalist policy on a few hundred episodes runs overnight on a single rented GPU; full fine-tunes across eight cards take a day or two. The engineering work that matters is staged deployment: versioned policy artifacts, a canary cell, automated rollback when cycle metrics degrade, and on-edge privacy redaction before camera frames leave the plant.</p>
 
         </div>
-        <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>The conversion tax, paid once.</b> Raw logs in, training-ready episodes out, deterministic and versioned, so every dataset can be regenerated from the raw when the labeling scheme changes. It will change.</div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>A rollout is a deployment.</b> Canary robot, agreed metric, automatic rollback. If you can't roll back in a minute, you can't roll out.</div>
-          <div class="fig mono"><b>Fig. 01</b>Prices and formats named here are stable as of September 2026. The numbers below are not; that's what the calculator is for.</div>
-        </div>
+        <div class="callout"><span class="sq"></span><b>Rollout rule:</b> versioned artifacts, canary cell, agreed cycle metric, and one-command rollback. If you cannot roll back in under a minute, you are not ready to roll out.</div>
       </div>
     </div>
   </section>
@@ -228,12 +198,12 @@
             <div class="stat"><span class="mono">A problem by</span><b id="cO7">—</b></div>
             <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="cVerdict" aria-live="polite">—</p></div>
           </div>
-          <p class="mono muted small" id="cReadout" aria-live="polite" style="margin:.8rem 0 0"></p>
+          <p class="mono muted small" id="cReadout" aria-live="polite" hidden></p>
           <div class="lab__actions" style="margin-top:1rem">
             <button class="btn btn--small" id="cEmail" type="button" data-cursor="SEND">Email me this estimate</button>
             <button class="btn btn--small btn--ghost" id="cReset" type="button">Reset</button>
           </div>
-          <p class="muted small" style="margin-top:1rem">Bitrates depend heavily on scene motion, encoder settings, and keyframe intervals. Cloud storage and egress rates reflect standard list-price tiers for capacity planning. Nothing here is stored or sent.</p>
+          <p class="muted small" style="margin-top:1rem">First-order bitrate and list-price cloud storage estimate. State stays in the URL.</p>
         </div>
       </div>
     </div>
@@ -259,7 +229,7 @@
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">C-03</span><h3>Training &amp; evaluation infrastructure</h3><p>Set up so your team runs it, in your account, with cost visibility and no lock-in to us.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">C-03</span><h3>Training infrastructure</h3><p>Set up so your team runs it, in your account, with cost visibility and no lock-in to us.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Training jobs in your cloud account or on your rack, scripted</li><li>Evaluation that runs on every candidate, automatically</li><li>Cost visibility per experiment, before the bill</li><li>Runbooks, so nobody needs us to press the button</li></ul></div>
           </div>
         </article>

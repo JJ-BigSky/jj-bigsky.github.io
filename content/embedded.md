@@ -24,14 +24,12 @@ scripts: calc-latency
       <div class="cols">
         <div class="prose">
 
-Every inference benchmark you will be shown is a mean. Robots are broken by tails. A perception stack that runs in 20 ms on average and 140 ms once every few thousand frames will pass every test you write and then put a gripper through a fixture during production.
+**Design for the p99.9 tail.** A perception or policy stack that runs in 20 ms on average and 140 ms once every few thousand frames will pass bench tests and put a gripper through a fixture in production. If the policy misses its deadline, the controller must execute a deterministic fallback (hold position, re-approach, or hand off to an operator) proven under fault injection.
 
-Measure the tail. Budget for the tail. Design the fallback for the tail. If the policy can't answer in time, the correct behavior is a defined, deterministic fallback (hold position, re-approach, or hand off to an operator), and that behavior has to be proven under fault injection, not assumed.
-
-The second trap is thermal. Every compute module has a headline TOPS number and a power range, and the headline number assumes airflow you do not have inside a sealed enclosure at 45 °C ambient. Size for the sustained clock, not the datasheet peak.
+**Size for sustained thermal load.** Datasheet TOPS numbers assume open-bench airflow you do not have inside a sealed IP65 enclosure at 45 °C ambient. Benchmark your actual model at sustained thermal equilibrium before picking the compute module.
 
         </div>
-        <div class="callout"><span class="sq"></span><b>SKY-1 notes:</b> measure the p99.9 tail under sustained thermal load, budget your control period around that figure, and verify the late-frame fallback on the bench.</div>
+        <div class="callout"><span class="sq"></span><b>Design rule:</b> measure the p99.9 tail under sustained thermal load, budget your control period around that figure, and verify the late-frame fallback on the bench.</div>
       </div>
     </div>
   </section>
@@ -55,31 +53,16 @@ The second trap is thermal. Every compute module has a headline TOPS number and 
       </div>
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
-          <div class="fig mono" style="margin-bottom:1.2rem"><b>Fig. 01</b>Control rates and what fits inside them. Standard practice, not a citation.</div>
+          <div class="fig mono" style="margin-bottom:1.1rem"><b>Fig. 01</b>Anything inside the control loop runs on the robot. Anything that can tolerate a 1 s delay and a dropped network can go to the cloud.</div>
 
-The architecture follows from that table and not from a vendor's block diagram. Anything inside the control loop runs on the robot. Anything that can tolerate a second of delay and a lost network can go to the cloud. There is no third category, and “we'll just put it in the cloud and it'll be fine” is how you learn what your Wi-Fi does when a forklift passes.
+### Quantization &amp; OS determinism
 
-### Making it fit
+Dropping precision (FP16 → INT8 / FP4) buys major speedups, but it changes which grasps a policy picks under marginal lighting. **A quantized model is a new model and gets the full closed-loop evaluation suite.**
 
-Quantization is the biggest lever and the most abused one. Dropping precision routinely buys large speedups, and it *changes the model's behavior*. Not “slightly reduces accuracy” in the abstract. It changes which grasps it picks, on which parts, under which lighting.
-
-So the rule is simple and non-negotiable: **the quantized model is a different model, and it gets the full evaluation suite.** Every time. That is why we build an automated closed-loop evaluation harness before optimizing the weights.
-
-### Determinism
-
-A GPU in the loop makes “real-time” a spectrum, and the difference between soft and hard real-time is the difference between “usually on time” and “provably on time.” Closing that gap requires explicit OS and middleware configuration, measured under load:
-
-- RT-patched kernel, with the latency actually measured under load
-- CPU core isolation and affinity, so the control thread never waits for a browser tab
-- IRQ pinning, so the camera driver's interrupts land where you put them
-- ROS 2 DDS and QoS configuration that matches the loop, and is written down
-- Memory locking and a startup that has already paged everything in
+Closing the gap between “usually on time” and “provably on time” requires explicit system configuration: an RT-patched kernel, isolated CPU cores for the servo thread, pinned camera IRQs, tuned ROS 2 DDS/QoS profiles, and locked memory (<code>mlockall</code>) at startup.
 
         </div>
-        <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Two categories.</b> On the robot: anything inside the control loop. In the cloud: anything that can wait a second and survive a dropped network. If a thing doesn't fit either description, it isn't designed yet.</div>
-          <div class="callout"><span class="sq"></span><b>Distillation, not hope.</b> Nothing learned runs at a kilohertz and very little runs at a hundred hertz. If the loop is fast, the policy is small, and the big model's job is to teach it.</div>
-        </div>
+        <div class="callout"><span class="sq"></span><b>Distillation over hope.</b> Nothing learned runs at 1 kHz and very little runs at 100 Hz. When the loop is fast, distill a small policy from the foundation model and lock the OS thread around it.</div>
       </div>
     </div>
   </section>
@@ -122,7 +105,7 @@ A GPU in the loop makes “real-time” a spectrum, and the difference between s
             <button class="btn btn--small" id="lbEmail" type="button" data-cursor="SEND">Email this budget</button>
             <button class="btn btn--small btn--ghost" id="lbReset" type="button">Reset</button>
           </div>
-          <p class="muted small">Stage costs are illustrative defaults from typical embedded pipelines, not measurements of your system. The precision factors are illustrative too. The only latency number that matters is the one you measured on your hardware, with your model, under load, at the ninety-ninth-point-nine percentile. Nothing here is stored or sent.</p>
+          <p class="muted small">Illustrative stage costs and precision multipliers. State stays in the URL.</p>
         </div>
       </div>
     </div>

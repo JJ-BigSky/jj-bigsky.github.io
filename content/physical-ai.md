@@ -24,18 +24,15 @@ scripts: calc-demos
       <div class="cols">
         <div class="prose">
 
-**Fifty to two hundred.** That's roughly how many teleoperated demonstrations current imitation-learning approaches need per task, depending on the task. A cell with twenty distinct tasks lands somewhere between one and four thousand demonstrations. Someone has to perform every one of them, and someone has to throw out the bad ones.
+**50 to 200 demonstrations per task.** That is what current imitation-learning policies require per task variant. A cell with twenty tasks lands between one and four thousand clean teleoperated episodes, plus the QC pass to discard bad takes.
 
-**Ninety-five to ninety-nine percent.** That's the uptime a production line expects. Most of the platforms in the demo videos still need a charge or a human well before a shift ends. Both numbers are true at once, and the distance between them is the entire job.
+**95% to 99% line uptime.** Production lines expect shift-long reliability; most general-purpose demo platforms still require battery swaps or human intervention well before a shift ends. Closing that gap is the entire engineering job.
 
-**2026 is a validation year.** Real deployments exist (tote moves, line-side delivery, kitting, machine tending, inspection), and they're narrow, supervised, and hard-won. Broad factory-scale adoption reads like a 2030s story. Anyone promising otherwise is selling you a slide.
+**2026 is a narrow-deployment year.** Production wins today are scoped to tote handling, machine tending, kitting, and inspection under tight supervision. Build the data and evaluation machinery first.
 
-None of this means don't start. It means start on the task that survives contact with those numbers, and build the data and evaluation machinery first, because that's the part nobody demos.
-
-          <p class="small muted">Figures reflect published industry reporting as of September 2026. Ask us for the current version. They move.</p>
         </div>
         <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>SKY-1 says:</b> ask me “how many demos” and I'll give you the rule of thumb. Then use the calculator below, because the rule of thumb is the flattering version.</div>
+          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Triage rule:</b> fixture what can be fixtured, learn what can't, and build the evaluation harness before either.</div>
           <div class="fig mono"><b>Field note</b><a href="/notes/fifty-to-two-hundred.html">Fifty to two hundred: what imitation learning actually costs per task →</a></div>
         </div>
       </div>
@@ -59,21 +56,10 @@ None of this means don't start. It means start on the task that survives contact
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
 
-That right-hand column isn't a consolation prize. It's most of manufacturing, it's cheaper, and it doesn't need a GPU. We'll tell you when you're in it.
-
-### We run bake-offs on models too.
-
-          <p class="serif muted prose__sub">Same rule as robots. Your parts, your bench, your numbers.</p>
-
-The generalist policy space moves monthly: flow-matching VLAs, open-weight generalist models trained on cross-embodiment data, diffusion policies, and vendor stacks that ship with the hardware. We hold opinions and we don't hold loyalties. What we care about is how a candidate does on your task, on your bench, measured the same way twice.
-
-Model weights will be replaced twice before your cell reaches full production; the closed-loop evaluation harness and task benchmark are the assets that outlast any single checkpoint.
+The right-hand column is most of manufacturing: cheaper, deterministic, and no GPU required. When your task sits on the left, we run model bake-offs (flow-matching VLAs, diffusion policies, open-weight generalists) on your bench, with your parts. Model weights will be replaced twice before full production; the closed-loop evaluation harness is the asset that lasts.
 
         </div>
-        <div>
-          <div class="callout" style="margin-bottom:1rem"><span class="sq"></span><b>Triage, in order.</b> Fixture what can be fixtured. Learn what can't. Build the data pipeline and the evaluation harness before either. That's the part the demo skips.</div>
-          <div class="fig mono"><b>Field note</b><a href="/notes/a-fixture-and-a-limit-switch.html">A fixture and a limit switch: in defense of not using AI, from people who do →</a></div>
-        </div>
+        <div class="fig mono"><b>Field note</b><a href="/notes/a-fixture-and-a-limit-switch.html">A fixture and a limit switch: in defense of not using AI, from people who do →</a></div>
       </div>
     </div>
   </section>
@@ -116,12 +102,12 @@ Model weights will be replaced twice before your cell reaches full production; t
             <div class="stat" id="oSimRow" hidden><span class="mono">Sim build</span><b id="oSim">—</b></div>
             <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="oVerdict" aria-live="polite">—</p></div>
           </div>
-          <p class="mono muted small" id="dReadout" aria-live="polite" style="margin:.8rem 0 0"></p>
+          <p class="mono muted small" id="dReadout" aria-live="polite" hidden></p>
           <div class="lab__actions" style="margin-top:1rem">
             <button class="btn btn--small" id="dEmail" type="button" data-cursor="SEND">Email me this estimate</button>
             <button class="btn btn--small btn--ghost" id="dReset" type="button">Reset</button>
           </div>
-          <p class="muted small" style="margin-top:1rem">First-order scaling estimates. Demonstration counts vary significantly by task, gripper compliance, and positioning tolerances. We model thirty productive teleop hours per week per operator rather than forty, accounting for operator fatigue and cell resets. Nothing here is stored or sent.</p>
+          <p class="muted small" style="margin-top:1rem">First-order scaling estimate assuming 30 productive teleop hours/week per operator. State stays in the URL.</p>
         </div>
       </div>
     </div>
@@ -141,13 +127,13 @@ Model weights will be replaced twice before your cell reaches full production; t
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">P-02</span><h3>Data strategy &amp; teleop</h3><p>Rig design, demonstration protocols, operator training, per-episode QC, and a schema you won't have to migrate in six months.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">P-02</span><h3>Data &amp; teleop rigs</h3><p>Rig design, demonstration protocols, operator training, per-episode QC, and a schema you won't have to migrate in six months.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Teleop rig matched to the task, not the trade show</li><li>Demonstration protocol and operator training with a take-rate target</li><li>Per-episode QC so the bad ones never reach training</li><li>Episode schema and provenance that survive a re-labeling</li></ul></div>
           </div>
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">P-03</span><h3>Policy evaluation harness</h3><p>Success rate with confidence intervals, out-of-distribution probes, a standing regression suite, and a red-team task list.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">P-03</span><h3>Evaluation harness</h3><p>Success rate with confidence intervals, out-of-distribution probes, a standing regression suite, and a red-team task list.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Success rates with confidence intervals, not a highlight reel</li><li>Out-of-distribution probes: new parts, new lighting, new operator</li><li>A regression suite that runs on every model, quantized ones included</li><li>A red-team task list that tries to make it fail</li></ul></div>
           </div>
         </article>
@@ -161,15 +147,10 @@ Model weights will be replaced twice before your cell reaches full production; t
       <div class="cols" style="margin-top:1.6rem">
         <div class="prose">
 
-### AI in a safety function
+**AI in a safety function.** ISO 10218-1/2:2025 makes functional-safety requirements explicit, and EU Machinery Regulation 2023/1230 (applying January 2027) treats AI performing a safety function as high-risk under Annex I. We keep learned policies outside the safety-rated envelope and validate deterministic hardware interlocks around them ([see our safety work](/#services)).
 
-If a learned policy participates in a safety function, the compliance path changes. ISO 10218-1:2025 and ISO 10218-2:2025 superseded the 2011 editions and make functional-safety requirements explicit rather than implied; conflicting national standards are to be withdrawn by March 2027. In the EU, the Machinery Regulation (EU) 2023/1230 applies from 20 January 2027, replacing the Machinery Directive, and it introduces specific provisions for machinery incorporating AI, with machinery where an AI system performs a safety function treated as high-risk under Annex I. An AI-driven robot in the EU sits at the intersection of that regulation, the AI Act, and GDPR.
-
-That is why P-04 exists, and why it connects to our [safety and compliance work](/#services): the fallback path is designed and proven to the same standard as everything else in the safety architecture, not bolted on after the model works. It's also a legitimate reason to have this conversation this quarter rather than next year.
-
-          <p class="small muted">Descriptive, not legal or certification advice. Standards position current as of September 2026; talk to your notified body or assessor about your machine.</p>
         </div>
-        <div class="fig mono"><b>Field note</b><a href="/notes/ai-in-a-safety-function.html">AI in a safety function: what the 2025 robot-safety revision and the 2027 EU machinery rules mean if your policy is learned →</a></div>
+        <div class="fig mono"><b>Field note</b><a href="/notes/ai-in-a-safety-function.html">AI in a safety function: what ISO 10218:2025 and the 2027 EU machinery rules mean if your policy is learned →</a></div>
       </div>
     </div>
   </section>

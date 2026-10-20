@@ -24,18 +24,16 @@ scripts: vision-lab
       <div class="cols">
         <div class="prose">
 
-**Specular and transparent parts.** Polished steel and clear plastic break depth sensing in ways that no amount of fine-tuning fixes. The answer is usually a different sensor or a different light, not a different network.
+**Specular and transparent parts.** Polished steel and clear plastic break depth sensing in ways no fine-tuning fixes. The answer is sensor geometry and illumination, not a larger network.
 
-**Clutter and occlusion.** A part that's 90% visible is a solved problem. A part that's 30% visible under three other parts is a research topic with a delivery date attached.
+**Clutter and occlusion.** A part that's 90% visible is solved. A part that's 30% visible under three other parts requires mechanical singulation or a re-grasp station.
 
-**Lighting drift.** Morning light, afternoon light, someone replaces a failed fixture with a slightly bluer one, and your pose estimates walk. Controlled lighting is the cheapest reliability upgrade in the building and it is skipped constantly.
+**Lighting and calibration drift.** Bay doors open, fixtures age, and camera mounts take hits from forklifts. Controlled illumination and automated hand-eye drift checks are the cheapest reliability upgrades in the cell.
 
-**Calibration drift.** Hand-eye calibration is not a one-time ceremony. Somebody bumps the camera mount, and a system that was accurate to half a millimeter is now confidently wrong.
-
-**The last two percent of pose error.** Ninety-eight percent is a great demo and a daily crash. The gap between them is fixturing, verification, and knowing when to refuse.
+**The last two percent of pose error.** Ninety-eight percent is a great demo and a daily crash. The gap is closed by mechanical compliance, post-grasp verification, and knowing when to reject a pick.
 
         </div>
-        <div class="callout"><span class="sq"></span><b>SKY-1 notes:</b> ask me what breaks vision and I'll walk through these five failure modes. Most perception bugs trace back to optics, illumination, or mount rigidity rather than network weights.</div>
+        <div class="callout"><span class="sq"></span><b>Bench rule:</b> most field perception failures trace back to optics, illumination, or mount rigidity rather than network weights. Test on your shiniest production part before signing a camera PO.</div>
       </div>
     </div>
   </section>
@@ -46,27 +44,15 @@ scripts: vision-lab
       <p class="eyebrow mono">02 // What actually works</p>
       <h2 class="section__title">Six stages, and what changed.<span class="muted">Four of them got much easier. Two of them didn't.</span></h2>
       <ol class="stages" aria-label="The six stages of a perception pipeline">
-        <li class="stages__item marks"><span class="stages__num mono">01</span><h3>Detect</h3><p>Largely solved zero-shot. Open-vocabulary detectors find your part without you training anything.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
-        <li class="stages__item marks"><span class="stages__num mono">02</span><h3>Segment</h3><p>Largely solved zero-shot. Promptable segmentation gives clean masks on parts it has never seen.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
-        <li class="stages__item marks"><span class="stages__num mono">03</span><h3>Depth</h3><p>Monocular depth foundation models are startlingly good and still not metrology. Know which one you need.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
-        <li class="stages__item marks"><span class="stages__num mono">04</span><h3>Pose</h3><p>Zero-shot 6-DoF from a CAD model or a few reference views now works in cluttered bins. This is the big recent change.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
-        <li class="stages__item marks"><span class="stages__num mono">05</span><h3>Grasp</h3><p>Still hard. Geometry proposes; the gripper, the surface, and the physics dispose.</p><span class="badge"><i class="sq sq--warn"></i>Still hard</span></li>
-        <li class="stages__item marks"><span class="stages__num mono">06</span><h3>Verify</h3><p>Still skipped. The camera that checks the robot's work is often worth more than the one that guides it.</p><span class="badge"><i class="sq sq--warn"></i>Still skipped</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">01</span><h3>Detect</h3><p>Largely solved zero-shot. Open-vocabulary detectors find your part without custom training.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">02</span><h3>Segment</h3><p>Largely solved zero-shot. Promptable segmentation gives clean masks on unseen parts.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">03</span><h3>Depth</h3><p>Monocular foundation models are strong, but metrology still requires active stereo or structured light.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">04</span><h3>Pose</h3><p>Zero-shot 6-DoF from CAD or reference views now works reliably in cluttered bins.</p><span class="badge"><i class="sq sq--ok"></i>Got easier</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">05</span><h3>Grasp</h3><p>Still hard. Geometry proposes; gripper compliance, friction, and part physics dispose.</p><span class="badge"><i class="sq sq--warn"></i>Still hard</span></li>
+        <li class="stages__item marks"><span class="stages__num mono">06</span><h3>Verify</h3><p>Still skipped. The camera that checks the robot's work is worth more than the one that guides it.</p><span class="badge"><i class="sq sq--warn"></i>Still skipped</span></li>
       </ol>
-      <div class="cols" style="margin-top:1.6rem">
-        <div class="prose">
-          <div class="fig mono" style="margin-bottom:1.2rem"><b>Fig. 01</b>The pipeline, in order. Typical industrial parts, as of September 2026.</div>
-
-The practical consequence: in 2026 you should be training far fewer custom detectors than you were in 2023, and putting that engineering budget into controlled illumination, rigid fixturing, calibration checks, and post-grasp verification.
-
-### Which sensor, when
-
-There is no best camera. There is the right one for your part, your cycle time, and your lighting, and the wrong one is usually the one that came with the robot.
-
-        </div>
-        <div class="callout"><span class="sq"></span><b>Bookmark this.</b> The table below is the one people come back for. The rule underneath it is simpler: bench-test the sensor on your actual parts, shiny ones included, before anyone signs a purchase order.</div>
-      </div>
-      <div class="spec-wrap" style="margin-top:1.2rem">
+      <div class="fig mono" style="margin:1.4rem 0 .8rem"><b>Fig. 01 // Sensor selection</b>Spend less budget training custom detectors and more on illumination, rigid mounts, and the right sensor for the surface.</div>
+      <div class="spec-wrap">
         <table class="spec">
           <thead><tr><th>Sensor</th><th>Pick this when</th><th>Watch out for</th></tr></thead>
           <tbody>
@@ -115,7 +101,7 @@ There is no best camera. There is the right one for your part, your cycle time, 
             <button class="btn btn--small" id="vEmail" type="button" data-cursor="SEND">Email this setup</button>
             <button class="btn btn--small btn--ghost" id="vReset" type="button">Reset</button>
           </div>
-          <p class="muted small">Stage costs are illustrative defaults from typical embedded pipelines, not measurements of your system. Nothing you set here is stored, sent, or logged. The link in your address bar is the only copy.</p>
+          <p class="muted small">Illustrative embedded stage costs. State stays in the URL.</p>
         </div>
       </div>
     </div>
@@ -129,19 +115,19 @@ There is no best camera. There is the right one for your part, your cycle time, 
       <div class="cards cards--4">
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">V-01</span><h3>Sensor &amp; lighting selection</h3><p>Bench test on your actual parts, including the shiny one you were hoping we wouldn't ask about.</p><span class="card__hint mono">Tap to flip</span></div>
-            <div class="card__face card__back"><h4>You get</h4><ul><li>Bench test on your real parts, shiny ones included</li><li>Sensor shortlist with the trade-offs written down</li><li>Lighting design: geometry, wavelength, and the enclosure nobody budgeted</li><li>A go/no-go before anyone buys a camera</li></ul></div>
+            <div class="card__face card__front"><span class="card__num mono">V-01</span><h3>Sensor &amp; lighting design</h3><p>Bench test on your actual parts, including the shiny one you were hoping we wouldn't ask about.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__back"><h4>You get</h4><ul><li>Bench test on your real parts, shiny ones included</li><li>Sensor shortlist with the trade-offs written down</li><li>Lighting design: geometry, wavelength, and enclosure</li><li>A go/no-go before anyone buys a camera</li></ul></div>
           </div>
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">V-02</span><h3>Calibration &amp; drift monitoring</h3><p>Hand-eye and intrinsics, plus an automated check that tells you when it's moved before the crash does.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">V-02</span><h3>Calibration monitoring</h3><p>Hand-eye and intrinsics, plus an automated check that flags a bumped mount before the crash does.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Hand-eye and intrinsic procedure your technicians can repeat</li><li>Fixtures and targets that survive the shop floor</li><li>Automated drift check that flags a bumped mount</li><li>Recalibration runbook with pass/fail numbers</li></ul></div>
           </div>
         </article>
         <article class="card tilt" tabindex="0" data-cursor="FLIP">
           <div class="card__inner">
-            <div class="card__face card__front"><span class="card__num mono">V-03</span><h3>Perception pipeline build</h3><p>Detect → segment → depth → pose → grasp → verify, with per-stage latency budgets and a documented failure taxonomy.</p><span class="card__hint mono">Tap to flip</span></div>
+            <div class="card__face card__front"><span class="card__num mono">V-03</span><h3>Perception pipeline</h3><p>Detect → segment → depth → pose → grasp → verify, with per-stage latency budgets and a documented failure taxonomy.</p><span class="card__hint mono">Tap to flip</span></div>
             <div class="card__face card__back"><h4>You get</h4><ul><li>Six stages wired into ROS 2, each one optional</li><li>Per-stage latency budget, measured at p99.9</li><li>Failure taxonomy: what breaks it, what it does when it breaks</li><li>Evaluation set from your parts, with a regression suite</li></ul></div>
           </div>
         </article>
