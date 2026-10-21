@@ -229,7 +229,7 @@
       ...STAGES.map((s) => "- " + s.name + ": " + (state[s.id] ? "on (" + s.ms + " ms)" : "off")),
       "", "Lighting: " + state.light + "%", "Clutter: " + state.clutter + "%", "Budget: " + state.budget + " ms",
       "", "Result: " + A.n + " of 12 parts found, pose sigma " + A.sigma.toFixed(1) + " mm, pipeline " + A.ms + " ms" + (A.over ? " (over budget)" : ""),
-      "SKY-1 said: " + verdict(A), "", "Link: " + window.location.href, "",
+      "Assessment: " + verdict(A), "", "Link: " + window.location.href, "",
       "My actual parts are: [describe them, including the shiny ones]"
     ]);
   });

@@ -110,7 +110,7 @@ scripts: calc-latency
             <button class="seg__btn" data-prec="fp4" type="button">FP4</button>
           </div>
           <label class="check"><input type="checkbox" id="lbTail" /> <span>Show p99.9</span><small class="mono">tails ×1.6</small></label>
-          <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="lbVerdict">—</p></div>
+          <div class="stat stat--wide"><span class="mono">Engineering assessment</span><p id="lbVerdict">—</p></div>
           <div class="lab__actions">
             <button class="btn btn--small" id="lbEmail" type="button" data-cursor="SEND">Email this budget</button>
             <button class="btn btn--small btn--ghost" id="lbReset" type="button">Reset</button>

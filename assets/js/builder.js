@@ -14,14 +14,14 @@
     { id: "vision", letter: "V", name: "Vision station", icon: "i-eye", area: 4, kw: .8, cost: [15, 60], series: 3, tag: "cameras + lighting" },
     { id: "belt", letter: "B", name: "Conveyor", icon: "i-belt", area: 5, kw: 1.2, cost: [8, 30], series: 4, tag: "per segment" },
     { id: "fence", letter: "F", name: "Safety fence", icon: "i-fence", area: 2, kw: 0, cost: [3, 10], series: 5, tag: "guarding + interlock" },
-    { id: "bench", letter: "W", name: "Workbench", icon: "i-bench", area: 4, kw: .5, cost: [2, 8], series: 6, tag: "humans need tables" },
-    { id: "plug", letter: "P", name: "Charging bay", icon: "i-plug", area: 3, kw: 3, cost: [5, 20], series: 7, tag: "for the AMRs" },
+    { id: "bench", letter: "W", name: "Workbench", icon: "i-bench", area: 4, kw: .5, cost: [2, 8], series: 6, tag: "assembly + tooling" },
+    { id: "plug", letter: "P", name: "Charging bay", icon: "i-plug", area: 3, kw: 3, cost: [5, 20], series: 7, tag: "AMR dock power" },
     { id: "rack", letter: "R", name: "Server rack", icon: "i-rack", area: 2, kw: 4, cost: [10, 50], series: 8, tag: "compute + network" },
     // the loop's stations: where demonstrations come from, where data goes, what trains on it, what sees
-    { id: "teleop", letter: "T", name: "Teleop station", icon: "i-teleop", area: 4, kw: 1.0, cost: [12, 45], series: 9, tag: "where demos come from" },
+    { id: "teleop", letter: "T", name: "Teleop station", icon: "i-teleop", area: 4, kw: 1.0, cost: [12, 45], series: 9, tag: "leader-follower rig" },
     { id: "ingest", letter: "I", name: "Data ingest", icon: "i-ingest", area: 2, kw: 2.0, cost: [8, 35], series: 10, tag: "logs in, datasets out" },
-    { id: "gpu", letter: "G", name: "Training node", icon: "i-gpu", area: 3, kw: 8.0, cost: [30, 140], series: 11, tag: "local GPUs or a cloud link" },
-    { id: "cam", letter: "M", name: "Camera rig", icon: "i-cam", area: 2, kw: .4, cost: [6, 28], series: 12, tag: "lighting is the real upgrade" }
+    { id: "gpu", letter: "G", name: "Training node", icon: "i-gpu", area: 3, kw: 8.0, cost: [30, 140], series: 11, tag: "local GPU rack" },
+    { id: "cam", letter: "M", name: "Camera rig", icon: "i-cam", area: 2, kw: .4, cost: [6, 28], series: 12, tag: "overhead + wrist" }
   ];
   const byId = Object.fromEntries(MODS.map((m) => [m.id, m]));
   const grid = new Array(COLS * ROWS).fill(null);
@@ -123,7 +123,7 @@
     let safety = "—", safetyColor = "";
     if (cells) {
       const ratio = guarded / cells;
-      safety = ratio === 1 ? "A · caged" : ratio >= .5 ? "B · mostly" : "C · yikes";
+      safety = ratio === 1 ? "A · guarded" : ratio >= .5 ? "B · partial" : "C · unguarded";
       safetyColor = ratio === 1 ? "var(--ok)" : ratio >= .5 ? "var(--sun)" : "var(--sunset)";
     } else if (placed.length) { safety = "n/a · no robots"; }
     setStat("sSafety", safety); $("sSafety").style.color = safetyColor;
@@ -131,10 +131,9 @@
     let note;
     if (!placed.length) note = "Select a module from the palette and click the floor grid to start sizing your bay.";
     else if (warnings.length) note = warnings[0].t + (warnings.length > 1 ? " (+" + (warnings.length - 1) + " more)" : "");
-    else if (placed.length < 4) note = "Good start. Robots like company: add a conveyor or a vision station.";
-    else note = ["Solid layout—power, guarding, and compute are balanced. Ready to export.", "No warnings flagged. Cells are guarded and utilities are sized.", "Guarded, powered, and somewhere to put the coffee. Ship it."][placed.length % 3];
+    else if (placed.length < 4) note = "Add a conveyor, vision station, or guarding around the cell to complete the layout.";
+    else note = "Layout looks balanced: cells are guarded and compute/utility zones are sized. Ready to export.";
     $("sNotes").textContent = note;
-    if (note !== lastNote && placed.length) { lastNote = note; clearTimeout(recompute._t); recompute._t = setTimeout(() => { M() && M().say(note, { mood: warnings.length ? "flat" : "happy" }); }, 700); }
     recompute.current = { placed, area, kw, lo, hi, safety, warnings, note };
   }
   function money(k) { return k >= 1000 ? "$" + (Math.round(k / 100) / 10) + "M" : "$" + k + "k"; }
@@ -168,7 +167,7 @@
       ...Object.entries(counts).map(([id, n]) => "- " + n + " x " + byId[id].name),
       "", "Footprint: ~" + c.area + " m²", "Power: ~" + (Math.round(c.kw * 10) / 10) + " kW", "Budget band: " + money(c.lo) + " – " + money(c.hi), "Safety: " + c.safety,
       "", "Floor map (" + MODS.map((m) => m.letter + "=" + m.id).join(" ") + "):", ...map, "",
-      c.warnings.length ? "SKY-1 flagged: " + c.warnings.map((w) => w.t).join(" ") : "SKY-1 had no notes.", "", "Can we talk about it?", ""].join("\n");
+      c.warnings.length ? "Notes: " + c.warnings.map((w) => w.t).join(" ") : "Notes: No layout warnings flagged.", "", "Can we talk about it?", ""].join("\n");
     window.location.href = "mailto:" + (cfg.email || "build@bigsky.systems") + "?subject=" + encodeURIComponent("Lab plan from the Big Sky Systems site") + "&body=" + encodeURIComponent(body);
     window.BSS_TOAST && window.BSS_TOAST("Opening your mail app with the plan…");
     if (S()) S().success();

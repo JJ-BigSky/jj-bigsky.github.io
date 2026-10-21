@@ -271,15 +271,15 @@ html.has-reticle *:not(input):not(textarea):not(select) { cursor: none !importan
 .range input { flex: 1; accent-color: var(--ink); }
 
 /* ---------- lab builder ---------- */
-.builder { display: grid; grid-template-columns: 210px 1fr 260px; gap: 1rem; align-items: start; }
-.builder__palette { display: flex; flex-direction: column; gap: .4rem; }
-.pal { display: flex; align-items: center; gap: .7rem; padding: .6rem .7rem; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); color: var(--ink); cursor: pointer; text-align: left; font: 600 .84rem var(--font-body); transition: border-color .15s ease, background .15s ease, color .15s ease; }
+.builder { display: grid; grid-template-columns: 340px 1fr 270px; gap: 1rem; align-items: start; }
+.builder__palette { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem; }
+.pal { display: flex; align-items: center; gap: .55rem; padding: .55rem .65rem; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); color: var(--ink); cursor: pointer; text-align: left; font: 600 .8rem var(--font-body); transition: border-color .15s ease, background .15s ease, color .15s ease; }
 .pal:hover { border-color: var(--ink); }
 .pal.is-active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.pal svg { width: 20px; height: 20px; flex: none; color: currentColor; }
-.pal small { display: block; color: var(--muted); font: 500 .58rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; margin-top: .1rem; }
+.pal svg { width: 18px; height: 18px; flex: none; color: currentColor; }
+.pal small { display: block; color: var(--muted); font: 500 .54rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; margin-top: .1rem; line-height: 1.25; }
 .pal.is-active small { color: color-mix(in srgb, var(--bg) 70%, transparent); }
-.pal--erase { color: var(--danger); }
+.pal--erase { color: var(--danger); grid-column: 1 / -1; justify-content: center; }
 .builder__floor-wrap { display: flex; flex-direction: column; gap: .7rem; }
 .builder__floor { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; padding: 10px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); }
 .tile { position: relative; aspect-ratio: 1; border-radius: var(--radius); border: 1px dashed var(--line-strong); background: transparent; cursor: pointer; display: grid; place-items: center; color: var(--ink); transition: background .15s ease, border-color .15s ease; padding: 0; }

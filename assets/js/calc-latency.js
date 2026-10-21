@@ -122,7 +122,7 @@
       ...R.segs.map((s) => "- " + s.name + ": " + (s.total ? s.total.toFixed(1) + " ms" : "off")),
       "", "Control rate: " + state.rate + " Hz (" + R.budget + " ms period)", "Precision: " + state.prec.toUpperCase(), "p99.9 tail shown: " + (state.tail ? "yes (x1.6)" : "no"),
       "", "Total: " + R.total.toFixed(1) + " ms · " + (R.over ? "over by " + (R.total - R.budget).toFixed(1) + " ms, effective " + R.hz.toFixed(1) + " Hz" : "headroom " + R.headroom.toFixed(1) + " ms"),
-      "SKY-1 said: " + verdict(R), "", "Link: " + window.location.href, "",
+      "Assessment: " + verdict(R), "", "Link: " + window.location.href, "",
       "Our actual hardware and model: [describe them]"
     ]);
   });

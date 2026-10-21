@@ -7,7 +7,7 @@
   <meta name="description" content="Big Sky Systems designs, builds, and de-risks robotics labs. From an empty bay to a humming cell: layout, robot selection, ROS 2 software, safety, and training." />
   <meta name="theme-color" content="#ECE9E2" />
   <meta property="og:title" content="Big Sky Systems — Robotics Lab Consulting" />
-  <meta property="og:description" content="We build robotics labs that actually ship. Drive the arm, build a lab, and meet SKY-1." />
+  <meta property="og:description" content="Robotics lab buildouts and closed-loop physical AI engineering: layout, hardware bake-offs, ROS 2, safety sign-off, perception, embedded autonomy, simulation, and fleet data." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jj-bigsky.github.io/" />
   <meta property="og:image" content="https://jj-bigsky.github.io/assets/img/og/home.png" />
@@ -35,16 +35,6 @@
   </script>
 </head>
 <body data-page="home">
-
-<!-- ===== Boot overlay (skipped on repeat visits and reduced motion) ===== -->
-<div id="boot" class="boot" aria-hidden="true" hidden>
-  <div class="boot__inner">
-    <div class="boot__logo">Big Sky Systems <span>// lab os</span></div>
-    <ul class="boot__log" id="bootLog"></ul>
-    <div class="boot__bar"><i id="bootBar"></i></div>
-    <button class="boot__skip" id="bootSkip" type="button">skip →</button>
-  </div>
-</div>
 
 <!-- ===== Cursor reticle (desktop, fine pointer only) ===== -->
 <div id="reticle" class="reticle" aria-hidden="true">
@@ -93,7 +83,6 @@
     <a href="#contact" class="nav__cta">Talk to us</a>
   </nav>
   <div class="nav__tools">
-    <button class="tog" id="soundToggle" type="button" aria-pressed="false" aria-label="Toggle sound effects" data-cursor="SOUND"><i></i><span id="soundLabel">Snd off</span></button>
     <button class="tog" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch between paper and graphite sheets" data-cursor="SHEET"><i></i><span id="themeLabel">Paper</span></button>
     <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
@@ -106,23 +95,20 @@
     <canvas id="sky" class="hero__sky" aria-hidden="true"></canvas>
     <div class="hero__fig mono" aria-hidden="true"><b>Fig. 01</b>Contour sky, interactive. Hover to survey.</div>
     <div class="hero__content container">
-      <p class="eyebrow mono"><span class="led"></span> Lab status: awake</p>
+      <p class="eyebrow mono"><span class="led"></span> Robotics &amp; Physical AI Engineering</p>
       <h1 class="hero__title">We build robotics labs that actually <span class="typed" id="typed" aria-label="ship">ship.</span></h1>
       <p class="hero__lede">Big Sky Systems is a robotics lab consultancy. We take you from an empty bay to a humming cell: layout, robots, ROS&nbsp;2, safety, and the humans who run it. Then from a humming cell to a system that learns: perception, on-robot autonomy, simulation, and the data loop behind both.</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="#services" data-cursor="WORK">See what we deliver</a>
         <a class="btn" href="#builder" data-cursor="BUILD">Scope your lab</a>
         <a class="btn btn--link" href="#loop" data-cursor="TRACE">See the loop</a>
-        <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Meet SKY-1</button>
       </div>
     </div>
-    <div class="telemetry mono" id="telemetry" aria-label="Playful lab telemetry">
-      <span>Stars <b id="tStars">—</b></span>
-      <span>Lab time <b id="tTime">—</b></span>
-      <span>Cursor <b id="tCursor">Searching</b></span>
-      <span>Coffee <b id="tCoffee">87%</b></span>
-      <span>Uptime <b id="tUptime">0s</b></span>
-      <span>Loop <b id="tLoop">closed</b></span>
+    <div class="telemetry mono" id="telemetry" aria-label="Engineering capabilities">
+      <span>Scope <b>Cell Buildout &amp; Autonomy</b></span>
+      <span>Stack <b>ROS 2 · Isaac Lab · RT Linux</b></span>
+      <span>Safety <b>ISO 10218:2025 · ISO/TS 15066</b></span>
+      <span>Delivery <b>Discovery Sprint → Turnkey Handoff</b></span>
     </div>
     <a class="hero__scroll" href="#services" aria-label="Scroll to services"><span></span></a>
   </section>
@@ -394,7 +380,7 @@
         <div class="builder__floor-wrap">
           <div class="builder__floor" id="floor" role="grid" aria-label="Lab floor"></div>
           <div class="builder__actions">
-            <button class="btn btn--small btn--ghost" id="floorRandom" type="button">Surprise me</button>
+            <button class="btn btn--small btn--ghost" id="floorRandom" type="button">Load sample layout</button>
             <button class="btn btn--small btn--ghost" id="floorClear" type="button">Clear floor</button>
             <button class="btn btn--small" id="floorExport" type="button" data-cursor="SEND">Email this plan</button>
           </div>
@@ -404,89 +390,9 @@
           <div class="stat"><span class="mono">Power</span><b id="sPower">0 kW</b></div>
           <div class="stat"><span class="mono">Budget band</span><b id="sBudget">—</b></div>
           <div class="stat"><span class="mono">Safety</span><b id="sSafety">—</b></div>
-          <div class="stat stat--wide"><span class="mono">SKY-1 notes</span><p id="sNotes">Select a module from the palette and click the floor grid to start sizing your bay.</p></div>
+          <div class="stat stat--wide"><span class="mono">Engineering notes</span><p id="sNotes">Select a module from the palette and click the floor grid to start sizing your bay.</p></div>
           <p class="muted small">First-order planning estimates for bay area, peak power, and budget band. Actual cell requirements depend on payload, reach, and cycle time.</p>
         </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Diagnostic: gauge quiz ===== -->
-  <section class="section" id="diagnostic">
-    <div class="container">
-      <p class="eyebrow mono">05 // Lab readiness diagnostic</p>
-      <h2 class="section__title">How ready is your lab?<span class="muted">Seven questions across hardware, safety, software, and operations.</span></h2>
-      <div class="quiz" id="quiz">
-        <div class="quiz__panel">
-          <div class="quiz__progress mono" id="quizProgress">Q 1 / 7</div>
-          <h3 class="quiz__q" id="quizQ">Loading…</h3>
-          <div class="quiz__opts" id="quizOpts"></div>
-          <div class="quiz__result" id="quizResult" hidden>
-            <h3 id="quizTier"></h3>
-            <p id="quizBlurb"></p>
-            <ul id="quizRecs"></ul>
-            <div class="quiz__actions">
-              <button class="btn btn--small" id="quizEmail" type="button" data-cursor="SEND">Email me a plan</button>
-              <button class="btn btn--small btn--ghost" id="quizRetry" type="button">Run it again</button>
-            </div>
-          </div>
-        </div>
-        <div class="gauge" aria-live="polite">
-          <svg viewBox="0 0 200 120" class="gauge__svg" aria-hidden="true">
-            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--line-strong)" stroke-width="10"/>
-            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--accent)" stroke-width="10" stroke-dasharray="251.3" stroke-dashoffset="251.3" id="gaugeArc"/>
-            <g stroke="var(--ink)" stroke-width="1.5">
-              <path d="M20 100 L28 100"/><path d="M31.7 60 L38.6 64"/><path d="M60 31.7 L64 38.6"/><path d="M100 20 L100 28"/><path d="M140 31.7 L136 38.6"/><path d="M168.3 60 L161.4 64"/><path d="M180 100 L172 100"/>
-            </g>
-            <g id="gaugeNeedle" style="transform-origin:100px 100px">
-              <path d="M100 100 L100 30" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="square"/>
-              <rect x="95" y="95" width="10" height="10" fill="var(--ink)"/>
-            </g>
-            <text x="16" y="118" class="gauge__tick">0</text>
-            <text x="170" y="118" class="gauge__tick">100</text>
-          </svg>
-          <div class="gauge__value"><b id="gaugeValue">0</b><span class="mono">Readiness</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Playground: robot arm ===== -->
-  <section class="section" id="playground">
-    <div class="container">
-      <p class="eyebrow mono">06 // Kinematic sandbox</p>
-      <h2 class="section__title">Drive a robot arm.<span class="muted">Real inverse kinematics, waypoint teaching, and reach-envelope visualization.</span></h2>
-      <div class="arm">
-        <div class="arm__stage">
-          <canvas id="armCanvas" data-cursor="TARGET"></canvas>
-          <div class="arm__hud mono" id="armHud">
-            <span>J1 <b id="j1">0°</b></span>
-            <span>J2 <b id="j2">0°</b></span>
-            <span>J3 <b id="j3">0°</b></span>
-            <span>Mode <b id="armModeLabel">Follow</b></span>
-          </div>
-          <p class="arm__hint mono" id="armHint">Move your cursor. Click to close the gripper.</p>
-        </div>
-        <div class="arm__controls">
-          <div class="seg" role="group" aria-label="Arm mode">
-            <button class="seg__btn is-active" data-mode="follow" type="button">Follow</button>
-            <button class="seg__btn" data-mode="teach" type="button">Teach</button>
-            <button class="seg__btn" data-mode="draw" type="button">Draw</button>
-          </div>
-          <div class="arm__teach" id="teachControls" hidden>
-            <button class="btn btn--small" id="teachPlay" type="button">▶ Play path</button>
-            <button class="btn btn--small btn--ghost" id="teachClear" type="button">Clear</button>
-            <span class="mono muted" id="teachCount">0 waypoints</span>
-          </div>
-          <label class="check"><input type="checkbox" id="armEnvelope" checked /> <span>Show reach envelope</span></label>
-          <label class="check"><input type="checkbox" id="armTrail" /> <span>Leave a trail</span></label>
-          <label class="range">
-            <span class="mono">Speed</span>
-            <input type="range" id="armSpeed" min="1" max="10" value="6" />
-          </label>
-          <button class="btn btn--small btn--ghost" id="armDance" type="button" data-cursor="DANCE">Dance mode</button>
-          <p class="muted small">Teach mode works like a real teach pendant: click to record waypoints, then play them back. Draw mode paints with the end effector.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -495,9 +401,9 @@
   <section class="section" id="contact">
     <div class="container contact">
       <div class="contact__text">
-        <p class="eyebrow mono">07 // Talk to a human</p>
-        <h2 class="section__title">Tell us about your lab.<span class="muted">Or your empty bay. Or your napkin.</span></h2>
-        <p>No forms that go nowhere. This one composes an email in your own mail app, addressed to a person.</p>
+        <p class="eyebrow mono">05 // Talk to a human</p>
+        <h2 class="section__title">Tell us about your lab.<span class="muted">Or your empty bay. Or your production line.</span></h2>
+        <p>No forms that go nowhere. This one composes an email in your own mail app, addressed directly to an engineer.</p>
         <p class="contact__email">
           <a href="mailto:build@bigsky.systems" id="emailLink" data-cursor="MAIL">build@bigsky.systems</a>
           <button class="btn btn--small btn--ghost" id="copyEmail" type="button">Copy</button>
@@ -526,77 +432,31 @@
 
 <footer class="footer">
   <div class="container">
-    <nav class="footer__links" aria-label="The loop">
-      <span class="footer__links__label mono">The loop //</span>
+    <nav class="footer__links" aria-label="Site navigation">
+      <span class="footer__links__label mono">Navigate //</span>
+      <a href="/">Home</a>
+      <a href="/#services">Deliverables</a>
+      <a href="/#method">Method</a>
+      <a href="/#builder">Lab Builder</a>
       <a href="/vision/">Perceive · Vision</a>
       <a href="/embedded/">Decide · Embedded</a>
-      <a href="/#services">Act · The lab</a>
-      <a href="/cloud/">Capture · Data &amp; cloud</a>
-      <a href="/world-models/">Imagine · World models</a>
+      <a href="/cloud/">Capture · Data &amp; Cloud</a>
+      <a href="/world-models/">Imagine · World Models</a>
       <a href="/research/">Research</a>
+      <a href="/#contact">Contact</a>
     </nav>
     <div class="footer__inner">
-      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
-      <div class="footer__leds mono">
-        <span><i class="led"></i> arm</span>
-        <span><i class="led"></i> sky</span>
-        <span><i class="led"></i> sky-1</span>
-        <span><i class="led"></i> loop</span>
-        <span><i class="led led--warn"></i> coffee</span>
-      </div>
-      <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
+      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics &amp; physical AI engineering · <a href="mailto:build@bigsky.systems">build@bigsky.systems</a></span></div>
+      <div class="footer__note muted">© <span id="year"></span> Big Sky Systems. Remote &amp; on-site.</div>
     </div>
   </div>
 </footer>
 
-<!-- ===== SKY-1 mascot + assistant ===== -->
-<div class="mascot" id="mascot">
-  <div class="bubble" id="bubble" role="status" aria-live="polite"><span id="bubbleText"></span></div>
-  <button class="mascot__btn" id="mascotBtn" type="button" aria-label="Open SKY-1 assistant" data-cursor="TALK">
-    <svg class="bot" viewBox="0 0 120 150" aria-hidden="true">
-      <g class="bot__antenna"><line x1="60" y1="28" x2="60" y2="13" stroke="var(--bot-line)" stroke-width="2.5"/><rect x="55" y="6" width="10" height="8" class="bot__light"/></g>
-      <g class="bot__head" id="botHead" style="transform-origin:60px 95px">
-        <rect x="18" y="28" width="84" height="60" rx="3" class="bot__shell"/>
-        <rect x="26" y="37" width="68" height="42" rx="1.5" class="bot__screen"/>
-        <g class="bot__eye" id="eyeL" style="transform-origin:46px 56px"><rect x="40" y="50" width="12" height="12" class="bot__pupil" id="pupilL"/></g>
-        <g class="bot__eye" id="eyeR" style="transform-origin:74px 56px"><rect x="68" y="50" width="12" height="12" class="bot__pupil" id="pupilR"/></g>
-        <path d="M50 69 Q60 75 70 69" class="bot__mouth" id="botMouth"/>
-        <rect x="12" y="52" width="6" height="12" class="bot__ear"/><rect x="102" y="52" width="6" height="12" class="bot__ear"/>
-      </g>
-      <g class="bot__body">
-        <rect x="30" y="92" width="60" height="40" rx="3" class="bot__shell"/>
-        <path d="M40 104h22M40 110h22M40 116h22" class="bot__grille"/>
-        <rect x="72" y="104" width="8" height="8" class="bot__chest"/>
-        <text x="60" y="127" text-anchor="middle" class="bot__label">SKY-1</text>
-        <rect x="38" y="134" width="14" height="8" class="bot__shell"/><rect x="68" y="134" width="14" height="8" class="bot__shell"/>
-      </g>
-    </svg>
-  </button>
-</div>
-
-<div class="chat" id="chat" hidden aria-label="SKY-1 assistant" role="dialog">
-  <div class="chat__head">
-    <div><b>SKY-1</b> <span class="mono muted small" id="chatStatus">// on-page, no cloud</span></div>
-    <button class="icon-btn" id="chatClose" type="button" aria-label="Close">✕</button>
-  </div>
-  <div class="chat__log" id="chatLog"></div>
-  <div class="chat__chips" id="chatChips"></div>
-  <form class="chat__form" id="chatForm">
-    <input type="text" id="chatInput" placeholder="Ask about services, timelines, ROS 2, safety…" autocomplete="off" aria-label="Message SKY-1" />
-    <button class="btn btn--small" type="submit">Send</button>
-  </form>
-</div>
-
 <button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
 
 <script src="/assets/js/config.js"></script>
-<script src="/assets/js/sound.js"></script>
 <script src="/assets/js/sky.js"></script>
-<script src="/assets/js/mascot.js"></script>
-<script src="/assets/js/arm.js"></script>
 <script src="/assets/js/builder.js"></script>
-<script src="/assets/js/quiz.js"></script>
-<script src="/assets/js/assistant.js"></script>
 <script src="/assets/js/loop.js"></script>
 <script src="/assets/js/main.js"></script>
 </body>

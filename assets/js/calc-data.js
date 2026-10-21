@@ -94,7 +94,7 @@
       "- " + state.hours + " hours a day, " + state.days + " days a month", "- Retention: " + state.ret + " months, tiers hot/warm/cold " + R.hot + "/" + R.warm + "/" + R.cold, "",
       "Per robot-hour: " + K.fmt(R.gbPerRobotHour, 1) + " GB", "Per month: " + K.fmt(R.tbMonth, 1) + " TB", "Stored at retention: " + K.fmt(R.stored, 0) + " TB",
       "Storage per month: " + K.bandPct(R.storage, .3, K.money), "Egress if moved once: " + K.band(R.egress[0], R.egress[1], K.money), "A problem (" + state.limit + " TB) by: " + when(R.problem),
-      "SKY-1 said: " + verdict(R), "", "Link: " + window.location.href, "", "What we're actually recording: [describe it]"
+      "Assessment: " + verdict(R), "", "Link: " + window.location.href, "", "What we're actually recording: [describe it]"
     ]);
   });
   update();

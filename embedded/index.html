@@ -71,7 +71,6 @@
     <a href="/#contact" class="nav__cta">Talk to us</a>
   </nav>
   <div class="nav__tools">
-    <button class="tog" id="soundToggle" type="button" aria-pressed="false" aria-label="Toggle sound effects" data-cursor="SOUND"><i></i><span id="soundLabel">Snd off</span></button>
     <button class="tog" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch between paper and graphite sheets" data-cursor="SHEET"><i></i><span id="themeLabel">Paper</span></button>
     <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
@@ -91,7 +90,6 @@
           <a class="btn btn--primary" href="#offer" data-cursor="WORK">See deliverables</a>
           <a class="btn" href="#lab" data-cursor="BUILD">Build a latency budget</a>
           <a class="btn" href="/#contact" data-cursor="MAIL">Talk to a human</a>
-          <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
         </div>
       </div>
       <aside class="titleblock marks" aria-label="Sheet information">
@@ -209,7 +207,7 @@
             <button class="seg__btn" data-prec="fp4" type="button">FP4</button>
           </div>
           <label class="check"><input type="checkbox" id="lbTail" /> <span>Show p99.9</span><small class="mono">tails ×1.6</small></label>
-          <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="lbVerdict">—</p></div>
+          <div class="stat stat--wide"><span class="mono">Engineering assessment</span><p id="lbVerdict">—</p></div>
           <div class="lab__actions">
             <button class="btn btn--small" id="lbEmail" type="button" data-cursor="SEND">Email this budget</button>
             <button class="btn btn--small btn--ghost" id="lbReset" type="button">Reset</button>
@@ -248,11 +246,11 @@
       <div class="plate marks cta">
         <div>
           <h3>Tell us about your lab.</h3>
-          <p>One contact page for the whole site, and it composes an email in your own mail app, addressed to a person. No forms that go nowhere.</p>
+          <p>One contact page for the whole site, and it composes an email in your own mail app, addressed directly to an engineer. No forms that go nowhere.</p>
         </div>
         <div class="hero__actions">
           <a class="btn btn--primary" href="/#contact" data-cursor="MAIL">Talk to a human</a>
-          <button class="btn btn--link" type="button" data-cursor="TALK" onclick="window.BSS_CHAT &amp;&amp; window.BSS_CHAT.open()">Or ask SKY-1</button>
+          <a class="btn" href="mailto:build@bigsky.systems" data-cursor="SEND">build@bigsky.systems</a>
         </div>
       </div>
     </div>
@@ -262,73 +260,29 @@
 
 <footer class="footer">
   <div class="container">
-    <nav class="footer__links" aria-label="The loop">
-      <span class="footer__links__label mono">The loop //</span>
+    <nav class="footer__links" aria-label="Site navigation">
+      <span class="footer__links__label mono">Navigate //</span>
+      <a href="/">Home</a>
+      <a href="/#services">Deliverables</a>
+      <a href="/#method">Method</a>
+      <a href="/#builder">Lab Builder</a>
       <a href="/vision/">Perceive · Vision</a>
       <a href="/embedded/">Decide · Embedded</a>
-      <a href="/#services">Act · The lab</a>
-      <a href="/cloud/">Capture · Data &amp; cloud</a>
-      <a href="/world-models/">Imagine · World models</a>
+      <a href="/cloud/">Capture · Data &amp; Cloud</a>
+      <a href="/world-models/">Imagine · World Models</a>
       <a href="/research/">Research</a>
+      <a href="/#contact">Contact</a>
     </nav>
     <div class="footer__inner">
-      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics lab consulting</span></div>
-      <div class="footer__leds mono">
-        <span><i class="led"></i> arm</span>
-        <span><i class="led"></i> sky</span>
-        <span><i class="led"></i> sky-1</span>
-        <span><i class="led"></i> loop</span>
-        <span><i class="led led--warn"></i> coffee</span>
-      </div>
-      <div class="footer__note muted">Made under a very big sky. © <span id="year"></span> Big Sky Systems.</div>
+      <div class="footer__brand">Big Sky Systems <span class="muted">// robotics &amp; physical AI engineering · <a href="mailto:build@bigsky.systems">build@bigsky.systems</a></span></div>
+      <div class="footer__note muted">© <span id="year"></span> Big Sky Systems. Remote &amp; on-site.</div>
     </div>
   </div>
 </footer>
 
-<!-- ===== SKY-1 mascot + assistant ===== -->
-<div class="mascot" id="mascot">
-  <div class="bubble" id="bubble" role="status" aria-live="polite"><span id="bubbleText"></span></div>
-  <button class="mascot__btn" id="mascotBtn" type="button" aria-label="Open SKY-1 assistant" data-cursor="TALK">
-    <svg class="bot" viewBox="0 0 120 150" aria-hidden="true">
-      <g class="bot__antenna"><line x1="60" y1="28" x2="60" y2="13" stroke="var(--bot-line)" stroke-width="2.5"/><rect x="55" y="6" width="10" height="8" class="bot__light"/></g>
-      <g class="bot__head" id="botHead" style="transform-origin:60px 95px">
-        <rect x="18" y="28" width="84" height="60" rx="3" class="bot__shell"/>
-        <rect x="26" y="37" width="68" height="42" rx="1.5" class="bot__screen"/>
-        <g class="bot__eye" id="eyeL" style="transform-origin:46px 56px"><rect x="40" y="50" width="12" height="12" class="bot__pupil" id="pupilL"/></g>
-        <g class="bot__eye" id="eyeR" style="transform-origin:74px 56px"><rect x="68" y="50" width="12" height="12" class="bot__pupil" id="pupilR"/></g>
-        <path d="M50 69 Q60 75 70 69" class="bot__mouth" id="botMouth"/>
-        <rect x="12" y="52" width="6" height="12" class="bot__ear"/><rect x="102" y="52" width="6" height="12" class="bot__ear"/>
-      </g>
-      <g class="bot__body">
-        <rect x="30" y="92" width="60" height="40" rx="3" class="bot__shell"/>
-        <path d="M40 104h22M40 110h22M40 116h22" class="bot__grille"/>
-        <rect x="72" y="104" width="8" height="8" class="bot__chest"/>
-        <text x="60" y="127" text-anchor="middle" class="bot__label">SKY-1</text>
-        <rect x="38" y="134" width="14" height="8" class="bot__shell"/><rect x="68" y="134" width="14" height="8" class="bot__shell"/>
-      </g>
-    </svg>
-  </button>
-</div>
-
-<div class="chat" id="chat" hidden aria-label="SKY-1 assistant" role="dialog">
-  <div class="chat__head">
-    <div><b>SKY-1</b> <span class="mono muted small" id="chatStatus">// on-page, no cloud</span></div>
-    <button class="icon-btn" id="chatClose" type="button" aria-label="Close">✕</button>
-  </div>
-  <div class="chat__log" id="chatLog"></div>
-  <div class="chat__chips" id="chatChips"></div>
-  <form class="chat__form" id="chatForm">
-    <input type="text" id="chatInput" placeholder="Ask about latency, Jetson-class compute, quantization, RT kernels…" autocomplete="off" aria-label="Message SKY-1" />
-    <button class="btn btn--small" type="submit">Send</button>
-  </form>
-</div>
-
 <button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>
 
 <script src="/assets/js/config.js"></script>
-<script src="/assets/js/sound.js"></script>
-<script src="/assets/js/mascot.js"></script>
-<script src="/assets/js/assistant.js"></script>
 <script src="/assets/js/calc-kit.js"></script>
 <script src="/assets/js/calc-latency.js"></script>
 <script src="/assets/js/main.js"></script>

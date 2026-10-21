@@ -1,9 +1,8 @@
-/* Wiring: boot, theme, sound, nav, reticle, telemetry, conveyor,
-   tilt cards, contact form, dance mode, easter eggs. */
+/* Site wiring: theme toggle, navigation, reticle, typed hero headline,
+   conveyor scroll progress, and contact form. */
 (function () {
   const $ = (id) => document.getElementById(id);
   const cfg = window.BSS_CONFIG || {};
-  const S = () => window.BSS_SOUND, M = () => window.BSS_MASCOT;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const html = document.documentElement;
 
@@ -14,66 +13,39 @@
 
   // ---- theme ----
   const themeBtn = $("themeToggle");
-  function applyTheme(t, silent) {
+  function applyTheme(t) {
     html.dataset.theme = t;
     const tl = $("themeLabel"); if (tl) tl.textContent = t;
-    themeBtn.setAttribute("aria-pressed", String(t === "graphite"));
-    document.querySelector('meta[name="theme-color"]').setAttribute("content", t === "paper" ? "#ECE9E2" : "#161616");
+    if (themeBtn) themeBtn.setAttribute("aria-pressed", String(t === "graphite"));
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) metaTheme.setAttribute("content", t === "paper" ? "#ECE9E2" : "#161616");
     window.BSS_SKY && window.BSS_SKY.setDay(t === "paper");
     document.dispatchEvent(new CustomEvent("bss:theme", { detail: t }));
     try { localStorage.setItem("bss.theme", t); } catch (e) {}
-    if (!silent && S()) S().click();
   }
   let saved = null; try { saved = localStorage.getItem("bss.theme"); } catch (e) {}
-  applyTheme(saved === "graphite" ? "graphite" : "paper", true);
-  themeBtn.addEventListener("click", () => {
-    const next = html.dataset.theme === "paper" ? "graphite" : "paper";
-    applyTheme(next);
-    if (!applyTheme.said) { applyTheme.said = true; M() && M().say(next === "paper" ? "Paper. Bright, but a good bright." : "Graphite. My screen thanks you.", { mood: "smirk" }); }
+  applyTheme(saved === "graphite" ? "graphite" : "paper");
+  if (themeBtn) themeBtn.addEventListener("click", () => {
+    applyTheme(html.dataset.theme === "paper" ? "graphite" : "paper");
   });
-
-  // ---- sound ----
-  const soundBtn = $("soundToggle");
-  function syncSound() { soundBtn.setAttribute("aria-pressed", S().enabled ? "true" : "false"); const sl = $("soundLabel"); if (sl) sl.textContent = S().enabled ? "Snd on" : "Snd off"; }
-  syncSound();
-  soundBtn.addEventListener("click", () => { S().enabled = !S().enabled; syncSound(); window.BSS_TOAST(S().enabled ? "Beeps on. SKY-1 can now bleep." : "Beeps off."); });
-  document.addEventListener("click", (e) => { if (e.target.closest && e.target.closest(".btn, .chip, .pal") && S()) S().tick(); }, true);
-
-  // ---- boot (home only) ----
-  const boot = $("boot");
-  if (boot) {
-    function finishBoot() { boot.classList.add("is-done"); setTimeout(() => { boot.hidden = true; }, 600); }
-    let seen = false; try { seen = sessionStorage.getItem("bss.booted") === "1"; } catch (e) {}
-    if (!cfg.boot || reduce || seen) { boot.hidden = true; }
-    else {
-      try { sessionStorage.setItem("bss.booted", "1"); } catch (e) {}
-      const lines = [["mounting robot arm", "ok"], ["calibrating joints", "ok"], ["counting stars", String(window.BSS_SKY ? window.BSS_SKY.starCount : 300)], ["waking SKY-1", "ok"], ["brewing coffee", "skipped", true], ["opening the sky", "ok"]];
-      const log = $("bootLog"), bar = $("bootBar");
-      lines.forEach((l, i) => setTimeout(() => {
-        const li = document.createElement("li"); li.innerHTML = "<span>> " + l[0] + "…</span><b" + (l[2] ? ' class="warn"' : "") + ">" + l[1] + "</b>"; log.appendChild(li);
-        bar.style.width = Math.round((i + 1) / lines.length * 100) + "%"; if (S()) S().tick();
-      }, 140 + i * 190));
-      setTimeout(finishBoot, 140 + lines.length * 190 + 350);
-      $("bootSkip").addEventListener("click", finishBoot);
-    }
-  }
 
   // ---- nav ----
   const burger = $("navBurger"), links = $("navLinks");
-  burger.addEventListener("click", () => { const open = links.classList.toggle("is-open"); burger.setAttribute("aria-expanded", String(open)); });
-  links.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { links.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); }));
-  const sections = ["loop", "services", "method", "builder", "diagnostic", "playground", "contact"].map((id) => $(id)).filter(Boolean);
-  const navFor = { diagnostic: "builder", playground: "builder" }; // "Lab" covers the three tools
+  if (burger && links) {
+    burger.addEventListener("click", () => { const open = links.classList.toggle("is-open"); burger.setAttribute("aria-expanded", String(open)); });
+    links.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { links.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); }));
+  }
+  const sections = ["loop", "services", "method", "builder", "contact"].map((id) => $(id)).filter(Boolean);
   const toTop = $("toTop");
   function onScroll() {
     const y = window.scrollY + 140;
     let cur = null; sections.forEach((s) => { if (s.offsetTop <= y) cur = s.id; });
-    links.querySelectorAll("a").forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + (navFor[cur] || cur)));
-    toTop.hidden = window.scrollY < 600;
+    if (links) links.querySelectorAll("a").forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + cur));
+    if (toTop) toTop.hidden = window.scrollY < 600;
     updateBelt();
   }
   window.addEventListener("scroll", onScroll, { passive: true });
-  toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
+  if (toTop) toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
 
   // ---- typed headline ----
   const typed = $("typed");
@@ -93,19 +65,6 @@
     }
     setTimeout(cycle, 3500);
   }
-
-  // ---- telemetry ----
-  const t0 = Date.now();
-  const tStars = $("tStars"), tTime = $("tTime"), tCursor = $("tCursor"), tCoffee = $("tCoffee"), tUptime = $("tUptime");
-  let moved = 0;
-  window.addEventListener("pointermove", () => { moved++; }, { passive: true });
-  if (tUptime) setInterval(() => {
-    if (window.BSS_SKY) tStars.textContent = window.BSS_SKY.starCount.toLocaleString();
-    try { tTime.textContent = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: cfg.labTimeZone || "America/Denver" }).format(new Date()); } catch (e) { tTime.textContent = new Date().toLocaleTimeString(); }
-    tCursor.textContent = moved > 3 ? "TRACKING" : "SEARCHING"; moved = 0;
-    const up = Math.round((Date.now() - t0) / 1000); tUptime.textContent = up < 60 ? up + "s" : Math.floor(up / 60) + "m " + (up % 60) + "s";
-    tCoffee.textContent = Math.max(12, 87 - Math.floor(up / 45)) + "%";
-  }, 1000);
 
   // ---- cursor reticle ----
   const ret = $("reticle"), retLabel = $("reticleLabel");
@@ -135,9 +94,8 @@
 
   // ---- conveyor belt driven by scroll ----
   const beltWrap = $("beltWrap"), part = $("beltPart"), stations = Array.from(document.querySelectorAll(".station"));
-  let lastStation = -1;
   function updateBelt() {
-    if (!beltWrap) return;
+    if (!beltWrap || !part) return;
     const r = beltWrap.getBoundingClientRect(), vh = window.innerHeight;
     let p = (vh * .9 - r.top) / (vh * .9 + r.height * .6);
     p = Math.max(0, Math.min(1, p));
@@ -145,12 +103,12 @@
     part.style.setProperty("--p", pct.toFixed(2));
     const idx = Math.min(4, Math.floor(p * 5));
     stations.forEach((s, i) => { s.classList.toggle("is-active", i === idx); s.classList.toggle("is-done", i < idx); });
-    if (idx !== lastStation) { lastStation = idx; if (S()) S().tick(); }
   }
+
   // ---- contact ----
   const ce = $("copyEmail"); if (ce) ce.addEventListener("click", async () => {
     const email = cfg.email || "build@bigsky.systems";
-    try { await navigator.clipboard.writeText(email); window.BSS_TOAST("Copied " + email); if (S()) S().success(); }
+    try { await navigator.clipboard.writeText(email); window.BSS_TOAST("Copied " + email); }
     catch (e) { window.BSS_TOAST("Select and copy: " + email); }
   });
   const cf = $("contactForm"); if (cf) cf.addEventListener("submit", (e) => {
@@ -159,31 +117,9 @@
     const subject = "Robotics lab inquiry" + (org ? " — " + org : "");
     const body = ["Hi Big Sky Systems,", "", msg || "[what we're building]", "", "Budget band: " + (budget || "n/a"), "", "— " + (name || "[name]") + (org ? ", " + org : ""), ""].join("\n");
     window.location.href = "mailto:" + (cfg.email || "build@bigsky.systems") + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-    window.BSS_TOAST("Opening your mail app…"); if (S()) S().success();
-    M() && M().say("Off it goes. Well, off it goes once you press send in your mail app. I can't do that part.", { mood: "wow" });
+    window.BSS_TOAST("Opening your mail app…");
   });
-  $("year").textContent = new Date().getFullYear();
-
-  // ---- dance mode + Konami ----
-  let danceT = null;
-  window.BSS_DANCE = function (on) {
-    const turnOn = on === undefined ? !document.body.classList.contains("is-dancing") : !!on;
-    document.body.classList.toggle("is-dancing", turnOn);
-    window.BSS_ARM && window.BSS_ARM.dance(turnOn);
-    window.BSS_SKY && window.BSS_SKY.setDance(turnOn);
-    clearTimeout(danceT);
-    if (turnOn) { if (S()) S().dance(); M() && M().say("DANCE PROTOCOL ENGAGED.", { mood: "wow", priority: true, ms: 2500 }); danceT = setTimeout(() => window.BSS_DANCE(false), 7000); }
-  };
-  const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
-  let kpos = 0;
-  document.addEventListener("keydown", (e) => { kpos = e.key === KONAMI[kpos] ? kpos + 1 : (e.key === KONAMI[0] ? 1 : 0); if (kpos === KONAMI.length) { kpos = 0; window.BSS_DANCE(true); } });
-  // type "robot" anywhere outside inputs
-  let buf = "";
-  document.addEventListener("keypress", (e) => { if (/INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName)) return; buf = (buf + e.key).slice(-5); if (buf === "robot") { buf = ""; M() && M().say("You typed 'robot'. I felt that.", { mood: "wow", priority: true }); M() && M().excite(); } });
-
-  // brand click x5 = dance
-  let brandClicks = 0, brandT;
-  document.querySelector(".nav__brand").addEventListener("click", () => { brandClicks++; clearTimeout(brandT); brandT = setTimeout(() => { brandClicks = 0; }, 1500); if (brandClicks >= 5) { brandClicks = 0; window.BSS_DANCE(true); } });
+  if ($("year")) $("year").textContent = new Date().getFullYear();
 
   onScroll();
 })();

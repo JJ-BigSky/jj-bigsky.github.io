@@ -22,9 +22,7 @@ RETICLE = between(HOME, '<!-- ===== Cursor reticle (desktop, fine pointer only) 
 SPRITE = between(HOME, '<!-- ===== SVG sprite ===== -->', '</svg>\n')
 HEADER = between(HOME, '<!-- ===== Nav ===== -->', '</header>\n').replace('href="#top"', 'href="/"').replace('href="#', 'href="/#')
 FOOTER = between(HOME, '<footer class="footer">', '</footer>\n')
-MASCOT = between(HOME, '<!-- ===== SKY-1 mascot + assistant ===== -->', '<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>\n')
-HOME_PLACEHOLDER = 'placeholder="Ask about services, timelines, ROS 2, safety…"'
-assert HOME_PLACEHOLDER in MASCOT
+TOTOP = '<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden>↑</button>\n'
 
 # ---------- a small Markdown: paragraphs, ###/## headings, - lists, | tables, **bold**, *italic*, [text](url).
 # Any block whose first line starts with "<" passes through as HTML, so layout wrappers and
@@ -119,7 +117,7 @@ def build(slug):
     tb_rows = P.get("tb") or [("Sheet", P["code"]), ("Node", tb_node), ("Loop", tb_loop), ("Checked", '<a href="/research/?station=%s">Sep 2026</a>' % station)]
     tb_html = "\n".join("          <dt>%s</dt>%s" % (dt, dd if dd.startswith("<dd") else "<dd>%s</dd>" % dd) for dt, dd in tb_rows)
     actions = "\n".join('          <a class="%s" href="%s" data-cursor="%s">%s</a>' % (cls, href, cur, label) for cls, href, label, cur in P["actions"])
-    scripts = "\n".join('<script src="/assets/js/%s.js"></script>' % s for s in ["config", "sound", "mascot", "assistant", "calc-kit"] + P["scripts"] + ["main"])
+    scripts = "\n".join('<script src="/assets/js/%s.js"></script>' % s for s in ["config", "calc-kit"] + P["scripts"] + ["main"])
     out = '''<!doctype html>
 <html lang="en" data-theme="paper">
 <head>
@@ -158,7 +156,6 @@ def build(slug):
         <p class="page-hero__lede">%(lede)s</p>
         <div class="hero__actions">
 %(actions)s
-          <button class="btn btn--link" id="heroAsk" type="button" data-cursor="TALK">Ask SKY-1</button>
         </div>
       </div>
       <aside class="titleblock marks" aria-label="Sheet information">
@@ -186,11 +183,11 @@ def build(slug):
       <div class="plate marks cta">
         <div>
           <h3>Tell us about your lab.</h3>
-          <p>One contact page for the whole site, and it composes an email in your own mail app, addressed to a person. No forms that go nowhere.</p>
+          <p>One contact page for the whole site, and it composes an email in your own mail app, addressed directly to an engineer. No forms that go nowhere.</p>
         </div>
         <div class="hero__actions">
           <a class="btn btn--primary" href="/#contact" data-cursor="MAIL">Talk to a human</a>
-          <button class="btn btn--link" type="button" data-cursor="TALK" onclick="window.BSS_CHAT &amp;&amp; window.BSS_CHAT.open()">Or ask SKY-1</button>
+          <a class="btn" href="mailto:build@bigsky.systems" data-cursor="SEND">build@bigsky.systems</a>
         </div>
       </div>
     </div>
@@ -199,12 +196,12 @@ def build(slug):
 </main>
 
 %(footer)s
-%(mascot)s
+%(totop)s
 %(scripts)s
 </body>
 </html>
 ''' % dict(P, canon=HOST + "/" + slug + "/", og=HOST + "/assets/img/og/" + slug + ".png", fonts=FONTS, reticle=RETICLE, sprite=SPRITE, header=HEADER, footer=FOOTER,
-           mascot=MASCOT.replace(HOME_PLACEHOLDER, 'placeholder="%s"' % P["placeholder"]),
+           totop=TOTOP,
            actions=actions, tb_html=tb_html, loopline=loopline(node), body=body,
            next_num=next_num, next_strip=next_strip(node, slug), scripts=scripts)
     d = ROOT / slug; d.mkdir(exist_ok=True)

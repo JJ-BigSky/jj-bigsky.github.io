@@ -109,7 +109,7 @@ scripts: vision-lab
             <button class="seg__btn is-active" data-budget="100" type="button">100 ms · 10 Hz</button>
             <button class="seg__btn" data-budget="250" type="button">250 ms · 4 Hz</button>
           </div>
-          <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="vVerdict">Camera's on. Turn things on and see what it costs.</p></div>
+          <div class="stat stat--wide"><span class="mono">Engineering assessment</span><p id="vVerdict">Camera's on. Turn things on and see what it costs.</p></div>
           <div class="lab__actions">
             <button class="btn btn--small" id="vEmail" type="button" data-cursor="SEND">Email this setup</button>
             <button class="btn btn--small btn--ghost" id="vReset" type="button">Reset</button>

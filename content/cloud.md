@@ -109,7 +109,7 @@ scripts: calc-data
             <div class="stat"><span class="mono">Storage, per month</span><b id="cO5">—</b></div>
             <div class="stat"><span class="mono">Egress, if you move it once</span><b id="cO6">—</b></div>
             <div class="stat"><span class="mono">A problem by</span><b id="cO7">—</b></div>
-            <div class="stat stat--wide"><span class="mono">SKY-1 says</span><p id="cVerdict" aria-live="polite">—</p></div>
+            <div class="stat stat--wide"><span class="mono">Engineering assessment</span><p id="cVerdict" aria-live="polite">—</p></div>
           </div>
           <p class="mono muted small" id="cReadout" aria-live="polite" hidden></p>
           <div class="lab__actions" style="margin-top:1rem">
