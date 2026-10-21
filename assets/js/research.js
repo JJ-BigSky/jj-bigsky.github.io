@@ -5,7 +5,7 @@
   const root = document.getElementById("evidenceBoard");
   if (!root) return;
   const $ = (id) => document.getElementById(id);
-  const K = window.BSS_CALC, S = () => window.BSS_SOUND;
+  const K = window.BSS_CALC;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const SHELF_DAYS = 180;
   const STATIONS = [
@@ -176,17 +176,17 @@
   const seg = $("boardStations");
   seg.querySelectorAll(".seg__btn").forEach((b) => {
     b.classList.toggle("is-active", b.dataset.station === state.station);
-    b.addEventListener("click", () => { state.station = b.dataset.station; seg.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x === b)); if (S()) S().click(); renderBoard(); save(); });
+    b.addEventListener("click", () => { state.station = b.dataset.station; seg.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x === b)); renderBoard(); save(); });
   });
-  Object.keys(RATINGS).forEach((r) => { const el = $("rate-" + r); el.checked = state.ratings[r]; el.addEventListener("change", () => { state.ratings[r] = el.checked; if (S()) S().tick(); renderBoard(); save(); }); });
-  const per = $("rate-perishable"); per.checked = state.perishable; per.addEventListener("change", () => { state.perishable = per.checked; if (S()) S().tick(); renderBoard(); save(); });
+  Object.keys(RATINGS).forEach((r) => { const el = $("rate-" + r); el.checked = state.ratings[r]; el.addEventListener("change", () => { state.ratings[r] = el.checked; renderBoard(); save(); }); });
+  const per = $("rate-perishable"); per.checked = state.perishable; per.addEventListener("change", () => { state.perishable = per.checked; renderBoard(); save(); });
   const search = $("boardSearch"); search.value = state.q;
   search.addEventListener("input", K.debounce(() => { state.q = search.value.trim().slice(0, 60); renderBoard(); save(); }, 120));
   $("boardReset").addEventListener("click", () => {
     Object.assign(state, { station: "all", ratings: { verified: true, reported: true, directional: true, position: true }, perishable: false, q: "", sel: null });
     seg.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x.dataset.station === "all"));
     Object.keys(RATINGS).forEach((r) => { $("rate-" + r).checked = true; }); per.checked = false; search.value = "";
-    renderBoard(); save(); if (S()) S().remove();
+    renderBoard(); save();
   });
   $("boardEmail").addEventListener("click", () => {
     const shown = CLAIMS.filter(visible);

@@ -1,11 +1,10 @@
 /* Reality-gap meter: pick a task type, nudge it with what's true of your cell,
-   and the needle shows how much of the work transfers from simulation. A band,
-   not a point, and Big Sky's engineering judgment, labeled as such. The URL carries the state. */
+   and the needle shows how much of the work transfers from simulation. */
 (function () {
   const root = document.getElementById("gapMeter");
   if (!root) return;
   const $ = (id) => document.getElementById(id);
-  const K = window.BSS_CALC, S = () => window.BSS_SOUND, M = () => window.BSS_MASCOT;
+  const K = window.BSS_CALC;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const TASKS = [
     { id: "loco", name: "Legged locomotion", band: [75, 90], closes: ["Randomize terrain friction, mass, and motor latency wider than feels reasonable", "Measure the real actuator response and put it in the model, not a default", "Deploy with a recovery controller and log every fall"], wont: "It will not get you the last ten percent of slip on a wet floor. Budget real-world hours on the surfaces you actually have." },
@@ -52,12 +51,12 @@
   TASKS.forEach((t, i) => {
     const b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.dataset.task = t.id; b.dataset.cursor = "PICK";
     b.innerHTML = "<kbd>" + (i + 1) + "</kbd><span>" + t.name + "</span>";
-    b.addEventListener("click", () => { state.task = t.id; if (S()) S().click(); update(); M() && M().say(t.wont, { mood: "flat" }); });
+    b.addEventListener("click", () => { state.task = t.id; update(); });
     opts.appendChild(b);
   });
   root.addEventListener("keydown", (e) => { const n = +e.key; if (n >= 1 && n <= TASKS.length && !/INPUT|TEXTAREA/.test(e.target.tagName)) { state.task = TASKS[n - 1].id; update(); e.preventDefault(); } });
-  Object.keys(MODS).forEach((k) => { const el = $("gm" + k[0].toUpperCase() + k.slice(1)); el.checked = state[k]; el.addEventListener("change", () => { state[k] = el.checked; if (S()) S().tick(); update(); }); });
-  $("gmReset").addEventListener("click", () => { Object.assign(state, { task: "assembly", shiny: false, tol: false, env: false, sysid: false }); Object.keys(MODS).forEach((k) => { $("gm" + k[0].toUpperCase() + k.slice(1)).checked = false; }); update(); if (S()) S().remove(); });
+  Object.keys(MODS).forEach((k) => { const el = $("gm" + k[0].toUpperCase() + k.slice(1)); el.checked = state[k]; el.addEventListener("change", () => { state[k] = el.checked; update(); }); });
+  $("gmReset").addEventListener("click", () => { Object.assign(state, { task: "assembly", shiny: false, tol: false, env: false, sysid: false }); Object.keys(MODS).forEach((k) => { $("gm" + k[0].toUpperCase() + k.slice(1)).checked = false; }); update(); });
   $("gmEmail").addEventListener("click", () => {
     const R = update.last || compute();
     K.mailto("Reality-gap read — " + R.task.name + ", ~" + R.mid + "% sim", [

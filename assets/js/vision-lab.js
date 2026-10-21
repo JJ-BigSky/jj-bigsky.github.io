@@ -1,13 +1,12 @@
 /* Vision lab: a synthetic bin of parts drawn in ink. Toggle the six stages of a
-   perception pipeline, watch latency accumulate, and ruin everything with the
-   lighting slider. Illustrative numbers. Nothing is stored or sent; the URL
-   carries the state so a setup can be shared. */
+   perception pipeline, watch latency accumulate, and see how lighting and
+   clutter affect detection confidence and pose sigma. */
 (function () {
   const root = document.getElementById("visionLab");
   if (!root) return;
   const $ = (id) => document.getElementById(id);
   const canvas = $("visionCanvas"), ctx = canvas.getContext("2d");
-  const K = window.BSS_CALC, S = () => window.BSS_SOUND, M = () => window.BSS_MASCOT;
+  const K = window.BSS_CALC;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const STAGES = [
     { id: "detect", name: "Detect", ms: 8 }, { id: "segment", name: "Segment", ms: 22 }, { id: "depth", name: "Depth", ms: 14 },
@@ -179,14 +178,13 @@
   }
 
   // ---- readouts and verdicts ----
-  let saidBudget = false, saidDark = false;
   function verdict(A) {
     if (A.over) return "Pipeline latency exceeds the control period. Cut a stage, or move to the Embedded page to quantize and fuse the heavy passes.";
-    if (state.light < 35) return "You can't fix this with a model. Buy a light. It's the cheapest thing on the invoice and the one people skip.";
-    if (A.n < 6) return "Half the bin is invisible. That's a lighting problem or a fixturing problem, and either is cheaper than it sounds.";
-    if (!A.on) return "Camera's on, nothing's running. Technically zero latency. Also zero robot.";
-    if (A.on === 6) return "All six stages fit inside your budget. Benchmark this under worst-case part clutter and thermal load.";
-    if (!state.verify && state.grasp) return "Grasping without verifying. Bold. The camera that checks the work is usually worth more than the one that guides it.";
+    if (state.light < 35) return "Illumination is too low for reliable pose and depth estimation. Add controlled ring/bar lighting and optical filtering before tuning model thresholds.";
+    if (A.n < 6) return "Fewer than half of the parts clear the confidence threshold due to occlusion or low light. Improve bin presentation or add structured illumination.";
+    if (!A.on) return "No pipeline stages active. Enable Detect, Pose, Grasp, and Verify to benchmark a complete bin-picking perception pass.";
+    if (A.on === 6) return "All six stages fit inside your budget. Benchmark this under worst-case part clutter and sustained thermal load.";
+    if (!state.verify && state.grasp) return "Grasp synthesis is active without post-grasp verification. Enable Verify (9 ms) to catch in-hand slip and mis-picks before transfer.";
     return "Within budget on the bench. Next step: verify pose stability across ambient light shifts and mount vibration.";
   }
   function update(paint) {
@@ -197,8 +195,6 @@
     $("visionMsg").hidden = !A.over;
     $("visionReadout").textContent = A.n + " of 12 parts found · pose σ " + A.sigma.toFixed(1) + " mm · pipeline " + A.ms + " ms of " + state.budget + (A.ms ? " · " + hz + " Hz" : "") + (A.over ? " · over budget" : "");
     $("vVerdict").textContent = verdict(A);
-    if (A.over && !saidBudget) { saidBudget = true; M() && M().say("You turned on every stage. So does everyone. That's why the robot runs at four hertz.", { mood: "wow" }); }
-    if (state.light < 30 && !saidDark) { saidDark = true; M() && M().say("Two of twelve. The network is fine. The room is dark.", { mood: "flat" }); }
     const st = { light: state.light, clutter: state.clutter, budget: state.budget };
     STAGES.forEach((s) => { st[s.id] = state[s.id] ? 1 : 0; });
     K.writeState(st);
@@ -206,21 +202,21 @@
   }
 
   // ---- controls ----
-  STAGES.forEach((s) => { const el = $("vs-" + s.id); el.checked = state[s.id]; el.addEventListener("change", () => { state[s.id] = el.checked; if (S()) S().tick(); update(true); }); });
+  STAGES.forEach((s) => { const el = $("vs-" + s.id); el.checked = state[s.id]; el.addEventListener("change", () => { state[s.id] = el.checked; update(true); }); });
   const lightEl = $("vLight"), clutterEl = $("vClutter");
   lightEl.value = state.light; clutterEl.value = state.clutter;
   K.bindRange(lightEl, (v) => { state.light = v; update(true); });
   K.bindRange(clutterEl, (v) => { state.clutter = v; parts = layout(); update(true); });
   root.querySelectorAll(".seg__btn").forEach((b) => {
     b.classList.toggle("is-active", +b.dataset.budget === state.budget);
-    b.addEventListener("click", () => { state.budget = +b.dataset.budget; root.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x === b)); if (S()) S().click(); update(true); });
+    b.addEventListener("click", () => { state.budget = +b.dataset.budget; root.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x === b)); update(true); });
   });
   $("vReset").addEventListener("click", () => {
     Object.assign(state, { detect: true, segment: false, depth: false, pose: false, grasp: false, verify: false, light: 85, clutter: 35, budget: 100 });
     STAGES.forEach((s) => { $("vs-" + s.id).checked = state[s.id]; });
     lightEl.value = 85; clutterEl.value = 35; lightEl.dispatchEvent(new Event("input")); clutterEl.dispatchEvent(new Event("input"));
     root.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", +x.dataset.budget === 100));
-    parts = layout(); update(true); if (S()) S().remove();
+    parts = layout(); update(true);
   });
   $("vEmail").addEventListener("click", () => {
     const A = update.last || analyse();

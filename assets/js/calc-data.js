@@ -1,11 +1,10 @@
 /* Robot data math: fleet x sensors x hours into terabytes a month, what storing
-   it costs by tier, and the date it becomes a problem. Illustrative bitrates and
-   list-price-shaped bands; the URL carries the state; nothing is sent. */
+   it costs by tier, and the date it reaches your storage threshold. */
 (function () {
   const root = document.getElementById("dataCalc");
   if (!root) return;
   const $ = (id) => document.getElementById(id);
-  const K = window.BSS_CALC, S = () => window.BSS_SOUND, M = () => window.BSS_MASCOT;
+  const K = window.BSS_CALC;
   const PX = { 720: 1280 * 720, 1080: 1920 * 1080, 2160: 3840 * 2160 };
   const BPP = { raw: 24, lossless: 10, h265: .08 }; // bits per pixel per frame, illustrative
   const TIER = { hot: 23, warm: 12.5, cold: 4 };   // $ per TB-month, list-price-shaped
@@ -36,10 +35,10 @@
   }
   function verdict(R) {
     const t = R.tbMonth;
-    if (t < 1) return "Comfortable. Keep everything, keep it raw, and enjoy this while it lasts.";
-    if (t < 20) return "Normal for a real pilot. Tier it now, while it's a design decision and not an incident.";
+    if (t < 1) return "Sub-terabyte monthly volume. Standard local NVMe buffering and scheduled object-store sync will handle this comfortably.";
+    if (t < 20) return "Typical pilot fleet volume. Configure automated hot/warm/cold storage tiering now before retention costs compound.";
     if (t < 100) return "At this bitrate, ad-hoc NAS folders break down. You need automated ring-buffer ingest, cold-tier lifecycle rules, and an episode index.";
-    return "At this rate the interesting question isn't storage cost, it's whether you can find anything. Curation beats capacity.";
+    return "High-bandwidth fleet scale (100+ TB/month). Prioritize edge ring-buffer filtering, event-triggered uploads, and automated episode indexing.";
   }
   function when(months) {
     if (months === null) return "not at this retention";
@@ -47,7 +46,6 @@
     const d = new Date(); d.setMonth(d.getMonth() + Math.max(0, Math.round(months)));
     return d.toLocaleDateString("en-US", { month: "short", year: "numeric" }) + (months < 1 ? " (this month)" : "");
   }
-  let said = false;
   function update() {
     const R = compute();
     $("cO1").textContent = K.fmt(R.gbPerRobotHour, R.gbPerRobotHour < 10 ? 1 : 0) + " GB";
@@ -60,7 +58,6 @@
     $("cVerdict").textContent = verdict(R);
     $("cReadout").textContent = state.robots + " robots · " + state.cams + " cameras each · " + state.res + "p " + state.fps + " fps " + state.codec.toUpperCase() + (state.depth ? " + depth" : "") + " · " + K.fmt(R.tbMonth, 1) + " TB a month · " + K.fmt(R.stored, 0) + " TB stored at " + state.ret + " months · tiers " + R.hot + "/" + R.warm + "/" + R.cold;
     $("cHotOut").textContent = R.hot + "%"; $("cWarmOut").textContent = R.warm + "%";
-    if (R.tbMonth > 100 && !said) { said = true; M() && M().say("A hundred terabytes a month. The interesting question is whether you can find anything.", { mood: "flat" }); }
     K.writeState({ robots: state.robots, cams: state.cams, hours: state.hours, days: state.days, hot: state.hot, warm: state.warm, limit: state.limit, res: state.res, fps: state.fps, codec: state.codec, ret: state.ret, depth: state.depth ? 1 : "" });
     update.last = R;
   }
@@ -73,18 +70,18 @@
     const box = $(id);
     box.querySelectorAll(".seg__btn").forEach((b) => {
       b.classList.toggle("is-active", cast(b.dataset.v) === state[key]);
-      b.addEventListener("click", () => { state[key] = cast(b.dataset.v); box.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x === b)); if (S()) S().click(); update(); });
+      b.addEventListener("click", () => { state[key] = cast(b.dataset.v); box.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x === b)); update(); });
     });
   }
   seg("cRes", "res", Number); seg("cFps", "fps", Number); seg("cCodec", "codec", String); seg("cRet", "ret", Number);
   const depth = $("cDepth"); depth.checked = state.depth;
-  depth.addEventListener("change", () => { state.depth = depth.checked; if (S()) S().tick(); update(); });
+  depth.addEventListener("change", () => { state.depth = depth.checked; update(); });
   $("cReset").addEventListener("click", () => {
     Object.assign(state, DEF());
     Object.keys(ranges).forEach((id) => { $(id).value = state[ranges[id]]; $(id).dispatchEvent(new Event("input")); });
     limit.value = state.limit; depth.checked = false;
     [["cRes", "res"], ["cFps", "fps"], ["cCodec", "codec"], ["cRet", "ret"]].forEach(([id, k]) => $(id).querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", String(x.dataset.v) === String(state[k]))));
-    update(); if (S()) S().remove();
+    update();
   });
   $("cEmail").addEventListener("click", () => {
     const R = update.last || compute();

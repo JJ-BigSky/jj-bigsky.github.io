@@ -1,11 +1,10 @@
-/* Lab Builder: click-to-place modules on an 8x6 floor. Live tallies and
-   SKY-1's opinions about your layout. */
+/* Lab Builder: click-to-place modules on an 8x6 floor. Live footprint,
+   power, budget band, and safety/layout checks. */
 (function () {
   const floor = document.getElementById("floor");
   const palette = document.getElementById("palette");
   if (!floor || !palette) return;
   const $ = (id) => document.getElementById(id);
-  const S = () => window.BSS_SOUND, M = () => window.BSS_MASCOT;
   const COLS = 8, ROWS = 6;
 
   const MODS = [
@@ -42,7 +41,7 @@
   erase.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 20h16M6 16l8-8 4 4-6 6H6l-2-2 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Erase<small>or right-click a tile</small></span>';
   erase.addEventListener("click", () => setActive("erase"));
   palette.appendChild(erase);
-  function setActive(id) { active = id; palette.querySelectorAll(".pal").forEach((b) => b.classList.toggle("is-active", b.dataset.id === id)); if (S()) S().tick(); }
+  function setActive(id) { active = id; palette.querySelectorAll(".pal").forEach((b) => b.classList.toggle("is-active", b.dataset.id === id)); }
 
   // ---- floor ----
   for (let i = 0; i < COLS * ROWS; i++) {
@@ -56,7 +55,6 @@
   function label(i) { const r = Math.floor(i / COLS) + 1, c = (i % COLS) + 1; return "Row " + r + ", column " + c + ": " + (grid[i] ? byId[grid[i]].name : "empty"); }
 
   function place(i, id, silent) {
-    const had = grid[i];
     grid[i] = id;
     const t = tiles[i];
     if (id) {
@@ -65,10 +63,8 @@
       t.style.setProperty("--mod", "var(--s" + m.series + ")");
       t.classList.add("has-mod");
       t.classList.remove("is-pop"); void t.offsetWidth; t.classList.add("is-pop");
-      if (!silent && S()) S().place();
     } else {
       t.classList.remove("has-mod");
-      if (had && !silent && S()) S().remove();
     }
     t.setAttribute("aria-label", label(i));
     if (!silent) recompute();
@@ -98,22 +94,22 @@
         cells++;
         const fences = n.filter((x) => x === "fence").length, vision = n.some((x) => x === "vision");
         if (fences >= 2 || (fences >= 1 && vision)) guarded++;
-        else { tiles[i].classList.add("is-warn"); warnings.push({ p: 1, t: "Uncaged robot at " + pos(i) + ". Bold. Give it two fence tiles, or one fence plus a vision station and call it a cobot." }); }
+        else { tiles[i].classList.add("is-warn"); warnings.push({ p: 1, t: "Unguarded robot cell at " + pos(i) + ". Add at least two safety fence tiles, or pair one fence tile with a vision station." }); }
       }
-      if (id === "belt" && !n.some((x) => x === "cell" || x === "belt" || x === "amr")) { tiles[i].classList.add("is-warn"); warnings.push({ p: 3, t: "A conveyor to nowhere at " + pos(i) + ". Very poetic. Put a robot cell next to it." }); }
-      if ((id === "vision" || id === "cam") && !n.some((x) => x === "cell" || x === "belt" || x === "amr")) { tiles[i].classList.add("is-warn"); warnings.push({ p: 4, t: "That camera at " + pos(i) + " is looking at a wall. Give it something to see." }); }
+      if (id === "belt" && !n.some((x) => x === "cell" || x === "belt" || x === "amr")) { tiles[i].classList.add("is-warn"); warnings.push({ p: 3, t: "Unconnected conveyor at " + pos(i) + ". Place a robot cell, AMR dock, or adjacent conveyor segment next to it." }); }
+      if ((id === "vision" || id === "cam") && !n.some((x) => x === "cell" || x === "belt" || x === "amr")) { tiles[i].classList.add("is-warn"); warnings.push({ p: 4, t: "Isolated camera/vision station at " + pos(i) + ". Place it adjacent to a robot cell, conveyor, or AMR dock." }); }
     });
-    // the loop's opinions
-    if (count("gpu") && (!count("plug") || kw > 24)) warnings.push({ p: 2.2, t: "Eight kilowatts of training node. Have you told facilities, or is this a surprise for them?" });
-    if (count("cell") && count("cam") && !count("teleop")) warnings.push({ p: 4.5, t: "You can see the part and you can move the arm. Nothing here collects the demonstrations that teach it. Add a teleop station or plan on writing the policy by hand." });
+    // layout & utility checks
+    if (count("gpu") && (!count("plug") || kw > 24)) warnings.push({ p: 2.2, t: "Training node draws 8 kW per rack. Confirm dedicated 208/480V circuit capacity and cooling with facilities." });
+    if (count("cell") && count("cam") && !count("teleop")) warnings.push({ p: 4.5, t: "Cell and camera rig placed without a teleop station. Add a teleop rig if you plan to collect imitation-learning demonstrations." });
     if (count("teleop") && !count("ingest")) warnings.push({ p: 4.6, t: "Teleop station without a data ingest node. Add ingest so recorded episodes are indexed and usable." });
     if (count("gpu") && !count("ingest")) warnings.push({ p: 4.7, t: "Training node with no data ingest pipeline. Add an ingest station to feed the GPUs." });
-    if (count("cell") >= 4 && !count("rack")) warnings.push({ p: 4.8, t: "Four cells and no compute. Where do you think the perception is running?" });
-    if (count("amr") && !count("plug")) warnings.push({ p: 2, t: "Your AMRs have nowhere to charge. They'll be dead by lunch. Add a charging bay." });
-    if (placed.length >= 4 && !count("rack")) warnings.push({ p: 5, t: "Where does the compute live? Add a server rack before someone runs ROS on a laptop under a desk." });
-    if (placed.length >= 3 && !count("bench")) warnings.push({ p: 6, t: "No workbench. Where do the humans put the coffee?" });
-    if (kw > 32) warnings.push({ p: 7, t: Math.round(kw) + " kW on one floor. Call an electrician before you call us." });
-    if (count("fence") > 0 && cells === 0) warnings.push({ p: 8, t: "Fences with nothing inside. It's a very safe empty rectangle." });
+    if (count("cell") >= 4 && !count("rack")) warnings.push({ p: 4.8, t: "Four or more robot cells with no server rack. Add local compute for perception and cell orchestration." });
+    if (count("amr") && !count("plug")) warnings.push({ p: 2, t: "AMR dock placed without a charging bay. Add a charging bay to support continuous shift operation." });
+    if (placed.length >= 4 && !count("rack")) warnings.push({ p: 5, t: "Multiple floor modules with no server rack. Add a compute rack for deterministic networking and ROS 2 orchestration." });
+    if (placed.length >= 3 && !count("bench")) warnings.push({ p: 6, t: "No workbench on the floor. Add a workbench for fixture staging, calibration tools, and part rework." });
+    if (kw > 32) warnings.push({ p: 7, t: Math.round(kw) + " kW total floor load. Verify plant feeder capacity and panel headroom before commissioning." });
+    if (count("fence") > 0 && cells === 0) warnings.push({ p: 8, t: "Safety fencing placed with no robot cell inside. Place a robot cell to size the guarded perimeter." });
     warnings.sort((a, b) => a.p - b.p);
 
     // stats
@@ -153,13 +149,13 @@
     const tpl = TEMPLATES[tIdx++ % TEMPLATES.length];
     const flip = Math.random() < .5;
     tpl.forEach(([r, c, id], k) => { const cc = flip ? COLS + 1 - c : c; const i = (r - 1) * COLS + (cc - 1); setTimeout(() => place(i, id, true), k * 35); });
-    setTimeout(() => { recompute(); if (S()) S().success(); }, tpl.length * 35 + 50);
+    setTimeout(() => { recompute(); }, tpl.length * 35 + 50);
     lastNote = "";
   });
-  $("floorClear").addEventListener("click", () => { grid.fill(null); tiles.forEach((t, i) => place(i, null, true)); lastNote = ""; recompute(); if (S()) S().remove(); M() && M().say("Clean slate. Very brave.", { mood: "smirk" }); });
+  $("floorClear").addEventListener("click", () => { grid.fill(null); tiles.forEach((t, i) => place(i, null, true)); lastNote = ""; recompute(); });
   $("floorExport").addEventListener("click", () => {
     const c = recompute.current || {};
-    if (!c.placed || !c.placed.length) { M() && M().say("Place a few modules first. I can't email an empty floor. Well, I can, but it's weird.", { mood: "flat" }); if (S()) S().error(); return; }
+    if (!c.placed || !c.placed.length) { window.BSS_TOAST && window.BSS_TOAST("Place at least one module on the floor grid first."); return; }
     const cfg = window.BSS_CONFIG || {};
     const counts = {}; c.placed.forEach(({ id }) => { counts[id] = (counts[id] || 0) + 1; });
     const map = []; for (let r = 0; r < ROWS; r++) { let row = ""; for (let cc = 0; cc < COLS; cc++) { const id = grid[r * COLS + cc]; row += id ? byId[id].letter : "."; row += " "; } map.push(row.trim()); }
@@ -170,7 +166,6 @@
       c.warnings.length ? "Notes: " + c.warnings.map((w) => w.t).join(" ") : "Notes: No layout warnings flagged.", "", "Can we talk about it?", ""].join("\n");
     window.location.href = "mailto:" + (cfg.email || "build@bigsky.systems") + "?subject=" + encodeURIComponent("Lab plan from the Big Sky Systems site") + "&body=" + encodeURIComponent(body);
     window.BSS_TOAST && window.BSS_TOAST("Opening your mail app with the plan…");
-    if (S()) S().success();
   });
 
   window.BSS_BUILDER = { summary: () => recompute.current, place, MODS };

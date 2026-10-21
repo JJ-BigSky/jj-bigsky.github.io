@@ -1,8 +1,5 @@
-/* Shared kit for the V1 calculators. House rules, enforced here so every
-   instrument behaves the same: ranges instead of point estimates, a SKY-1
-   verdict that is willing to be discouraging, an "email me this" that composes
-   a mailto, state kept in the URL so a result is shareable, and nothing
-   stored, sent, or logged. */
+/* Shared kit for interactive engineering tools: ranges instead of point
+   estimates, engineering assessments, mailto export, and clean URLs. */
 (function () {
   const cfg = () => window.BSS_CONFIG || {};
 
@@ -48,7 +45,6 @@
     const body = [greeting || "Hi Big Sky Systems,", "", ...lines.filter((l) => l != null), "", "Can we talk about it?", ""].join("\n");
     window.location.href = "mailto:" + (cfg().email || "build@bigsky.systems") + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
     window.BSS_TOAST && window.BSS_TOAST("Opening your mail app…");
-    if (window.BSS_SOUND) window.BSS_SOUND.success();
   }
 
   function debounce(fn, ms) { let t; return function () { clearTimeout(t); const a = arguments; t = setTimeout(() => fn.apply(null, a), ms || 150); }; }

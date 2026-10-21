@@ -1,11 +1,10 @@
 /* Latency budget builder: one bar is the control period, the pipeline's stages
-   stack left to right, and whatever crosses the deadline is drawn as the problem
-   it is. Illustrative defaults; the URL carries the state; nothing is sent. */
+   stack left to right, and whatever crosses the deadline is flagged. */
 (function () {
   const root = document.getElementById("latencyCalc");
   if (!root) return;
   const $ = (id) => document.getElementById(id);
-  const K = window.BSS_CALC, S = () => window.BSS_SOUND, M = () => window.BSS_MASCOT;
+  const K = window.BSS_CALC;
   const STAGES = [
     { id: "cam", name: "Camera exposure + readout", ms: 8 },
     { id: "bus", name: "Transport / driver", ms: 3 },
@@ -17,7 +16,7 @@
   ];
   const RATES = { 100: 10, 30: 33, 10: 100, 1: 1000 };
   const PREC = { fp16: 1, int8: .55, fp4: .38 }; // illustrative scaling of the two inference stages
-  const WARN = { int8: "INT8 selected. This is now a different model. Re-run the evaluation suite.", fp4: "FP4 selected. Aggressive quantization alters grasp selection and edge-case behavior; re-run the full closed-loop evaluation suite." };
+  const WARN = { int8: "INT8 selected. Quantization alters decision boundaries; re-run the closed-loop evaluation suite before deployment.", fp4: "FP4 selected. Aggressive quantization alters grasp selection and edge-case behavior; re-run the full closed-loop evaluation suite." };
   const DEFAULT = () => ({ rate: 10, prec: "fp16", tail: false, on: STAGES.map(() => true), ms: STAGES.map((s) => s.ms) });
   const state = DEFAULT();
   const q = K.readState();
@@ -64,7 +63,7 @@
   });
   list.addEventListener("change", (e) => {
     const i = +e.target.dataset.i; if (Number.isNaN(i)) return;
-    if (e.target.type === "checkbox") { state.on[i] = e.target.checked; if (S()) S().tick(); }
+    if (e.target.type === "checkbox") { state.on[i] = e.target.checked; }
     else state.ms[i] = Math.max(0, Math.min(2000, +e.target.value || 0));
     update();
   });
@@ -73,24 +72,22 @@
   // ---- readouts and verdicts ----
   function verdict(R) {
     const pct = R.headroom / R.budget;
-    if (R.over && state.rate === 100) return "Nothing learned runs at a kilohertz and very little runs at a hundred. This is what distillation is for.";
+    if (R.over && state.rate === 100) return "100 Hz (10 ms period) is too tight for an uncompiled multi-stage stack. Distill the policy, quantize to INT8/FP8, or run the learned policy at 30 Hz over a 1 kHz low-level impedance controller.";
     if (R.over) return "Total latency exceeds the control period. Cut a stage, drop precision and re-validate, or lower the control rate.";
-    if (!R.total) return "Nothing running. Infinite headroom, zero robot. Turn something on.";
-    if (pct > .3) return "Comfortable. Suspiciously comfortable. Did you measure this or estimate it?";
-    if (pct < .1) return "It fits, on a good day, with nothing else running. Add the p99.9 tail and tell me if you still like it.";
-    return state.tail ? "It fits with the tail in. That's the number to put in the document, next to how you measured it." : "It fits. Now show the p99.9 tail and see if it still does.";
+    if (!R.total) return "No pipeline stages active. Enable stages above to calculate your end-to-end control loop budget.";
+    if (pct > .3) return "Over 30% latency headroom on mean execution. Toggle the p99.9 tail (×1.6) to verify the loop still holds deadline under thermal load.";
+    if (pct < .1) return "Less than 10% headroom on mean latency. Enable the p99.9 tail toggle—GC pauses, page faults, or thermal throttling will likely cross the deadline.";
+    return state.tail ? "Fits within the control period including p99.9 tail latency. Document this budget alongside your on-hardware benchmark." : "Fits on mean latency. Toggle the p99.9 tail (×1.6) to verify real-time headroom under load.";
   }
-  let saidOver = false;
   function update() {
     const R = compute(); paint(R);
     const ro = $("lbReadout"); ro.classList.toggle("is-over", R.over);
     ro.textContent = R.over
-      ? "Over by " + K.fmt(R.total - R.budget, 0) + " ms · running at " + R.hz.toFixed(R.hz < 10 ? 1 : 0) + " Hz, whatever the spec sheet says"
+      ? "Over by " + K.fmt(R.total - R.budget, 0) + " ms · effective loop rate " + R.hz.toFixed(R.hz < 10 ? 1 : 0) + " Hz"
       : "Total " + K.fmt(R.total, 0) + " ms · Budget " + R.budget + " ms · Headroom " + K.fmt(R.headroom, 0) + " ms";
     $("lbVerdict").textContent = verdict(R);
     const w = $("lbWarn"); w.hidden = !WARN[state.prec]; w.textContent = WARN[state.prec] || "";
     list.querySelectorAll(".budget__row").forEach((row, i) => row.classList.toggle("is-off", !state.on[i]));
-    if (R.over && !saidOver) { saidOver = true; M() && M().say("Over budget. The controller doesn't care why.", { mood: "flat" }); }
     K.writeState({ rate: state.rate, prec: state.prec, tail: state.tail ? 1 : "", ms: state.ms.join(","), on: state.on.map((b) => (b ? "1" : "0")).join("") });
     update.last = R;
   }
@@ -100,12 +97,12 @@
     const box = $(id);
     box.querySelectorAll(".seg__btn").forEach((b) => {
       b.classList.toggle("is-active", cast(b.dataset[attr]) === state[key]);
-      b.addEventListener("click", () => { state[key] = cast(b.dataset[attr]); box.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x === b)); if (S()) S().click(); update(); });
+      b.addEventListener("click", () => { state[key] = cast(b.dataset[attr]); box.querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x === b)); update(); });
     });
   }
   seg("lbRate", "rate", "rate", Number); seg("lbPrec", "prec", "prec", String);
   const tailEl = $("lbTail"); tailEl.checked = state.tail;
-  tailEl.addEventListener("change", () => { state.tail = tailEl.checked; if (S()) S().tick(); update(); });
+  tailEl.addEventListener("change", () => { state.tail = tailEl.checked; update(); });
   $("lbReset").addEventListener("click", () => {
     Object.assign(state, DEFAULT());
     list.querySelectorAll('input[type="checkbox"]').forEach((c, i) => { c.checked = state.on[i]; });
@@ -113,7 +110,7 @@
     tailEl.checked = false;
     $("lbRate").querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", +x.dataset.rate === 10));
     $("lbPrec").querySelectorAll(".seg__btn").forEach((x) => x.classList.toggle("is-active", x.dataset.prec === "fp16"));
-    update(); if (S()) S().remove();
+    update();
   });
   $("lbEmail").addEventListener("click", () => {
     const R = update.last || compute();
